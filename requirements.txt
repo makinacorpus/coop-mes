@@ -1,0 +1,94 @@
+
+# coop apps
+
+# coop_cms
+# coop-geo
+# coop-tag
+# coop-bar
+# djaloha
+# coop-colorbox
+
+git+git://github.com/quinode/coop-colorbox.git
+git+git://github.com/quinode/djaloha.git
+git+git://github.com/quinode/coop-bar.git
+git+git://github.com/quinode/coop-tag.git
+git+git://github.com/quinode/coop-geo.git
+git+git://github.com/quinode/coop_cms.git
+
+django-autoslug
+unicode-slugify
+git+git://github.com/praekelt/django-preferences.git
+#fabric
+#fabtools
+
+# forks we depend on
+hg+https://bitbucket.org/psyton/django-admin-tools
+git+git://github.com/quinode/django-templatetag-sugar.git
+
+# our forks
+hg+https://bitbucket.org/quinode/django-admintools-bootstrap/@0.0.2-alpha
+git+git://github.com/quinode/uriredirect.git
+
+
+git+git://github.com/django-extensions/django-extensions.git
+git+git://github.com/quinode/django-chosen.git
+
+# setup.py was broken
+git+git://github.com/quinode/djangoembed.git
+
+# mailing deps
+SOAPpy
+
+# coop deps
+psycopg2
+Pillow
+south
+
+django-forms-builder
+
+# Queues
+rq
+git+git://github.com/ui/django-rq.git
+
+django-apptemplates
+python-dateutil
+sorl-thumbnail==11.09
+shortuuid
+django-tinymce
+git+git://github.com/twidi/django-extended-choices.git
+hg+https://bitbucket.org/ubernostrum/django-profiles
+django-positions
+django-push
+mimeparse
+geohash
+rdflib
+git+git://github.com/RDFLib/rdfextras.git
+git+git://github.com/RDFLib/rdflib-jsonld.git
+git+git://github.com/RDFLib/rdflib-sparqlstore.git
+git+git://github.com/quinode/subhub.git
+django-appconf
+
+git+git://github.com/toastdriven/django-haystack.git
+
+# webid deps : not ready
+# pyOpenSSL
+# git+git://github.com/bennomadic/django-webid-auth.git
+# git+git://github.com/bennomadic/django-webid-provider.git
+# git+git://github.com/bennomadic/django-conneg.git
+
+# coop_cms deps
+django-floppyforms==0.4.7
+django-pagination
+feedparser
+git+git://github.com/gabrielgrant/django-html-field.git
+
+# central logging
+raven
+
+# dev debug tools
+django-debug-toolbar
+FirePython
+
+
+# for spip translation
+# MySQL-python
