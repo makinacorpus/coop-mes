@@ -19,6 +19,8 @@ git+git://github.com/quinode/djaloha.git
 -e git+git://github.com/quinode/coop-geo.git#egg=coop-geo
 -e git+git://github.com/quinode/coop_cms.git#egg=coop_cms
 
+django-scanredirect
+
 django-autoslug
 unicode-slugify
 git+git://github.com/praekelt/django-preferences.git
