@@ -1,3 +1,6 @@
+# Django
+
+django
 
 # coop apps
 
@@ -8,6 +11,7 @@
 # djaloha
 # coop-colorbox
 
+-e git+git://github.com/quinode/django-coop.git#egg=django-coop
 git+git://github.com/quinode/coop-colorbox.git
 git+git://github.com/quinode/djaloha.git
 git+git://github.com/quinode/coop-bar.git
