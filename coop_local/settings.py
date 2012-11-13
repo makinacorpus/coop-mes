@@ -1,17 +1,17 @@
 # -*- coding:utf-8 -*-
-# Django settings for {{ project_name }} project.
+# Django settings for coop-mes project.
 
 from django.core.exceptions import ImproperlyConfigured
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-SECRET_KEY = '{{ secret_key }}'
+SECRET_KEY = 'nc^+-*$dvn#vty@#tn#m!8^(ybcs$)jk!4+!)ty-2cy#nv=s96'
 
 import os.path
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #PROJECT_NAME = PROJECT_PATH.split('/')[-1]
-PROJECT_NAME = '{{ project_name }}'  # which one is safer ?
+PROJECT_NAME = 'coop-mes'  # which one is safer ?
 
 
 # import all default app settings from django-coop app

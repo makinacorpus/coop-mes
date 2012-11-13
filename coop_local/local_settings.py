@@ -13,7 +13,7 @@ SITE_TITLE = 'Demo Django-coop'
 # DEFAULT_URI_DOMAIN = '{{ domain }}' useless use Site.objects.get_current().domain instead
 
 # let this setting to False in production, except for urgent debugging
-DEBUG = False
+DEBUG = True
 
 # Force DEBUG setting if we're developing locally or testing
 if 'runserver' in sys.argv or 'test' in sys.argv:
@@ -40,9 +40,9 @@ URI_FIXED = False
 INSTALLED_APPS = settings.INSTALLED_APPS + [
     # select your coop components
     'coop.tag',
-    'coop.agenda',
-    'coop.article',
-    'coop.mailing',
+    #'coop.agenda',
+    #'coop.article',
+    #'coop.mailing',
     'coop.exchange',
     #'coop.webid',
     'coop_local',
