@@ -1,0 +1,56 @@
+[
+    {
+        "pk": 1, 
+        "model": "coop_local.organizationcategoryiae", 
+        "fields": {
+            "description": "", 
+            "slug": "ai", 
+            "label": "AI"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "coop_local.organizationcategoryiae", 
+        "fields": {
+            "description": "", 
+            "slug": "aci", 
+            "label": "ACI"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "coop_local.organizationcategoryiae", 
+        "fields": {
+            "description": "", 
+            "slug": "ei", 
+            "label": "EI"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "coop_local.organizationcategoryiae", 
+        "fields": {
+            "description": "", 
+            "slug": "etti", 
+            "label": "ETTI"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "coop_local.organizationcategoryiae", 
+        "fields": {
+            "description": "", 
+            "slug": "geiq", 
+            "label": "GEIQ"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "coop_local.organizationcategoryiae", 
+        "fields": {
+            "description": "", 
+            "slug": "regie-de-quartier", 
+            "label": "R\u00e9gie de quartier"
+        }
+    }
+]

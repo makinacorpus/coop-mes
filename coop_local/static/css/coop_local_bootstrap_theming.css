@@ -1,0 +1,5 @@
+@import url("/static/css/coop_bootstrap_theming.css");
+
+a#add_id_category_iae {
+    display: none;
+}

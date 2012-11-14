@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-15 14:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: models/__init__.py:25
+msgid "Tags"
+msgstr "Tags"
+
+#: models/local_models.py:24 models/local_models.py:63
+msgid "description"
+msgstr "description"
+
+#: models/local_models.py:27 models/local_models.py:111
+msgid "legal status"
+msgstr "statut juridique"
+
+#: models/local_models.py:28
+msgid "legal statuses"
+msgstr "statuts juridiques"
+
+#: models/local_models.py:66 models/local_models.py:113
+msgid "organization category IAE"
+msgstr "type de structure IAE"
+
+#: models/local_models.py:67
+msgid "organization categories IAE"
+msgstr "types de structure IAE"
+
+#: models/local_models.py:101 models/local_models.py:122
+msgid "organization category ESS"
+msgstr "type de structure ESS"
+
+#: models/local_models.py:102
+msgid "organization categories ESS"
+msgstr "types de structure ESS"
+
+#: models/local_models.py:108
+msgid "No. SIRET"
+msgstr "n° SIRET"
+
+#: models/local_models.py:109
+msgid "No. SIRET has 14 digits"
+msgstr "Le n° SIRET comporte 14 chiffres"
+
+#: models/local_models.py:117
+msgid "Provider"
+msgstr "Fournisseur"
+
+#: models/local_models.py:118 ui/menu.py:65
+msgid "Providers"
+msgstr "Fournisseurs"
+
+#: models/local_models.py:121
+msgid "corporate name"
+msgstr "raison sociale"
+
+#: models/local_models.py:123
+msgid "general presentation"
+msgstr ""
+
+#: ui/menu.py:61
+msgid "Network"
+msgstr "Réseau"
+
+#: ui/menu.py:64
+msgid "Directory"
+msgstr "Annuaire"
+
+#: ui/menu.py:66
+msgid "Persons"
+msgstr "Personnes"
+
+#: ui/menu.py:67
+msgid "Legal statuses"
+msgstr "Statuts juridiques"
+
+#: ui/menu.py:68
+msgid "Organization categories ESS"
+msgstr "Types de structure ESS"
+
+#: ui/menu.py:69
+msgid "Organization categories IAE"
+msgstr "Types de structure IAE"
+
+#: ui/menu.py:70
+msgid "Person categories"
+msgstr "Catégories de personnes"
+
+#: ui/menu.py:71
+msgid "Roles"
+msgstr "Rôles"
+
+#: ui/menu.py:74 ui/menu.py:75
+msgid "Exchanges"
+msgstr "Echanges"
+
+#: ui/menu.py:76
+msgid "Exchange methods"
+msgstr "Modalités d'échange"
+
+#: ui/menu.py:79
+msgid "Cartography"
+msgstr "Cartographie"
+
+#: ui/menu.py:80
+msgid "Locations"
+msgstr "Lieux"
+
+#: ui/menu.py:81
+msgid "Areas"
+msgstr "Zones"
+
+#: ui/menu.py:82
+msgid "Location categories"
+msgstr "Catégories de lieux"

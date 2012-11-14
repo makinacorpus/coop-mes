@@ -1,0 +1,218 @@
+[
+    {
+        "pk": 1, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "amap", 
+            "label": "AMAP"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "biocoop", 
+            "label": "Biocoop"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "boutique-de-gestion", 
+            "label": "Boutique de gestion"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "cafe-associatif", 
+            "label": "Caf\u00e9 associatif"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "chambre-regionale-de-leconomie-sociale", 
+            "label": "Chambre r\u00e9gionale de l\u2019\u00e9conomie sociale"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "comite-de-bassin-demploi", 
+            "label": "Comit\u00e9 de bassin d\u2019emploi"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "cooperative-dactivite-et-demploi", 
+            "label": "Coop\u00e9rative d\u2019activit\u00e9 et d\u2019emploi"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "cooperative-de-consommateurs", 
+            "label": "Coop\u00e9rative de consommateurs"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "couveuse", 
+            "label": "Couveuse"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "creche-familiale-ou-associative", 
+            "label": "Cr\u00e8che familiale ou associative"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "epicerie-sociale", 
+            "label": "Epicerie sociale"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "epicerie-solidaire", 
+            "label": "Epicerie solidaire"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "espace-regional-internet-citoyen", 
+            "label": "Espace r\u00e9gional Internet Citoyen"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "foyer-de-jeunes-travailleurs", 
+            "label": "Foyer de jeunes travailleurs"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "foyer-rural", 
+            "label": "Foyer rural"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "groupement-demployeur", 
+            "label": "Groupement d\u2019employeur"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "jardin-collectif", 
+            "label": "Jardin collectif"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "jardin-de-cocagne", 
+            "label": "Jardin de Cocagne"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "pepiniere", 
+            "label": "P\u00e9pini\u00e8re"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "point-de-vente-collectif", 
+            "label": "Point de vente collectif"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "reseau-dechanges-reciproques-de-savoirs", 
+            "label": "R\u00e9seau d\u2019\u00e9changes r\u00e9ciproques de savoirs"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "societe-financiere", 
+            "label": "Soci\u00e9t\u00e9 financi\u00e8re"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "sol", 
+            "label": "SOL"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "coop_local.organizationcategory", 
+        "fields": {
+            "description": "", 
+            "slug": "systeme-dechanges-locaux", 
+            "label": "Syst\u00e8me d\u2019\u00e9changes locaux"
+        }
+    }
+]

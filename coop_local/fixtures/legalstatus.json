@@ -1,0 +1,209 @@
+[
+    {
+        "pk": 1, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "association", 
+            "label": "Association"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "epci", 
+            "label": "EPCI"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "eurl", 
+            "label": "EURL"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "fondation", 
+            "label": "Fondation"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "groupement-dinteret-economique", 
+            "label": "Groupement d\u2019int\u00e9r\u00eat \u00e9conomique"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "groupement-foncier-agricole", 
+            "label": "Groupement foncier agricole"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "indivision", 
+            "label": "Indivision"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "informel", 
+            "label": "Informel"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "mutuelle", 
+            "label": "Mutuelle"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "sa", 
+            "label": "SA"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "sa-cooperative", 
+            "label": "SA coop\u00e9rative"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "sapo", 
+            "label": "SAPO"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "sarl", 
+            "label": "SARL"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "sarl-cooperative", 
+            "label": "SARL coop\u00e9rative"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "sas", 
+            "label": "SAS"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "scic-sa", 
+            "label": "SCIC SA"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "scic-sarl", 
+            "label": "SCIC SARL"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "scop-sa", 
+            "label": "SCOP SA"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "scop-sarl", 
+            "label": "SCOP SARL"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "snc", 
+            "label": "SNC"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "societe-civile-cooperative-de-construction", 
+            "label": "Soci\u00e9t\u00e9 Civile Coop\u00e9rative de Construction"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "syndicat-mixte", 
+            "label": "Syndicat mixte"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "coop_local.legalstatus", 
+        "fields": {
+            "description": "", 
+            "slug": "societe-civile-cooperative-de-consommation", 
+            "label": "Soci\u00e9t\u00e9 Civile Coop\u00e9rative de Consommation"
+        }
+    }
+]

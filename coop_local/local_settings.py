@@ -60,3 +60,6 @@ SYMPA_SOAP = {
     'OWNER': ADMINS[0][1],
     'PARAMETER_SEPARATOR': '__SEP__',      # used for template
 }
+
+ADMIN_TOOLS_MENU = 'coop_local.ui.menu.CustomMenu'
+ADMIN_TOOLS_THEMING_CSS = 'css/coop_local_bootstrap_theming.css'
