@@ -11,15 +11,15 @@ django
 # djaloha
 # coop-colorbox
 
--e git+git://github.com/quinode/django-coop.git#egg=django-coop
+git+git://github.com/makinacorpus/django-coop.git
 git+git://github.com/quinode/coop-colorbox.git
 git+git://github.com/quinode/djaloha.git
--e git+git://github.com/quinode/coop-bar.git#egg=coop-bar
--e git+git://github.com/quinode/coop-tag.git#egg=coop-tag
--e git+git://github.com/quinode/coop-geo.git#egg=coop-geo
--e git+git://github.com/quinode/coop_cms.git#egg=coop_cms
+git+git://github.com/quinode/coop-bar.git
+git+git://github.com/quinode/coop-tag.git
+git+git://github.com/quinode/coop-geo.git
+git+git://github.com/quinode/coop_cms.git
 
-django-scanredirect
+git+git://github.com/quinode/django-scanredirect.git
 
 django-autoslug
 unicode-slugify

@@ -11,7 +11,7 @@ SECRET_KEY = 'nc^+-*$dvn#vty@#tn#m!8^(ybcs$)jk!4+!)ty-2cy#nv=s96'
 import os.path
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #PROJECT_NAME = PROJECT_PATH.split('/')[-1]
-PROJECT_NAME = 'coop-mes'  # which one is safer ?
+PROJECT_NAME = 'coop_mes'  # which one is safer ?
 
 
 # import all default app settings from django-coop app
