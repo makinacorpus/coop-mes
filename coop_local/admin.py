@@ -6,6 +6,7 @@ from coop.org.admin import OrganizationAdmin, OrganizationAdminForm
 from coop_local.models import LegalStatus, OrganizationCategoryIAE
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
+from django.utils.translation import ugettext as _
 
 try:
     from coop.base_admin import *
@@ -67,15 +68,19 @@ class MyOrganizationAdmin(OrganizationAdmin):
 
     form = MyOrganizationAdminForm
     fieldsets = (
-        ('Infos clés', {
+        (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
-                       'legal_status', 'category', 'category_iae', 'web', 'siret']
+                       'legal_status', 'category', 'category_iae', 'agreement_iae',
+                       'web', 'siret']
+            }),
+        (_(u'Economic info'), {
+            'fields': ['annual_revenue', 'workforce','production_workforce', 'supervision_workforce',
+                       'integration_workforce', 'annual_integration_number']
             }),
         ('Description', {
-            'fields': ['description',]  # 'tags', )
+            'fields': ['brief_description', 'description', 'added_value', 'tags']
             }),
         ('Préférences', {
-            #'classes': ('collapse',),
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
     )

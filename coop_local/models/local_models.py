@@ -105,12 +105,26 @@ class OrganizationCategory(BaseOrganizationCategory):
 
 class Organization(BaseOrganization):
 
+    # Key data
     siret = models.CharField(_(u'No. SIRET'), max_length=14, blank=True,
         validators=[RegexValidator(regex='^\d{14}$', message=_(u'No. SIRET has 14 digits'))])
     legal_status = models.ForeignKey('LegalStatus', blank=True, null=True,
         verbose_name=_(u'legal status'))
     category_iae = models.ManyToManyField('OrganizationCategoryIAE', blank=True, null=True,
         verbose_name=_(u'organization category IAE'))
+    agreement_iae = models.BooleanField(_(u'agreement IAE'))
+
+    # Description
+    brief_description = models.TextField(_(u'brief description'), blank=True)
+    added_value = models.TextField(_(u'added value'), blank=True)
+
+    # Economic data
+    annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)
+    workforce = models.IntegerField(_(u'workforce'), blank=True, null=True)
+    production_workforce = models.IntegerField(_(u'production workforce'), blank=True, null=True)
+    supervision_workforce = models.IntegerField(_(u'supervision workforce'), blank=True, null=True)
+    integration_workforce = models.IntegerField(_(u'integration workforce'), blank=True, null=True)
+    annual_integration_number = models.IntegerField(_(u'annual integration number'), blank=True, null=True)
 
     class Meta:
         ordering = ['title']
