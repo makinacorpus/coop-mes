@@ -4,6 +4,9 @@ db_name=coop_mes
 db_user=coop_mes
 db_pass=123456
 
+sudo apt-get update
+sudo apt-get install make git mercurial postgresql postgresql-9.1-postgis
+
 test -e bin/python || virtualenv .
 bin/pip install -r requirements.txt
 
