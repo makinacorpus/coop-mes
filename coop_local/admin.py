@@ -3,7 +3,8 @@ from django import forms
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 from coop.org.admin import OrganizationAdmin, OrganizationAdminForm
-from coop_local.models import LegalStatus, OrganizationCategoryIAE, OrganizationDocument, OrganizationGuaranty
+from coop_local.models import (LegalStatus, OrganizationCategoryIAE, OrganizationDocument,
+    OrganizationGuaranty, OrganizationReference)
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
@@ -58,6 +59,14 @@ class DocumentInline(admin.TabularInline):
     extra = 1
 
 
+class ReferenceInline(admin.TabularInline):
+
+    model = OrganizationReference
+    verbose_name = _(u'reference')
+    verbose_name_plural = _(u'references')
+    extra = 1
+
+
 class MyOrganizationAdminForm(OrganizationAdminForm):
 
     class Meta:
@@ -75,6 +84,7 @@ class MyOrganizationAdminForm(OrganizationAdminForm):
 class MyOrganizationAdmin(OrganizationAdmin):
 
     form = MyOrganizationAdminForm
+    readonly_fields = ['creation', 'modification']
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
@@ -91,11 +101,15 @@ class MyOrganizationAdmin(OrganizationAdmin):
         (_(u'Guaranties'), {
             'fields': ['guaranties']
             }),
+        (_(u'Management'), {
+            'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
+                       'author', 'validation']
+            }),
         ('Préférences', {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
     )
-    inlines = [DocumentInline]
+    inlines = [DocumentInline, ReferenceInline]
 
 admin.site.unregister(Organization)
 admin.site.register(Organization, MyOrganizationAdmin)

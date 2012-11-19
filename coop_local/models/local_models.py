@@ -140,6 +140,34 @@ class OrganizationGuaranty(models.Model):
         app_label = 'coop_local'
 
 
+class OrganizationReference(models.Model):
+
+    client_name = models.CharField(_(u'client name'), max_length=100)
+    period = models.IntegerField(_('period'), blank=True, null=True)
+    services = models.TextField(_(u'services'), blank=True)
+    organization = models.ForeignKey('Organization')
+
+    class Meta:
+        verbose_name = _(u'reference')
+        verbose_name_plural = _(u'references')
+        app_label = 'coop_local'
+
+
+ORGANIZATION_STATUSES = Choices(
+    ('PROPOSED', 'P', _(u'Proposed')),
+    ('VALIDATED', 'V', _(u'Validated')),
+    ('TRANSMITTED', 'T', _(u'Transmitted for validation')),
+    ('INCOMPLETE', 'I', _(u'Incomplete')),
+)
+
+
+TRANSMISSION_MODES = Choices(
+    ('ONLINE', 1, _(u'Keboarded online')),
+    ('ADMINISTRATION', 2, _(u'Administration')),
+    ('IMPORT', 3, _('Import')),
+)
+
+
 class Organization(BaseOrganization):
 
     # Key data
@@ -164,7 +192,16 @@ class Organization(BaseOrganization):
     annual_integration_number = models.IntegerField(_(u'annual integration number'), blank=True, null=True)
 
     # Guaranties
-    guaranties = models.ManyToManyField(OrganizationGuaranty, verbose_name=_(u'guaranties'))
+    guaranties = models.ManyToManyField(OrganizationGuaranty, verbose_name=_(u'guaranties'), blank=True, null=True)
+
+    # Management
+    creation = models.DateField(_(u'creation date'), auto_now_add=True)
+    modification = models.DateField(_(u'modification date'), auto_now=True)
+    status = models.CharField(_(u'status'), max_length=1, choices=ORGANIZATION_STATUSES.CHOICES, blank=True)
+    correspondence = models.TextField(_(u'services'), blank=True)
+    transmission = models.IntegerField(_(u'transmission mode'), choices=TRANSMISSION_MODES.CHOICES, blank=True, null=True)
+    author = models.CharField(_(u'client name'), max_length=100, blank=True)
+    validation = models.DateField(_(u'validation date'), blank=True, null=True)
 
     class Meta:
         ordering = ['title']
