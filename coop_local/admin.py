@@ -3,7 +3,7 @@ from django import forms
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 from coop.org.admin import OrganizationAdmin, OrganizationAdminForm
-from coop_local.models import LegalStatus, OrganizationCategoryIAE, OrganizationDocument
+from coop_local.models import LegalStatus, OrganizationCategoryIAE, OrganizationDocument, OrganizationGuaranty
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
@@ -88,6 +88,9 @@ class MyOrganizationAdmin(OrganizationAdmin):
         ('Description', {
             'fields': ['brief_description', 'description', 'added_value', 'tags']
             }),
+        (_(u'Guaranties'), {
+            'fields': ['guaranties']
+            }),
         ('Préférences', {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
@@ -99,3 +102,4 @@ admin.site.register(Organization, MyOrganizationAdmin)
 
 admin.site.register(LegalStatus)
 admin.site.register(OrganizationCategoryIAE)
+admin.site.register(OrganizationGuaranty)

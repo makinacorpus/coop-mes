@@ -116,6 +116,30 @@ class OrganizationCategory(BaseOrganizationCategory):
         app_label = 'coop_local'
 
 
+ORGANISATION_GUARANTY_TYPES = Choices(
+    ('LABEL', 1, _(u'Label')),
+    ('AGREEMENT', 2, _(u'Agreement')),
+    ('STANDARD', 3, _(u'Technical Standard')),
+    ('PROCESS', 4, _(u'Process')),
+    ('CERTIFICATION', 5, _(u'Certification')),
+)
+
+
+class OrganizationGuaranty(models.Model):
+
+    type = models.IntegerField(_(u'type'), choices=ORGANISATION_GUARANTY_TYPES.CHOICES)
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+    description = models.TextField(_(u'description'), blank=True)
+
+    def __unicode__(self):
+        return ORGANISATION_GUARANTY_TYPES.CHOICES_DICT[self.type] + ' ' + self.name
+
+    class Meta:
+        verbose_name = _(u'guaranty')
+        verbose_name_plural = _(u'guaranties')
+        app_label = 'coop_local'
+
+
 class Organization(BaseOrganization):
 
     # Key data
@@ -138,6 +162,9 @@ class Organization(BaseOrganization):
     supervision_workforce = models.IntegerField(_(u'supervision workforce'), blank=True, null=True)
     integration_workforce = models.IntegerField(_(u'integration workforce'), blank=True, null=True)
     annual_integration_number = models.IntegerField(_(u'annual integration number'), blank=True, null=True)
+
+    # Guaranties
+    guaranties = models.ManyToManyField(OrganizationGuaranty, verbose_name=_(u'guaranties'))
 
     class Meta:
         ordering = ['title']
