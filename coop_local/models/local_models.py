@@ -95,6 +95,19 @@ class OrganizationCategoryIAE(models.Model):
         return self._can_modify_organizationcategoryiae(user)
 
 
+class OrganizationDocument(models.Model):
+
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+    description = models.TextField(_(u'description'), blank=True)
+    attachment = models.FileField(_(u'attachment'), upload_to='docs', max_length=255)
+    organization = models.ForeignKey('Organization')
+
+    class Meta:
+        verbose_name = _(u'associated document')
+        verbose_name_plural = _(u'associated documents')
+        app_label = 'coop_local'
+
+
 class OrganizationCategory(BaseOrganizationCategory):
 
     class Meta:

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-15 17:05+0100\n"
+"POT-Creation-Date: 2012-11-15 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: admin.py:71
+#: admin.py:56
+msgid "document"
+msgstr "document"
+
+#: admin.py:57
+msgid "documents"
+msgstr "documents"
+
+#: admin.py:79
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:76
+#: admin.py:84
 msgid "Economic info"
 msgstr "Infos économiques"
 
 #: models/__init__.py:25
 msgid "Tags"
-msgstr "Tags"
+msgstr "Mots clés"
 
 #: models/local_models.py:24 models/local_models.py:63
+#: models/local_models.py:144
 msgid "description"
 msgstr "description"
 
@@ -116,6 +125,22 @@ msgstr "raison sociale"
 #: models/local_models.py:137
 msgid "general presentation"
 msgstr "présentation générale"
+
+#: models/local_models.py:143
+msgid "name"
+msgstr "nom"
+
+#: models/local_models.py:145
+msgid "attachment"
+msgstr "pièce jointe"
+
+#: models/local_models.py:149
+msgid "associated document"
+msgstr "document associé"
+
+#: models/local_models.py:150
+msgid "associated documents"
+msgstr "documents associés"
 
 #: ui/menu.py:61
 msgid "Network"

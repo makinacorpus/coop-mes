@@ -3,7 +3,7 @@ from django import forms
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 from coop.org.admin import OrganizationAdmin, OrganizationAdminForm
-from coop_local.models import LegalStatus, OrganizationCategoryIAE
+from coop_local.models import LegalStatus, OrganizationCategoryIAE, OrganizationDocument
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
@@ -50,6 +50,14 @@ admin.site.register(Statut, CoopTagTreeAdmin)
 """
 
 
+class DocumentInline(admin.TabularInline):
+
+    model = OrganizationDocument
+    verbose_name = _(u'document')
+    verbose_name_plural = _(u'documents')
+    extra = 1
+
+
 class MyOrganizationAdminForm(OrganizationAdminForm):
 
     class Meta:
@@ -74,8 +82,8 @@ class MyOrganizationAdmin(OrganizationAdmin):
                        'web', 'siret']
             }),
         (_(u'Economic info'), {
-            'fields': ['annual_revenue', 'workforce','production_workforce', 'supervision_workforce',
-                       'integration_workforce', 'annual_integration_number']
+            'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),
+                       ('integration_workforce', 'annual_integration_number')]
             }),
         ('Description', {
             'fields': ['brief_description', 'description', 'added_value', 'tags']
@@ -84,6 +92,7 @@ class MyOrganizationAdmin(OrganizationAdmin):
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
     )
+    inlines = [DocumentInline]
 
 admin.site.unregister(Organization)
 admin.site.register(Organization, MyOrganizationAdmin)
