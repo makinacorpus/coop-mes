@@ -25,4 +25,4 @@ fi
 bin/python manage.py collectstatic --noinput
 bin/python manage.py syncdb --all --noinput
 bin/python manage.py migrate --fake
-bin/python manage.py loaddata coop_local/fixtures/{areatypes,django_site,exchange_methods,linkproperty,location_categories,top_roles,uriredirect,user,organizationcategory,organizationcategoryiae}.json
+bin/python manage.py loaddata coop_local/fixtures/{areatypes,django_site,exchange_methods,linkproperty,location_categories,top_roles,uriredirect,user,legalstatus,organizationcategory,organizationcategoryiae}.json
