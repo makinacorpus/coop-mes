@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-19 16:50+0100\n"
+"POT-Creation-Date: 2012-11-19 17:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,19 +33,19 @@ msgstr "référence"
 msgid "references"
 msgstr "références"
 
-#: admin.py:88
+#: admin.py:89
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:93
+#: admin.py:94
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:100 ui/menu.py:72
+#: admin.py:101 ui/menu.py:72
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: admin.py:103
+#: admin.py:104
 msgid "Management"
 msgstr "Gestion interne"
 
@@ -130,7 +130,7 @@ msgstr "garantie"
 msgid "guaranties"
 msgstr "garanties"
 
-#: models/local_models.py:145 models/local_models.py:203
+#: models/local_models.py:145
 msgid "client name"
 msgstr "nom du client"
 
@@ -138,7 +138,7 @@ msgstr "nom du client"
 msgid "period"
 msgstr "période"
 
-#: models/local_models.py:147 models/local_models.py:201
+#: models/local_models.py:147
 msgid "services"
 msgstr "prestations"
 
@@ -226,9 +226,17 @@ msgstr "date de modification"
 msgid "status"
 msgstr "statut de la fiche"
 
+#: models/local_models.py:201
+msgid "correspondence"
+msgstr "correspondance"
+
 #: models/local_models.py:202
 msgid "transmission mode"
 msgstr "mode de transmission"
+
+#: models/local_models.py:203
+msgid "author"
+msgstr "rédacteur"
 
 #: models/local_models.py:204
 msgid "validation date"
@@ -282,14 +290,6 @@ msgstr "Catégories de personnes"
 msgid "Roles"
 msgstr "Rôles"
 
-#: ui/menu.py:75 ui/menu.py:76
-msgid "Exchanges"
-msgstr "Echanges"
-
-#: ui/menu.py:77
-msgid "Exchange methods"
-msgstr "Modalités d'échange"
-
 #: ui/menu.py:80
 msgid "Cartography"
 msgstr "Cartographie"
@@ -305,3 +305,9 @@ msgstr "Zones"
 #: ui/menu.py:83
 msgid "Location categories"
 msgstr "Catégories de lieux"
+
+#~ msgid "Exchanges"
+#~ msgstr "Echanges"
+
+#~ msgid "Exchange methods"
+#~ msgstr "Modalités d'échange"

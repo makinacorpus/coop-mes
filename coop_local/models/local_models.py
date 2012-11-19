@@ -198,9 +198,9 @@ class Organization(BaseOrganization):
     creation = models.DateField(_(u'creation date'), auto_now_add=True)
     modification = models.DateField(_(u'modification date'), auto_now=True)
     status = models.CharField(_(u'status'), max_length=1, choices=ORGANIZATION_STATUSES.CHOICES, blank=True)
-    correspondence = models.TextField(_(u'services'), blank=True)
+    correspondence = models.TextField(_(u'correspondence'), blank=True)
     transmission = models.IntegerField(_(u'transmission mode'), choices=TRANSMISSION_MODES.CHOICES, blank=True, null=True)
-    author = models.CharField(_(u'client name'), max_length=100, blank=True)
+    author = models.CharField(_(u'author'), max_length=100, blank=True)
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
 
     class Meta:

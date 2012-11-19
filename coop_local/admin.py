@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
-from coop.org.admin import OrganizationAdmin, OrganizationAdminForm
+from coop.org.admin import OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline, EngagementInline
 from coop_local.models import (LegalStatus, OrganizationCategoryIAE, OrganizationDocument,
     OrganizationGuaranty, OrganizationReference)
 from django.db.models.loading import get_model
@@ -109,7 +109,7 @@ class MyOrganizationAdmin(OrganizationAdmin):
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
     )
-    inlines = [DocumentInline, ReferenceInline]
+    inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline]
 
 admin.site.unregister(Organization)
 admin.site.register(Organization, MyOrganizationAdmin)

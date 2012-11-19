@@ -72,10 +72,10 @@ class CustomMenu(Menu):
                         items.MenuItem(_('Guaranties'), '/admin/coop_local/organizationguaranty/'),
                         ]),
 
-                    items.MenuItem(_('Exchanges'), '#', icon='icon-random', children=[
-                        items.MenuItem(_('Exchanges'), '/admin/coop_local/exchange/'),
-                        items.MenuItem(_('Exchange methods'), '/admin/coop_local/exchangemethod/'),
-                        ]),
+                    #items.MenuItem(_('Exchanges'), '#', icon='icon-random', children=[
+                        #items.MenuItem(_('Exchanges'), '/admin/coop_local/exchange/'),
+                        #items.MenuItem(_('Exchange methods'), '/admin/coop_local/exchangemethod/'),
+                        #]),
 
                     items.MenuItem(_('Cartography'), '#', icon='icon-map-marker', children=[
                         items.MenuItem(_('Locations'), '/admin/coop_geo/location/'),
