@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-19 17:34+0100\n"
+"POT-Creation-Date: 2012-11-20 12:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,10 @@ msgstr "Infos clés"
 msgid "Economic info"
 msgstr "Infos économiques"
 
+#: admin.py:98
+msgid "Description"
+msgstr "Description"
+
 #: admin.py:101 ui/menu.py:72
 msgid "Guaranties"
 msgstr "Garanties"
@@ -48,6 +52,10 @@ msgstr "Garanties"
 #: admin.py:104
 msgid "Management"
 msgstr "Gestion interne"
+
+#: admin.py:108
+msgid "Preferences"
+msgstr "Préférences"
 
 #: models/__init__.py:25
 msgid "Tags"
@@ -258,6 +266,10 @@ msgstr "raison sociale"
 msgid "general presentation"
 msgstr "présentation générale"
 
+#: ui/dashboard.py:29
+msgid "Recent Actions"
+msgstr "Actions récentes"
+
 #: ui/menu.py:61
 msgid "Network"
 msgstr "Réseau"
@@ -305,9 +317,3 @@ msgstr "Zones"
 #: ui/menu.py:83
 msgid "Location categories"
 msgstr "Catégories de lieux"
-
-#~ msgid "Exchanges"
-#~ msgstr "Echanges"
-
-#~ msgid "Exchange methods"
-#~ msgstr "Modalités d'échange"

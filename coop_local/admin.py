@@ -95,7 +95,7 @@ class MyOrganizationAdmin(OrganizationAdmin):
             'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),
                        ('integration_workforce', 'annual_integration_number')]
             }),
-        ('Description', {
+        (_(u'Description'), {
             'fields': ['brief_description', 'description', 'added_value', 'tags']
             }),
         (_(u'Guaranties'), {
@@ -105,7 +105,7 @@ class MyOrganizationAdmin(OrganizationAdmin):
             'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
                        'author', 'validation']
             }),
-        ('Préférences', {
+        (_(u'Preferences'), {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
     )
