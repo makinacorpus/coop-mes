@@ -62,4 +62,5 @@ SYMPA_SOAP = {
 }
 
 ADMIN_TOOLS_MENU = 'coop_local.ui.menu.CustomMenu'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'coop_local.ui.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_THEMING_CSS = 'css/coop_local_bootstrap_theming.css'
