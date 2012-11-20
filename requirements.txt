@@ -11,36 +11,36 @@ django
 # djaloha
 # coop-colorbox
 
--e git+git://github.com/makinacorpusdjango-coop#egg=django-coop
--e git+git://github.com/quinodecoop-colorbox#egg=coop-colorbox
--e git+git://github.com/quinodedjaloha#egg=djaloha
--e git+git://github.com/quinodecoop-bar#egg=coop-bar
--e git+git://github.com/quinodecoop-tag#egg=coop-tag
--e git+git://github.com/quinodecoop-geo#egg=coop-geo
--e git+git://github.com/quinodecoop_cms#egg=coop_cms
+-e git+git://github.com/makinacorpus/django-coop#egg=django-coop
+-e git+git://github.com/quinode/coop-colorbox#egg=coop-colorbox
+-e git+git://github.com/quinode/djaloha#egg=djaloha
+-e git+git://github.com/quinode/coop-bar#egg=coop-bar
+-e git+git://github.com/quinode/coop-tag#egg=coop-tag
+-e git+git://github.com/quinode/coop-geo#egg=coop-geo
+-e git+git://github.com/quinode/coop_cms#egg=coop_cms
 
--e git+git://github.com/quinodedjango-scanredirect#egg=django-scanredirect
+-e git+git://github.com/quinode/django-scanredirect#egg=django-scanredirect
 
 django-autoslug
 unicode-slugify
--e git+git://github.com/praekeltdjango-preferences#egg=django-preferences
+-e git+git://github.com/praekelt/django-preferences#egg=django-preferences
 #fabric
 #fabtools
 
 # forks we depend on
 -e hg+https://bitbucket.org/psyton/django-admin-tools#egg=django-admin-tools
--e git+git://github.com/quinodedjango-templatetag-sugar#egg=django-templatetag-sugar
+-e git+git://github.com/quinode/django-templatetag-sugar#egg=django-templatetag-sugar
 
 # our forks
 -e hg+https://bitbucket.org/quinode/django-admintools-bootstrap/@0.0.2-alpha#egg=django-admintools-bootstrap
--e git+git://github.com/quinodeuriredirect#egg=uriredirect
+-e git+git://github.com/quinode/uriredirect#egg=uriredirect
 
 
--e git+git://github.com/django-extensionsdjango-extensions#egg=django-extensions
--e git+git://github.com/quinodedjango-chosen#egg=django-chosen
+-e git+git://github.com/django-extensions/django-extensions#egg=django-extensions
+-e git+git://github.com/quinode/django-chosen#egg=django-chosen
 
 # setup.py was broken
--e git+git://github.com/quinodedjangoembed#egg=djangoembed
+-e git+git://github.com/quinode/djangoembed#egg=djangoembed
 
 # mailing deps
 SOAPpy
@@ -54,39 +54,39 @@ django-forms-builder
 
 # Queues
 rq
--e git+git://github.com/uidjango-rq#egg=django-rq
+-e git+git://github.com/ui/django-rq#egg=django-rq
 
 django-apptemplates
 python-dateutil
 sorl-thumbnail==11.09
 shortuuid
 django-tinymce
--e git+git://github.com/twididjango-extended-choices#egg=django-extended-choices
+-e git+git://github.com/twidi/django-extended-choices#egg=django-extended-choices
 -e hg+https://bitbucket.org/ubernostrum/django-profiles#egg=django-profiles
 django-positions
 django-push
 mimeparse
 geohash
 rdflib
--e git+git://github.com/RDFLibrdfextras#egg=rdfextras
--e git+git://github.com/RDFLibrdflib-jsonld#egg=rdflib-jsonld
--e git+git://github.com/RDFLibrdflib-sparqlstore#egg=rdflib-sparqlstore
--e git+git://github.com/quinodesubhub#egg=subhub
+-e git+git://github.com/RDFLib/rdfextras#egg=rdfextras
+-e git+git://github.com/RDFLib/rdflib-jsonld#egg=rdflib-jsonld
+-e git+git://github.com/RDFLib/rdflib-sparqlstore#egg=rdflib-sparqlstore
+-e git+git://github.com/quinode/subhub#egg=subhub
 django-appconf
 
--e git+git://github.com/toastdrivendjango-haystack#egg=django-haystack
+-e git+git://github.com/toastdriven/django-haystack#egg=django-haystack
 
 # webid deps : not ready
 # pyOpenSSL
-# -e git+git://github.com/bennomadicdjango-webid-auth#egg=django-webid-auth
-# -e git+git://github.com/bennomadicdjango-webid-provider#egg=django-webid-provider
-# -e git+git://github.com/bennomadicdjango-conneg#egg=django-conneg
+# -e git+git://github.com/bennomadic/django-webid-auth#egg=django-webid-auth
+# -e git+git://github.com/bennomadic/django-webid-provider#egg=django-webid-provider
+# -e git+git://github.com/bennomadic/django-conneg#egg=django-conneg
 
 # coop_cms deps
 django-floppyforms==0.4.7
 django-pagination
 feedparser
--e git+git://github.com/gabrielgrantdjango-html-field#egg=django-html-field
+-e git+git://github.com/gabrielgrant/django-html-field#egg=django-html-field
 
 # central logging
 raven
