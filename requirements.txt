@@ -26,6 +26,7 @@ unicode-slugify
 -e git+git://github.com/praekelt/django-preferences@master#egg=django-preferences
 #fabric
 #fabtools
+django-mptt
 
 # forks we depend on
 -e hg+https://bitbucket.org/psyton/django-admin-tools#egg=django-admin-tools

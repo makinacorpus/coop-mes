@@ -70,6 +70,7 @@ class CustomMenu(Menu):
                         items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
                         items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
                         items.MenuItem(_('Guaranties'), '/admin/coop_local/organizationguaranty/'),
+                        items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
                         ]),
 
                     #items.MenuItem(_('Exchanges'), '#', icon='icon-random', children=[

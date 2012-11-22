@@ -1,0 +1,702 @@
+[
+    {
+        "pk": 1, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Activit\u00e9s agricoles (mara\u00eechage, horticulture, viticulture\u2026)"
+        }
+    }, 
+    {
+        "pk": 98, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Activit\u00e9s \u00e0 caract\u00e8re touristique"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Appareils \u00e9lectrom\u00e9nagers (r\u00e9paration)"
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Audiovisuel"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Autre (agricultures, environnement\u2026)"
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Conditionnement, d\u00e9conditionnement"
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Confection textile"
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "D\u00e9molition"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Electronique (particulier)"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Entretien, am\u00e9nagement des espaces naturels"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Entretien, am\u00e9nagement des espaces verts"
+        }
+    }, 
+    {
+        "pk": 99, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "H\u00f4tellerie et autres lieux d\u2019h\u00e9bergement"
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Marquage"
+        }
+    }, 
+    {
+        "pk": 80, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Mat\u00e9riel et consommables informatiques (commerce)"
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Mat\u00e9riel informatique (r\u00e9paration)"
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Nettoyage de v\u00e9hicules"
+        }
+    }, 
+    {
+        "pk": 89, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "PAO, infographie, graphisme"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Produits alimentaires"
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Signal\u00e9tique"
+        }
+    }, 
+    {
+        "pk": 82, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "Travaux administratifs (mailing, routage, archivage, secr\u00e9tariat, assistance informatique \u2026)"
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "V\u00e9hicules"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "V\u00eatements"
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "arts graphiques"
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "assemblage m\u00e9canique"
+        }
+    }, 
+    {
+        "pk": 93, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autre (gestion, administration)"
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autre (impression, communication\u2026)"
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autre activit\u00e9s li\u00e9es \u00e0 la blanchisserie"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres  (restauration)"
+        }
+    }, 
+    {
+        "pk": 76, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (BTP)"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (agriculture, environnement\u2026)"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (agriculture, environnement\u2026))"
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (commerce)"
+        }
+    }, 
+    {
+        "pk": 83, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (gestion, administration, informatique)"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (nettoyage)"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (recyclage)"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (restauration)"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (r\u00e9paration)"
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (sous-traitance industrielle)"
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (textiles, habillement\u2026)"
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (transports)"
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (transports, logistique)"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (t\u00eate de chapitre)"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (t\u00eates de chapitre)"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "autres (\u00e9nergies renouvelables)"
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "bijoux artisanaux"
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "blanchisserie industrielle"
+        }
+    }, 
+    {
+        "pk": 72, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "carrelage"
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "chaudronnerie"
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "colisage, routage, distribution"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "conseil en \u00e9conomie d'\u00e9nergie (\u00e9nergies renouvelables)"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "consommables informatiques"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "construction, installation de panneaux solaires"
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "contr\u00f4le qualit\u00e9"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "d\u00e9chets banals (papier, carton\u2026)"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "d\u00e9chets d\u2019\u00e9quipements \u00e9lectriques et \u00e9lectroniques (DEEE)"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "d\u00e9chets textiles"
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "entretien courant du linge"
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "entretien et restauration du patrimoine b\u00e2ti"
+        }
+    }, 
+    {
+        "pk": 77, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "fabrication  d\u2019\u00e9quipements informatiques"
+        }
+    }, 
+    {
+        "pk": 94, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "fournitures de bureau"
+        }
+    }, 
+    {
+        "pk": 88, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "imprimerie, reprographie"
+        }
+    }, 
+    {
+        "pk": 92, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "journalisme, r\u00e9daction"
+        }
+    }, 
+    {
+        "pk": 100, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "location de salles (s\u00e9minaires, conf\u00e9rences\u2026)"
+        }
+    }, 
+    {
+        "pk": 78, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "mat\u00e9riels et de consommables informatiques"
+        }
+    }, 
+    {
+        "pk": 69, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "ma\u00e7onnerie"
+        }
+    }, 
+    {
+        "pk": 70, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "menuiserie, charpentes"
+        }
+    }, 
+    {
+        "pk": 96, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "mise \u00e0 disposition de personnel"
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "multim\u00e9dia, web"
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "m\u00e9cano-soudure"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "nettoyage de locaux"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "nettoyage de parties communes d'immeubles"
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "nettoyage urbain (chauss\u00e9es,  trottoirs, \u00e9quipements voie publique\u2026"
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "peinture et rev\u00eatement"
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "plasturgie"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "plateaux repas"
+        }
+    }, 
+    {
+        "pk": 75, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "plomberie"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "production de meubles"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "produits d'entretien"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "restaurant"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "restauration collective"
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "stockage, magasinage"
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "traitement de l'information, num\u00e9risation, GED"
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "traitement et rev\u00eatement des m\u00e9taux"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "traiteur"
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "transport de marchandises"
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "transport de voyageurs"
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "travail de la pierre"
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "travail du bois"
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "travail du cuir"
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "travail du m\u00e9tal"
+        }
+    }, 
+    {
+        "pk": 97, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "travail temporaire"
+        }
+    }, 
+    {
+        "pk": 95, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "travaux administratifs (gestion\u2026)"
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "t\u00e9l\u00e9marketing, centre d'appels"
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "t\u00f4lerie"
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "usinage des m\u00e9taux"
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "voirie, assainissement"
+        }
+    }, 
+    {
+        "pk": 73, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "\u00e9lectricit\u00e9"
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "\u00e9lectrique"
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "coop_local.activitynomenclatureavise", 
+        "fields": {
+            "label": "\u00e9lectronique"
+        }
+    }
+]

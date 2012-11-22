@@ -25,4 +25,16 @@ fi
 bin/python manage.py collectstatic --noinput
 bin/python manage.py syncdb --all --noinput
 bin/python manage.py migrate --fake
-bin/python manage.py loaddata coop_local/fixtures/{areatypes,django_site,exchange_methods,linkproperty,location_categories,top_roles,uriredirect,user,legalstatus,organizationcategory,organizationcategoryiae}.json
+bin/python manage.py loaddata coop_local/fixtures/areatypes.json
+bin/python manage.py loaddata coop_local/fixtures/django_site.json
+bin/python manage.py loaddata coop_local/fixtures/exchange_methods.json
+bin/python manage.py loaddata coop_local/fixtures/linkproperty.json
+bin/python manage.py loaddata coop_local/fixtures/location_categories.json
+bin/python manage.py loaddata coop_local/fixtures/top_roles.json
+bin/python manage.py loaddata coop_local/fixtures/uriredirect.json
+bin/python manage.py loaddata coop_local/fixtures/user.json
+bin/python manage.py loaddata coop_local/fixtures/legalstatus.json
+bin/python manage.py loaddata coop_local/fixtures/organizationcategory.json
+bin/python manage.py loaddata coop_local/fixtures/organizationcategoryiae.json
+bin/python manage.py loaddata coop_local/fixtures/activitynomenclatureavise.json
+bin/python manage.py loaddata coop_local/fixtures/activitynomenclature.json

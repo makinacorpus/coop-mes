@@ -5,6 +5,7 @@ from coop.org.models import BaseOrganization, BaseOrganizationCategory
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db import fields as exfields
 from django.core.validators import RegexValidator
+from mptt.models import MPTTModel, TreeForeignKey
 
 # Use Choices() !
 # ETAT = ((0, 'Inconnu'),
@@ -153,6 +154,44 @@ class OrganizationReference(models.Model):
         app_label = 'coop_local'
 
 
+class ActivityNomenclatureAvise(models.Model):
+
+    label = models.CharField(_(u'label'), max_length=100, unique=True)
+
+    def __unicode__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = _(u'AVISE activity nomenclature item')
+        verbose_name_plural = _(u'AVISE activity nomenclature')
+        app_label = 'coop_local'
+        ordering = ['label']
+
+
+class ActivityNomenclature(MPTTModel):
+
+    label = models.CharField(_(u'label'), max_length=100)
+    path = models.CharField(_(u'label'), max_length=306, editable=False) # denormalized field
+    parent = TreeForeignKey('self', verbose_name=_(u'parent'), null=True, blank=True, related_name='children')
+    avise = models.ForeignKey('ActivityNomenclatureAvise', verbose_name=_(u'AVISE equivalent'), blank=True, null=True)
+
+    def __unicode__(self):
+        return self.path
+
+    def save(self, *args, **kwargs):
+        labels = [item.label for item in self.parent.get_ancestors(include_self=True)] if self.parent else []
+        labels.append(self.label)
+        self.path = u' / '.join(labels)
+        super(ActivityNomenclature, self).save(*args, **kwargs)
+
+    class Meta:
+        unique_together = ('label', 'parent')
+        verbose_name = _(u'activity nomenclature item')
+        verbose_name_plural = _(u'activity nomenclature')
+        app_label = 'coop_local'
+        ordering = ['tree_id', 'lft'] # needed for TreeEditor
+
+
 ORGANIZATION_STATUSES = Choices(
     ('PROPOSED', 'P', _(u'Proposed')),
     ('VALIDATED', 'V', _(u'Validated')),
@@ -166,7 +205,6 @@ TRANSMISSION_MODES = Choices(
     ('ADMINISTRATION', 2, _(u'Administration')),
     ('IMPORT', 3, _('Import')),
 )
-
 
 class Organization(BaseOrganization):
 

@@ -1,0 +1,4076 @@
+[
+    {
+        "pk": 588, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 34, 
+            "parent": null, 
+            "level": 0, 
+            "label": "agriculture", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 1, 
+            "path": "agriculture"
+        }
+    }, 
+    {
+        "pk": 589, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 19, 
+            "parent": 588, 
+            "level": 1, 
+            "label": "Activit\u00e9s agricoles", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 1, 
+            "path": "agriculture / Activit\u00e9s agricoles"
+        }
+    }, 
+    {
+        "pk": 591, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "arboriculture", 
+            "lft": 3, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / Activit\u00e9s agricoles / arboriculture"
+        }
+    }, 
+    {
+        "pk": 590, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "mara\u00eechage", 
+            "lft": 5, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s agricoles / mara\u00eechage"
+        }
+    }, 
+    {
+        "pk": 592, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "horticulture", 
+            "lft": 7, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s agricoles / horticulture"
+        }
+    }, 
+    {
+        "pk": 593, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "viticulture", 
+            "lft": 9, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s agricoles / viticulture"
+        }
+    }, 
+    {
+        "pk": 594, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "sylviculture", 
+            "lft": 11, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s agricoles / sylviculture"
+        }
+    }, 
+    {
+        "pk": 595, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "aquaculture", 
+            "lft": 13, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s agricoles / aquaculture"
+        }
+    }, 
+    {
+        "pk": 596, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "production des grandes cultures", 
+            "lft": 15, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s agricoles / production des grandes cultures"
+        }
+    }, 
+    {
+        "pk": 597, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 589, 
+            "level": 2, 
+            "label": "Elevage", 
+            "lft": 17, 
+            "avise": 1, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s agricoles / Elevage"
+        }
+    }, 
+    {
+        "pk": 598, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 25, 
+            "parent": 588, 
+            "level": 1, 
+            "label": "jardins et espaces verts", 
+            "lft": 20, 
+            "avise": null, 
+            "tree_id": 1, 
+            "path": "agriculture / jardins et espaces verts"
+        }
+    }, 
+    {
+        "pk": 599, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 598, 
+            "level": 2, 
+            "label": "jardins", 
+            "lft": 21, 
+            "avise": 2, 
+            "tree_id": 1, 
+            "path": "agriculture / jardins et espaces verts / jardins"
+        }
+    }, 
+    {
+        "pk": 600, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 598, 
+            "level": 2, 
+            "label": "espaces verts", 
+            "lft": 23, 
+            "avise": 2, 
+            "tree_id": 1, 
+            "path": "agriculture / jardins et espaces verts / espaces verts"
+        }
+    }, 
+    {
+        "pk": 601, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 29, 
+            "parent": 588, 
+            "level": 1, 
+            "label": "activit\u00e9s de soutien \u00e0 l\u2019agriculture", 
+            "lft": 26, 
+            "avise": null, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s de soutien \u00e0 l\u2019agriculture"
+        }
+    }, 
+    {
+        "pk": 602, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 601, 
+            "level": 2, 
+            "label": "soutien \u00e0 l\u2019agriculture", 
+            "lft": 27, 
+            "avise": 3, 
+            "tree_id": 1, 
+            "path": "agriculture / activit\u00e9s de soutien \u00e0 l\u2019agriculture / soutien \u00e0 l\u2019agriculture"
+        }
+    }, 
+    {
+        "pk": 603, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 33, 
+            "parent": 588, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l'agriculture", 
+            "lft": 30, 
+            "avise": null, 
+            "tree_id": 1, 
+            "path": "agriculture / autres activit\u00e9s li\u00e9es \u00e0 l'agriculture"
+        }
+    }, 
+    {
+        "pk": 604, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 32, 
+            "parent": 603, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l'agriculture", 
+            "lft": 31, 
+            "avise": 3, 
+            "tree_id": 1, 
+            "path": "agriculture / autres activit\u00e9s li\u00e9es \u00e0 l'agriculture / autres activit\u00e9s li\u00e9es \u00e0 l'agriculture"
+        }
+    }, 
+    {
+        "pk": 605, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 48, 
+            "parent": null, 
+            "level": 0, 
+            "label": "environnement", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement"
+        }
+    }, 
+    {
+        "pk": 606, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 11, 
+            "parent": 605, 
+            "level": 1, 
+            "label": "\u00e9conomie d\u2019\u00e9nergie et \u00e9nergies renouvelables", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement / \u00e9conomie d\u2019\u00e9nergie et \u00e9nergies renouvelables"
+        }
+    }, 
+    {
+        "pk": 607, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 606, 
+            "level": 2, 
+            "label": "conseil en \u00e9conomie d'\u00e9nergie", 
+            "lft": 3, 
+            "avise": 4, 
+            "tree_id": 2, 
+            "path": "environnement / \u00e9conomie d\u2019\u00e9nergie et \u00e9nergies renouvelables / conseil en \u00e9conomie d'\u00e9nergie"
+        }
+    }, 
+    {
+        "pk": 608, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 606, 
+            "level": 2, 
+            "label": "construction, installation de panneaux solaires", 
+            "lft": 5, 
+            "avise": 5, 
+            "tree_id": 2, 
+            "path": "environnement / \u00e9conomie d\u2019\u00e9nergie et \u00e9nergies renouvelables / construction, installation de panneaux solaires"
+        }
+    }, 
+    {
+        "pk": 609, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 606, 
+            "level": 2, 
+            "label": "production d\u2019\u00e9nergie renouvelable", 
+            "lft": 7, 
+            "avise": 6, 
+            "tree_id": 2, 
+            "path": "environnement / \u00e9conomie d\u2019\u00e9nergie et \u00e9nergies renouvelables / production d\u2019\u00e9nergie renouvelable"
+        }
+    }, 
+    {
+        "pk": 610, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 606, 
+            "level": 2, 
+            "label": "autres activit\u00e9s dans l\u2019\u00e9nergie renouvelable et les \u00e9conomies d\u2019\u00e9nergie", 
+            "lft": 9, 
+            "avise": 6, 
+            "tree_id": 2, 
+            "path": "environnement / \u00e9conomie d\u2019\u00e9nergie et \u00e9nergies renouvelables / autres activit\u00e9s dans l\u2019\u00e9nergie renouvelable et les \u00e9conomies d\u2019\u00e9nergie"
+        }
+    }, 
+    {
+        "pk": 611, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 17, 
+            "parent": 605, 
+            "level": 1, 
+            "label": "espaces naturels, sauvegarde du patrimoine", 
+            "lft": 12, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement / espaces naturels, sauvegarde du patrimoine"
+        }
+    }, 
+    {
+        "pk": 612, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 611, 
+            "level": 2, 
+            "label": "espaces naturels", 
+            "lft": 13, 
+            "avise": 7, 
+            "tree_id": 2, 
+            "path": "environnement / espaces naturels, sauvegarde du patrimoine / espaces naturels"
+        }
+    }, 
+    {
+        "pk": 613, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 611, 
+            "level": 2, 
+            "label": "patrimoine vernaculaire", 
+            "lft": 15, 
+            "avise": 8, 
+            "tree_id": 2, 
+            "path": "environnement / espaces naturels, sauvegarde du patrimoine / patrimoine vernaculaire"
+        }
+    }, 
+    {
+        "pk": 614, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 31, 
+            "parent": 605, 
+            "level": 1, 
+            "label": "collecte, traitement, recyclage d\u00e9chets et autres", 
+            "lft": 18, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement / collecte, traitement, recyclage d\u00e9chets et autres"
+        }
+    }, 
+    {
+        "pk": 615, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 614, 
+            "level": 2, 
+            "label": "consommables informatiques", 
+            "lft": 19, 
+            "avise": 9, 
+            "tree_id": 2, 
+            "path": "environnement / collecte, traitement, recyclage d\u00e9chets et autres / consommables informatiques"
+        }
+    }, 
+    {
+        "pk": 616, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 614, 
+            "level": 2, 
+            "label": "d\u00e9chets banals (papier, carton\u2026)", 
+            "lft": 21, 
+            "avise": 10, 
+            "tree_id": 2, 
+            "path": "environnement / collecte, traitement, recyclage d\u00e9chets et autres / d\u00e9chets banals (papier, carton\u2026)"
+        }
+    }, 
+    {
+        "pk": 617, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 614, 
+            "level": 2, 
+            "label": "d\u00e9chets d\u2019\u00e9quipements \u00e9lectriques et \u00e9lectroniques (DEEE)", 
+            "lft": 23, 
+            "avise": 11, 
+            "tree_id": 2, 
+            "path": "environnement / collecte, traitement, recyclage d\u00e9chets et autres / d\u00e9chets d\u2019\u00e9quipements \u00e9lectriques et \u00e9lectroniques (DEEE)"
+        }
+    }, 
+    {
+        "pk": 618, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": 614, 
+            "level": 2, 
+            "label": "d\u00e9chets textiles", 
+            "lft": 25, 
+            "avise": 12, 
+            "tree_id": 2, 
+            "path": "environnement / collecte, traitement, recyclage d\u00e9chets et autres / d\u00e9chets textiles"
+        }
+    }, 
+    {
+        "pk": 619, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 614, 
+            "level": 2, 
+            "label": "soutien au recyclage", 
+            "lft": 27, 
+            "avise": 13, 
+            "tree_id": 2, 
+            "path": "environnement / collecte, traitement, recyclage d\u00e9chets et autres / soutien au recyclage"
+        }
+    }, 
+    {
+        "pk": 620, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 614, 
+            "level": 2, 
+            "label": "Autre recyclage", 
+            "lft": 29, 
+            "avise": 13, 
+            "tree_id": 2, 
+            "path": "environnement / collecte, traitement, recyclage d\u00e9chets et autres / Autre recyclage"
+        }
+    }, 
+    {
+        "pk": 621, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 35, 
+            "parent": 605, 
+            "level": 1, 
+            "label": "gestion \u00e9cologique de l\u2019eau", 
+            "lft": 32, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement / gestion \u00e9cologique de l\u2019eau"
+        }
+    }, 
+    {
+        "pk": 622, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 34, 
+            "parent": 621, 
+            "level": 2, 
+            "label": "Gestion \u00e9cologique de l\u2019eau", 
+            "lft": 33, 
+            "avise": 14, 
+            "tree_id": 2, 
+            "path": "environnement / gestion \u00e9cologique de l\u2019eau / Gestion \u00e9cologique de l\u2019eau"
+        }
+    }, 
+    {
+        "pk": 623, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 39, 
+            "parent": 605, 
+            "level": 1, 
+            "label": "pr\u00e9vention des pollutions, risques, s\u00e9curit\u00e9, bruit, qualit\u00e9 de l\u2019air", 
+            "lft": 36, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement / pr\u00e9vention des pollutions, risques, s\u00e9curit\u00e9, bruit, qualit\u00e9 de l\u2019air"
+        }
+    }, 
+    {
+        "pk": 624, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 38, 
+            "parent": 623, 
+            "level": 2, 
+            "label": "pr\u00e9vention contre les pollutions", 
+            "lft": 37, 
+            "avise": 8, 
+            "tree_id": 2, 
+            "path": "environnement / pr\u00e9vention des pollutions, risques, s\u00e9curit\u00e9, bruit, qualit\u00e9 de l\u2019air / pr\u00e9vention contre les pollutions"
+        }
+    }, 
+    {
+        "pk": 625, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 43, 
+            "parent": 605, 
+            "level": 1, 
+            "label": "Promotion du d\u00e9veloppement durable", 
+            "lft": 40, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement / Promotion du d\u00e9veloppement durable"
+        }
+    }, 
+    {
+        "pk": 626, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 42, 
+            "parent": 625, 
+            "level": 2, 
+            "label": "Promotion du d\u00e9veloppement durable", 
+            "lft": 41, 
+            "avise": 8, 
+            "tree_id": 2, 
+            "path": "environnement / Promotion du d\u00e9veloppement durable / Promotion du d\u00e9veloppement durable"
+        }
+    }, 
+    {
+        "pk": 627, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 47, 
+            "parent": 605, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019environnement", 
+            "lft": 44, 
+            "avise": null, 
+            "tree_id": 2, 
+            "path": "environnement / autres activit\u00e9s li\u00e9es \u00e0 l\u2019environnement"
+        }
+    }, 
+    {
+        "pk": 628, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 46, 
+            "parent": 627, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019environnement", 
+            "lft": 45, 
+            "avise": 8, 
+            "tree_id": 2, 
+            "path": "environnement / autres activit\u00e9s li\u00e9es \u00e0 l\u2019environnement / autres activit\u00e9s li\u00e9es \u00e0 l\u2019environnement"
+        }
+    }, 
+    {
+        "pk": 629, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 42, 
+            "parent": null, 
+            "level": 0, 
+            "label": "alimentation", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 3, 
+            "path": "alimentation"
+        }
+    }, 
+    {
+        "pk": 630, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 15, 
+            "parent": 629, 
+            "level": 1, 
+            "label": "distribution de produits alimentaires et de boissons", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 3, 
+            "path": "alimentation / distribution de produits alimentaires et de boissons"
+        }
+    }, 
+    {
+        "pk": 631, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 630, 
+            "level": 2, 
+            "label": "produits frais", 
+            "lft": 3, 
+            "avise": 15, 
+            "tree_id": 3, 
+            "path": "alimentation / distribution de produits alimentaires et de boissons / produits frais"
+        }
+    }, 
+    {
+        "pk": 632, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 630, 
+            "level": 2, 
+            "label": "\u00e9picerie s\u00e8che", 
+            "lft": 5, 
+            "avise": 15, 
+            "tree_id": 3, 
+            "path": "alimentation / distribution de produits alimentaires et de boissons / \u00e9picerie s\u00e8che"
+        }
+    }, 
+    {
+        "pk": 633, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 630, 
+            "level": 2, 
+            "label": "produits viticoles", 
+            "lft": 7, 
+            "avise": 15, 
+            "tree_id": 3, 
+            "path": "alimentation / distribution de produits alimentaires et de boissons / produits viticoles"
+        }
+    }, 
+    {
+        "pk": 634, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 630, 
+            "level": 2, 
+            "label": "boissons, th\u00e9, caf\u00e9, tisanes", 
+            "lft": 9, 
+            "avise": 15, 
+            "tree_id": 3, 
+            "path": "alimentation / distribution de produits alimentaires et de boissons / boissons, th\u00e9, caf\u00e9, tisanes"
+        }
+    }, 
+    {
+        "pk": 635, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 630, 
+            "level": 2, 
+            "label": "viandes et laitage", 
+            "lft": 11, 
+            "avise": 15, 
+            "tree_id": 3, 
+            "path": "alimentation / distribution de produits alimentaires et de boissons / viandes et laitage"
+        }
+    }, 
+    {
+        "pk": 636, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 630, 
+            "level": 2, 
+            "label": "Poissons", 
+            "lft": 13, 
+            "avise": 15, 
+            "tree_id": 3, 
+            "path": "alimentation / distribution de produits alimentaires et de boissons / Poissons"
+        }
+    }, 
+    {
+        "pk": 637, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 27, 
+            "parent": 629, 
+            "level": 1, 
+            "label": "restauration et traiteur", 
+            "lft": 16, 
+            "avise": null, 
+            "tree_id": 3, 
+            "path": "alimentation / restauration et traiteur"
+        }
+    }, 
+    {
+        "pk": 638, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 637, 
+            "level": 2, 
+            "label": "plateaux repas", 
+            "lft": 17, 
+            "avise": 16, 
+            "tree_id": 3, 
+            "path": "alimentation / restauration et traiteur / plateaux repas"
+        }
+    }, 
+    {
+        "pk": 639, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 637, 
+            "level": 2, 
+            "label": "restauration individuelle", 
+            "lft": 19, 
+            "avise": 17, 
+            "tree_id": 3, 
+            "path": "alimentation / restauration et traiteur / restauration individuelle"
+        }
+    }, 
+    {
+        "pk": 640, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 637, 
+            "level": 2, 
+            "label": "restauration collective", 
+            "lft": 21, 
+            "avise": 18, 
+            "tree_id": 3, 
+            "path": "alimentation / restauration et traiteur / restauration collective"
+        }
+    }, 
+    {
+        "pk": 641, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 637, 
+            "level": 2, 
+            "label": "Traiteur", 
+            "lft": 23, 
+            "avise": 19, 
+            "tree_id": 3, 
+            "path": "alimentation / restauration et traiteur / Traiteur"
+        }
+    }, 
+    {
+        "pk": 642, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": 637, 
+            "level": 2, 
+            "label": "autres activit\u00e9s dans la restauration", 
+            "lft": 25, 
+            "avise": 20, 
+            "tree_id": 3, 
+            "path": "alimentation / restauration et traiteur / autres activit\u00e9s dans la restauration"
+        }
+    }, 
+    {
+        "pk": 643, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 33, 
+            "parent": 629, 
+            "level": 1, 
+            "label": "transformation de produits alimentaires", 
+            "lft": 28, 
+            "avise": null, 
+            "tree_id": 3, 
+            "path": "alimentation / transformation de produits alimentaires"
+        }
+    }, 
+    {
+        "pk": 644, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 643, 
+            "level": 2, 
+            "label": "atelier cuisine", 
+            "lft": 29, 
+            "avise": 21, 
+            "tree_id": 3, 
+            "path": "alimentation / transformation de produits alimentaires / atelier cuisine"
+        }
+    }, 
+    {
+        "pk": 645, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 32, 
+            "parent": 643, 
+            "level": 2, 
+            "label": "activit\u00e9s de transformation", 
+            "lft": 31, 
+            "avise": 21, 
+            "tree_id": 3, 
+            "path": "alimentation / transformation de produits alimentaires / activit\u00e9s de transformation"
+        }
+    }, 
+    {
+        "pk": 646, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 37, 
+            "parent": 629, 
+            "level": 1, 
+            "label": "soutien, conseil en alimentation", 
+            "lft": 34, 
+            "avise": null, 
+            "tree_id": 3, 
+            "path": "alimentation / soutien, conseil en alimentation"
+        }
+    }, 
+    {
+        "pk": 647, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 36, 
+            "parent": 646, 
+            "level": 2, 
+            "label": "soutien, conseil en alimentation", 
+            "lft": 35, 
+            "avise": 21, 
+            "tree_id": 3, 
+            "path": "alimentation / soutien, conseil en alimentation / soutien, conseil en alimentation"
+        }
+    }, 
+    {
+        "pk": 648, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 41, 
+            "parent": 629, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019alimentation", 
+            "lft": 38, 
+            "avise": null, 
+            "tree_id": 3, 
+            "path": "alimentation / autres activit\u00e9s li\u00e9es \u00e0 l\u2019alimentation"
+        }
+    }, 
+    {
+        "pk": 649, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 40, 
+            "parent": 648, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019alimentation", 
+            "lft": 39, 
+            "avise": 21, 
+            "tree_id": 3, 
+            "path": "alimentation / autres activit\u00e9s li\u00e9es \u00e0 l\u2019alimentation / autres activit\u00e9s li\u00e9es \u00e0 l\u2019alimentation"
+        }
+    }, 
+    {
+        "pk": 650, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 42, 
+            "parent": null, 
+            "level": 0, 
+            "label": "habitat", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 4, 
+            "path": "habitat"
+        }
+    }, 
+    {
+        "pk": 651, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 9, 
+            "parent": 650, 
+            "level": 1, 
+            "label": "logement", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 4, 
+            "path": "habitat / logement"
+        }
+    }, 
+    {
+        "pk": 652, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 651, 
+            "level": 2, 
+            "label": "location immobili\u00e8re", 
+            "lft": 3, 
+            "avise": 22, 
+            "tree_id": 4, 
+            "path": "habitat / logement / location immobili\u00e8re"
+        }
+    }, 
+    {
+        "pk": 653, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 651, 
+            "level": 2, 
+            "label": "vente immobili\u00e8re", 
+            "lft": 5, 
+            "avise": 22, 
+            "tree_id": 4, 
+            "path": "habitat / logement / vente immobili\u00e8re"
+        }
+    }, 
+    {
+        "pk": 654, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 651, 
+            "level": 2, 
+            "label": "activit\u00e9s d\u2019aide au logement", 
+            "lft": 7, 
+            "avise": 22, 
+            "tree_id": 4, 
+            "path": "habitat / logement / activit\u00e9s d\u2019aide au logement"
+        }
+    }, 
+    {
+        "pk": 655, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 19, 
+            "parent": 650, 
+            "level": 1, 
+            "label": "entretien int\u00e9rieur", 
+            "lft": 10, 
+            "avise": null, 
+            "tree_id": 4, 
+            "path": "habitat / entretien int\u00e9rieur"
+        }
+    }, 
+    {
+        "pk": 656, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 655, 
+            "level": 2, 
+            "label": "produits d'entretien", 
+            "lft": 11, 
+            "avise": 23, 
+            "tree_id": 4, 
+            "path": "habitat / entretien int\u00e9rieur / produits d'entretien"
+        }
+    }, 
+    {
+        "pk": 657, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 655, 
+            "level": 2, 
+            "label": "nettoyage de locaux", 
+            "lft": 13, 
+            "avise": 24, 
+            "tree_id": 4, 
+            "path": "habitat / entretien int\u00e9rieur / nettoyage de locaux"
+        }
+    }, 
+    {
+        "pk": 658, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 655, 
+            "level": 2, 
+            "label": "nettoyage de parties communes d'immeubles", 
+            "lft": 15, 
+            "avise": 25, 
+            "tree_id": 4, 
+            "path": "habitat / entretien int\u00e9rieur / nettoyage de parties communes d'immeubles"
+        }
+    }, 
+    {
+        "pk": 659, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 655, 
+            "level": 2, 
+            "label": "autres entretien int\u00e9rieur", 
+            "lft": 17, 
+            "avise": 26, 
+            "tree_id": 4, 
+            "path": "habitat / entretien int\u00e9rieur / autres entretien int\u00e9rieur"
+        }
+    }, 
+    {
+        "pk": 660, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 31, 
+            "parent": 650, 
+            "level": 1, 
+            "label": "Equipements", 
+            "lft": 20, 
+            "avise": null, 
+            "tree_id": 4, 
+            "path": "habitat / Equipements"
+        }
+    }, 
+    {
+        "pk": 661, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 660, 
+            "level": 2, 
+            "label": "mobilier", 
+            "lft": 21, 
+            "avise": 27, 
+            "tree_id": 4, 
+            "path": "habitat / Equipements / mobilier"
+        }
+    }, 
+    {
+        "pk": 662, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 660, 
+            "level": 2, 
+            "label": "Gros \u00e9lectrom\u00e9nager", 
+            "lft": 23, 
+            "avise": 28, 
+            "tree_id": 4, 
+            "path": "habitat / Equipements / Gros \u00e9lectrom\u00e9nager"
+        }
+    }, 
+    {
+        "pk": 663, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": 660, 
+            "level": 2, 
+            "label": "Petit \u00e9lectrom\u00e9nager", 
+            "lft": 25, 
+            "avise": 22, 
+            "tree_id": 4, 
+            "path": "habitat / Equipements / Petit \u00e9lectrom\u00e9nager"
+        }
+    }, 
+    {
+        "pk": 664, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 660, 
+            "level": 2, 
+            "label": "Electronique", 
+            "lft": 27, 
+            "avise": 29, 
+            "tree_id": 4, 
+            "path": "habitat / Equipements / Electronique"
+        }
+    }, 
+    {
+        "pk": 665, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 660, 
+            "level": 2, 
+            "label": "autres \u00e9quipements \u00e9lectriques et \u00e9lectroniques (r\u00e9paration)", 
+            "lft": 29, 
+            "avise": 30, 
+            "tree_id": 4, 
+            "path": "habitat / Equipements / autres \u00e9quipements \u00e9lectriques et \u00e9lectroniques (r\u00e9paration)"
+        }
+    }, 
+    {
+        "pk": 666, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 37, 
+            "parent": 650, 
+            "level": 1, 
+            "label": "Am\u00e9nagement", 
+            "lft": 32, 
+            "avise": null, 
+            "tree_id": 4, 
+            "path": "habitat / Am\u00e9nagement"
+        }
+    }, 
+    {
+        "pk": 667, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 34, 
+            "parent": 666, 
+            "level": 2, 
+            "label": "architecture et dessin industriel", 
+            "lft": 33, 
+            "avise": 22, 
+            "tree_id": 4, 
+            "path": "habitat / Am\u00e9nagement / architecture et dessin industriel"
+        }
+    }, 
+    {
+        "pk": 668, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 36, 
+            "parent": 666, 
+            "level": 2, 
+            "label": "D\u00e9coration int\u00e9rieure", 
+            "lft": 35, 
+            "avise": 22, 
+            "tree_id": 4, 
+            "path": "habitat / Am\u00e9nagement / D\u00e9coration int\u00e9rieure"
+        }
+    }, 
+    {
+        "pk": 669, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 41, 
+            "parent": 650, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019habitat", 
+            "lft": 38, 
+            "avise": null, 
+            "tree_id": 4, 
+            "path": "habitat / autres activit\u00e9s li\u00e9es \u00e0 l\u2019habitat"
+        }
+    }, 
+    {
+        "pk": 670, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 40, 
+            "parent": 669, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019habitat", 
+            "lft": 39, 
+            "avise": 31, 
+            "tree_id": 4, 
+            "path": "habitat / autres activit\u00e9s li\u00e9es \u00e0 l\u2019habitat / autres activit\u00e9s li\u00e9es \u00e0 l\u2019habitat"
+        }
+    }, 
+    {
+        "pk": 671, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 46, 
+            "parent": null, 
+            "level": 0, 
+            "label": "habillement, textiles, artisanat", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat"
+        }
+    }, 
+    {
+        "pk": 672, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 11, 
+            "parent": 671, 
+            "level": 1, 
+            "label": "habillement", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / habillement"
+        }
+    }, 
+    {
+        "pk": 673, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 672, 
+            "level": 2, 
+            "label": "V\u00eatements", 
+            "lft": 3, 
+            "avise": 32, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / habillement / V\u00eatements"
+        }
+    }, 
+    {
+        "pk": 674, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 672, 
+            "level": 2, 
+            "label": "Chaussures", 
+            "lft": 5, 
+            "avise": 32, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / habillement / Chaussures"
+        }
+    }, 
+    {
+        "pk": 675, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 672, 
+            "level": 2, 
+            "label": "Accessoires", 
+            "lft": 7, 
+            "avise": 33, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / habillement / Accessoires"
+        }
+    }, 
+    {
+        "pk": 676, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 672, 
+            "level": 2, 
+            "label": "r\u00e9paration, couture", 
+            "lft": 9, 
+            "avise": 33, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / habillement / r\u00e9paration, couture"
+        }
+    }, 
+    {
+        "pk": 677, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 19, 
+            "parent": 671, 
+            "level": 1, 
+            "label": "blanchisserie", 
+            "lft": 12, 
+            "avise": null, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / blanchisserie"
+        }
+    }, 
+    {
+        "pk": 678, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 677, 
+            "level": 2, 
+            "label": "blanchisserie industrielle", 
+            "lft": 13, 
+            "avise": 34, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / blanchisserie / blanchisserie industrielle"
+        }
+    }, 
+    {
+        "pk": 679, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 677, 
+            "level": 2, 
+            "label": "entretien courant du linge", 
+            "lft": 15, 
+            "avise": 35, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / blanchisserie / entretien courant du linge"
+        }
+    }, 
+    {
+        "pk": 680, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 677, 
+            "level": 2, 
+            "label": "autre activit\u00e9s li\u00e9es \u00e0 la blanchisserie", 
+            "lft": 17, 
+            "avise": 36, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / blanchisserie / autre activit\u00e9s li\u00e9es \u00e0 la blanchisserie"
+        }
+    }, 
+    {
+        "pk": 681, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 25, 
+            "parent": 671, 
+            "level": 1, 
+            "label": "textiles", 
+            "lft": 20, 
+            "avise": null, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / textiles"
+        }
+    }, 
+    {
+        "pk": 682, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 681, 
+            "level": 2, 
+            "label": "confection textile", 
+            "lft": 21, 
+            "avise": 37, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / textiles / confection textile"
+        }
+    }, 
+    {
+        "pk": 683, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 681, 
+            "level": 2, 
+            "label": "distribution de textiles", 
+            "lft": 23, 
+            "avise": 38, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / textiles / distribution de textiles"
+        }
+    }, 
+    {
+        "pk": 684, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 41, 
+            "parent": 671, 
+            "level": 1, 
+            "label": "artisanat", 
+            "lft": 26, 
+            "avise": null, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat"
+        }
+    }, 
+    {
+        "pk": 685, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 684, 
+            "level": 2, 
+            "label": "artisanat g\u00e9n\u00e9ral", 
+            "lft": 27, 
+            "avise": 38, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat / artisanat g\u00e9n\u00e9ral"
+        }
+    }, 
+    {
+        "pk": 686, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 684, 
+            "level": 2, 
+            "label": "travail du bois", 
+            "lft": 29, 
+            "avise": 39, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat / travail du bois"
+        }
+    }, 
+    {
+        "pk": 687, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 32, 
+            "parent": 684, 
+            "level": 2, 
+            "label": "travail du cuir", 
+            "lft": 31, 
+            "avise": 40, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat / travail du cuir"
+        }
+    }, 
+    {
+        "pk": 688, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 34, 
+            "parent": 684, 
+            "level": 2, 
+            "label": "travail du m\u00e9tal", 
+            "lft": 33, 
+            "avise": 41, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat / travail du m\u00e9tal"
+        }
+    }, 
+    {
+        "pk": 689, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 36, 
+            "parent": 684, 
+            "level": 2, 
+            "label": "bijoux artisanaux", 
+            "lft": 35, 
+            "avise": 42, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat / bijoux artisanaux"
+        }
+    }, 
+    {
+        "pk": 690, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 38, 
+            "parent": 684, 
+            "level": 2, 
+            "label": "travail de la pierre", 
+            "lft": 37, 
+            "avise": 43, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat / travail de la pierre"
+        }
+    }, 
+    {
+        "pk": 691, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 40, 
+            "parent": 684, 
+            "level": 2, 
+            "label": "arts graphiques", 
+            "lft": 39, 
+            "avise": 44, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / artisanat / arts graphiques"
+        }
+    }, 
+    {
+        "pk": 692, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 45, 
+            "parent": 671, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 habillement, textiles, artisanat", 
+            "lft": 42, 
+            "avise": null, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / autres activit\u00e9s li\u00e9es \u00e0 habillement, textiles, artisanat"
+        }
+    }, 
+    {
+        "pk": 693, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 44, 
+            "parent": 692, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 habillement, textiles, artisanat", 
+            "lft": 43, 
+            "avise": 45, 
+            "tree_id": 5, 
+            "path": "habillement, textiles, artisanat / autres activit\u00e9s li\u00e9es \u00e0 habillement, textiles, artisanat / autres activit\u00e9s li\u00e9es \u00e0 habillement, textiles, artisanat"
+        }
+    }, 
+    {
+        "pk": 694, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 38, 
+            "parent": null, 
+            "level": 0, 
+            "label": "transports, entretien et logistique", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique"
+        }
+    }, 
+    {
+        "pk": 695, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 13, 
+            "parent": 694, 
+            "level": 1, 
+            "label": "transports", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / transports"
+        }
+    }, 
+    {
+        "pk": 696, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 695, 
+            "level": 2, 
+            "label": "r\u00e9paration de v\u00e9hicules", 
+            "lft": 3, 
+            "avise": 46, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / transports / r\u00e9paration de v\u00e9hicules"
+        }
+    }, 
+    {
+        "pk": 697, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 695, 
+            "level": 2, 
+            "label": "transport de voyageurs", 
+            "lft": 5, 
+            "avise": 47, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / transports / transport de voyageurs"
+        }
+    }, 
+    {
+        "pk": 698, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 695, 
+            "level": 2, 
+            "label": "d\u00e9placement en v\u00e9hicules motoris\u00e9s", 
+            "lft": 7, 
+            "avise": 48, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / transports / d\u00e9placement en v\u00e9hicules motoris\u00e9s"
+        }
+    }, 
+    {
+        "pk": 699, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 695, 
+            "level": 2, 
+            "label": "d\u00e9placement en v\u00e9los", 
+            "lft": 9, 
+            "avise": 48, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / transports / d\u00e9placement en v\u00e9los"
+        }
+    }, 
+    {
+        "pk": 700, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 695, 
+            "level": 2, 
+            "label": "transport de marchandises", 
+            "lft": 11, 
+            "avise": 49, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / transports / transport de marchandises"
+        }
+    }, 
+    {
+        "pk": 701, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 19, 
+            "parent": 694, 
+            "level": 1, 
+            "label": "gros entretien", 
+            "lft": 14, 
+            "avise": null, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / gros entretien"
+        }
+    }, 
+    {
+        "pk": 702, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 701, 
+            "level": 2, 
+            "label": "nettoyage urbain (chauss\u00e9es,  trottoirs, \u00e9quipements voie publique\u2026", 
+            "lft": 15, 
+            "avise": 50, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / gros entretien / nettoyage urbain (chauss\u00e9es,  trottoirs, \u00e9quipements voie publique\u2026"
+        }
+    }, 
+    {
+        "pk": 703, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 701, 
+            "level": 2, 
+            "label": "nettoyage de v\u00e9hicules", 
+            "lft": 17, 
+            "avise": 51, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / gros entretien / nettoyage de v\u00e9hicules"
+        }
+    }, 
+    {
+        "pk": 704, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 27, 
+            "parent": 694, 
+            "level": 1, 
+            "label": "manutention et d\u00e9m\u00e9nagement", 
+            "lft": 20, 
+            "avise": null, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / manutention et d\u00e9m\u00e9nagement"
+        }
+    }, 
+    {
+        "pk": 705, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 704, 
+            "level": 2, 
+            "label": "stockage, magasinage", 
+            "lft": 21, 
+            "avise": 52, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / manutention et d\u00e9m\u00e9nagement / stockage, magasinage"
+        }
+    }, 
+    {
+        "pk": 706, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 704, 
+            "level": 2, 
+            "label": "D\u00e9m\u00e9nagement", 
+            "lft": 23, 
+            "avise": 53, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / manutention et d\u00e9m\u00e9nagement / D\u00e9m\u00e9nagement"
+        }
+    }, 
+    {
+        "pk": 707, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": 704, 
+            "level": 2, 
+            "label": "Conditionnement, d\u00e9conditionnement", 
+            "lft": 25, 
+            "avise": 54, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / manutention et d\u00e9m\u00e9nagement / Conditionnement, d\u00e9conditionnement"
+        }
+    }, 
+    {
+        "pk": 708, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 33, 
+            "parent": 694, 
+            "level": 1, 
+            "label": "courrier, livraison", 
+            "lft": 28, 
+            "avise": null, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / courrier, livraison"
+        }
+    }, 
+    {
+        "pk": 709, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 708, 
+            "level": 2, 
+            "label": "colisage, routage, distribution", 
+            "lft": 29, 
+            "avise": 55, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / courrier, livraison / colisage, routage, distribution"
+        }
+    }, 
+    {
+        "pk": 710, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 32, 
+            "parent": 708, 
+            "level": 2, 
+            "label": "Livraison", 
+            "lft": 31, 
+            "avise": 53, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / courrier, livraison / Livraison"
+        }
+    }, 
+    {
+        "pk": 711, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 37, 
+            "parent": 694, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es au transports, entretien et logistique", 
+            "lft": 34, 
+            "avise": null, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / autres activit\u00e9s li\u00e9es au transports, entretien et logistique"
+        }
+    }, 
+    {
+        "pk": 712, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 36, 
+            "parent": 711, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es au transports, entretien et logistique", 
+            "lft": 35, 
+            "avise": 53, 
+            "tree_id": 6, 
+            "path": "transports, entretien et logistique / autres activit\u00e9s li\u00e9es au transports, entretien et logistique / autres activit\u00e9s li\u00e9es au transports, entretien et logistique"
+        }
+    }, 
+    {
+        "pk": 713, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 66, 
+            "parent": null, 
+            "level": 0, 
+            "label": "industrie", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie"
+        }
+    }, 
+    {
+        "pk": 714, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 15, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "travail des m\u00e9taux et autres mat\u00e9riaux", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / travail des m\u00e9taux et autres mat\u00e9riaux"
+        }
+    }, 
+    {
+        "pk": 715, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 714, 
+            "level": 2, 
+            "label": "t\u00f4lerie", 
+            "lft": 3, 
+            "avise": 56, 
+            "tree_id": 7, 
+            "path": "industrie / travail des m\u00e9taux et autres mat\u00e9riaux / t\u00f4lerie"
+        }
+    }, 
+    {
+        "pk": 716, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 714, 
+            "level": 2, 
+            "label": "plasturgie", 
+            "lft": 5, 
+            "avise": 57, 
+            "tree_id": 7, 
+            "path": "industrie / travail des m\u00e9taux et autres mat\u00e9riaux / plasturgie"
+        }
+    }, 
+    {
+        "pk": 717, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 714, 
+            "level": 2, 
+            "label": "assemblage m\u00e9canique", 
+            "lft": 7, 
+            "avise": 58, 
+            "tree_id": 7, 
+            "path": "industrie / travail des m\u00e9taux et autres mat\u00e9riaux / assemblage m\u00e9canique"
+        }
+    }, 
+    {
+        "pk": 718, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 714, 
+            "level": 2, 
+            "label": "usinage des m\u00e9taux", 
+            "lft": 9, 
+            "avise": 59, 
+            "tree_id": 7, 
+            "path": "industrie / travail des m\u00e9taux et autres mat\u00e9riaux / usinage des m\u00e9taux"
+        }
+    }, 
+    {
+        "pk": 719, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 714, 
+            "level": 2, 
+            "label": "m\u00e9cano-soudure", 
+            "lft": 11, 
+            "avise": 60, 
+            "tree_id": 7, 
+            "path": "industrie / travail des m\u00e9taux et autres mat\u00e9riaux / m\u00e9cano-soudure"
+        }
+    }, 
+    {
+        "pk": 720, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 714, 
+            "level": 2, 
+            "label": "traitement et rev\u00eatement des m\u00e9taux", 
+            "lft": 13, 
+            "avise": 61, 
+            "tree_id": 7, 
+            "path": "industrie / travail des m\u00e9taux et autres mat\u00e9riaux / traitement et rev\u00eatement des m\u00e9taux"
+        }
+    }, 
+    {
+        "pk": 721, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 21, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "\u00e9lectricit\u00e9 et \u00e9lectronique", 
+            "lft": 16, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / \u00e9lectricit\u00e9 et \u00e9lectronique"
+        }
+    }, 
+    {
+        "pk": 722, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 721, 
+            "level": 2, 
+            "label": "\u00e9lectrique", 
+            "lft": 17, 
+            "avise": 62, 
+            "tree_id": 7, 
+            "path": "industrie / \u00e9lectricit\u00e9 et \u00e9lectronique / \u00e9lectrique"
+        }
+    }, 
+    {
+        "pk": 723, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 721, 
+            "level": 2, 
+            "label": "\u00e9lectronique", 
+            "lft": 19, 
+            "avise": 63, 
+            "tree_id": 7, 
+            "path": "industrie / \u00e9lectricit\u00e9 et \u00e9lectronique / \u00e9lectronique"
+        }
+    }, 
+    {
+        "pk": 724, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 25, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "chaudronnerie", 
+            "lft": 22, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / chaudronnerie"
+        }
+    }, 
+    {
+        "pk": 725, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 724, 
+            "level": 2, 
+            "label": "chaudronnerie", 
+            "lft": 23, 
+            "avise": 64, 
+            "tree_id": 7, 
+            "path": "industrie / chaudronnerie / chaudronnerie"
+        }
+    }, 
+    {
+        "pk": 726, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 29, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "contr\u00f4le qualit\u00e9", 
+            "lft": 26, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / contr\u00f4le qualit\u00e9"
+        }
+    }, 
+    {
+        "pk": 727, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 726, 
+            "level": 2, 
+            "label": "contr\u00f4le qualit\u00e9", 
+            "lft": 27, 
+            "avise": 65, 
+            "tree_id": 7, 
+            "path": "industrie / contr\u00f4le qualit\u00e9 / contr\u00f4le qualit\u00e9"
+        }
+    }, 
+    {
+        "pk": 728, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 33, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019industrie", 
+            "lft": 30, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / autres activit\u00e9s li\u00e9es \u00e0 l\u2019industrie"
+        }
+    }, 
+    {
+        "pk": 729, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 32, 
+            "parent": 728, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 l\u2019industrie", 
+            "lft": 31, 
+            "avise": 66, 
+            "tree_id": 7, 
+            "path": "industrie / autres activit\u00e9s li\u00e9es \u00e0 l\u2019industrie / autres activit\u00e9s li\u00e9es \u00e0 l\u2019industrie"
+        }
+    }, 
+    {
+        "pk": 730, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 43, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "construction", 
+            "lft": 34, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / construction"
+        }
+    }, 
+    {
+        "pk": 731, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 36, 
+            "parent": 730, 
+            "level": 2, 
+            "label": "gros \u0153uvre", 
+            "lft": 35, 
+            "avise": 67, 
+            "tree_id": 7, 
+            "path": "industrie / construction / gros \u0153uvre"
+        }
+    }, 
+    {
+        "pk": 732, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 38, 
+            "parent": 730, 
+            "level": 2, 
+            "label": "entretien et restauration du patrimoine b\u00e2ti", 
+            "lft": 37, 
+            "avise": 68, 
+            "tree_id": 7, 
+            "path": "industrie / construction / entretien et restauration du patrimoine b\u00e2ti"
+        }
+    }, 
+    {
+        "pk": 733, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 40, 
+            "parent": 730, 
+            "level": 2, 
+            "label": "ma\u00e7onnerie, construction", 
+            "lft": 39, 
+            "avise": 69, 
+            "tree_id": 7, 
+            "path": "industrie / construction / ma\u00e7onnerie, construction"
+        }
+    }, 
+    {
+        "pk": 734, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 42, 
+            "parent": 730, 
+            "level": 2, 
+            "label": "menuiserie, charpentes", 
+            "lft": 41, 
+            "avise": 70, 
+            "tree_id": 7, 
+            "path": "industrie / construction / menuiserie, charpentes"
+        }
+    }, 
+    {
+        "pk": 735, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 47, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "voirie, assainissement", 
+            "lft": 44, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / voirie, assainissement"
+        }
+    }, 
+    {
+        "pk": 736, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 46, 
+            "parent": 735, 
+            "level": 2, 
+            "label": "travaux de voirie et d\u2019assainissement", 
+            "lft": 45, 
+            "avise": 71, 
+            "tree_id": 7, 
+            "path": "industrie / voirie, assainissement / travaux de voirie et d\u2019assainissement"
+        }
+    }, 
+    {
+        "pk": 737, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 57, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "Second oeuvre", 
+            "lft": 48, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / Second oeuvre"
+        }
+    }, 
+    {
+        "pk": 738, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 50, 
+            "parent": 737, 
+            "level": 2, 
+            "label": "carrelage", 
+            "lft": 49, 
+            "avise": 72, 
+            "tree_id": 7, 
+            "path": "industrie / Second oeuvre / carrelage"
+        }
+    }, 
+    {
+        "pk": 739, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 52, 
+            "parent": 737, 
+            "level": 2, 
+            "label": "\u00e9lectricit\u00e9", 
+            "lft": 51, 
+            "avise": 73, 
+            "tree_id": 7, 
+            "path": "industrie / Second oeuvre / \u00e9lectricit\u00e9"
+        }
+    }, 
+    {
+        "pk": 740, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 54, 
+            "parent": 737, 
+            "level": 2, 
+            "label": "peinture et rev\u00eatement", 
+            "lft": 53, 
+            "avise": 74, 
+            "tree_id": 7, 
+            "path": "industrie / Second oeuvre / peinture et rev\u00eatement"
+        }
+    }, 
+    {
+        "pk": 741, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 56, 
+            "parent": 737, 
+            "level": 2, 
+            "label": "plomberie", 
+            "lft": 55, 
+            "avise": 75, 
+            "tree_id": 7, 
+            "path": "industrie / Second oeuvre / plomberie"
+        }
+    }, 
+    {
+        "pk": 742, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 61, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "outillage et mat\u00e9riaux", 
+            "lft": 58, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / outillage et mat\u00e9riaux"
+        }
+    }, 
+    {
+        "pk": 743, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 60, 
+            "parent": 742, 
+            "level": 2, 
+            "label": "outillage et mat\u00e9riaux", 
+            "lft": 59, 
+            "avise": 76, 
+            "tree_id": 7, 
+            "path": "industrie / outillage et mat\u00e9riaux / outillage et mat\u00e9riaux"
+        }
+    }, 
+    {
+        "pk": 744, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 65, 
+            "parent": 713, 
+            "level": 1, 
+            "label": "autres activit\u00e9s de construction", 
+            "lft": 62, 
+            "avise": null, 
+            "tree_id": 7, 
+            "path": "industrie / autres activit\u00e9s de construction"
+        }
+    }, 
+    {
+        "pk": 745, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 64, 
+            "parent": 744, 
+            "level": 2, 
+            "label": "autres activit\u00e9s de construction", 
+            "lft": 63, 
+            "avise": 76, 
+            "tree_id": 7, 
+            "path": "industrie / autres activit\u00e9s de construction / autres activit\u00e9s de construction"
+        }
+    }, 
+    {
+        "pk": 746, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 34, 
+            "parent": null, 
+            "level": 0, 
+            "label": "informatique et t\u00e9l\u00e9communications", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications"
+        }
+    }, 
+    {
+        "pk": 747, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 13, 
+            "parent": 746, 
+            "level": 1, 
+            "label": "Equipements informatiques et t\u00e9l\u00e9communications", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / Equipements informatiques et t\u00e9l\u00e9communications"
+        }
+    }, 
+    {
+        "pk": 748, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 747, 
+            "level": 2, 
+            "label": "fabrication  d\u2019\u00e9quipements informatiques", 
+            "lft": 3, 
+            "avise": 77, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / Equipements informatiques et t\u00e9l\u00e9communications / fabrication  d\u2019\u00e9quipements informatiques"
+        }
+    }, 
+    {
+        "pk": 749, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 747, 
+            "level": 2, 
+            "label": "vente de bureautique et de consommables informatiques", 
+            "lft": 5, 
+            "avise": 78, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / Equipements informatiques et t\u00e9l\u00e9communications / vente de bureautique et de consommables informatiques"
+        }
+    }, 
+    {
+        "pk": 750, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 747, 
+            "level": 2, 
+            "label": "Vente de mat\u00e9riels informatiques", 
+            "lft": 7, 
+            "avise": 78, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / Equipements informatiques et t\u00e9l\u00e9communications / Vente de mat\u00e9riels informatiques"
+        }
+    }, 
+    {
+        "pk": 751, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 747, 
+            "level": 2, 
+            "label": "maintenance et r\u00e9paration de mat\u00e9riels informatique", 
+            "lft": 9, 
+            "avise": 79, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / Equipements informatiques et t\u00e9l\u00e9communications / maintenance et r\u00e9paration de mat\u00e9riels informatique"
+        }
+    }, 
+    {
+        "pk": 752, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 747, 
+            "level": 2, 
+            "label": "consommables informatiques", 
+            "lft": 11, 
+            "avise": 80, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / Equipements informatiques et t\u00e9l\u00e9communications / consommables informatiques"
+        }
+    }, 
+    {
+        "pk": 753, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 21, 
+            "parent": 746, 
+            "level": 1, 
+            "label": "d\u00e9veloppement informatique", 
+            "lft": 14, 
+            "avise": null, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / d\u00e9veloppement informatique"
+        }
+    }, 
+    {
+        "pk": 754, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 753, 
+            "level": 2, 
+            "label": "conseil en  informatique", 
+            "lft": 15, 
+            "avise": 81, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / d\u00e9veloppement informatique / conseil en  informatique"
+        }
+    }, 
+    {
+        "pk": 755, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 753, 
+            "level": 2, 
+            "label": "r\u00e9alisation d\u2019applications et de sites web", 
+            "lft": 17, 
+            "avise": 81, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / d\u00e9veloppement informatique / r\u00e9alisation d\u2019applications et de sites web"
+        }
+    }, 
+    {
+        "pk": 756, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 753, 
+            "level": 2, 
+            "label": "autres travaux dans les syst\u00e8mes d\u2019information", 
+            "lft": 19, 
+            "avise": 81, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / d\u00e9veloppement informatique / autres travaux dans les syst\u00e8mes d\u2019information"
+        }
+    }, 
+    {
+        "pk": 757, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 25, 
+            "parent": 746, 
+            "level": 1, 
+            "label": "travaux informatiques de premier niveau", 
+            "lft": 22, 
+            "avise": null, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / travaux informatiques de premier niveau"
+        }
+    }, 
+    {
+        "pk": 758, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 757, 
+            "level": 2, 
+            "label": "mailing, routage, archivage, secr\u00e9tariat, assistance informatique", 
+            "lft": 23, 
+            "avise": 82, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / travaux informatiques de premier niveau / mailing, routage, archivage, secr\u00e9tariat, assistance informatique"
+        }
+    }, 
+    {
+        "pk": 759, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 29, 
+            "parent": 746, 
+            "level": 1, 
+            "label": "t\u00e9l\u00e9communications", 
+            "lft": 26, 
+            "avise": null, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / t\u00e9l\u00e9communications"
+        }
+    }, 
+    {
+        "pk": 760, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 759, 
+            "level": 2, 
+            "label": "T\u00e9l\u00e9communications", 
+            "lft": 27, 
+            "avise": 83, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / t\u00e9l\u00e9communications / T\u00e9l\u00e9communications"
+        }
+    }, 
+    {
+        "pk": 761, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 33, 
+            "parent": 746, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 informatique et t\u00e9l\u00e9communications", 
+            "lft": 30, 
+            "avise": null, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / autres activit\u00e9s li\u00e9es \u00e0 informatique et t\u00e9l\u00e9communications"
+        }
+    }, 
+    {
+        "pk": 762, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 32, 
+            "parent": 761, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 informatique et t\u00e9l\u00e9communications", 
+            "lft": 31, 
+            "avise": 83, 
+            "tree_id": 8, 
+            "path": "informatique et t\u00e9l\u00e9communications / autres activit\u00e9s li\u00e9es \u00e0 informatique et t\u00e9l\u00e9communications / autres activit\u00e9s li\u00e9es \u00e0 informatique et t\u00e9l\u00e9communications"
+        }
+    }, 
+    {
+        "pk": 763, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 38, 
+            "parent": null, 
+            "level": 0, 
+            "label": "communication", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 9, 
+            "path": "communication"
+        }
+    }, 
+    {
+        "pk": 764, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 15, 
+            "parent": 763, 
+            "level": 1, 
+            "label": "marketing, publicit\u00e9", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 9, 
+            "path": "communication / marketing, publicit\u00e9"
+        }
+    }, 
+    {
+        "pk": 765, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 764, 
+            "level": 2, 
+            "label": "Marketing", 
+            "lft": 3, 
+            "avise": 84, 
+            "tree_id": 9, 
+            "path": "communication / marketing, publicit\u00e9 / Marketing"
+        }
+    }, 
+    {
+        "pk": 766, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 764, 
+            "level": 2, 
+            "label": "Publicit\u00e9", 
+            "lft": 5, 
+            "avise": 84, 
+            "tree_id": 9, 
+            "path": "communication / marketing, publicit\u00e9 / Publicit\u00e9"
+        }
+    }, 
+    {
+        "pk": 767, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 764, 
+            "level": 2, 
+            "label": "conseil en communication", 
+            "lft": 7, 
+            "avise": 84, 
+            "tree_id": 9, 
+            "path": "communication / marketing, publicit\u00e9 / conseil en communication"
+        }
+    }, 
+    {
+        "pk": 768, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 764, 
+            "level": 2, 
+            "label": "t\u00e9l\u00e9marketing, centre d'appels", 
+            "lft": 9, 
+            "avise": 85, 
+            "tree_id": 9, 
+            "path": "communication / marketing, publicit\u00e9 / t\u00e9l\u00e9marketing, centre d'appels"
+        }
+    }, 
+    {
+        "pk": 769, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 764, 
+            "level": 2, 
+            "label": "Signal\u00e9tique", 
+            "lft": 11, 
+            "avise": 86, 
+            "tree_id": 9, 
+            "path": "communication / marketing, publicit\u00e9 / Signal\u00e9tique"
+        }
+    }, 
+    {
+        "pk": 770, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 764, 
+            "level": 2, 
+            "label": "Marquage", 
+            "lft": 13, 
+            "avise": 87, 
+            "tree_id": 9, 
+            "path": "communication / marketing, publicit\u00e9 / Marquage"
+        }
+    }, 
+    {
+        "pk": 771, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 21, 
+            "parent": 763, 
+            "level": 1, 
+            "label": "imprimerie, reproduction, graphisme, \u00e9dition", 
+            "lft": 16, 
+            "avise": null, 
+            "tree_id": 9, 
+            "path": "communication / imprimerie, reproduction, graphisme, \u00e9dition"
+        }
+    }, 
+    {
+        "pk": 772, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 771, 
+            "level": 2, 
+            "label": "imprimerie, reprographie", 
+            "lft": 17, 
+            "avise": 88, 
+            "tree_id": 9, 
+            "path": "communication / imprimerie, reproduction, graphisme, \u00e9dition / imprimerie, reprographie"
+        }
+    }, 
+    {
+        "pk": 773, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 771, 
+            "level": 2, 
+            "label": "PAO, infographie, graphisme", 
+            "lft": 19, 
+            "avise": 89, 
+            "tree_id": 9, 
+            "path": "communication / imprimerie, reproduction, graphisme, \u00e9dition / PAO, infographie, graphisme"
+        }
+    }, 
+    {
+        "pk": 774, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 33, 
+            "parent": 763, 
+            "level": 1, 
+            "label": "t\u00e9l\u00e9vision et radio, presse, multim\u00e9dia", 
+            "lft": 22, 
+            "avise": null, 
+            "tree_id": 9, 
+            "path": "communication / t\u00e9l\u00e9vision et radio, presse, multim\u00e9dia"
+        }
+    }, 
+    {
+        "pk": 775, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 774, 
+            "level": 2, 
+            "label": "Audiovisuel", 
+            "lft": 23, 
+            "avise": 90, 
+            "tree_id": 9, 
+            "path": "communication / t\u00e9l\u00e9vision et radio, presse, multim\u00e9dia / Audiovisuel"
+        }
+    }, 
+    {
+        "pk": 776, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": 774, 
+            "level": 2, 
+            "label": "multim\u00e9dia, web", 
+            "lft": 25, 
+            "avise": 91, 
+            "tree_id": 9, 
+            "path": "communication / t\u00e9l\u00e9vision et radio, presse, multim\u00e9dia / multim\u00e9dia, web"
+        }
+    }, 
+    {
+        "pk": 777, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 774, 
+            "level": 2, 
+            "label": "M\u00e9dias", 
+            "lft": 27, 
+            "avise": 84, 
+            "tree_id": 9, 
+            "path": "communication / t\u00e9l\u00e9vision et radio, presse, multim\u00e9dia / M\u00e9dias"
+        }
+    }, 
+    {
+        "pk": 778, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 774, 
+            "level": 2, 
+            "label": "journalisme, r\u00e9daction", 
+            "lft": 29, 
+            "avise": 92, 
+            "tree_id": 9, 
+            "path": "communication / t\u00e9l\u00e9vision et radio, presse, multim\u00e9dia / journalisme, r\u00e9daction"
+        }
+    }, 
+    {
+        "pk": 779, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 32, 
+            "parent": 774, 
+            "level": 2, 
+            "label": "t\u00e9l\u00e9vision et radio", 
+            "lft": 31, 
+            "avise": 84, 
+            "tree_id": 9, 
+            "path": "communication / t\u00e9l\u00e9vision et radio, presse, multim\u00e9dia / t\u00e9l\u00e9vision et radio"
+        }
+    }, 
+    {
+        "pk": 780, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 37, 
+            "parent": 763, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 la communication", 
+            "lft": 34, 
+            "avise": null, 
+            "tree_id": 9, 
+            "path": "communication / autres activit\u00e9s li\u00e9es \u00e0 la communication"
+        }
+    }, 
+    {
+        "pk": 781, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 36, 
+            "parent": 780, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 la communication", 
+            "lft": 35, 
+            "avise": 84, 
+            "tree_id": 9, 
+            "path": "communication / autres activit\u00e9s li\u00e9es \u00e0 la communication / autres activit\u00e9s li\u00e9es \u00e0 la communication"
+        }
+    }, 
+    {
+        "pk": 782, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": null, 
+            "level": 0, 
+            "label": "formation et \u00e9tudes", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes"
+        }
+    }, 
+    {
+        "pk": 783, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 5, 
+            "parent": 782, 
+            "level": 1, 
+            "label": "enseignement", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / enseignement"
+        }
+    }, 
+    {
+        "pk": 784, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 783, 
+            "level": 2, 
+            "label": "enseignement", 
+            "lft": 3, 
+            "avise": 22, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / enseignement / enseignement"
+        }
+    }, 
+    {
+        "pk": 785, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 9, 
+            "parent": 782, 
+            "level": 1, 
+            "label": "recherche", 
+            "lft": 6, 
+            "avise": null, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / recherche"
+        }
+    }, 
+    {
+        "pk": 786, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 785, 
+            "level": 2, 
+            "label": "Recherche", 
+            "lft": 7, 
+            "avise": 22, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / recherche / Recherche"
+        }
+    }, 
+    {
+        "pk": 787, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 13, 
+            "parent": 782, 
+            "level": 1, 
+            "label": "Etudes/conseil", 
+            "lft": 10, 
+            "avise": null, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / Etudes/conseil"
+        }
+    }, 
+    {
+        "pk": 788, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 787, 
+            "level": 2, 
+            "label": "\u00e9tudes/conseil", 
+            "lft": 11, 
+            "avise": 22, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / Etudes/conseil / \u00e9tudes/conseil"
+        }
+    }, 
+    {
+        "pk": 789, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 17, 
+            "parent": 782, 
+            "level": 1, 
+            "label": "activit\u00e9s de soutien \u00e0 l\u2019enseignement", 
+            "lft": 14, 
+            "avise": null, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / activit\u00e9s de soutien \u00e0 l\u2019enseignement"
+        }
+    }, 
+    {
+        "pk": 790, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 789, 
+            "level": 2, 
+            "label": "activit\u00e9s de soutien \u00e0 l\u2019enseignement", 
+            "lft": 15, 
+            "avise": 22, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / activit\u00e9s de soutien \u00e0 l\u2019enseignement / activit\u00e9s de soutien \u00e0 l\u2019enseignement"
+        }
+    }, 
+    {
+        "pk": 791, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 21, 
+            "parent": 782, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 formation et \u00e9tudes", 
+            "lft": 18, 
+            "avise": null, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / autres activit\u00e9s li\u00e9es \u00e0 formation et \u00e9tudes"
+        }
+    }, 
+    {
+        "pk": 792, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 791, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 formation et \u00e9tudes", 
+            "lft": 19, 
+            "avise": 22, 
+            "tree_id": 10, 
+            "path": "formation et \u00e9tudes / autres activit\u00e9s li\u00e9es \u00e0 formation et \u00e9tudes / autres activit\u00e9s li\u00e9es \u00e0 formation et \u00e9tudes"
+        }
+    }, 
+    {
+        "pk": 793, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": null, 
+            "level": 0, 
+            "label": "services aux entreprises", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 11, 
+            "path": "services aux entreprises"
+        }
+    }, 
+    {
+        "pk": 794, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 5, 
+            "parent": 793, 
+            "level": 1, 
+            "label": "ressources Humaines", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / ressources Humaines"
+        }
+    }, 
+    {
+        "pk": 795, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 794, 
+            "level": 2, 
+            "label": "ressources humaines", 
+            "lft": 3, 
+            "avise": 93, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / ressources Humaines / ressources humaines"
+        }
+    }, 
+    {
+        "pk": 796, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 9, 
+            "parent": 793, 
+            "level": 1, 
+            "label": "activit\u00e9s juridiques", 
+            "lft": 6, 
+            "avise": null, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / activit\u00e9s juridiques"
+        }
+    }, 
+    {
+        "pk": 797, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 796, 
+            "level": 2, 
+            "label": "activit\u00e9s juridiques", 
+            "lft": 7, 
+            "avise": 93, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / activit\u00e9s juridiques / activit\u00e9s juridiques"
+        }
+    }, 
+    {
+        "pk": 798, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 13, 
+            "parent": 793, 
+            "level": 1, 
+            "label": "fournitures de bureau", 
+            "lft": 10, 
+            "avise": null, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / fournitures de bureau"
+        }
+    }, 
+    {
+        "pk": 799, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 798, 
+            "level": 2, 
+            "label": "fournitures de bureau", 
+            "lft": 11, 
+            "avise": 94, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / fournitures de bureau / fournitures de bureau"
+        }
+    }, 
+    {
+        "pk": 800, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 19, 
+            "parent": 793, 
+            "level": 1, 
+            "label": "activit\u00e9s comptables et secr\u00e9tariat", 
+            "lft": 14, 
+            "avise": null, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / activit\u00e9s comptables et secr\u00e9tariat"
+        }
+    }, 
+    {
+        "pk": 801, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 800, 
+            "level": 2, 
+            "label": "comptabilit\u00e9", 
+            "lft": 15, 
+            "avise": 95, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / activit\u00e9s comptables et secr\u00e9tariat / comptabilit\u00e9"
+        }
+    }, 
+    {
+        "pk": 802, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 800, 
+            "level": 2, 
+            "label": "Secr\u00e9tariat", 
+            "lft": 17, 
+            "avise": 95, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / activit\u00e9s comptables et secr\u00e9tariat / Secr\u00e9tariat"
+        }
+    }, 
+    {
+        "pk": 803, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 23, 
+            "parent": 793, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 gestion, management, activit\u00e9s de bureau", 
+            "lft": 20, 
+            "avise": null, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / autres activit\u00e9s li\u00e9es \u00e0 gestion, management, activit\u00e9s de bureau"
+        }
+    }, 
+    {
+        "pk": 804, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 803, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 gestion, management, activit\u00e9s de bureau", 
+            "lft": 21, 
+            "avise": 93, 
+            "tree_id": 11, 
+            "path": "services aux entreprises / autres activit\u00e9s li\u00e9es \u00e0 gestion, management, activit\u00e9s de bureau / autres activit\u00e9s li\u00e9es \u00e0 gestion, management, activit\u00e9s de bureau"
+        }
+    }, 
+    {
+        "pk": 805, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": null, 
+            "level": 0, 
+            "label": "finances", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 12, 
+            "path": "finances"
+        }
+    }, 
+    {
+        "pk": 806, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 7, 
+            "parent": 805, 
+            "level": 1, 
+            "label": "banques et soci\u00e9t\u00e9s financi\u00e8res", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 12, 
+            "path": "finances / banques et soci\u00e9t\u00e9s financi\u00e8res"
+        }
+    }, 
+    {
+        "pk": 807, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 806, 
+            "level": 2, 
+            "label": "\u00e9pargne", 
+            "lft": 3, 
+            "avise": 22, 
+            "tree_id": 12, 
+            "path": "finances / banques et soci\u00e9t\u00e9s financi\u00e8res / \u00e9pargne"
+        }
+    }, 
+    {
+        "pk": 808, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 806, 
+            "level": 2, 
+            "label": "financement", 
+            "lft": 5, 
+            "avise": 22, 
+            "tree_id": 12, 
+            "path": "finances / banques et soci\u00e9t\u00e9s financi\u00e8res / financement"
+        }
+    }, 
+    {
+        "pk": 809, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 11, 
+            "parent": 805, 
+            "level": 1, 
+            "label": "assurances", 
+            "lft": 8, 
+            "avise": null, 
+            "tree_id": 12, 
+            "path": "finances / assurances"
+        }
+    }, 
+    {
+        "pk": 810, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 809, 
+            "level": 2, 
+            "label": "Assurances", 
+            "lft": 9, 
+            "avise": 22, 
+            "tree_id": 12, 
+            "path": "finances / assurances / Assurances"
+        }
+    }, 
+    {
+        "pk": 811, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 15, 
+            "parent": 805, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 Finances et banque", 
+            "lft": 12, 
+            "avise": null, 
+            "tree_id": 12, 
+            "path": "finances / autres activit\u00e9s li\u00e9es \u00e0 Finances et banque"
+        }
+    }, 
+    {
+        "pk": 812, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 811, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 Finances et banque", 
+            "lft": 13, 
+            "avise": 22, 
+            "tree_id": 12, 
+            "path": "finances / autres activit\u00e9s li\u00e9es \u00e0 Finances et banque / autres activit\u00e9s li\u00e9es \u00e0 Finances et banque"
+        }
+    }, 
+    {
+        "pk": 813, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 36, 
+            "parent": null, 
+            "level": 0, 
+            "label": "Social, sant\u00e9 et emploi", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi"
+        }
+    }, 
+    {
+        "pk": 814, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 11, 
+            "parent": 813, 
+            "level": 1, 
+            "label": "Emploi", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Emploi"
+        }
+    }, 
+    {
+        "pk": 815, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 814, 
+            "level": 2, 
+            "label": "services \u00e0 la personne", 
+            "lft": 3, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Emploi / services \u00e0 la personne"
+        }
+    }, 
+    {
+        "pk": 816, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 6, 
+            "parent": 814, 
+            "level": 2, 
+            "label": "cr\u00e9ation, accompagnement et d\u00e9veloppement d\u2019activit\u00e9s", 
+            "lft": 5, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Emploi / cr\u00e9ation, accompagnement et d\u00e9veloppement d\u2019activit\u00e9s"
+        }
+    }, 
+    {
+        "pk": 817, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 814, 
+            "level": 2, 
+            "label": "mise \u00e0 disposition de personnel", 
+            "lft": 7, 
+            "avise": 96, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Emploi / mise \u00e0 disposition de personnel"
+        }
+    }, 
+    {
+        "pk": 818, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 814, 
+            "level": 2, 
+            "label": "travail temporaire", 
+            "lft": 9, 
+            "avise": 97, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Emploi / travail temporaire"
+        }
+    }, 
+    {
+        "pk": 819, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 21, 
+            "parent": 813, 
+            "level": 1, 
+            "label": "Social", 
+            "lft": 12, 
+            "avise": null, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Social"
+        }
+    }, 
+    {
+        "pk": 820, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 819, 
+            "level": 2, 
+            "label": "petite enfance", 
+            "lft": 13, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Social / petite enfance"
+        }
+    }, 
+    {
+        "pk": 821, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 819, 
+            "level": 2, 
+            "label": "personnes \u00e2g\u00e9es", 
+            "lft": 15, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Social / personnes \u00e2g\u00e9es"
+        }
+    }, 
+    {
+        "pk": 822, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 18, 
+            "parent": 819, 
+            "level": 2, 
+            "label": "handicap", 
+            "lft": 17, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Social / handicap"
+        }
+    }, 
+    {
+        "pk": 823, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 819, 
+            "level": 2, 
+            "label": "Insertion sociale", 
+            "lft": 19, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / Social / Insertion sociale"
+        }
+    }, 
+    {
+        "pk": 824, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 31, 
+            "parent": 813, 
+            "level": 1, 
+            "label": "sant\u00e9 et bien \u00eatre", 
+            "lft": 22, 
+            "avise": null, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / sant\u00e9 et bien \u00eatre"
+        }
+    }, 
+    {
+        "pk": 825, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 824, 
+            "level": 2, 
+            "label": "Activit\u00e9s m\u00e9dico-sociales", 
+            "lft": 23, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / sant\u00e9 et bien \u00eatre / Activit\u00e9s m\u00e9dico-sociales"
+        }
+    }, 
+    {
+        "pk": 826, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": 824, 
+            "level": 2, 
+            "label": "Centres m\u00e9dicaux", 
+            "lft": 25, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / sant\u00e9 et bien \u00eatre / Centres m\u00e9dicaux"
+        }
+    }, 
+    {
+        "pk": 827, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 824, 
+            "level": 2, 
+            "label": "Cosm\u00e9tiques", 
+            "lft": 27, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / sant\u00e9 et bien \u00eatre / Cosm\u00e9tiques"
+        }
+    }, 
+    {
+        "pk": 828, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 824, 
+            "level": 2, 
+            "label": "Hygi\u00e8ne", 
+            "lft": 29, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / sant\u00e9 et bien \u00eatre / Hygi\u00e8ne"
+        }
+    }, 
+    {
+        "pk": 829, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 35, 
+            "parent": 813, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 sant\u00e9, social, emploi", 
+            "lft": 32, 
+            "avise": null, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / autres activit\u00e9s li\u00e9es \u00e0 sant\u00e9, social, emploi"
+        }
+    }, 
+    {
+        "pk": 830, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 34, 
+            "parent": 829, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 sant\u00e9, social, emploi", 
+            "lft": 33, 
+            "avise": 22, 
+            "tree_id": 13, 
+            "path": "Social, sant\u00e9 et emploi / autres activit\u00e9s li\u00e9es \u00e0 sant\u00e9, social, emploi / autres activit\u00e9s li\u00e9es \u00e0 sant\u00e9, social, emploi"
+        }
+    }, 
+    {
+        "pk": 831, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 40, 
+            "parent": null, 
+            "level": 0, 
+            "label": "culture", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture"
+        }
+    }, 
+    {
+        "pk": 832, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 5, 
+            "parent": 831, 
+            "level": 1, 
+            "label": "production et organisation d\u2019\u00e9v\u00e8nements et de spectacle", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture / production et organisation d\u2019\u00e9v\u00e8nements et de spectacle"
+        }
+    }, 
+    {
+        "pk": 833, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 832, 
+            "level": 2, 
+            "label": "\u00e9v\u00e8nements et spectacles", 
+            "lft": 3, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / production et organisation d\u2019\u00e9v\u00e8nements et de spectacle / \u00e9v\u00e8nements et spectacles"
+        }
+    }, 
+    {
+        "pk": 834, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 13, 
+            "parent": 831, 
+            "level": 1, 
+            "label": "th\u00e9\u00e2tre, danse, musique", 
+            "lft": 6, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture / th\u00e9\u00e2tre, danse, musique"
+        }
+    }, 
+    {
+        "pk": 835, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 834, 
+            "level": 2, 
+            "label": "Th\u00e9\u00e2tre", 
+            "lft": 7, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / th\u00e9\u00e2tre, danse, musique / Th\u00e9\u00e2tre"
+        }
+    }, 
+    {
+        "pk": 836, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 834, 
+            "level": 2, 
+            "label": "Danse", 
+            "lft": 9, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / th\u00e9\u00e2tre, danse, musique / Danse"
+        }
+    }, 
+    {
+        "pk": 837, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 834, 
+            "level": 2, 
+            "label": "Musique", 
+            "lft": 11, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / th\u00e9\u00e2tre, danse, musique / Musique"
+        }
+    }, 
+    {
+        "pk": 838, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 17, 
+            "parent": 831, 
+            "level": 1, 
+            "label": "cin\u00e9ma", 
+            "lft": 14, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture / cin\u00e9ma"
+        }
+    }, 
+    {
+        "pk": 839, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 838, 
+            "level": 2, 
+            "label": "cin\u00e9ma", 
+            "lft": 15, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / cin\u00e9ma / cin\u00e9ma"
+        }
+    }, 
+    {
+        "pk": 840, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 27, 
+            "parent": 831, 
+            "level": 1, 
+            "label": "dessin, peinture, sculpture, arts plastiques", 
+            "lft": 18, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture / dessin, peinture, sculpture, arts plastiques"
+        }
+    }, 
+    {
+        "pk": 841, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 840, 
+            "level": 2, 
+            "label": "Dessin", 
+            "lft": 19, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / dessin, peinture, sculpture, arts plastiques / Dessin"
+        }
+    }, 
+    {
+        "pk": 842, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 840, 
+            "level": 2, 
+            "label": "Peinture", 
+            "lft": 21, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / dessin, peinture, sculpture, arts plastiques / Peinture"
+        }
+    }, 
+    {
+        "pk": 843, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 840, 
+            "level": 2, 
+            "label": "Sculpture", 
+            "lft": 23, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / dessin, peinture, sculpture, arts plastiques / Sculpture"
+        }
+    }, 
+    {
+        "pk": 844, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": 840, 
+            "level": 2, 
+            "label": "Arts plastiques", 
+            "lft": 25, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / dessin, peinture, sculpture, arts plastiques / Arts plastiques"
+        }
+    }, 
+    {
+        "pk": 845, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 31, 
+            "parent": 831, 
+            "level": 1, 
+            "label": "Litt\u00e9rature", 
+            "lft": 28, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture / Litt\u00e9rature"
+        }
+    }, 
+    {
+        "pk": 846, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": 845, 
+            "level": 2, 
+            "label": "litt\u00e9rature", 
+            "lft": 29, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / Litt\u00e9rature / litt\u00e9rature"
+        }
+    }, 
+    {
+        "pk": 847, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 35, 
+            "parent": 831, 
+            "level": 1, 
+            "label": "patrimoine, mus\u00e9es", 
+            "lft": 32, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture / patrimoine, mus\u00e9es"
+        }
+    }, 
+    {
+        "pk": 848, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 34, 
+            "parent": 847, 
+            "level": 2, 
+            "label": "patrimoine, mus\u00e9es", 
+            "lft": 33, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / patrimoine, mus\u00e9es / patrimoine, mus\u00e9es"
+        }
+    }, 
+    {
+        "pk": 849, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 39, 
+            "parent": 831, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 culture, art\u2026", 
+            "lft": 36, 
+            "avise": null, 
+            "tree_id": 14, 
+            "path": "culture / autres activit\u00e9s li\u00e9es \u00e0 culture, art\u2026"
+        }
+    }, 
+    {
+        "pk": 850, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 38, 
+            "parent": 849, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 culture, art\u2026", 
+            "lft": 37, 
+            "avise": 22, 
+            "tree_id": 14, 
+            "path": "culture / autres activit\u00e9s li\u00e9es \u00e0 culture, art\u2026 / autres activit\u00e9s li\u00e9es \u00e0 culture, art\u2026"
+        }
+    }, 
+    {
+        "pk": 851, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 30, 
+            "parent": null, 
+            "level": 0, 
+            "label": "loisirs", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 15, 
+            "path": "loisirs"
+        }
+    }, 
+    {
+        "pk": 852, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 5, 
+            "parent": 851, 
+            "level": 1, 
+            "label": "Sport", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 15, 
+            "path": "loisirs / Sport"
+        }
+    }, 
+    {
+        "pk": 853, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 852, 
+            "level": 2, 
+            "label": "sport", 
+            "lft": 3, 
+            "avise": 22, 
+            "tree_id": 15, 
+            "path": "loisirs / Sport / sport"
+        }
+    }, 
+    {
+        "pk": 854, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 11, 
+            "parent": 851, 
+            "level": 1, 
+            "label": "Animation", 
+            "lft": 6, 
+            "avise": null, 
+            "tree_id": 15, 
+            "path": "loisirs / Animation"
+        }
+    }, 
+    {
+        "pk": 855, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 854, 
+            "level": 2, 
+            "label": "Animation", 
+            "lft": 7, 
+            "avise": 22, 
+            "tree_id": 15, 
+            "path": "loisirs / Animation / Animation"
+        }
+    }, 
+    {
+        "pk": 856, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 10, 
+            "parent": 854, 
+            "level": 2, 
+            "label": "Jeux et jouets", 
+            "lft": 9, 
+            "avise": 22, 
+            "tree_id": 15, 
+            "path": "loisirs / Animation / Jeux et jouets"
+        }
+    }, 
+    {
+        "pk": 857, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 17, 
+            "parent": 851, 
+            "level": 1, 
+            "label": "Tourisme", 
+            "lft": 12, 
+            "avise": null, 
+            "tree_id": 15, 
+            "path": "loisirs / Tourisme"
+        }
+    }, 
+    {
+        "pk": 858, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 14, 
+            "parent": 857, 
+            "level": 2, 
+            "label": "\u00e0 l\u2019\u00e9tranger", 
+            "lft": 13, 
+            "avise": 98, 
+            "tree_id": 15, 
+            "path": "loisirs / Tourisme / \u00e0 l\u2019\u00e9tranger"
+        }
+    }, 
+    {
+        "pk": 859, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 857, 
+            "level": 2, 
+            "label": "En France", 
+            "lft": 15, 
+            "avise": 98, 
+            "tree_id": 15, 
+            "path": "loisirs / Tourisme / En France"
+        }
+    }, 
+    {
+        "pk": 860, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 25, 
+            "parent": 851, 
+            "level": 1, 
+            "label": "h\u00f4tellerie, gite, camping", 
+            "lft": 18, 
+            "avise": null, 
+            "tree_id": 15, 
+            "path": "loisirs / h\u00f4tellerie, gite, camping"
+        }
+    }, 
+    {
+        "pk": 861, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 860, 
+            "level": 2, 
+            "label": "H\u00f4tellerie", 
+            "lft": 19, 
+            "avise": 99, 
+            "tree_id": 15, 
+            "path": "loisirs / h\u00f4tellerie, gite, camping / H\u00f4tellerie"
+        }
+    }, 
+    {
+        "pk": 862, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 22, 
+            "parent": 860, 
+            "level": 2, 
+            "label": "G\u00eete, camping, chambre d\u2019h\u00f4te", 
+            "lft": 21, 
+            "avise": 99, 
+            "tree_id": 15, 
+            "path": "loisirs / h\u00f4tellerie, gite, camping / G\u00eete, camping, chambre d\u2019h\u00f4te"
+        }
+    }, 
+    {
+        "pk": 863, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 860, 
+            "level": 2, 
+            "label": "location de salles (s\u00e9minaires, conf\u00e9rences\u2026)", 
+            "lft": 23, 
+            "avise": 100, 
+            "tree_id": 15, 
+            "path": "loisirs / h\u00f4tellerie, gite, camping / location de salles (s\u00e9minaires, conf\u00e9rences\u2026)"
+        }
+    }, 
+    {
+        "pk": 864, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 29, 
+            "parent": 851, 
+            "level": 1, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 Loisir et sports, tourisme, h\u00e9bergement", 
+            "lft": 26, 
+            "avise": null, 
+            "tree_id": 15, 
+            "path": "loisirs / autres activit\u00e9s li\u00e9es \u00e0 Loisir et sports, tourisme, h\u00e9bergement"
+        }
+    }, 
+    {
+        "pk": 865, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 28, 
+            "parent": 864, 
+            "level": 2, 
+            "label": "autres activit\u00e9s li\u00e9es \u00e0 Loisir et sports, tourisme, h\u00e9bergement", 
+            "lft": 27, 
+            "avise": 22, 
+            "tree_id": 15, 
+            "path": "loisirs / autres activit\u00e9s li\u00e9es \u00e0 Loisir et sports, tourisme, h\u00e9bergement / autres activit\u00e9s li\u00e9es \u00e0 Loisir et sports, tourisme, h\u00e9bergement"
+        }
+    }, 
+    {
+        "pk": 866, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 26, 
+            "parent": null, 
+            "level": 0, 
+            "label": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement", 
+            "lft": 1, 
+            "avise": null, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement"
+        }
+    }, 
+    {
+        "pk": 867, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 5, 
+            "parent": 866, 
+            "level": 1, 
+            "label": "coop\u00e9ration internationale", 
+            "lft": 2, 
+            "avise": null, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / coop\u00e9ration internationale"
+        }
+    }, 
+    {
+        "pk": 868, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 4, 
+            "parent": 867, 
+            "level": 2, 
+            "label": "coop\u00e9ration internationale", 
+            "lft": 3, 
+            "avise": 22, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / coop\u00e9ration internationale / coop\u00e9ration internationale"
+        }
+    }, 
+    {
+        "pk": 869, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 9, 
+            "parent": 866, 
+            "level": 1, 
+            "label": "coop\u00e9ration europ\u00e9enne", 
+            "lft": 6, 
+            "avise": null, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / coop\u00e9ration europ\u00e9enne"
+        }
+    }, 
+    {
+        "pk": 870, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 8, 
+            "parent": 869, 
+            "level": 2, 
+            "label": "coop\u00e9ration europ\u00e9enne", 
+            "lft": 7, 
+            "avise": 22, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / coop\u00e9ration europ\u00e9enne / coop\u00e9ration europ\u00e9enne"
+        }
+    }, 
+    {
+        "pk": 871, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 13, 
+            "parent": 866, 
+            "level": 1, 
+            "label": "activit\u00e9s d\u2019\u00e9change et de coop\u00e9ration", 
+            "lft": 10, 
+            "avise": null, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / activit\u00e9s d\u2019\u00e9change et de coop\u00e9ration"
+        }
+    }, 
+    {
+        "pk": 872, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 12, 
+            "parent": 871, 
+            "level": 2, 
+            "label": "monnaies compl\u00e9mentaires", 
+            "lft": 11, 
+            "avise": 22, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / activit\u00e9s d\u2019\u00e9change et de coop\u00e9ration / monnaies compl\u00e9mentaires"
+        }
+    }, 
+    {
+        "pk": 873, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 17, 
+            "parent": 866, 
+            "level": 1, 
+            "label": "Coop\u00e9ration et \u00e9changes entre structures", 
+            "lft": 14, 
+            "avise": null, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / Coop\u00e9ration et \u00e9changes entre structures"
+        }
+    }, 
+    {
+        "pk": 874, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 16, 
+            "parent": 873, 
+            "level": 2, 
+            "label": "soutien \u00e0 l\u2019ESS", 
+            "lft": 15, 
+            "avise": 22, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / Coop\u00e9ration et \u00e9changes entre structures / soutien \u00e0 l\u2019ESS"
+        }
+    }, 
+    {
+        "pk": 875, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 21, 
+            "parent": 866, 
+            "level": 1, 
+            "label": "soutien aux associations", 
+            "lft": 18, 
+            "avise": null, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / soutien aux associations"
+        }
+    }, 
+    {
+        "pk": 876, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 20, 
+            "parent": 875, 
+            "level": 2, 
+            "label": "Soutien \u00e0 la consommation responsable", 
+            "lft": 19, 
+            "avise": 22, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / soutien aux associations / Soutien \u00e0 la consommation responsable"
+        }
+    }, 
+    {
+        "pk": 877, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 25, 
+            "parent": 866, 
+            "level": 1, 
+            "label": "autres activit\u00e9s non class\u00e9es", 
+            "lft": 22, 
+            "avise": null, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / autres activit\u00e9s non class\u00e9es"
+        }
+    }, 
+    {
+        "pk": 878, 
+        "model": "coop_local.activitynomenclature", 
+        "fields": {
+            "rght": 24, 
+            "parent": 877, 
+            "level": 2, 
+            "label": "autres activit\u00e9s non class\u00e9es", 
+            "lft": 23, 
+            "avise": 22, 
+            "tree_id": 16, 
+            "path": "activit\u00e9s transversales\u00a0: coop\u00e9ration, \u00e9changes, d\u00e9veloppement / autres activit\u00e9s non class\u00e9es / autres activit\u00e9s non class\u00e9es"
+        }
+    }
+]

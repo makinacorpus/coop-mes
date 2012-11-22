@@ -4,10 +4,12 @@ from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 from coop.org.admin import OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline, EngagementInline
 from coop_local.models import (LegalStatus, OrganizationCategoryIAE, OrganizationDocument,
-    OrganizationGuaranty, OrganizationReference)
+    OrganizationGuaranty, OrganizationReference, ActivityNomenclature, ActivityNomenclatureAvise)
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
+from mptt.admin import MPTTModelAdmin
+from coop.utils.autocomplete_admin import FkAutocompleteAdmin
 
 try:
     from coop.base_admin import *
@@ -117,3 +119,14 @@ admin.site.register(Organization, MyOrganizationAdmin)
 admin.site.register(LegalStatus)
 admin.site.register(OrganizationCategoryIAE)
 admin.site.register(OrganizationGuaranty)
+
+
+class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
+
+    related_search_fields = {'avise': ('label',), 'parent': ('path',)}
+    mptt_indent_field = 'label'
+    mptt_level_indent = 50
+    list_display = ('label', )
+
+admin.site.register(ActivityNomenclature, ActivityNomenclatureAdmin)
+admin.site.register(ActivityNomenclatureAvise)
