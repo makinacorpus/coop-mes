@@ -6,6 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from django_extensions.db import fields as exfields
 from django.core.validators import RegexValidator
 from mptt.models import MPTTModel, TreeForeignKey
+from coop_geo.models import AreaLink
+from django.contrib.contenttypes import generic
+
 
 # Use Choices() !
 # ETAT = ((0, 'Inconnu'),
@@ -192,6 +195,19 @@ class ActivityNomenclature(MPTTModel):
         ordering = ['tree_id', 'lft'] # needed for TreeEditor
 
 
+class ClientTarget(models.Model):
+
+    label = models.CharField(_(u'label'), max_length=100, unique=True)
+
+    def __unicode__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = _(u'client target')
+        verbose_name_plural = _(u'client targets')
+        app_label = 'coop_local'
+
+
 ORGANIZATION_STATUSES = Choices(
     ('PROPOSED', 'P', _(u'Proposed')),
     ('VALIDATED', 'V', _(u'Validated')),
@@ -251,3 +267,24 @@ Organization._meta.get_field('title').verbose_name = _(u'corporate name')
 Organization._meta.get_field('category').verbose_name = _(u'organization category ESS')
 Organization._meta.get_field('description').verbose_name = _(u'general presentation')
 Organization._meta.get_field('description').max_length = 3000
+
+
+class Offer(models.Model):
+
+    activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'))
+    description = models.TextField(_(u'description'), blank=True)
+    target = models.ForeignKey('ClientTarget', verbose_name=_(u'client target'))
+    valuation = models.TextField(_(u'product or service valuation'), blank=True)
+    technical_means = models.TextField(_(u'technical means'), blank=True)
+    workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
+    #framed = generic.GenericRelation('AreaLink')
+    provider = models.ForeignKey('Organization', verbose_name=_('provider'))
+
+    def __unicode__(self):
+
+        return unicode(self.activity)
+
+    class Meta:
+        verbose_name = _(u'Offer')
+        verbose_name_plural = _(u'Offers')
+        app_label = 'coop_local'

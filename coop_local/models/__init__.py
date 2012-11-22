@@ -26,6 +26,7 @@ if "coop_tag" in settings.INSTALLED_APPS:
             help_text="Une liste de tags avec des virgules")
     t.contribute_to_class(Organization, "tags")
     t.contribute_to_class(Person, "tags")
+    t.contribute_to_class(Offer, "tags")
     if "coop_cms" in settings.INSTALLED_APPS:
         t.contribute_to_class(Article, "tags")
     if "coop.exchange" in settings.INSTALLED_APPS:

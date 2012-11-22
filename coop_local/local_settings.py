@@ -43,7 +43,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     #'coop.agenda',
     #'coop.article',
     #'coop.mailing',
-    'coop.exchange',
+    #'coop.exchange',
     #'coop.webid',
     'coop_local',
      # coop optional modules

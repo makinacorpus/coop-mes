@@ -4,12 +4,12 @@ from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 from coop.org.admin import OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline, EngagementInline
 from coop_local.models import (LegalStatus, OrganizationCategoryIAE, OrganizationDocument,
-    OrganizationGuaranty, OrganizationReference, ActivityNomenclature, ActivityNomenclatureAvise)
+    OrganizationGuaranty, OrganizationReference, ActivityNomenclature, ActivityNomenclatureAvise, Offer)
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
 from mptt.admin import MPTTModelAdmin
-from coop.utils.autocomplete_admin import FkAutocompleteAdmin
+from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
 
 try:
     from coop.base_admin import *
@@ -69,6 +69,26 @@ class ReferenceInline(admin.TabularInline):
     extra = 1
 
 
+class OfferAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = get_model('coop_local', 'Offer')
+
+    def __init__(self, *args, **kwargs):
+        super(OfferAdminForm, self).__init__(*args, **kwargs)
+        self.fields['activity'].help_text = None
+
+
+class OfferInline(admin.StackedInline, InlineAutocompleteAdmin):
+
+    model = Offer
+    form = OfferAdminForm
+    verbose_name = _(u'offer')
+    verbose_name_plural = _(u'offers')
+    extra = 1
+    related_search_fields = {'activity': ('path',)}
+
+
 class MyOrganizationAdminForm(OrganizationAdminForm):
 
     class Meta:
@@ -111,7 +131,7 @@ class MyOrganizationAdmin(OrganizationAdmin):
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
     )
-    inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline]
+    inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
 
 admin.site.unregister(Organization)
 admin.site.register(Organization, MyOrganizationAdmin)
@@ -130,3 +150,4 @@ class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
 
 admin.site.register(ActivityNomenclature, ActivityNomenclatureAdmin)
 admin.site.register(ActivityNomenclatureAvise)
+admin.site.register(ClientTarget)
