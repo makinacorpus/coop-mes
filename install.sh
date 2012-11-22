@@ -38,3 +38,4 @@ bin/python manage.py loaddata coop_local/fixtures/organizationcategory.json
 bin/python manage.py loaddata coop_local/fixtures/organizationcategoryiae.json
 bin/python manage.py loaddata coop_local/fixtures/activitynomenclatureavise.json
 bin/python manage.py loaddata coop_local/fixtures/activitynomenclature.json
+bin/python manage.py loaddata coop_local/fixtures/clienttarget.json
