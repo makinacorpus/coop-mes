@@ -11,13 +11,9 @@ admin.autodiscover()
 
 
 # Add you own URLs here
-urlpatterns = []
-
-# urlpatterns += patterns('',
-#	 url(r'^$', 'coop_local.views.home', name="home"),
-#    url(r'^org/$', 'coop_local.views.org_list', name="org_list"), #view coop
-
-# )
+urlpatterns = patterns('',
+    ('^$', 'django.views.generic.simple.redirect_to', {'url': '/admin', 'permanent': False}),
+)
 
 
 from coop.default_project_urls import urlpatterns as default_project_urls
