@@ -48,10 +48,10 @@ class CustomMenu(Menu):
                         #items.MenuItem(_('Tag trees'), '/admin/coop_local/navtree/'),
                         #]),
 
-                    #items.MenuItem(_('Django'), '#', icon='icon-coop icon-django', children=[
-                        #items.MenuItem(_('Users'), '/admin/auth/user/'),
-                        #items.MenuItem(_('Sites'), '/admin/sites/site/'),
-                        #]),
+                    items.MenuItem(_('Django'), '#', icon='icon-coop icon-django', children=[
+                        items.MenuItem(_('Users'), '/admin/auth/user/'),
+                        items.MenuItem(_('Sites'), '/admin/sites/site/'),
+                        ]),
                 #]
             #),
 
