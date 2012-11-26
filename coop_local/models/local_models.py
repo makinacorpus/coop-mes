@@ -4,7 +4,7 @@ from extended_choices import Choices
 from coop.org.models import BaseOrganization, BaseOrganizationCategory
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db import fields as exfields
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MaxLengthValidator
 from mptt.models import MPTTModel, TreeForeignKey
 from coop_geo.models import AreaLink
 from django.contrib.contenttypes import generic
@@ -266,16 +266,16 @@ class Organization(BaseOrganization):
 Organization._meta.get_field('title').verbose_name = _(u'corporate name')
 Organization._meta.get_field('category').verbose_name = _(u'organization category ESS')
 Organization._meta.get_field('description').verbose_name = _(u'general presentation')
-Organization._meta.get_field('description').max_length = 3000
+Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
 
 
 class Offer(models.Model):
 
     activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'))
-    description = models.TextField(_(u'description'), blank=True)
+    description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)])
     target = models.ForeignKey('ClientTarget', verbose_name=_(u'client target'))
     valuation = models.TextField(_(u'product or service valuation'), blank=True)
-    technical_means = models.TextField(_(u'technical means'), blank=True)
+    technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
     workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
     #framed = generic.GenericRelation('AreaLink')
     provider = models.ForeignKey('Organization', verbose_name=_('provider'))
