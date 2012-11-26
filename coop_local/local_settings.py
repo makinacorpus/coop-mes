@@ -64,3 +64,13 @@ SYMPA_SOAP = {
 ADMIN_TOOLS_MENU = 'coop_local.ui.menu.CustomMenu'
 ADMIN_TOOLS_INDEX_DASHBOARD = 'coop_local.ui.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_THEMING_CSS = 'css/coop_local_bootstrap_theming.css'
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "advanced",
+    'relative_urls': False,
+    'width': '617px', 'height': '220px',
+    'theme_advanced_toolbar_location': 'top',
+    'theme_advanced_statusbar_location': 'none',
+    'theme_advanced_buttons1': 'bold,italic,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,unlink,|,code',
+    'theme_advanced_buttons2': '', 'theme_advanced_buttons3': ''
+}
