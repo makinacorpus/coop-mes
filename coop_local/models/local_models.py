@@ -277,6 +277,7 @@ class Offer(models.Model):
     valuation = models.TextField(_(u'product or service valuation'), blank=True)
     technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
     workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
+    practical_modalities = models.TextField(_(u'practical modalities'), blank=True, validators = [MaxLengthValidator(400)])
     #framed = generic.GenericRelation('AreaLink')
     provider = models.ForeignKey('Organization', verbose_name=_('provider'))
 

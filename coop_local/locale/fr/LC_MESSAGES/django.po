@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-22 18:06+0100\n"
+"POT-Creation-Date: 2012-11-26 17:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: admin.py:59
+#: admin.py:60
 msgid "document"
 msgstr "document"
 
-#: admin.py:60
+#: admin.py:61
 msgid "documents"
 msgstr "documents"
 
-#: admin.py:67 models/local_models.py:155
+#: admin.py:68 models/local_models.py:155
 msgid "reference"
 msgstr "référence"
 
-#: admin.py:68 models/local_models.py:156
+#: admin.py:69 models/local_models.py:156
 msgid "references"
 msgstr "références"
 
-#: admin.py:75
+#: admin.py:87
 msgid "offer"
 msgstr "offre"
 
-#: admin.py:76
+#: admin.py:88
 msgid "offers"
 msgstr "offres"
 
-#: admin.py:100
+#: admin.py:112
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:105
+#: admin.py:117
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:109
+#: admin.py:121
 msgid "Description"
 msgstr "Description"
 
-#: admin.py:112 ui/menu.py:72
+#: admin.py:124 ui/menu.py:72
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: admin.py:115
+#: admin.py:127
 msgid "Management"
 msgstr "Gestion interne"
 
-#: admin.py:119
+#: admin.py:131
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -328,21 +328,37 @@ msgstr "Moyens techniques disponibles"
 msgid "available workforce"
 msgstr "effectif total mobilisable (ETP)"
 
-#: models/local_models.py:281
+#: models/local_models.py:280
+msgid "practical modalities"
+msgstr "modalités pratiques"
+
+#: models/local_models.py:282
 msgid "provider"
 msgstr "fournisseur"
 
-#: models/local_models.py:288
+#: models/local_models.py:289
 msgid "Offer"
 msgstr "Offre"
 
-#: models/local_models.py:289
+#: models/local_models.py:290
 msgid "Offers"
 msgstr "Offres"
 
 #: ui/dashboard.py:29
 msgid "Recent Actions"
 msgstr "Actions récentes"
+
+#: ui/menu.py:51
+msgid "Django"
+msgstr ""
+
+#: ui/menu.py:52
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: ui/menu.py:53
+msgid "Sites"
+msgstr "Sites"
 
 #: ui/menu.py:61
 msgid "Network"
@@ -380,14 +396,6 @@ msgstr "Rôles"
 msgid "Activity nomenclature"
 msgstr "Nomenclature d'activité"
 
-#: ui/menu.py:76 ui/menu.py:77
-msgid "Exchanges"
-msgstr "Echanges"
-
-#: ui/menu.py:78
-msgid "Exchange methods"
-msgstr "Modalités d'échange"
-
 #: ui/menu.py:81
 msgid "Cartography"
 msgstr "Cartographie"
@@ -403,3 +411,9 @@ msgstr "Zones"
 #: ui/menu.py:84
 msgid "Location categories"
 msgstr "Catégories de lieux"
+
+#~ msgid "Exchanges"
+#~ msgstr "Echanges"
+
+#~ msgid "Exchange methods"
+#~ msgstr "Modalités d'échange"
