@@ -3,3 +3,25 @@
 a#add_id_category_iae {
     display: none;
 }
+
+fieldset#garanties ul {
+    list-style-type: none;
+    width: 700px;
+    margin-top: 7px;
+}
+
+fieldset#garanties ul li label input {
+        margin-right: 5px;
+        position: relative;
+        bottom: 1px;
+}
+
+/* workaround https://code.djangoproject.com/ticket/9321 */
+fieldset#garanties div.help-inline {
+    display: none;
+}
+
+a#add_id_guaranties {
+    position: relative;
+    padding-left: 4px;
+}

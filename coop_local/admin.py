@@ -10,6 +10,7 @@ from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
 from mptt.admin import MPTTModelAdmin
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
+from django.db import models
 
 try:
     from coop.base_admin import *
@@ -132,6 +133,8 @@ class MyOrganizationAdmin(OrganizationAdmin):
         })
     )
     inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
+
+MyOrganizationAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
 admin.site.unregister(Organization)
 admin.site.register(Organization, MyOrganizationAdmin)
