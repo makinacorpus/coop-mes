@@ -2,10 +2,10 @@
 from django import forms
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
-from coop.org.admin import OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline, EngagementInline
-from coop_local.models import (LegalStatus, OrganizationCategoryIAE, OrganizationDocument,
-    OrganizationGuaranty, OrganizationReference, ActivityNomenclature, ActivityNomenclatureAvise, Offer,
-    TransverseTheme)
+from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline,
+    EngagementInline)
+from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
+    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network)
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
@@ -57,7 +57,7 @@ admin.site.register(Statut, CoopTagTreeAdmin)
 
 class DocumentInline(admin.TabularInline):
 
-    model = OrganizationDocument
+    model = Document
     verbose_name = _(u'document')
     verbose_name_plural = _(u'documents')
     extra = 1
@@ -65,7 +65,7 @@ class DocumentInline(admin.TabularInline):
 
 class ReferenceInline(admin.TabularInline):
 
-    model = OrganizationReference
+    model = Reference
     verbose_name = _(u'reference')
     verbose_name_plural = _(u'references')
     extra = 1
@@ -91,23 +91,23 @@ class OfferInline(admin.StackedInline, InlineAutocompleteAdmin):
     related_search_fields = {'activity': ('path',)}
 
 
-class MyOrganizationAdminForm(OrganizationAdminForm):
+class ProviderAdminForm(OrganizationAdminForm):
 
     class Meta:
-        model = get_model('coop_local', 'Organization')
+        model = get_model('coop_local', 'Provider')
         widgets = {
             'category': chosenwidgets.ChosenSelectMultiple(),
             'category_iae': chosenwidgets.ChosenSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
-        super(MyOrganizationAdminForm, self).__init__(*args, **kwargs)
+        super(ProviderAdminForm, self).__init__(*args, **kwargs)
         self.fields['category_iae'].help_text = None
 
 
-class MyOrganizationAdmin(OrganizationAdmin):
+class ProviderAdmin(OrganizationAdmin):
 
-    form = MyOrganizationAdminForm
+    form = ProviderAdminForm
     readonly_fields = ['creation', 'modification']
     fieldsets = (
         (_(u'Key info'), {
@@ -135,14 +135,14 @@ class MyOrganizationAdmin(OrganizationAdmin):
     )
     inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
 
-MyOrganizationAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
+ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
 admin.site.unregister(Organization)
-admin.site.register(Organization, MyOrganizationAdmin)
+admin.site.register(Provider, ProviderAdmin)
 
 admin.site.register(LegalStatus)
-admin.site.register(OrganizationCategoryIAE)
-admin.site.register(OrganizationGuaranty)
+admin.site.register(CategoryIAE)
+admin.site.register(Guaranty)
 
 
 class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
@@ -156,3 +156,5 @@ admin.site.register(ActivityNomenclature, ActivityNomenclatureAdmin)
 admin.site.register(ActivityNomenclatureAvise)
 admin.site.register(ClientTarget)
 admin.site.register(TransverseTheme)
+admin.site.register(Client, OrganizationAdmin)
+admin.site.register(Network, OrganizationAdmin)

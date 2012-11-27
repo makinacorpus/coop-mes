@@ -60,15 +60,15 @@ class LegalStatus(models.Model):
         return self._can_modify_legalstatus(user)
 
 
-class OrganizationCategoryIAE(models.Model):
+class CategoryIAE(models.Model):
 
     label = models.CharField(blank=True, max_length=100)
     slug = exfields.AutoSlugField(populate_from=('label'), overwrite=True)
     description = models.TextField(_(u'description'), blank=True)
 
     class Meta:
-        verbose_name = _(u'organization category IAE')
-        verbose_name_plural = _(u'organization categories IAE')
+        verbose_name = _(u'category IAE')
+        verbose_name_plural = _(u'categories IAE')
         app_label = 'coop_local'
 
     def __unicode__(self):
@@ -84,22 +84,22 @@ class OrganizationCategoryIAE(models.Model):
     def get_cancel_url(self):
         return reverse('org_categoryiae_edit_cancel', args=[self.slug])
 
-    def _can_modify_organizationcategoryiae(self, user):
+    def _can_modify_categoryiae(self, user):
         if user.is_authenticated():
             if user.is_superuser:
                 return True
             else:
                 return False
 
-    def can_view_organizationcategoryiae(self, user):
+    def can_view_categoryiae(self, user):
         # TODO use global privacy permissions on objects
         return True
 
-    def can_edit_organizationcategoryiae(self, user):
-        return self._can_modify_organizationcategoryiae(user)
+    def can_edit_categoryiae(self, user):
+        return self._can_modify_categoryiae(user)
 
 
-class OrganizationDocument(models.Model):
+class Document(models.Model):
 
     name = models.CharField(_(u'name'), blank=True, max_length=100)
     description = models.TextField(_(u'description'), blank=True)
@@ -112,11 +112,11 @@ class OrganizationDocument(models.Model):
         app_label = 'coop_local'
 
 
-class OrganizationCategory(BaseOrganizationCategory):
+class CategoryESS(BaseOrganizationCategory):
 
     class Meta:
-        verbose_name = _(u'organization category ESS')
-        verbose_name_plural = _(u'organization categories ESS')
+        verbose_name = _(u'category ESS')
+        verbose_name_plural = _(u'categories ESS')
         app_label = 'coop_local'
 
 
@@ -129,7 +129,7 @@ ORGANISATION_GUARANTY_TYPES = Choices(
 )
 
 
-class OrganizationGuaranty(models.Model):
+class Guaranty(models.Model):
 
     type = models.IntegerField(_(u'type'), choices=ORGANISATION_GUARANTY_TYPES.CHOICES)
     name = models.CharField(_(u'name'), blank=True, max_length=100)
@@ -144,7 +144,7 @@ class OrganizationGuaranty(models.Model):
         app_label = 'coop_local'
 
 
-class OrganizationReference(models.Model):
+class Reference(models.Model):
 
     client_name = models.CharField(_(u'client name'), max_length=100)
     period = models.IntegerField(_('period'), blank=True, null=True)
@@ -238,13 +238,23 @@ TRANSMISSION_MODES = Choices(
 
 class Organization(BaseOrganization):
 
+    pass
+
+Organization._meta.get_field('title').verbose_name = _(u'corporate name')
+Organization._meta.get_field('description').verbose_name = _(u'general presentation')
+Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
+Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name')), (2, _(u'acronym')))
+
+
+class Provider(Organization):
+
     # Key data
     siret = models.CharField(_(u'No. SIRET'), max_length=14, blank=True,
         validators=[RegexValidator(regex='^\d{14}$', message=_(u'No. SIRET has 14 digits'))])
     legal_status = models.ForeignKey('LegalStatus', blank=True, null=True,
         verbose_name=_(u'legal status'))
-    category_iae = models.ManyToManyField('OrganizationCategoryIAE', blank=True, null=True,
-        verbose_name=_(u'organization category IAE'))
+    category_iae = models.ManyToManyField('CategoryIAE', blank=True, null=True,
+        verbose_name=_(u'category IAE'))
     agreement_iae = models.BooleanField(_(u'agreement IAE'))
 
     # Description
@@ -261,7 +271,7 @@ class Organization(BaseOrganization):
     annual_integration_number = models.IntegerField(_(u'annual integration number'), blank=True, null=True)
 
     # Guaranties
-    guaranties = models.ManyToManyField(OrganizationGuaranty, verbose_name=_(u'guaranties'), blank=True, null=True)
+    guaranties = models.ManyToManyField(Guaranty, verbose_name=_(u'guaranties'), blank=True, null=True)
 
     # Management
     creation = models.DateField(_(u'creation date'), auto_now_add=True)
@@ -278,11 +288,25 @@ class Organization(BaseOrganization):
         verbose_name_plural = _(u'Providers')
         app_label = 'coop_local'
 
-Organization._meta.get_field('title').verbose_name = _(u'corporate name')
-Organization._meta.get_field('category').verbose_name = _(u'organization category ESS')
-Organization._meta.get_field('description').verbose_name = _(u'general presentation')
-Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
-Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name')), (2, _(u'acronym')))
+Provider._meta.get_field('category').verbose_name = _(u'category ESS')
+
+
+class Client(Organization):
+
+    class Meta:
+        ordering = ['title']
+        verbose_name = _(u'Client')
+        verbose_name_plural = _(u'Clients')
+        app_label = 'coop_local'
+
+
+class Network(Organization):
+
+    class Meta:
+        ordering = ['title']
+        verbose_name = _(u'Network')
+        verbose_name_plural = _(u'Networks')
+        app_label = 'coop_local'
 
 
 class Offer(models.Model):

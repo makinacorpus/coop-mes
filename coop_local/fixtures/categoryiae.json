@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "coop_local.organizationcategoryiae", 
+        "model": "coop_local.categoryiae",
         "fields": {
             "description": "", 
             "slug": "ai", 
@@ -10,7 +10,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "coop_local.organizationcategoryiae", 
+        "model": "coop_local.categoryiae",
         "fields": {
             "description": "", 
             "slug": "aci", 
@@ -19,7 +19,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "coop_local.organizationcategoryiae", 
+        "model": "coop_local.categoryiae",
         "fields": {
             "description": "", 
             "slug": "ei", 
@@ -28,7 +28,7 @@
     }, 
     {
         "pk": 4, 
-        "model": "coop_local.organizationcategoryiae", 
+        "model": "coop_local.categoryiae",
         "fields": {
             "description": "", 
             "slug": "etti", 
@@ -37,7 +37,7 @@
     }, 
     {
         "pk": 5, 
-        "model": "coop_local.organizationcategoryiae", 
+        "model": "coop_local.categoryiae",
         "fields": {
             "description": "", 
             "slug": "geiq", 
@@ -46,7 +46,7 @@
     }, 
     {
         "pk": 6, 
-        "model": "coop_local.organizationcategoryiae", 
+        "model": "coop_local.categoryiae",
         "fields": {
             "description": "", 
             "slug": "regie-de-quartier", 

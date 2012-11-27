@@ -24,8 +24,7 @@ if ! sudo -u postgres psql -tAl | grep "^${db_name}"; then
 fi
 
 bin/python manage.py collectstatic --noinput
-bin/python manage.py syncdb --all --noinput
-bin/python manage.py migrate --fake
+bin/python manage.py syncdb --migrate --noinput
 bin/python manage.py loaddata coop_local/fixtures/areatypes.json
 bin/python manage.py loaddata coop_local/fixtures/django_site.json
 bin/python manage.py loaddata coop_local/fixtures/exchange_methods.json
@@ -36,7 +35,7 @@ bin/python manage.py loaddata coop_local/fixtures/uriredirect.json
 bin/python manage.py loaddata coop_local/fixtures/user.json
 bin/python manage.py loaddata coop_local/fixtures/legalstatus.json
 bin/python manage.py loaddata coop_local/fixtures/organizationcategory.json
-bin/python manage.py loaddata coop_local/fixtures/organizationcategoryiae.json
+bin/python manage.py loaddata coop_local/fixtures/categoryiae.json
 bin/python manage.py loaddata coop_local/fixtures/activitynomenclatureavise.json
 bin/python manage.py loaddata coop_local/fixtures/activitynomenclature.json
 bin/python manage.py loaddata coop_local/fixtures/clienttarget.json

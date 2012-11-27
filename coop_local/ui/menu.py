@@ -63,11 +63,13 @@ class CustomMenu(Menu):
                 children=[
 
                     items.MenuItem(_('Directory'), '#', icon='icon-home', children=[
-                        items.MenuItem(_('Providers'), '/admin/coop_local/organization/'),
+                        items.MenuItem(_('Providers'), '/admin/coop_local/provider/'),
+                        items.MenuItem(_('Clients'), '/admin/coop_local/client/'),
+                        items.MenuItem(_('Network'), '/admin/coop_local/network/'),
                         items.MenuItem(_('Persons'), '/admin/coop_local/person/'),
                         items.MenuItem(_('Legal statuses'), '/admin/coop_local/legalstatus/'),
-                        items.MenuItem(_('Organization categories ESS'), '/admin/coop_local/organizationcategory/'),
-                        items.MenuItem(_('Organization categories IAE'), '/admin/coop_local/organizationcategoryiae/'),
+                        items.MenuItem(_('ESS categories'), '/admin/coop_local/organizationcategory/'),
+                        items.MenuItem(_('IAE categories'), '/admin/coop_local/categoryiae/'),
                         items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
                         items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
                         items.MenuItem(_('Guaranties'), '/admin/coop_local/organizationguaranty/'),
