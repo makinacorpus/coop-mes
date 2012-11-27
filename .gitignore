@@ -5,3 +5,4 @@ local/
 build/
 static_collected/
 src/
+*.pyc
