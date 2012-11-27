@@ -208,6 +208,20 @@ class ClientTarget(models.Model):
         app_label = 'coop_local'
 
 
+class TransverseTheme(models.Model):
+
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+    description = models.TextField(_(u'description'), blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _(u'transverse theme')
+        verbose_name_plural = _(u'transverse themes')
+        app_label = 'coop_local'
+
+
 ORGANIZATION_STATUSES = Choices(
     ('PROPOSED', 'P', _(u'Proposed')),
     ('VALIDATED', 'V', _(u'Validated')),
@@ -236,6 +250,7 @@ class Organization(BaseOrganization):
     # Description
     brief_description = models.TextField(_(u'brief description'), blank=True)
     added_value = models.TextField(_(u'added value'), blank=True)
+    transverse_themes = models.ManyToManyField('TransverseTheme', verbose_name=_(u'transverse themes'), blank=True, null=True)
 
     # Economic data
     annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)

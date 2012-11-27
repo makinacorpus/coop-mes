@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 from coop.org.admin import OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline, EngagementInline
 from coop_local.models import (LegalStatus, OrganizationCategoryIAE, OrganizationDocument,
-    OrganizationGuaranty, OrganizationReference, ActivityNomenclature, ActivityNomenclatureAvise, Offer)
+    OrganizationGuaranty, OrganizationReference, ActivityNomenclature, ActivityNomenclatureAvise, Offer,
+    TransverseTheme)
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
@@ -119,7 +120,7 @@ class MyOrganizationAdmin(OrganizationAdmin):
                        ('integration_workforce', 'annual_integration_number')]
             }),
         (_(u'Description'), {
-            'fields': ['brief_description', 'description', 'added_value', 'tags']
+            'fields': ['brief_description', 'description', 'added_value', 'tags', 'transverse_themes']
             }),
         (_(u'Guaranties'), {
             'fields': ['guaranties']
@@ -154,3 +155,4 @@ class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
 admin.site.register(ActivityNomenclature, ActivityNomenclatureAdmin)
 admin.site.register(ActivityNomenclatureAvise)
 admin.site.register(ClientTarget)
+admin.site.register(TransverseTheme)

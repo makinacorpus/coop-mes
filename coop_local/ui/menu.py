@@ -44,6 +44,7 @@ class CustomMenu(Menu):
 
                     items.MenuItem(_('Tags'), '#', icon='icon-tags', children=[
                         items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),
+                        items.MenuItem(_('Transverse themes'), '/admin/coop_local/transversetheme/'),
                         ##items.MenuItem(_('Tag categories'), '/admin/coop_tag/tagcategory/'),
                         #items.MenuItem(_('Tag trees'), '/admin/coop_local/navtree/'),
                         ]),
