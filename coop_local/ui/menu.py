@@ -42,11 +42,11 @@ class CustomMenu(Menu):
 
                     ## RSS Sync menu gets inserted here if installed (see above)
 
-                    #items.MenuItem(_('Tags'), '#', icon='icon-tags', children=[
-                        #items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),
+                    items.MenuItem(_('Tags'), '#', icon='icon-tags', children=[
+                        items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),
                         ##items.MenuItem(_('Tag categories'), '/admin/coop_tag/tagcategory/'),
                         #items.MenuItem(_('Tag trees'), '/admin/coop_local/navtree/'),
-                        #]),
+                        ]),
 
                     items.MenuItem(_('Django'), '#', icon='icon-coop icon-django', children=[
                         items.MenuItem(_('Users'), '/admin/auth/user/'),
