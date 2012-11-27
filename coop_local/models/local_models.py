@@ -267,6 +267,7 @@ Organization._meta.get_field('title').verbose_name = _(u'corporate name')
 Organization._meta.get_field('category').verbose_name = _(u'organization category ESS')
 Organization._meta.get_field('description').verbose_name = _(u'general presentation')
 Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
+Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name')), (2, _(u'acronym')))
 
 
 class Offer(models.Model):
