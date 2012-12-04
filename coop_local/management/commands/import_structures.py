@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from coop_local.models import Provider, LegalStatus, CategoryIAE
 
-    
+# The purpose of this script is to import human-made data (csv file) for MES providers
 # Columns are :
 # 0 - Identifiant BDIS
 # 1 - Raison sociale
@@ -55,8 +55,10 @@ class Command(BaseCommand):
 
             for row in dest_file:
                 
-                provider = Provider()
-                provider.title = row['Raison sociale']
+                title = row['Raison sociale']
+
+                (provider, success) = Provider.objects.get_or_create(title=title);
+                
                 provider.acronym = row['Sigle']
                 provider.description = row['Presentation generale']
                 
@@ -77,14 +79,14 @@ class Command(BaseCommand):
                 except LegalStatus.DoesNotExist:
                     print "Unknown Status : >" + legal_status + "<"
 
-                """
+                
                 category_iae = row['Type de structure SIAE']
                 try:
                     obj = CategoryIAE.objects.get(label=category_iae)
-                    provider.category_iae = obj
+                    provider.category_iae = [obj]
                 except CategoryIAE.DoesNotExist:
                     print "Unknown IAE Category : >" + category_iae + "<"
-                """
+                
                     
                 #provider.category_iae = ? 
                 #provider.agreement_iae = ?
