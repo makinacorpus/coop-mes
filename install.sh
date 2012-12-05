@@ -40,3 +40,4 @@ bin/python manage.py loaddata coop_local/fixtures/activitynomenclatureavise.json
 bin/python manage.py loaddata coop_local/fixtures/activitynomenclature.json
 bin/python manage.py loaddata coop_local/fixtures/clienttarget.json
 bin/python manage.py loaddata coop_local/fixtures/transversetheme.json
+bin/python manage.py loaddata coop_local/fixtures/guaranty.json

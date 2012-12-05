@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 5, 
+            "name": "Ecocert", 
+            "description": "Certification en agriculture biologique"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "ISO 9001", 
+            "description": "Norme sur les processus de qualit\u00e9 de l'organisation"
+        }
+    }
+]

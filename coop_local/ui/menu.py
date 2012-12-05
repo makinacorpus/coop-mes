@@ -72,7 +72,7 @@ class CustomMenu(Menu):
                         items.MenuItem(_('IAE categories'), '/admin/coop_local/categoryiae/'),
                         items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
                         items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
-                        items.MenuItem(_('Guaranties'), '/admin/coop_local/organizationguaranty/'),
+                        items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
                         items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
                         ]),
 
