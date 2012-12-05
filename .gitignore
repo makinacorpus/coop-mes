@@ -5,4 +5,5 @@ local/
 build/
 static_collected/
 src/
+media/
 *.pyc
