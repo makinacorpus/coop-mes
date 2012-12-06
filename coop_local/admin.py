@@ -127,7 +127,7 @@ class ProviderAdmin(OrganizationAdmin):
             }),
         (_(u'Management'), {
             'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
-                       'author', 'validation']
+                       'transmission_date', 'author', 'validation']
             }),
         (_(u'Preferences'), {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]

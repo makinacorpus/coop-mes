@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-06 12:31+0100\n"
+"POT-Creation-Date: 2012-12-06 12:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,27 +41,27 @@ msgstr "offre"
 msgid "offers"
 msgstr "offres"
 
-#: admin.py:113
+#: admin.py:114
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:118
+#: admin.py:119
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:122
+#: admin.py:123
 msgid "Description"
 msgstr "Description"
 
-#: admin.py:125 ui/menu.py:75
+#: admin.py:126 ui/menu.py:75
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: admin.py:128
+#: admin.py:129
 msgid "Management"
 msgstr "Gestion interne"
 
-#: admin.py:132
+#: admin.py:133
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -71,7 +71,7 @@ msgstr "Mots clés"
 
 #: models/local_models.py:28 models/local_models.py:67
 #: models/local_models.py:105 models/local_models.py:136
-#: models/local_models.py:214 models/local_models.py:315
+#: models/local_models.py:214 models/local_models.py:316
 msgid "description"
 msgstr "description"
 
@@ -108,7 +108,7 @@ msgstr "document associé"
 msgid "associated documents"
 msgstr "documents associés"
 
-#: models/local_models.py:118 models/local_models.py:291
+#: models/local_models.py:118 models/local_models.py:292
 msgid "category ESS"
 msgstr "type de structure ESS"
 
@@ -189,7 +189,7 @@ msgstr "item de nomenclature d'activité"
 msgid "activity nomenclature"
 msgstr "nomenclature d'activité"
 
-#: models/local_models.py:206 models/local_models.py:316
+#: models/local_models.py:206 models/local_models.py:317
 msgid "client target"
 msgstr "cibles client"
 
@@ -310,66 +310,70 @@ msgid "transmission mode"
 msgstr "mode de transmission"
 
 #: models/local_models.py:282
+msgid "transmission date"
+msgstr "date de transmission"
+
+#: models/local_models.py:283
 msgid "author"
 msgstr "rédacteur"
 
-#: models/local_models.py:283
+#: models/local_models.py:284
 msgid "validation date"
 msgstr "date de validation"
 
-#: models/local_models.py:287
+#: models/local_models.py:288
 msgid "Provider"
 msgstr "Fournisseur"
 
-#: models/local_models.py:288 ui/menu.py:66
+#: models/local_models.py:289 ui/menu.py:66
 msgid "Providers"
 msgstr "Fournisseurs"
 
-#: models/local_models.py:298
+#: models/local_models.py:299
 msgid "Client"
 msgstr "Client"
 
-#: models/local_models.py:299 ui/menu.py:67
+#: models/local_models.py:300 ui/menu.py:67
 msgid "Clients"
 msgstr "Clients"
 
-#: models/local_models.py:307 ui/menu.py:62 ui/menu.py:68
+#: models/local_models.py:308 ui/menu.py:62 ui/menu.py:68
 msgid "Network"
 msgstr "Réseau"
 
-#: models/local_models.py:308
+#: models/local_models.py:309
 msgid "Networks"
 msgstr "Réseaux"
 
-#: models/local_models.py:314
+#: models/local_models.py:315
 msgid "activity sector"
 msgstr "secteur d'activité"
 
-#: models/local_models.py:317
+#: models/local_models.py:318
 msgid "product or service valuation"
 msgstr "valorisation du produit ou service"
 
-#: models/local_models.py:318
+#: models/local_models.py:319
 msgid "technical means"
 msgstr "Moyens techniques disponibles"
 
-#: models/local_models.py:319
+#: models/local_models.py:320
 msgid "available workforce"
 msgstr "effectif total mobilisable (ETP)"
 
-#: models/local_models.py:320
+#: models/local_models.py:321
 msgid "practical modalities"
 msgstr "modalités pratiques"
 
-#: models/local_models.py:322
+#: models/local_models.py:323
 msgid "provider"
 msgstr "fournisseur"
 
-#: models/local_models.py:329
+#: models/local_models.py:330
 msgid "Offer"
 msgstr "Offre"
 
-#: models/local_models.py:330
+#: models/local_models.py:331
 msgid "Offers"
 msgstr "Offres"
 
