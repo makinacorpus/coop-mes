@@ -1,0 +1,674 @@
+[
+    {
+        "pk": 94, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "8piUnHR32k9bt7JcgoXafE", 
+            "created": "2012-12-06T17:09:56.586", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Assistant(e)", 
+            "modified": "2012-12-06T17:09:56.588", 
+            "slug": "assistante"
+        }
+    }, 
+    {
+        "pk": 95, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "h7EXqMwsM8CAEuy7QdNkKV", 
+            "created": "2012-12-06T17:09:56.608", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Usager", 
+            "modified": "2012-12-06T17:09:56.610", 
+            "slug": "usager"
+        }
+    }, 
+    {
+        "pk": 96, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "oywPAybfMEsTLUkLBeJjE9", 
+            "created": "2012-12-06T17:09:56.627", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "B\u00e9n\u00e9vole", 
+            "modified": "2012-12-06T17:09:56.628", 
+            "slug": "b\u00e9n\u00e9vole"
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "JarcStUAghneyGsjHkX3FH", 
+            "created": "2012-12-06T17:09:55.573", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Vice-Pr\u00e9sident(e)", 
+            "modified": "2012-12-06T17:09:55.575", 
+            "slug": "vice-pr\u00e9sidente"
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "BwF7yjuAWrM7KLE29EW5dG", 
+            "created": "2012-12-06T17:09:55.613", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Tr\u00e9sorier(e)", 
+            "modified": "2012-12-06T17:09:55.614", 
+            "slug": "tr\u00e9soriere"
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "Lj9yvVg3pJzhXD6q5efWuL", 
+            "created": "2012-12-06T17:09:55.630", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Secr\u00e9taire g\u00e9n\u00e9ral(e)", 
+            "modified": "2012-12-06T17:09:55.632", 
+            "slug": "secr\u00e9taire-g\u00e9n\u00e9rale"
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "UVT4sw4q4rPxXGGCKWtuLJ", 
+            "created": "2012-12-06T17:09:55.652", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Secr\u00e9taire", 
+            "modified": "2012-12-06T17:09:55.654", 
+            "slug": "secr\u00e9taire"
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "CdemQHTDXUsuLc3pKSZmMM", 
+            "created": "2012-12-06T17:09:55.675", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Salari\u00e9(e)", 
+            "modified": "2012-12-06T17:09:55.676", 
+            "slug": "salari\u00e9e"
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "mJqqM2NzK277jvTWwJjZqP", 
+            "created": "2012-12-06T17:09:55.696", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Responsable technique", 
+            "modified": "2012-12-06T17:09:55.698", 
+            "slug": "responsable-technique"
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "qiRS6fuimNM8g4QwCBbaYW", 
+            "created": "2012-12-06T17:09:55.718", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Responsable d\u2019exploitation", 
+            "modified": "2012-12-06T17:09:55.718", 
+            "slug": "responsable-dexploitation"
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "5EUYHbcX8eXL5H4TJbBmmG", 
+            "created": "2012-12-06T17:09:55.741", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Responsable communication", 
+            "modified": "2012-12-06T17:09:55.742", 
+            "slug": "responsable-communication"
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "EYw6D7PN3HCTrxH6PeHpEA", 
+            "created": "2012-12-06T17:09:55.763", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Responsable commercial", 
+            "modified": "2012-12-06T17:09:55.765", 
+            "slug": "responsable-commercial"
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "R2ra9xZ8LLSNW8tAfqeNJB", 
+            "created": "2012-12-06T17:09:55.785", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Responsable", 
+            "modified": "2012-12-06T17:09:55.786", 
+            "slug": "responsable"
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "XCM9VYFwuJmPte7JiXEk6R", 
+            "created": "2012-12-06T17:09:55.808", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "R\u00e9alisateur / R\u00e9alisatrice", 
+            "modified": "2012-12-06T17:09:55.809", 
+            "slug": "r\u00e9alisateur-r\u00e9alisatrice"
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "tZmr92W2QvNDNfu6pdRmqK", 
+            "created": "2012-12-06T17:09:55.830", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Pr\u00e9sident(e) du Directoire", 
+            "modified": "2012-12-06T17:09:55.832", 
+            "slug": "pr\u00e9sidente-du-directoire"
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "iGA4aGbooPGEWJUvHFNgmW", 
+            "created": "2012-12-06T17:09:55.853", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Pr\u00e9sident(e) du Conseil de Surveillance", 
+            "modified": "2012-12-06T17:09:55.854", 
+            "slug": "pr\u00e9sidente-du-conseil-de-surveillance"
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "LweuQ4vAxksHpZXfMxs6tJ", 
+            "created": "2012-12-06T17:09:55.874", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Pr\u00e9sident(e) du Conseil d\u2019Administration", 
+            "modified": "2012-12-06T17:09:55.875", 
+            "slug": "pr\u00e9sidente-du-conseil-dadministration"
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "QPt8w4W47r7D5CK5WDhykG", 
+            "created": "2012-12-06T17:09:55.897", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Pr\u00e9sident(e)", 
+            "modified": "2012-12-06T17:09:55.898", 
+            "slug": "pr\u00e9sidente"
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "HZS7ymrdWect4fUB7TKe7Z", 
+            "created": "2012-12-06T17:09:55.919", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Membre", 
+            "modified": "2012-12-06T17:09:55.921", 
+            "slug": "membre"
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "BpWYK5wQyrDpdQwRdkY3Ke", 
+            "created": "2012-12-06T17:09:55.941", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "M\u00e9diateur / M\u00e9diatrice", 
+            "modified": "2012-12-06T17:09:55.943", 
+            "slug": "m\u00e9diateur-m\u00e9diatrice"
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "k5U7nQVoWurior2NMRxJT6", 
+            "created": "2012-12-06T17:09:55.963", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Intervenant(e)", 
+            "modified": "2012-12-06T17:09:55.965", 
+            "slug": "intervenante"
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "nG2Lt3r3cv6nhobqQaAede", 
+            "created": "2012-12-06T17:09:55.986", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Gestionnaire de parcours", 
+            "modified": "2012-12-06T17:09:55.987", 
+            "slug": "gestionnaire-de-parcours"
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "LBzQ9TrEnmrUNVo4ES4FtL", 
+            "created": "2012-12-06T17:09:56.008", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "G\u00e9rant(e)", 
+            "modified": "2012-12-06T17:09:56.009", 
+            "slug": "g\u00e9rante"
+        }
+    }, 
+    {
+        "pk": 69, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "J3r4jEc5dZMtqyowwvZxC4", 
+            "created": "2012-12-06T17:09:56.030", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Fondateur / Fondatrice", 
+            "modified": "2012-12-06T17:09:56.032", 
+            "slug": "fondateur-fondatrice"
+        }
+    }, 
+    {
+        "pk": 70, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "uz2NWZWWwW2VoWF6NiiXhd", 
+            "created": "2012-12-06T17:09:56.053", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Directeur / Directrice scientifique", 
+            "modified": "2012-12-06T17:09:56.054", 
+            "slug": "directeur-directrice-scientifique"
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "XQEfCgjYXcBfiZQuQTDGLC", 
+            "created": "2012-12-06T17:09:56.075", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Directeur / Directrice g\u00e9n\u00e9ral(e)", 
+            "modified": "2012-12-06T17:09:56.076", 
+            "slug": "directeur-directrice-g\u00e9n\u00e9rale"
+        }
+    }, 
+    {
+        "pk": 72, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "N4MgbpWLGcAf2g9JE44sUM", 
+            "created": "2012-12-06T17:09:56.097", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Directeur / Directrice du d\u00e9veloppement", 
+            "modified": "2012-12-06T17:09:56.098", 
+            "slug": "directeur-directrice-du-d\u00e9veloppement"
+        }
+    }, 
+    {
+        "pk": 73, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "TBspfAmifBbTW8kKWvGhmL", 
+            "created": "2012-12-06T17:09:56.119", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Directeur / Directrice de la r\u00e9daction", 
+            "modified": "2012-12-06T17:09:56.121", 
+            "slug": "directeur-directrice-de-la-r\u00e9daction"
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "nL6bbmY9YkMS5M3uS5q2AD", 
+            "created": "2012-12-06T17:09:56.141", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Directeur / Directrice", 
+            "modified": "2012-12-06T17:09:56.143", 
+            "slug": "directeur-directrice"
+        }
+    }, 
+    {
+        "pk": 75, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "vLNJaetqUvA6TCYv3HWnED", 
+            "created": "2012-12-06T17:09:56.164", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "D\u00e9l\u00e9gu\u00e9(e) R\u00e9gional(e)", 
+            "modified": "2012-12-06T17:09:56.165", 
+            "slug": "d\u00e9l\u00e9gu\u00e9e-r\u00e9gionale"
+        }
+    }, 
+    {
+        "pk": 76, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "v9Run9FEqqTNH6XQR9KUr3", 
+            "created": "2012-12-06T17:09:56.186", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "D\u00e9l\u00e9gu\u00e9(e) National(e)", 
+            "modified": "2012-12-06T17:09:56.187", 
+            "slug": "d\u00e9l\u00e9gu\u00e9e-nationale"
+        }
+    }, 
+    {
+        "pk": 77, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "qxMptNhqgtX73zitq6nf3B", 
+            "created": "2012-12-06T17:09:56.207", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "D\u00e9l\u00e9gu\u00e9(e) G\u00e9n\u00e9ral(e) adjoint(e)", 
+            "modified": "2012-12-06T17:09:56.209", 
+            "slug": "d\u00e9l\u00e9gu\u00e9e-g\u00e9n\u00e9rale-adjointe"
+        }
+    }, 
+    {
+        "pk": 78, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "EwyQjsbXn4vqafJGXdCV5f", 
+            "created": "2012-12-06T17:09:56.230", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "D\u00e9l\u00e9gu\u00e9(e) G\u00e9n\u00e9ral(e)", 
+            "modified": "2012-12-06T17:09:56.232", 
+            "slug": "d\u00e9l\u00e9gu\u00e9e-g\u00e9n\u00e9rale"
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "RF3GfhdEvxkWBD8Bz9RwoJ", 
+            "created": "2012-12-06T17:09:56.253", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Coordinateur / Coordinatrice r\u00e9gional(e)", 
+            "modified": "2012-12-06T17:09:56.254", 
+            "slug": "coordinateur-coordinatrice-r\u00e9gionale"
+        }
+    }, 
+    {
+        "pk": 80, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "2f5pJFhyHqRfV77nskgwdR", 
+            "created": "2012-12-06T17:09:56.275", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Coordinateur / Coordinatrice", 
+            "modified": "2012-12-06T17:09:56.276", 
+            "slug": "coordinateur-coordinatrice"
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "McvLjbGipr5LdhtHBNNNKi", 
+            "created": "2012-12-06T17:09:56.297", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Consultant(e)", 
+            "modified": "2012-12-06T17:09:56.299", 
+            "slug": "consultante"
+        }
+    }, 
+    {
+        "pk": 82, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "KnPqUUmcQW8uXH75DJbAZ7", 
+            "created": "2012-12-06T17:09:56.319", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Conseiller(e)", 
+            "modified": "2012-12-06T17:09:56.321", 
+            "slug": "conseillere"
+        }
+    }, 
+    {
+        "pk": 83, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "Juz9C9fEAUPtV2rMQqDQdn", 
+            "created": "2012-12-06T17:09:56.342", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Co-pr\u00e9sident(e)", 
+            "modified": "2012-12-06T17:09:56.343", 
+            "slug": "co-pr\u00e9sidente"
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "NAREtcgwyGKH9PuC9fcu8e", 
+            "created": "2012-12-06T17:09:56.364", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Co-g\u00e9rant(e)", 
+            "modified": "2012-12-06T17:09:56.365", 
+            "slug": "co-g\u00e9rante"
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "P6Sr6b2LiZAqsKt9YbHmZV", 
+            "created": "2012-12-06T17:09:56.386", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Co-fondateur / Co-fondatrice", 
+            "modified": "2012-12-06T17:09:56.388", 
+            "slug": "co-fondateur-co-fondatrice"
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "CFsHUJUmBUsrYYmnuT7sWX", 
+            "created": "2012-12-06T17:09:56.408", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Co-directeur / Co-directrice", 
+            "modified": "2012-12-06T17:09:56.410", 
+            "slug": "co-directeur-co-directrice"
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "ciA9kwxJUmxHhqiLPsGpif", 
+            "created": "2012-12-06T17:09:56.430", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Charg\u00e9(e) de mission", 
+            "modified": "2012-12-06T17:09:56.432", 
+            "slug": "charg\u00e9e-de-mission"
+        }
+    }, 
+    {
+        "pk": 88, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "xTJC7MjXXq8RqXW9cBnemN", 
+            "created": "2012-12-06T17:09:56.453", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Charg\u00e9(e) de diffusion", 
+            "modified": "2012-12-06T17:09:56.454", 
+            "slug": "charg\u00e9e-de-diffusion"
+        }
+    }, 
+    {
+        "pk": 89, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "4EjvssBwjwkrDYGNBBraNL", 
+            "created": "2012-12-06T17:09:56.475", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Charg\u00e9(e) de d\u00e9veloppement", 
+            "modified": "2012-12-06T17:09:56.476", 
+            "slug": "charg\u00e9e-de-d\u00e9veloppement"
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "WdEF4UxwkqazxjTuYoH7qg", 
+            "created": "2012-12-06T17:09:56.497", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Charg\u00e9(e) de communication", 
+            "modified": "2012-12-06T17:09:56.499", 
+            "slug": "charg\u00e9e-de-communication"
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "Vqw35Qm7o5Bgv3KMnDGepP", 
+            "created": "2012-12-06T17:09:56.520", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Charg\u00e9(e) d\u2019accompagnement", 
+            "modified": "2012-12-06T17:09:56.521", 
+            "slug": "charg\u00e9e-daccompagnement"
+        }
+    }, 
+    {
+        "pk": 92, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "n35DiNRsxeDj246ZEaVtEN", 
+            "created": "2012-12-06T17:09:56.542", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Associ\u00e9(e)", 
+            "modified": "2012-12-06T17:09:56.543", 
+            "slug": "associ\u00e9e"
+        }
+    }, 
+    {
+        "pk": 93, 
+        "model": "coop_local.role", 
+        "fields": {
+            "uri_mode": 1, 
+            "category": null, 
+            "uuid": "kBQhSXffDzPLEgfEfVe2iA", 
+            "created": "2012-12-06T17:09:56.564", 
+            "uri": "http://data.economie-solidaire.fr/id/label//", 
+            "label": "Assistant(e) de direction", 
+            "modified": "2012-12-06T17:09:56.565", 
+            "slug": "assistante-de-direction"
+        }
+    }
+]
