@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-06 12:23+0100\n"
+"POT-Creation-Date: 2012-12-06 12:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,12 +198,12 @@ msgid "client targets"
 msgstr "cibles client"
 
 #: models/local_models.py:220
-msgid "transverse theme"
-msgstr "thématique transversale"
+msgid "theme"
+msgstr "thématique"
 
 #: models/local_models.py:221 models/local_models.py:263
-msgid "transverse themes"
-msgstr "thématiques transversales"
+msgid "themes"
+msgstr "thématiques"
 
 #: models/local_models.py:226
 msgid "Proposed"
@@ -378,8 +378,8 @@ msgid "Recent Actions"
 msgstr "Actions récentes"
 
 #: ui/menu.py:47
-msgid "Transverse themes"
-msgstr "Thématiques transversales"
+msgid "Themes"
+msgstr "Thématiques"
 
 #: ui/menu.py:52
 msgid "Django"
@@ -440,15 +440,3 @@ msgstr "Zones"
 #: ui/menu.py:87
 msgid "Location categories"
 msgstr "Catégories de lieux"
-
-#~ msgid "Organization categories ESS"
-#~ msgstr "Types de structure ESS"
-
-#~ msgid "Organization categories IAE"
-#~ msgstr "Types de structure IAE"
-
-#~ msgid "Exchanges"
-#~ msgstr "Echanges"
-
-#~ msgid "Exchange methods"
-#~ msgstr "Modalités d'échange"

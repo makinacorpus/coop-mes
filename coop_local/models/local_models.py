@@ -217,8 +217,8 @@ class TransverseTheme(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = _(u'transverse theme')
-        verbose_name_plural = _(u'transverse themes')
+        verbose_name = _(u'theme')
+        verbose_name_plural = _(u'themes')
         app_label = 'coop_local'
 
 
@@ -260,7 +260,7 @@ class Provider(Organization):
     # Description
     brief_description = models.TextField(_(u'brief description'), blank=True)
     added_value = models.TextField(_(u'added value'), blank=True)
-    transverse_themes = models.ManyToManyField('TransverseTheme', verbose_name=_(u'transverse themes'), blank=True, null=True)
+    transverse_themes = models.ManyToManyField('TransverseTheme', verbose_name=_(u'themes'), blank=True, null=True)
 
     # Economic data
     annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)
