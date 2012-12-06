@@ -98,6 +98,7 @@ class ProviderAdminForm(OrganizationAdminForm):
         widgets = {
             'category': chosenwidgets.ChosenSelectMultiple(),
             'category_iae': chosenwidgets.ChosenSelectMultiple(),
+            'guaranties': chosenwidgets.ChosenSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
