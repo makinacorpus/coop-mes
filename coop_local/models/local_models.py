@@ -161,7 +161,8 @@ class Guaranty(models.Model):
 class Reference(models.Model):
 
     client_name = models.CharField(_(u'client name'), max_length=100)
-    period = models.IntegerField(_('period'), blank=True, null=True)
+    from_year = models.IntegerField(_('from year'), blank=True, null=True)
+    to_year = models.IntegerField(_('to year'), blank=True, null=True)
     services = models.TextField(_(u'services'), blank=True)
     organization = models.ForeignKey('Organization')
 
