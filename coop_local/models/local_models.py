@@ -99,12 +99,26 @@ class CategoryIAE(models.Model):
         return self._can_modify_categoryiae(user)
 
 
+class DocumentType(models.Model):
+
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _(u'document type')
+        verbose_name_plural = _(u'document types')
+        app_label = 'coop_local'
+
+
 class Document(models.Model):
 
     name = models.CharField(_(u'name'), blank=True, max_length=100)
     description = models.TextField(_(u'description'), blank=True)
     attachment = models.FileField(_(u'attachment'), upload_to='docs', max_length=255)
     organization = models.ForeignKey('Organization')
+    type = models.ForeignKey('DocumentType', verbose_name=_(u'type'), blank=True, null=True)
 
     class Meta:
         verbose_name = _(u'associated document')
