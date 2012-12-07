@@ -89,6 +89,7 @@ class OfferInline(admin.StackedInline, InlineAutocompleteAdmin):
     verbose_name_plural = _(u'offers')
     extra = 1
     related_search_fields = {'activity': ('path',)}
+    formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'class':'multiple_checkboxes'})}}
 
 
 class ProviderAdminForm(OrganizationAdminForm):

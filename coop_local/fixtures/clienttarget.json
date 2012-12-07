@@ -14,13 +14,6 @@
         }
     }, 
     {
-        "pk": 3, 
-        "model": "coop_local.clienttarget", 
-        "fields": {
-            "label": "Associations"
-        }
-    }, 
-    {
         "pk": 4, 
         "model": "coop_local.clienttarget", 
         "fields": {

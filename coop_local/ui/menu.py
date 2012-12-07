@@ -74,6 +74,7 @@ class CustomMenu(Menu):
                         items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
                         items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
                         items.MenuItem(_('Document types'), '/admin/coop_local/documenttype/'),
+                        items.MenuItem(_('Client targets'), '/admin/coop_local/clienttarget/'),
                         items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
                         ]),
 

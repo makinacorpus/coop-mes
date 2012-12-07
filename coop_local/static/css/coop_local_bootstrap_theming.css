@@ -1,14 +1,17 @@
 @import url("/static/css/coop_bootstrap_theming.css");
 
 fieldset#garanties ul,
-fieldset#description ul {
+fieldset#description ul,
+div#offer_set-group ul {
     list-style-type: none;
     width: 700px;
     margin-top: 7px;
 }
 
 fieldset#garanties ul li label input,
-fieldset#description ul li label input {
+fieldset#description ul li label input,
+div#offer_set-group ul li label input
+{
         margin-right: 5px;
         position: relative;
         bottom: 1px;
@@ -16,12 +19,14 @@ fieldset#description ul li label input {
 
 /* workaround https://code.djangoproject.com/ticket/9321 */
 fieldset#garanties div.help-inline,
-fieldset#description div.help-inline {
+fieldset#description div.help-inline,
+div#offer_set-group div.help-inline {
     display: none;
 }
 
 a#add_id_guaranties,
 a#add_id_transverse_themes,
-a#add_id_category_iae {
+a#add_id_category_iae,
+div#offer_set-group a.add-another {
     display: none;
 }

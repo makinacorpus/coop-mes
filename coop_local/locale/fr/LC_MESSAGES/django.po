@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-06 16:45+0100\n"
+"POT-Creation-Date: 2012-12-07 10:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,27 +41,27 @@ msgstr "offre"
 msgid "offers"
 msgstr "offres"
 
-#: admin.py:114
+#: admin.py:115
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:119
+#: admin.py:120
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:123
+#: admin.py:124
 msgid "Description"
 msgstr "Description"
 
-#: admin.py:126 ui/menu.py:75
+#: admin.py:127 ui/menu.py:75
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: admin.py:129
+#: admin.py:130
 msgid "Management"
 msgstr "Gestion interne"
 
-#: admin.py:133
+#: admin.py:134
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -201,11 +201,11 @@ msgstr "item de nomenclature d'activité"
 msgid "activity nomenclature"
 msgstr "nomenclature d'activité"
 
-#: models/local_models.py:221 models/local_models.py:332
+#: models/local_models.py:221
 msgid "client target"
-msgstr "cibles client"
+msgstr "cible client"
 
-#: models/local_models.py:222
+#: models/local_models.py:222 models/local_models.py:332
 msgid "client targets"
 msgstr "cibles client"
 
@@ -442,24 +442,25 @@ msgid "Document types"
 msgstr "Types de document"
 
 #: ui/menu.py:77
+msgid "Client targets"
+msgstr "Cibles client"
+
+#: ui/menu.py:78
 msgid "Activity nomenclature"
 msgstr "Nomenclature d'activité"
 
-#: ui/menu.py:85
+#: ui/menu.py:86
 msgid "Cartography"
 msgstr "Cartographie"
 
-#: ui/menu.py:86
+#: ui/menu.py:87
 msgid "Locations"
 msgstr "Lieux"
 
-#: ui/menu.py:87
+#: ui/menu.py:88
 msgid "Areas"
 msgstr "Zones"
 
-#: ui/menu.py:88
+#: ui/menu.py:89
 msgid "Location categories"
 msgstr "Catégories de lieux"
-
-#~ msgid "period"
-#~ msgstr "période"
