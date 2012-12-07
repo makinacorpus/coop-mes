@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from django_extensions.db import fields as exfields
 from django.core.validators import RegexValidator, MaxLengthValidator
 from mptt.models import MPTTModel, TreeForeignKey
-from coop_geo.models import AreaLink
 from django.contrib.contenttypes import generic
 
 
@@ -334,7 +333,7 @@ class Offer(models.Model):
     technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
     workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
     practical_modalities = models.TextField(_(u'practical modalities'), blank=True, validators = [MaxLengthValidator(400)])
-    #framed = generic.GenericRelation('AreaLink')
+    coverage = models.CommaSeparatedIntegerField(_(u'coverage'), max_length=100, blank=True, null=True)
     provider = models.ForeignKey('Organization', verbose_name=_('provider'))
 
     def __unicode__(self):
