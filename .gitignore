@@ -6,4 +6,5 @@ build/
 static_collected/
 src/
 media/
+project_install/config_dev.py
 *.pyc

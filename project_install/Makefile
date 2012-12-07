@@ -6,7 +6,8 @@ install:
 	sudo ./script_install.sh
 	fab server_setup
 	fab coop_setup
-	fab initializeDjangoEnv
+	fab initialize_django_env
+	fab initialize_geo_django
 
 makemessages:
 	(cd coop_local; ../bin/python ../manage.py makemessages -l fr)

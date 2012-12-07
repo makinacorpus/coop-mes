@@ -4,7 +4,7 @@ from fabric.contrib.console import confirm
 from fabric.colors import red, green, yellow
 from fabric.decorators import task
 from fabric.contrib.files import append, contains, exists, sed, upload_template
-from fabtools import icanhaz
+from fabtools import require
 import fabtools
 
 try:
@@ -24,6 +24,9 @@ env.pg_pass = config.PG_PASSWORD
 
 env.locale = config.LOCALE
 
+
+env.base_install = config.PROJECT_HOME
+
 # Paramétres Déploiement
 env.websrv = 1
 
@@ -31,13 +34,13 @@ env.websrv = 1
 
 def pretty_apt(pkglist):
     for pkg in (pkglist):
-        icanhaz.deb.package(pkg)
+        require.deb.package(pkg)
         print(green(u'Paquet Debian "' + unicode(pkg) + u'" : installé.'))
 
 
 def pretty_pip(pkglist):
     for pkg in (pkglist):
-        icanhaz.python.install(pkg)
+        fabtools.python.install(pkg)
         print(green(u'Module Python "' + unicode(pkg) + u'" : installé.'))
 
 
@@ -54,7 +57,7 @@ def local_vm():
 
     # si le partage de dossier ne marche pas bien encore ensuite :
     #mise à jour guest additions
-    #icanhaz.deb.packages(['dkms','linux-headers-2.6.38-8-generic','linux-headers-generic'])
+    #require.deb.packages(['dkms','linux-headers-2.6.38-8-generic','linux-headers-generic'])
     # sudo('/etc/init.d/vboxadd setup') # puis "vagrant reload"
 
 def remote():
@@ -159,7 +162,7 @@ def postgresql():
         run('chmod +x postgis.sh')
         run('./postgis.sh')
         #postgresql_net_access()
-        icanhaz.postgres.server()  # start server
+        require.postgres.server()  # start server
 
 
 
@@ -197,7 +200,7 @@ def coop_set_project():
                 print(yellow('Récupération du projet git coop-mes : NOK (répertoire déjà récupéré, ou adresse invalide'))
 
                 # coop-admin scripts creates the WSGI script so we won't call django_wsgi()
-            with cd('/home/%(user)s/projects/%(projet)s' % env):
+            with cd('%(base_install)s' % env):
                 with prefix('workon %(projet)s' % env):
                     run('chmod +x manage.py')
                     run('mkdir media')
@@ -209,7 +212,7 @@ def coop_set_project():
             print(yellow('Projet Django-coop nommé "%(projet)s" : déjà installé.' % env))
             # TODO proposer de réinstaller
 
-        with prefix('workon %(projet)s' % env):
+        with prefix('workon %(base_install)s' % env):
             print(yellow('Récupération des dépendances python du projet coop-mes'))
             run('pip install --timeout=240 --use-mirrors -r %(base_install)s/requirements.txt' % env)
             print(green('Récupération des dépendances python du projet coop-mes'))
@@ -235,7 +238,7 @@ def initialize_django_env():
     sudo('''psql -c "ALTER TABLE geometry_columns OWNER TO %(pg_user)s;" -d %(projet)s''' % env, user='postgres')
     sudo('''psql -c "ALTER TABLE spatial_ref_sys OWNER TO %(pg_user)s;" -d %(projet)s''' % env, user='postgres')
 
-    with cd('/home/%(user)s/projects/%(projet)s' % env):
+    with cd('%(base_install)s' % env):
         
         with prefix('workon %(projet)s' % env):
             
@@ -257,7 +260,7 @@ def initialize_geo_django():
         print(green('Installation de geodjangofla via git'))
         run('pip install git+git://github.com/quinode/geo-django-fla.git')
 
-        with cd('/home/%(user)s/projects/%(projet)s' % env):
+        with cd('%(base_install)s' % env):
             print(green('Migration de geodjangofla'))
             run('python ./manage.py migrate geodjangofla')
 
@@ -324,7 +327,7 @@ def django_wsgi():
 
     print "before bayrouth"
     upload_template('%s/fab_templates/wsgi.txt' % coop_path,
-                    '/home/%(user)s/projects/%(projet)s/coop_local/wsgi.py' % env,
+                    '%(base_install)s/coop_local/wsgi.py' % env,
                     context=wsgi_context, use_sudo=True)
     print "after bayrouth"
 
@@ -336,7 +339,7 @@ def django_wsgi():
 
 def apache_nginx():
     '''Apache + mod_wsgi pour Django avec Nginx en proxy'''
-    icanhaz.deb.packages(['apache2', 'libapache2-mod-wsgi'])
+    require.deb.packages(['apache2', 'libapache2-mod-wsgi'])
     with cd('/etc/apache2/'):
         if not contains('ports.conf', '127.0.0.1', use_sudo=True):
             sed('ports.conf', 'NameVirtualHost \\*:80', 'NameVirtualHost 127.0.0.1:80', use_sudo=True)
@@ -376,16 +379,16 @@ def create_pg_db():
     '''Créer une base de données postgres au nom du projet'''
     with settings(show('user')):  # , hide('warnings', 'running', 'stdout', 'stderr')):
         set_project()
-        icanhaz.postgres.database(env.projet, env.user, template='template_postgis', locale=env.locale)
+        require.postgres.database(env.projet, env.user, template='template_postgis', locale=env.locale)
         print(green('Création base de données PostgreSQL nommée "%(projet)s" : OK.' % env))
 
 
 def virtualenv_setup():
     '''setup virtualenv'''
     print(yellow('Environnement virtuel et dossier "projects"...'))
-    icanhaz.python.package('virtualenv', use_sudo=True)
-    icanhaz.python.package('virtualenvwrapper', use_sudo=True)
-    #icanhaz.python.package('virtualenvwrapper.django',use_sudo=True)
+    require.python.package('virtualenv', use_sudo=True)
+    require.python.package('virtualenvwrapper', use_sudo=True)
+    #require.python.package('virtualenvwrapper.django',use_sudo=True)
     print(green('Virtualenv installé.'))
     if not 'www-data' in run('echo | groups %(user)s' % env):
         sudo('usermod -a -G www-data %(user)s' % env)
@@ -430,7 +433,7 @@ def virtualenv_setup():
 def dependencies():
     '''Vérification des modules nécessaires au projet'''
     with settings(show('user'), hide('warnings', 'running', 'stdout', 'stderr')):
-        with cd('projects/%(projet)s' % env):
+        with cd('%(base_install)s' % env):
             if exists('requirements.txt'):
                 print(yellow('Installation des dépendances du projet...'))
                 with prefix('workon %(projet)s' % env):
@@ -439,7 +442,7 @@ def dependencies():
             else:
                 print(red('Aucun fichier "requirements.txt" trouvé.'))
         with prefix('workon %(projet)s' % env):
-            with cd('projects/%(projet)s' % env):
+            with cd('%(base_install)s' % env):
                 run('./manage.py collectstatic --noinput')
 
 
