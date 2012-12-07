@@ -1,9 +1,9 @@
 <VirtualHost *:80>
 
     ServerName %(domain)s
-    DocumentRoot /home/%(user)s/projects/%(projet)s
+    DocumentRoot %(base_install)s
 
-    <Directory /home/%(user)s/projects/%(projet)s>
+    <Directory %(base_install)s>
         Order allow,deny
         Allow from all
         <IfModule mod_headers.c>
@@ -12,26 +12,26 @@
         </IfModule>
     </Directory>
 
-    Alias /media/ /home/%(user)s/projects/%(projet)s/media/
-    Alias /static/ /home/%(user)s/projects/%(projet)s/static_collected/
+    Alias /media/ %(base_install)s/media/
+    Alias /static/ %(base_install)s/static_collected/
 
-    <Directory /home/%(user)s/projects/%(projet)s/static_collected>
+    <Directory %(base_install)s/static_collected>
         Order deny,allow
         Allow from all
     </Directory>
 
-    <Directory /home/%(user)s/projects/%(projet)s/media>
+    <Directory %(base_install)s/media>
         Order deny,allow
         Allow from all
     </Directory>
 
     LogLevel warn
-    ErrorLog  /home/%(user)s/projects/%(projet)s/logs/error.log
-    CustomLog /home/%(user)s/projects/%(projet)s/logs/access.log combined
+    ErrorLog  %(base_install)s/logs/error.log
+    CustomLog %(base_install)s/logs/access.log combined
 
     WSGIDaemonProcess %(domain)s user=www-data group=www-data threads=25
     WSGIProcessGroup %(domain)s
 
-    WSGIScriptAlias / /home/%(user)s/projects/%(projet)s/coop_local/wsgi.py
+    WSGIScriptAlias / %(base_install)s/coop_local/wsgi.py
 
 </VirtualHost>

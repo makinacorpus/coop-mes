@@ -3,10 +3,10 @@ listen=localhost:8000
 ALL: install serve
 
 install:
-	sudo ./script_install.sh
-	fab server_setup
-	fab coop_setup
-	fab initialize_django_env
+	#sudo ./script_install.sh
+	#fab server_setup
+	#fab coop_setup
+	#fab initialize_django_env
 	fab initialize_geo_django
 
 makemessages:

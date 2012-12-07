@@ -140,9 +140,8 @@ def server_setup():
 def postgresql():
     '''PostgreSQL 9.1 + PostGIS 1.5'''
     with settings(show('user'), hide('warnings', 'running', 'stdout', 'stderr')):
-        set_project()
-        if 'pgpass' not in env.keys():
-            prompt('Passe PostgreSQL :', default=pgpass, key='pgpass')
+        #if 'pgpass' not in env.keys():
+        #    prompt('Passe PostgreSQL :', default=pgpass, key='pgpass')
         print(yellow('Configuration PostgreSQL+PostGIS...'))
         pretty_apt(['postgresql', 'binutils', 'gdal-bin', 'libproj-dev', 'postgresql-9.1-postgis',
                     'postgresql-server-dev-9.1', 'python-psycopg2', 'libgeoip1'])
@@ -155,7 +154,7 @@ def postgresql():
             sudo('''psql -c "ALTER USER %(user)s with SUPERUSER;"''' % env, user='postgres')
             print(green('Création d’un superuser "%(user)s" PostgreSQL.' % env))
         if not exists('.pgpass'):
-            run('echo "*:*:*:%(user)s:%(pgpass)s" >> .pgpass' % env)
+            run('echo "*:*:*:%(user)s:%(pg_pass)s" >> .pgpass' % env)
             sudo('chmod 0600 .pgpass')
             print(green('Création du fichier .pgpass.'))
         run('curl https://docs.djangoproject.com/en/dev/_downloads/create_template_postgis-debian.sh -o postgis.sh')
@@ -187,19 +186,6 @@ def coop_set_project():
             run('mkvirtualenv --no-site-packages %(projet)s' % env)
             run('source .bash_profile')
 
-        env.base_install = '/home/%(user)s/projects/%(projet)s' % env
-
-        if not exists('/home/%(user)s/projects/%(projet)s' % env):
-            
-            try:
-                with prefix('workon %(projet)s' % env):
-                    print(yellow('Récupération du projet git coop-mes'))
-                    run('git clone git://github.com/makinacorpus/coop-mes.git %(base_install)s' % env)
-                    print(green('Récupération du projet git coop-mes : OK'))
-            except Exception:
-                print(yellow('Récupération du projet git coop-mes : NOK (répertoire déjà récupéré, ou adresse invalide'))
-
-                # coop-admin scripts creates the WSGI script so we won't call django_wsgi()
             with cd('%(base_install)s' % env):
                 with prefix('workon %(projet)s' % env):
                     run('chmod +x manage.py')
@@ -212,14 +198,14 @@ def coop_set_project():
             print(yellow('Projet Django-coop nommé "%(projet)s" : déjà installé.' % env))
             # TODO proposer de réinstaller
 
-        with prefix('workon %(base_install)s' % env):
+        with prefix('workon %(projet)s' % env):
             print(yellow('Récupération des dépendances python du projet coop-mes'))
-            run('pip install --timeout=240 --use-mirrors -r %(base_install)s/requirements.txt' % env)
+            run('pip install --timeout=1024 --use-mirrors -r %(base_install)s/requirements.txt' % env)
             print(green('Récupération des dépendances python du projet coop-mes'))
              
         # Création du répertoire de logs   
-        if not exists('/home/%(user)s/projects/%(projet)s/logs' % env):
-            run('mkdir /home/%(user)s/projects/%(projet)s/logs' % env)
+        if not exists('%(base_install)s/logs' % env):
+            run('mkdir %(base_install)s/logs' % env)
 
 
 @task
@@ -282,7 +268,8 @@ def apache_vhost():
         vhost_context = {
             'user': env.user,
             'domain': env.domain,
-            'projet': env.projet
+            'projet': env.projet,
+	    'base_install' : env.base_install,
         }
         print 'workon %(projet)s' % env
         run('workon %(projet)s' % env)
@@ -308,7 +295,6 @@ def apache_vhost():
 
 def django_wsgi():
     '''paramétrage WSGI/Apache'''
-    set_project()
     print 'django_wsgi'
 
     #if not exists('/home/%(user)s/projects/%(projet)s/coop_local/wsgi.py' % env):
@@ -322,14 +308,13 @@ def django_wsgi():
     wsgi_context = {
         'site-packages': sp_path,
         'user': env.user,
-        'projet': env.projet
+        'projet': env.projet,
+        'base_install': env.base_install,
     }
 
-    print "before bayrouth"
     upload_template('%s/fab_templates/wsgi.txt' % coop_path,
                     '%(base_install)s/coop_local/wsgi.py' % env,
                     context=wsgi_context, use_sudo=True)
-    print "after bayrouth"
 
     print(green('Script WSGI pour %(projet)s créé.' % env))
     #else:
@@ -378,7 +363,6 @@ def apache_setup():
 def create_pg_db():
     '''Créer une base de données postgres au nom du projet'''
     with settings(show('user')):  # , hide('warnings', 'running', 'stdout', 'stderr')):
-        set_project()
         require.postgres.database(env.projet, env.user, template='template_postgis', locale=env.locale)
         print(green('Création base de données PostgreSQL nommée "%(projet)s" : OK.' % env))
 
@@ -412,9 +396,6 @@ def virtualenv_setup():
         append('.bashrc', '    export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv')
         append('.bashrc', '    source /usr/local/bin/virtualenvwrapper.sh')
         append('.bashrc', 'fi')
-        #append('.bash_profile','if [ -f ~/.bashrc ]; then') #fabric source .bash_profile, pas .bashrc
-        #append('.bash_profile','    source ~/.bashrc')
-        #append('.bash_profile','fi')
         append('.bash_profile', 'if [ $USER == %(user)s ]; then' % env)
         append('.bash_profile', '    export WORKON_HOME=$HOME/.virtualenvs')
         append('.bash_profile', '    export PROJECT_HOME=$HOME/projects')
