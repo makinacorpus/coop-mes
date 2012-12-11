@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-07 17:00+0100\n"
+"POT-Creation-Date: 2012-12-11 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,24 +129,24 @@ msgid "categories ESS"
 msgstr "types de structure ESS"
 
 #: models/local_models.py:137
-msgid "Label"
-msgstr "Label"
-
-#: models/local_models.py:138
-msgid "Agreement"
-msgstr "Agrément"
-
-#: models/local_models.py:139
-msgid "Technical Standard"
+msgid "Norme"
 msgstr "Norme"
 
+#: models/local_models.py:138
+msgid "Official label"
+msgstr "Label officiel"
+
+#: models/local_models.py:139
+msgid "Private label"
+msgstr "Label privé"
+
 #: models/local_models.py:140
-msgid "Process"
-msgstr "Démarche"
+msgid "Quality process"
+msgstr "Démarche qualité"
 
 #: models/local_models.py:141
-msgid "Certification"
-msgstr "Certification"
+msgid "Agreement"
+msgstr "Agrément"
 
 #: models/local_models.py:155
 msgid "guaranty"
@@ -468,3 +468,15 @@ msgstr "Zones"
 #: ui/menu.py:89
 msgid "Location categories"
 msgstr "Catégories de lieux"
+
+#~ msgid "Label"
+#~ msgstr "Label"
+
+#~ msgid "Technical Standard"
+#~ msgstr "Norme"
+
+#~ msgid "Process"
+#~ msgstr "Démarche"
+
+#~ msgid "Certification"
+#~ msgstr "Certification"
