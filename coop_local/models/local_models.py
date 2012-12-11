@@ -134,11 +134,11 @@ class CategoryESS(BaseOrganizationCategory):
 
 
 ORGANISATION_GUARANTY_TYPES = Choices(
-    ('LABEL', 1, _(u'Label')),
-    ('AGREEMENT', 2, _(u'Agreement')),
-    ('STANDARD', 3, _(u'Technical Standard')),
-    ('PROCESS', 4, _(u'Process')),
-    ('CERTIFICATION', 5, _(u'Certification')),
+    ('NORME', 1, _(u'Norme')),
+    ('OFFICIAL_LABEL', 2, _(u'Official label')),
+    ('PRIVATE_LABEL', 3, _(u'Private label')),
+    ('QUALITY', 4, _(u'Quality process')),
+    ('AGREEMENT', 5, _(u'Agreement')),
 )
 
 
