@@ -149,7 +149,7 @@ class Guaranty(models.Model):
     description = models.TextField(_(u'description'), blank=True)
 
     def __unicode__(self):
-        return ORGANISATION_GUARANTY_TYPES.CHOICES_DICT[self.type] + ' ' + self.name
+        return self.name
 
     class Meta:
         verbose_name = _(u'guaranty')
