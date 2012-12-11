@@ -1,53 +1,416 @@
 [
-{"pk": 1, "model": "coop_local.guaranty", "fields": {1, "name": "ISO 9001", "description": "Ensemble des normes concernant les exigences dans le domaine de la gestion de la qualité, fixé par l'Organisation internationale de normalisation.
-{"pk": 2, "model": "coop_local.guaranty", "fields": {2, "name": "Agriculture biologique", "description": "Label officiel européen de l'agriculture biologique dont le référentiel est d'application obligatoire depuis le 1er janvier 2009 et harmonisé pour tous les référentiels d'agriculture biologique européens.
-{"pk": 3, "model": "coop_local.guaranty", "fields": {2, "name": "Ange Bleu", "description": "Le plus ancien des éco-labels créé en Allemagne en 1978 qui comporte en 2009 plus de 80 référentiels et concerne plus de 10 000 produits et services.
-{"pk": 4, "model": "coop_local.guaranty", "fields": {2, "name": "Eco-label européen", "description": "Eco-label européen officiel créé par la Commission européenne en 1992 attribué selon les mêmes critères dans tout l'espace européen et garantissant à la fois des impacts environnementaux réduits sur l'ensemble du cycle de vie des produits et un niveau de performance comparable à celui de produits équivalents"} },
-{"pk": 5, "model": "coop_local.guaranty", "fields": {2, "name": "Eco-label européen - Papier", "description": "L'Eco-label européen garantit une réduction des impacts environnementaux tout au long du cycle de vie du produit : le produit contient des fibres recyclées (le fabricant a la possibilité d'indiquer le pourcentage minimal de fibres recyclées, information parfois présente sur les produits), 10 % au moins des fibres de bois vierges provenant de forêts doivent provenir de forêts certifiées, le blanchiment est réalisé sans chlore, les émissions de soufre et de CO2 dans l'atmosphère, ainsi que la pollution de l'eau, ont été limitées lors de la production et enfin l'usage de substances dangereuses pendant la fabrication et dans le produit fini est limité."} },
-{"pk": 6, "model": "coop_local.guaranty", "fields": {2, "name": "Eco-label Européen - Produits domestiques et d'entretien", "description": "Déclinaison de l’écolabel officiel européen sur les détergents créée en 1999. L'Eco-label européen comporte plusieurs cahiers des charges sur les détergents (détergents pour lave-vaisselle, détergents textiles, liquides vaisselle) et garantit des impacts réduits du produit tout au long de son cycle de vie des ces produits."} },
-{"pk": 7, "model": "coop_local.guaranty", "fields": {2, "name": "Eco-label européen - Services d'hébergement touristique", "description": "Déclinaison de l'éco-label européen aux services d'hébergement touristique qui permet de réduire leurs impacts environnementaux. Un référentiel similaire existe pour les services de camping."} },
-{"pk": 8, "model": "coop_local.guaranty", "fields": {2, "name": "Eco-label Européen - Shampooing et savon", "description": "Déclinaison de l'éco-label officiel européen aux produits d'hygiène que sont shampooings, après-shampooing et savons"} },
-{"pk": 9, "model": "coop_local.guaranty", "fields": {2, "name": "Eco-label Européen- Peintures et vernis", "description": "Eco-label européen officiel sur les peintures et vernis créé par la Commission européenne en 1991 et révisé en 2008"} },
-{"pk": 10, "model": "coop_local.guaranty", "fields": {2, "name": "Eco-label Européen- Textile", "description": "Eco-label européen sur les produits textiles, naturels, artificiels ou synthétiques, paru en 2002 et garantissant des impacts réduits du produit tout au long de son cycle de vie."} },
-{"pk": 11, "model": "coop_local.guaranty", "fields": {2, "name": "Energy Star", "description": "Label officiel d'origine nord-américaine adopté en 2003 par la Commission européenne garantissant une moindre consommation d'énergie des équipements de bureau"} },
-{"pk": 12, "model": "coop_local.guaranty", "fields": {2, "name": "NF Environnement", "description": "La marque NF-Environnement certifie des produits qui présentent des impacts moindres sur l’environnement sur l'ensemble de leur cycle de vie et une aptitude à l’usage au moins équivalente à celle d’autres produits similaires. Elle peut également s’appliquer à des produits qui, de par leur fonction, réduisent les impacts sur l’environnement (comme par exemple les balles de lavage pour lave-linge qui permettent d'utiliser moins de lessive). Comme tous les éco-labels officiels, les référentiels de l'éco-label européen ne comportent pas de critères sociaux."} },
-{"pk": 13, "model": "coop_local.guaranty", "fields": {2, "name": "NF - Environnement - Enveloppes et pochettes postales", "description": "Eco-label officiel français sur les enveloppes et pochettes postales créé en 2000"} },
-{"pk": 14, "model": "coop_local.guaranty", "fields": {2, "name": "NF-Environnement Cahiers", "description": "Eco-label français garantissant la qualité environnementale des cahiers"} },
-{"pk": 15, "model": "coop_local.guaranty", "fields": {3, "name": "Bio Cohérence", "description": "Label créé en avril 2010 par Alternatives Bio 2009 pour l’agriculture biologique, Bio Cohérence entend aller plus loin dans ses exigences que le règlement européen en matière d'agriculture biologique."} },
-{"pk": 16, "model": "coop_local.guaranty", "fields": {3, "name": "BIO EQUITABLE - Textile", "description": "Label français garantissant les conditions de production biologique et équitable de produits agricoles créé en 2002 par l'association BIO EQUITABLE qui réunit des Petites et Moyennes Entreprises du secteur agrobiologique, soucieuses de produire selon des critères de développement économique durable. Cette association a changé de nom en 2012 et s'appelle désormais Bio Partenaire."} },
-{"pk": 17, "model": "coop_local.guaranty", "fields": {3, "name": "BIO EQUITABLE- Alimentation", "description": "Label français garantissant les conditions de production biologique et équitable de produits agricoles créé en 2002 par l'association BIO EQUITABLE qui réunit des Petites et Moyennes Entreprises du secteur agrobiologique, soucieuses de produire selon des critères de développement économique durable. Cette association a changé de nom en 2010 et s'appelle désormais BIO PARTENAIRE."} },
-{"pk": 18, "model": "coop_local.guaranty", "fields": {3, "name": "Cosmébio", "description": "Logo des cosmétiques écologiques et biologiques créé par l'association professionnelle Cosmebio en 2001, certification assurée par Ecocert ou Qualité France sur la base de la charte Cosmebio."} },
-{"pk": 19, "model": "coop_local.guaranty", "fields": {3, "name": "Cosmos", "description": "Un nouveau logo européen certifiant la qualité naturelle des cosmétiques créé en 2008 par les organisations Bioforum (Belgique), Cosmébio (France), Ecocert (France), BDIH (Allemagne), AIAB et ICEA (Italie) et Soil Association (Angleterre). Cosmos devrait à terme remplacer les labels français Cosmébio et Ecocert."} },
-{"pk": 20, "model": "coop_local.guaranty", "fields": {3, "name": "Demeter- Alimentation", "description": "Label de certification de produits issus de l'agriculture biodynamique."} },
-{"pk": 21, "model": "coop_local.guaranty", "fields": {3, "name": "Demeter- Textile", "description": "Label de l'agriculture bio-dynamique qualifiant l'origine biologique des fibres naturelles et leur transformation selon un référentiel de critères environnementaux et sociaux"} },
-{"pk": 22, "model": "coop_local.guaranty", "fields": {3, "name": "Equitable Solidaire Responsable (ESR)", "description": "Label de commerce équitable créé en 2007 par l'organisme de certification français Ecocert"} },
-{"pk": 23, "model": "coop_local.guaranty", "fields": {3, "name": "Finansol", "description": "Label de garantie des produits d'épargne solidaire existant depuis 1997 à l'initiative de Finansol, association professionnelle regroupant des financeurs solidaires et des établissements financiers souhaitant s’engager et soutenir cette démarche."} },
-{"pk": 24, "model": "coop_local.guaranty", "fields": {3, "name": "Flower Label Programme (FLP)", "description": "Initiative allemande née dans les années 90 visant à développer la culture responsable de fleurs et de plantes"} },
-{"pk": 25, "model": "coop_local.guaranty", "fields": {3, "name": "Forest Garden Product (FGP)", "description": "Label né au Sri Lanka en 1987, inspiré de la démarche de gestion forestière de la « forêt analogue » et certifiant, sur la base d’indicateurs de bio-diversité, des éco-systèmes durables ainsi que les produits agricoles ou de cueillette qui en sont issus."} },
-{"pk": 26, "model": "coop_local.guaranty", "fields": {3, "name": "Forest Stewardship Council (FSC)", "description": "Label de certification forestière international créé dans les années 90 pour protéger les forêts tropicales exploitées illégalement et menacées de disparition permettant d'apposer un label sur les produits fabriqués à partir de bois issus de forêts certifiés"} },
-{"pk": 27, "model": "coop_local.guaranty", "fields": {3, "name": "Global Organic Textile Standard (GOTS)", "description": "Label international des textiles biologiques créé en 2008 par un groupe de travail regroupant l'International Association Natural Textile Industry (basée en Allemagne), la Soil Association (Royaume-Uni), l'Organic Trade Association (Etats-Unis) et la Japan Organic Cotton Association (Japon)."} },
-{"pk": 28, "model": "coop_local.guaranty", "fields": {3, "name": "Imprim'vert", "description": "Le logo Imprim'vert géré par le Pôle d’Innovation de l’Imprimerie (P2i) permet de repérer des imprimeurs engagés dans une démarche engagée ou des produits issus de leurs ateliers"} },
-{"pk": 29, "model": "coop_local.guaranty", "fields": {3, "name": "ISR Novethic", "description": "Label garantissant transparence et prise en compte de critères environnementaux, sociaux et de gouvernance des produits d'investissement socialement responsables, souvent désignés sous le terme de placements éthiques, créé en 2009 par Novethic, filiale de la Caisse des dépôts. Il peut porter sur des fonds d'investissement en actions, obligations et distribués aux particuliers ou aux salariés (épargne salariale)."} },
-{"pk": 30, "model": "coop_local.guaranty", "fields": {3, "name": "Max Havelaar Alimentation", "description": "Label de certification garantissant l'équité des échanges commerciaux Nord/Sud créé par l'association pionnière Max Havelaar dans les années 90"} },
-{"pk": 31, "model": "coop_local.guaranty", "fields": {3, "name": "Max Havelaar Textile", "description": "Le label historique du commerce équitable Max Havelaar se décline aussi sur les produits textiles avec la création d'approvisionnement de filières spécifiques pour le coton depuis plusieurs années"} },
-{"pk": 32, "model": "coop_local.guaranty", "fields": {3, "name": "Nature et Progrès - Détergents", "description": "Label de l'association Nature et Progrès sur les lessives et produits d'entretien écologiques"} },
-{"pk": 33, "model": "coop_local.guaranty", "fields": {3, "name": "Nature et Progrès- Alimentation", "description": "Label biologique sur les productions végétales et animales de l'association Nature et Progrès créé en 1974"} },
-{"pk": 34, "model": "coop_local.guaranty", "fields": {3, "name": "Nature et Progrès- Cosmétiques", "description": "Label des cosmétiques naturels et biologiques créé en 1998 par l'association Nature et Progrès"} },
-{"pk": 35, "model": "coop_local.guaranty", "fields": {3, "name": "Origine France Garantie", "description": "Le label-marque "Origine France Garantie" a été créé en 2011 par l’association Pro France qui promeut la marque France. Il permet aux consommateurs d’avoir une information claire et transparente sur l'origine des produits, et aux entreprises de valoriser leur engagement de manière efficace."} },
-{"pk": 36, "model": "coop_local.guaranty", "fields": {3, "name": "PEFC", "description": "Créé en 1999 par les propriétaires forestiers de 6 pays européens (Allemagne, Autriche, Finlande, France, Norvège et Suède), le Programme de reconnaissance des certifications de gestion forestière PEFC (Programm for the Endorsement of Forest Certification scheme), est le premier système de certification forestière, avec 200 millions d’hectares de forêts certifiées dont un tiers de la forêt française. Européen à l'origine, il s’ouvre aux autres continents (32 pays membres dont les Etats-Unis, le Canada, le Brésil ...)"} },
-{"pk": 37, "model": "coop_local.guaranty", "fields": {3, "name": "TCO", "description": "Label d'origine suédoise pour le matériel électronique de bureau certifiant de faibles consommations énergétiques, un faible niveau d'émissions, un faible niveau sonore et un impact environnemental réduit"} },
-{"pk": 38, "model": "coop_local.guaranty", "fields": {3, "name": "WFTO", "description": "Logo pour les producteurs et commerçants du commerce équitable créé par l’Organisation mondiale du commerce équitable, WFTO (World Fair Trade Organization), anciennement IFAT, le plus grand réseau mondial de commerce équitable."} },
-{"pk": 39, "model": "coop_local.guaranty", "fields": {1, "name": "EMAS", "description": "Il s’agit d’un outil de management environnemental donnant les recommandations pour analyser et maîtriser les impacts environnementaux issus de l’activité de l’entreprise. Les trois principes Fondamentaux de cette norme sont :
-- La conformité aux lois et règlements
-- La prévention des pollutions
-- L’amélioration continue
->Site Internet : www.iso.org/iso/fr/iso_14000_essentials"} },
-{"pk": 40, "model": "coop_local.guaranty", "fields": {1, "name": "ISO 14001", "description": "La marque HQE (Haute Qualité Environnementale) a été créée en 1995 par l’AIMCC (L’Association des industries des produits de construction). C’est une démarche qui vise à maîtriser les impacts d'une opération de construction ou de réhabilitation sur l'environnement. Elle regroupe quatorze cibles environnementales qui portent sur le respect et la protection de l'environnement extérieur et sur la création d'un environnement intérieur satisfaisant, c'est-à-dire confortable et sain.
->Site Internet : http://www.assohqe.org/"} },
-{"pk": 41, "model": "coop_local.guaranty", "fields": {3, "name": "Qualirei", "description": "Ce label créé par le CNEI reconnaît, renforce et garantit la  qualité des pratiques sociales dans les entreprises d'insertion. Conçu comme un outil de management et de progrès, il permet de constater, prévenir et corriger d'éventuels écarts par rapport aux bonnes pratiques, afin d'améliorer la qualité de l'accompagnement socioprofessionnel."} },
-{"pk": 42, "model": "coop_local.guaranty", "fields": {4, "name": "CEDRE", "description": "Développée par COORACE au bénéfice de l'ensemble des structures d'insertion par l'activité économique (SIAE), la démarche qualité CEDRE vise l'amélioration continue des services proposés aux salariés en parcours d'insertion mais aussi aux clients, et la mise en œuvre d'un système de management par la qualité."} },
-{"pk": 43, "model": "coop_local.guaranty", "fields": {3, "name": "APUR", "description": "Une marque-label permettant de repérer les articles en papier recyclé."} },
-{"pk": 44, "model": "coop_local.guaranty", "fields": {3, "name": "ASSER", "description": "La méthode ASSER (Actions, Solutions et Services pour des Evénements Responsables) est dédiée au conseil à l'organisation et à la certification d'événements innovants d'un point de vue de la prise en compte du développement durable dans son ensemble."} },
-{"pk": 45, "model": "coop_local.guaranty", "fields": {5, "name": "Agrément Jeunesse et Sports", "description": "permet à l’association sportive déclarée d’entretenir des relations privilégiées de partenariat avec l’État. Il offre de nombreuses prérogatives à l’association sportive."} },
-{"pk": 46, "model": "coop_local.guaranty", "fields": {5, "name": "Agrément Organisme de formation", "description": "Agrément préfectoral obtenu par une structure pour bénéficier du statut d'organisme de formation"} }
+    {
+        "pk": 1, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 1, 
+            "name": "ISO 9001", 
+            "description": "Ensemble des normes concernant les exigences dans le domaine de la gestion de la qualit\u00e9, fix\u00e9 par l'Organisation internationale de normalisation."
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Agriculture biologique", 
+            "description": "Label officiel europ\u00e9en de l'agriculture biologique dont le r\u00e9f\u00e9rentiel est d'application obligatoire depuis le 1er janvier 2009 et harmonis\u00e9 pour tous les r\u00e9f\u00e9rentiels d'agriculture biologique europ\u00e9ens."
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Ange Bleu", 
+            "description": "Le plus ancien des \u00e9co-labels cr\u00e9\u00e9 en Allemagne en 1978 qui comporte en 2009 plus de 80 r\u00e9f\u00e9rentiels et concerne plus de 10 000 produits et services."
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Eco-label europ\u00e9en", 
+            "description": "Eco-label europ\u00e9en officiel cr\u00e9\u00e9 par la Commission europ\u00e9enne en 1992 attribu\u00e9 selon les m\u00eames crit\u00e8res dans tout l'espace europ\u00e9en et garantissant \u00e0 la fois des impacts environnementaux r\u00e9duits sur l'ensemble du cycle de vie des produits et un niveau de performance comparable \u00e0 celui de produits \u00e9quivalents"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Eco-label europ\u00e9en - Papier", 
+            "description": "L'Eco-label europ\u00e9en garantit une r\u00e9duction des impacts environnementaux tout au long du cycle de vie du produit : le produit contient des fibres recycl\u00e9es (le fabricant a la possibilit\u00e9 d'indiquer le pourcentage minimal de fibres recycl\u00e9es, information parfois pr\u00e9sente sur les produits), 10 % au moins des fibres de bois vierges provenant de for\u00eats doivent provenir de for\u00eats certifi\u00e9es, le blanchiment est r\u00e9alis\u00e9 sans chlore, les \u00e9missions de soufre et de CO2 dans l'atmosph\u00e8re, ainsi que la pollution de l'eau, ont \u00e9t\u00e9 limit\u00e9es lors de la production et enfin l'usage de substances dangereuses pendant la fabrication et dans le produit fini est limit\u00e9."
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Eco-label Europ\u00e9en - Produits domestiques et d'entretien", 
+            "description": "D\u00e9clinaison de l'\u00e9colabel officiel europ\u00e9en sur les d\u00e9tergents cr\u00e9\u00e9e en 1999. L'Eco-label europ\u00e9en comporte plusieurs cahiers des charges sur les d\u00e9tergents (d\u00e9tergents pour lave-vaisselle, d\u00e9tergents textiles, liquides vaisselle) et garantit des impacts r\u00e9duits du produit tout au long de son cycle de vie des ces produits."
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Eco-label europ\u00e9en - Services d'h\u00e9bergement touristique", 
+            "description": "D\u00e9clinaison de l'\u00e9co-label europ\u00e9en aux services d'h\u00e9bergement touristique qui permet de r\u00e9duire leurs impacts environnementaux. Un r\u00e9f\u00e9rentiel similaire existe pour les services de camping."
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Eco-label Europ\u00e9en - Shampooing et savon", 
+            "description": "D\u00e9clinaison de l'\u00e9co-label officiel europ\u00e9en aux produits d'hygi\u00e8ne que sont shampooings, apr\u00e8s-shampooing et savons"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Eco-label Europ\u00e9en- Peintures et vernis", 
+            "description": "Eco-label europ\u00e9en officiel sur les peintures et vernis cr\u00e9\u00e9 par la Commission europ\u00e9enne en 1991 et r\u00e9vis\u00e9 en 2008"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Eco-label Europ\u00e9en- Textile", 
+            "description": "Eco-label europ\u00e9en sur les produits textiles, naturels, artificiels ou synth\u00e9tiques, paru en 2002 et garantissant des impacts r\u00e9duits du produit tout au long de son cycle de vie."
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "Energy Star", 
+            "description": "Label officiel d'origine nord-am\u00e9ricaine adopt\u00e9 en 2003 par la Commission europ\u00e9enne garantissant une moindre consommation d'\u00e9nergie des \u00e9quipements de bureau"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "NF - Environnement - Enveloppes et pochettes postales", 
+            "description": "Eco-label officiel fran\u00e7ais sur les enveloppes et pochettes postales cr\u00e9\u00e9 en 2000"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "NF-Environnement Cahiers", 
+            "description": "Eco-label fran\u00e7ais garantissant la qualit\u00e9 environnementale des cahiers"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 2, 
+            "name": "NF Environnement", 
+            "description": "La marque NF-Environnement certifie des produits qui pr\u00e9sentent des impacts moindres sur l'environnement sur l'ensemble de leur cycle de vie et une aptitude \u00e0 l'usage au moins \u00e9quivalente \u00e0 celle d'autres produits similaires. Elle peut \u00e9galement s'appliquer \u00e0 des produits qui, de par leur fonction, r\u00e9duisent les impacts sur l'environnement (comme par exemple les balles de lavage pour lave-linge qui permettent d'utiliser moins de lessive). Comme tous les \u00e9co-labels officiels, les r\u00e9f\u00e9rentiels de l'\u00e9co-label europ\u00e9en ne comportent pas de crit\u00e8res sociaux."
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Bio Coh\u00e9rence", 
+            "description": "Label cr\u00e9\u00e9 en avril 2010 par Alternatives Bio 2009 pour l'agriculture biologique, Bio Coh\u00e9rence entend aller plus loin dans ses exigences que le r\u00e8glement europ\u00e9en en mati\u00e8re d'agriculture biologique."
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Cosm\u00e9bio", 
+            "description": "Logo des cosm\u00e9tiques \u00e9cologiques et biologiques cr\u00e9\u00e9 par l'association professionnelle Cosmebio en 2001, certification assur\u00e9e par Ecocert ou Qualit\u00e9 France sur la base de la charte Cosmebio."
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "BIO EQUITABLE - Textile", 
+            "description": "Label fran\u00e7ais garantissant les conditions de production biologique et \u00e9quitable de produits agricoles cr\u00e9\u00e9 en 2002 par l'association BIO EQUITABLE qui r\u00e9unit des Petites et Moyennes Entreprises du secteur agrobiologique, soucieuses de produire selon des crit\u00e8res de d\u00e9veloppement \u00e9conomique durable. Cette association a chang\u00e9 de nom en 2012 et s'appelle d\u00e9sormais Bio Partenaire."
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "BIO EQUITABLE- Alimentation", 
+            "description": "Label fran\u00e7ais garantissant les conditions de production biologique et \u00e9quitable de produits agricoles cr\u00e9\u00e9 en 2002 par l'association BIO EQUITABLE qui r\u00e9unit des Petites et Moyennes Entreprises du secteur agrobiologique, soucieuses de produire selon des crit\u00e8res de d\u00e9veloppement \u00e9conomique durable. Cette association a chang\u00e9 de nom en 2010 et s'appelle d\u00e9sormais BIO PARTENAIRE."
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Cosmos", 
+            "description": "Un nouveau logo europ\u00e9en certifiant la qualit\u00e9 naturelle des cosm\u00e9tiques cr\u00e9\u00e9 en 2008 par les organisations Bioforum (Belgique), Cosm\u00e9bio (France), Ecocert (France), BDIH (Allemagne), AIAB et ICEA (Italie) et Soil Association (Angleterre). Cosmos devrait \u00e0 terme remplacer les labels fran\u00e7ais Cosm\u00e9bio et Ecocert."
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Demeter- Alimentation", 
+            "description": "Label de certification de produits issus de l'agriculture biodynamique."
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Demeter- Textile", 
+            "description": "Label de l'agriculture bio-dynamique qualifiant l'origine biologique des fibres naturelles et leur transformation selon un r\u00e9f\u00e9rentiel de crit\u00e8res environnementaux et sociaux"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Equitable Solidaire Responsable (ESR)", 
+            "description": "Label de commerce \u00e9quitable cr\u00e9\u00e9 en 2007 par l'organisme de certification fran\u00e7ais Ecocert"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Finansol", 
+            "description": "Label de garantie des produits d'\u00e9pargne solidaire existant depuis 1997 \u00e0 l'initiative de Finansol, association professionnelle regroupant des financeurs solidaires et des \u00e9tablissements financiers souhaitant s'engager et soutenir cette d\u00e9marche."
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Flower Label Programme (FLP)", 
+            "description": "Initiative allemande n\u00e9e dans les ann\u00e9es 90 visant \u00e0 d\u00e9velopper la culture responsable de fleurs et de plantes"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Forest Garden Product (FGP)", 
+            "description": "Label n\u00e9 au Sri Lanka en 1987, inspir\u00e9 de la d\u00e9marche de gestion foresti\u00e8re de la \u00ab\u00a0for\u00eat analogue\u00a0\u00bb et certifiant, sur la base d'indicateurs de bio-diversit\u00e9, des \u00e9co-syst\u00e8mes durables ainsi que les produits agricoles ou de cueillette qui en sont issus."
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Forest Stewardship Council (FSC)", 
+            "description": "Label de certification foresti\u00e8re international cr\u00e9\u00e9 dans les ann\u00e9es 90 pour prot\u00e9ger les for\u00eats tropicales exploit\u00e9es ill\u00e9galement et menac\u00e9es de disparition permettant d'apposer un label sur les produits fabriqu\u00e9s \u00e0 partir de bois issus de for\u00eats certifi\u00e9s"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Global Organic Textile Standard (GOTS)", 
+            "description": "Label international des textiles biologiques cr\u00e9\u00e9 en 2008 par un groupe de travail regroupant l'International Association Natural Textile Industry (bas\u00e9e en Allemagne), la Soil Association (Royaume-Uni), l'Organic Trade Association (Etats-Unis) et la Japan Organic Cotton Association (Japon)."
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Imprim'vert", 
+            "description": "Le logo Imprim'vert g\u00e9r\u00e9 par le P\u00f4le d'Innovation de l'Imprimerie (P2i) permet de rep\u00e9rer des imprimeurs engag\u00e9s dans une d\u00e9marche engag\u00e9e ou des produits issus de leurs ateliers"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "ISR Novethic", 
+            "description": "Label garantissant transparence et prise en compte de crit\u00e8res environnementaux, sociaux et de gouvernance des produits d'investissement socialement responsables, souvent d\u00e9sign\u00e9s sous le terme de placements \u00e9thiques, cr\u00e9\u00e9 en 2009 par Novethic, filiale de la Caisse des d\u00e9p\u00f4ts. Il peut porter sur des fonds d'investissement en actions, obligations et distribu\u00e9s aux particuliers ou aux salari\u00e9s (\u00e9pargne salariale)."
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Max Havelaar Alimentation", 
+            "description": "Label de certification garantissant l'\u00e9quit\u00e9 des \u00e9changes commerciaux Nord/Sud cr\u00e9\u00e9 par l'association pionni\u00e8re Max Havelaar dans les ann\u00e9es 90"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Max Havelaar Textile", 
+            "description": "Le label historique du commerce \u00e9quitable Max Havelaar se d\u00e9cline aussi sur les produits textiles avec la cr\u00e9ation d'approvisionnement de fili\u00e8res sp\u00e9cifiques pour le coton depuis plusieurs ann\u00e9es"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Nature et Progr\u00e8s - D\u00e9tergents", 
+            "description": "Label de l'association Nature et Progr\u00e8s sur les lessives et produits d'entretien \u00e9cologiques"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Nature et Progr\u00e8s- Alimentation", 
+            "description": "Label biologique sur les productions v\u00e9g\u00e9tales et animales de l'association Nature et Progr\u00e8s cr\u00e9\u00e9 en 1974"
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Nature et Progr\u00e8s- Cosm\u00e9tiques", 
+            "description": "Label des cosm\u00e9tiques naturels et biologiques cr\u00e9\u00e9 en 1998 par l'association Nature et Progr\u00e8s"
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Origine France Garantie", 
+            "description": "Le label-marque \"Origine France Garantie\" a \u00e9t\u00e9 cr\u00e9\u00e9 en 2011 par l'association Pro France qui promeut la marque France. Il permet aux consommateurs d'avoir une information claire et transparente sur l'origine des produits, et aux entreprises de valoriser leur engagement de mani\u00e8re efficace."
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "PEFC", 
+            "description": "Cr\u00e9\u00e9 en 1999 par les propri\u00e9taires forestiers de 6 pays europ\u00e9ens (Allemagne, Autriche, Finlande, France, Norv\u00e8ge et Su\u00e8de), le Programme de reconnaissance des certifications de gestion foresti\u00e8re PEFC (Programm for the Endorsement of Forest Certification scheme), est le premier syst\u00e8me de certification foresti\u00e8re, avec 200 millions d'hectares de for\u00eats certifi\u00e9es dont un tiers de la for\u00eat fran\u00e7aise. Europ\u00e9en \u00e0 l'origine, il s'ouvre aux autres continents (32 pays membres dont les Etats-Unis, le Canada, le Br\u00e9sil ...)"
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "TCO", 
+            "description": "Label d'origine su\u00e9doise pour le mat\u00e9riel \u00e9lectronique de bureau certifiant de faibles consommations \u00e9nerg\u00e9tiques, un faible niveau d'\u00e9missions, un faible niveau sonore et un impact environnemental r\u00e9duit"
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "WFTO", 
+            "description": "Logo pour les producteurs et commer\u00e7ants du commerce \u00e9quitable cr\u00e9\u00e9 par l'Organisation mondiale du commerce \u00e9quitable, WFTO (World Fair Trade Organization), anciennement IFAT, le plus grand r\u00e9seau mondial de commerce \u00e9quitable."
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 1, 
+            "name": "EMAS", 
+            "description": "Il s'agit d'un outil de management environnemental donnant les recommandations pour analyser et ma\u00eetriser les impacts environnementaux issus de l'activit\u00e9 de l'entreprise. Les trois principes Fondamentaux de cette norme sont :\\n- La conformit\u00e9 aux lois et r\u00e8glements\\n- La pr\u00e9vention des pollutions\\n- L'am\u00e9lioration continue\\n>Site Internet : www.iso.org/iso/fr/iso_14000_essentials"
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 1, 
+            "name": "ISO 14001", 
+            "description": "La marque HQE (Haute Qualit\u00e9 Environnementale) a \u00e9t\u00e9 cr\u00e9\u00e9e en 1995 par l'AIMCC (L'Association des industries des produits de construction). C'est une d\u00e9marche qui vise \u00e0 ma\u00eetriser les impacts d'une op\u00e9ration de construction ou de r\u00e9habilitation sur l'environnement. Elle regroupe quatorze cibles environnementales qui portent sur le respect et la protection de l'environnement ext\u00e9rieur et sur la cr\u00e9ation d'un environnement int\u00e9rieur satisfaisant, c'est-\u00e0-dire confortable et sain.\\n>Site Internet : http://www.assohqe.org/"
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "Qualirei", 
+            "description": "Ce label cr\u00e9\u00e9 par le CNEI reconna\u00eet, renforce et garantit la\u00a0 qualit\u00e9 des pratiques sociales dans les entreprises d'insertion. Con\u00e7u comme un outil de management et de progr\u00e8s, il permet de constater, pr\u00e9venir et corriger d'\u00e9ventuels \u00e9carts par rapport aux bonnes pratiques, afin d'am\u00e9liorer la qualit\u00e9 de l'accompagnement socioprofessionnel."
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 4, 
+            "name": "CEDRE", 
+            "description": "D\u00e9velopp\u00e9e par COORACE au b\u00e9n\u00e9fice de l'ensemble des structures d'insertion par l'activit\u00e9 \u00e9conomique (SIAE), la d\u00e9marche qualit\u00e9 CEDRE vise l'am\u00e9lioration continue des services propos\u00e9s aux salari\u00e9s en parcours d'insertion mais aussi aux clients, et la mise en \u0153uvre d'un syst\u00e8me de management par la qualit\u00e9."
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "APUR", 
+            "description": "Une marque-label permettant de rep\u00e9rer les articles en papier recycl\u00e9."
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 3, 
+            "name": "ASSER", 
+            "description": "La m\u00e9thode ASSER (Actions, Solutions et Services pour des Ev\u00e9nements Responsables) est d\u00e9di\u00e9e au conseil \u00e0 l'organisation et \u00e0 la certification d'\u00e9v\u00e9nements innovants d'un point de vue de la prise en compte du d\u00e9veloppement durable dans son ensemble."
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 5, 
+            "name": "Agr\u00e9ment Jeunesse et Sports", 
+            "description": "permet \u00e0 l'association sportive d\u00e9clar\u00e9e d'entretenir des relations privil\u00e9gi\u00e9es de partenariat avec l'\u00c9tat. Il offre de nombreuses pr\u00e9rogatives \u00e0 l'association sportive."
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "coop_local.guaranty", 
+        "fields": {
+            "type": 5, 
+            "name": "Agr\u00e9ment Organisme de formation", 
+            "description": "Agr\u00e9ment pr\u00e9fectoral obtenu par une structure pour b\u00e9n\u00e9ficier du statut d'organisme de formation"
+        }
+    }
 ]
