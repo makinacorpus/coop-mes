@@ -144,7 +144,14 @@ admin.site.register(Provider, ProviderAdmin)
 
 admin.site.register(LegalStatus)
 admin.site.register(CategoryIAE)
-admin.site.register(Guaranty)
+
+class GuarantyAdmin(admin.ModelAdmin):
+
+    list_display = ('type', 'name')
+    list_filter = ('type', )
+    search_fields = ('type', 'name')
+
+admin.site.register(Guaranty, GuarantyAdmin)
 
 
 class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
