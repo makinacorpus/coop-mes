@@ -7,6 +7,10 @@ from django_extensions.db import fields as exfields
 from django.core.validators import RegexValidator, MaxLengthValidator
 from mptt.models import MPTTModel, TreeForeignKey
 from django.contrib.contenttypes import generic
+from sorl.thumbnail import ImageField
+from sorl.thumbnail import default
+
+ADMIN_THUMBS_SIZE = '60x60'
 
 
 # Use Choices() !
@@ -141,15 +145,29 @@ ORGANISATION_GUARANTY_TYPES = Choices(
     ('AGREEMENT', 5, _(u'Agreement')),
 )
 
-
 class Guaranty(models.Model):
 
     type = models.IntegerField(_(u'type'), choices=ORGANISATION_GUARANTY_TYPES.CHOICES)
     name = models.CharField(_(u'name'), blank=True, max_length=100)
     description = models.TextField(_(u'description'), blank=True)
+    logo = ImageField(upload_to='guaranty_logos/', null=True, blank=True)
 
     def __unicode__(self):
         return self.name
+
+    def logo_list_display(self):
+        try:
+            if self.logo:
+                thumb = default.backend.get_thumbnail(self.logo.file, ADMIN_THUMBS_SIZE)
+                return '<img width="%s" src="%s" />' % (thumb.width, thumb.url)
+            else:
+                return _(u"No Image")
+        except IOError:
+            raise
+            return _(u"No Image")
+
+    logo_list_display.short_description = _(u"logo")
+    logo_list_display.allow_tags = True
 
     class Meta:
         verbose_name = _(u'guaranty')

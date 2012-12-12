@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 from mptt.admin import MPTTModelAdmin
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
 from django.db import models
+from sorl.thumbnail.admin import AdminImageMixin
 
 try:
     from coop.base_admin import *
@@ -145,9 +146,10 @@ admin.site.register(Provider, ProviderAdmin)
 admin.site.register(LegalStatus)
 admin.site.register(CategoryIAE)
 
-class GuarantyAdmin(admin.ModelAdmin):
+class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
 
-    list_display = ('type', 'name')
+    list_display = ('logo_list_display', 'type', 'name')
+    list_display_links = ('name', )
     list_filter = ('type', )
     search_fields = ('type', 'name')
 
