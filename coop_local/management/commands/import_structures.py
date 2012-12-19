@@ -59,6 +59,7 @@ class Command(BaseCommand):
 
                 (provider, success) = Provider.objects.get_or_create(title=title);
                 
+                """ First import fields
                 provider.acronym = row['Sigle']
                 provider.description = row['Presentation generale']
                 
@@ -68,9 +69,7 @@ class Command(BaseCommand):
                     tme_struct = time.strptime(birth_date, '%d/%m/%Y')
                     provider.birth = datetime.datetime(*tme_struct[0:3])
                     
-                provider.email = row['Email de la structure']
                 provider.web = row['Site web']
-
                 provider.siret = row['N° SIRET']
                 legal_status = row['Statut juridique']
                 try:
@@ -87,22 +86,77 @@ class Command(BaseCommand):
                 except CategoryIAE.DoesNotExist:
                     print "Unknown IAE Category : >" + category_iae + "<"
                 
-                    
+                provider.brief_description = row['Description succincte']
+                provider.added_value = row['plue value sociale et environ-nementale']
+                provider.annual_revenue = _clean_int(row["Chiffre d'affaires annuel"])
+                provider.workforce = _clean_int(row['Effectif total (ETP)'])
+                provider.production_workforce = _clean_int(row['Effectif de production (ETP)'])
+                provider.supervision_workforce = _clean_int(row['Effectif d’encadrement (ETP)'])
+                provider.integration_workforce = _clean_int(row['Nombre de salariés en insertion (ETP)'])
+                provider.annual_integration_number = _clean_int(row['Nombre de personnes en insertion accompagnées par an'])
+                """
+
+                """ Second Import fields"""
+                
+                # New Fields
+                provider.bdis_id = row['Identifiant BDIS']
+
+                # Old Fields
+                provider.acronym = row['Sigle']
+                
+                ess_structures_list = row['Type de structure ESS'].split(";")
+                for ess_structure in ess_structures_list:
+                    try:
+                        obj = CategoryESS.objects.get(slug=slugify(ess_structure))
+                        provider.category.add(obj)
+                    except CategoryESS.DoesNotExist:
+                        errors_array.append("Unknown CategoryESS >%(ess_structure)s< for %(name)s" 
+                                            % {'ess_structure': ess_structure, 'name': name})
+
+                provider.web = row['Site web']
+                provider.birth = row['Date de creation']
+                provider.description = row['Presentation generale']
+
+                tags_list = row['mot-clés Thèmes candidats'].split(";")
+                for tag in tags_list:
+                    (obj, success) = Tag.objects.get_or_create(slugify(tag))
+                    provider.tags.add(obj)
+
+                address_label = row["libellé de l'adresse"]
+                address_1 = row["Adresse 1"]
+                address_2 = row["Adresse 2"]
+                zip_code = row["Code postal"]
+                city = row["Ville"]
+
+                (location, success) = Location.objects.get_or_create(label=address_label,
+                                                   adr1=address_1,
+                                                   adr2=address_2,
+                                                   zipcode=zipcode,
+                                                   city=city)
+                
+                try:
+                    longitude = float(row["longitude"])
+                    latitude = float(row["latitude"])
+                    point = Point(latitude, longitude)
+                    location.point(point)
+                    location.save()
+                except:
+                    errors_array.append("Error with lat/long >%(latitude)s/%(longitude)s<" 
+                                            % {'latitude': latitude, 'longitude': longitude})
+
+                provider.pref_address = location
+
+                email = row["Email de la structure"]
+                provider.email = email
+
                 #provider.category_iae = ? 
                 #provider.agreement_iae = ?
-                #provider.brief_description = row['Description succincte']
-                #provider.added_value = row['plue value sociale et environ-nementale']
+
                 #provider.transverse_themes = ?
-                #provider.annual_revenue = _clean_int(row["Chiffre d'affaires annuel"])
-                #provider.workforce = _clean_int(row['Effectif total (ETP)'])
-                #provider.production_workforce = _clean_int(row['Effectif de production (ETP)'])
-                #provider.supervision_workforce = _clean_int(row['Effectif d’encadrement (ETP)'])
-                #provider.integration_workforce = _clean_int(row['Nombre de salariés en insertion (ETP)'])
-                #provider.annual_integration_number = _clean_int(row['Nombre de personnes en insertion accompagnées par an'])
                 #provider.guaranties = ?
                 
                 #provider.modification = ?
-                #provider.status = row['Statut juridique']
+
                 #provider.correspondence = ?
                 #provider.transmission = ?
                 #provider.author = ?
