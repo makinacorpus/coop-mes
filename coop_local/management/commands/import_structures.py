@@ -5,8 +5,13 @@ import time
 import datetime
 
 from django.core.management.base import BaseCommand, CommandError
+from django.template.defaultfilters import slugify
+from django.contrib.gis.geos import Point
+from coop_tag.models import Tag
+from coop_geo.models import Location
+from coop.org.models import BaseContact
 
-from coop_local.models import Provider, LegalStatus, CategoryIAE
+from coop_local.models import Provider, LegalStatus, CategoryIAE, CategoryESS
 
 # The purpose of this script is to import human-made data (csv file) for MES providers
 # Columns are :
