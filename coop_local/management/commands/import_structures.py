@@ -9,7 +9,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.gis.geos import Point
 from coop_tag.settings import get_class
 from coop_geo.models import Location
-#from coop.org.models import BaseContact
+from coop.org.models import COMM_MEANS
 
 from coop_local.models import Provider, LegalStatus, CategoryIAE, OrganizationCategory, Contact
 
@@ -72,7 +72,7 @@ class Command(BaseCommand):
                 
                 # csv date is JJ/MM/YYYY, but django model needs YYYY-MM-DD
                 birth_date = _clean_row(row['Date de creation'])
-                if (birth_date is not None):
+                if _is_valid(birth_date):
                     tme_struct = time.strptime(birth_date, '%d/%m/%Y')
                     provider.birth = datetime.datetime(*tme_struct[0:3])
                     
@@ -118,7 +118,7 @@ class Command(BaseCommand):
                 provider.acronym = row['Sigle']
                 
                 ess_structures = row['Type de structure ESS']
-                if (ess_structures != ''):
+                if _is_valid(ess_structures):
                     ess_structures_list = ess_structures.split(";")
                     for ess_structure in ess_structures_list:
                         try:
@@ -133,9 +133,8 @@ class Command(BaseCommand):
                 provider.description = row['Presentation generale']
 
                 keywords = row['mot-clés Thèmes candidats']
-                if (keywords != ''):
+                if _is_valid(keywords):
                     tags_list = keywords.split(";")
-                    print tags_list
                     for tag in tags_list:
                         slugified_tag = slugify(tag)
                         (obj, success) = Tag.objects.get_or_create(name=slugified_tag)
@@ -166,23 +165,59 @@ class Command(BaseCommand):
 
                 provider.pref_address = location
 
+                email = row['Email de la structure']
+                if _is_valid(email):
+                    pr_email = Contact(content_object=provider, category=COMM_MEANS.MAIL, content=email)
+                    pr_email.save()
+                    provider.pref_email = pr_email
+
+                cell_number = row['Teléphone']
+                if _is_valid(cell_number):
+                    well_formatted_cell_number = _clean_tel(cell_number)
+                    pr_cell_number = Contact(content_object=provider, category=COMM_MEANS.LAND, content=well_formatted_cell_number)
+                    pr_cell_number.save()
+                    provider.pref_phone = pr_cell_number
+
+                fax_number = row['Fax']
+                if _is_valid(fax_number):
+                    well_formatted_fax_number = _clean_tel(fax_number)
+                    pr_fax_number = Contact(content_object=provider, category=COMM_MEANS.FAX, content=well_formatted_fax_number)
+                    pr_fax_number.save()
+
+                mobile_number = row['mobile']
+                if _is_valid(mobile_number):
+                    well_formatted_mobile_number = _clean_tel(mobile_number)
+                    pr_mobile_number = Contact(content_object=provider, category=COMM_MEANS.GSM, content=well_formatted_mobile_number)
+                    pr_mobile_number.save()
+
                 provider.save()
+
                 #sys.exit()
-                
+        for error in errors_array:
+            print error
+
+
+def _is_valid(data):
+
+    return (data != "")
+
+
+def _clean_tel(data):
+
+    # Every tel number lacks first "0"
+    data = "0" + data
+    
+    return data
+                    
 
 def _clean_int(data):
     
-    if (_clean_row(data) is not None):
+    if _is_valid(data):
         return int(data)
 
-def _clean_row(data):
-    
-    if (data != ''):
-        return data
-    else:
-        return None
 
 def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
+
     # csv.py doesn't do Unicode; encode temporarily as UTF-8:
     csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
                             dialect=dialect, **kwargs)
