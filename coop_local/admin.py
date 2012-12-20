@@ -116,7 +116,7 @@ class ProviderAdmin(OrganizationAdmin):
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
                        'legal_status', 'category', 'category_iae', 'agreement_iae',
-                       'web', 'siret']
+                       'web', 'siret', 'bdis_id']
             }),
         (_(u'Economic info'), {
             'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),
