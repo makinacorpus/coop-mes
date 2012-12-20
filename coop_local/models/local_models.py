@@ -288,6 +288,7 @@ class Provider(Organization):
     category_iae = models.ManyToManyField('CategoryIAE', blank=True, null=True,
         verbose_name=_(u'category IAE'))
     agreement_iae = models.BooleanField(_(u'agreement IAE'))
+    bdis_id = models.IntegerField(_(u'bdis identifiant'), blank=True, null=True)
 
     # Description
     brief_description = models.TextField(_(u'brief description'), blank=True)

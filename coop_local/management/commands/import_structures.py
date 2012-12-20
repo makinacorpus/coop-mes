@@ -106,7 +106,13 @@ class Command(BaseCommand):
                 """ Second Import fields"""
                 
                 # New Fields
-                #provider.bdis_id = row['Identifiant BDIS']
+                bdis_id = row['Identifiant BDIS']
+                try:
+                    provider.bdis_id = int(bdis_id)
+                except Exception:
+                    msg = "Unknown BDIS ID >%(bdis_id)s< for %(name)s" \
+                                        % {'bdis_id': bdis_id, 'name': title}
+                    errors_array.append(msg)           
 
                 # Old Fields
                 provider.acronym = row['Sigle']
@@ -159,7 +165,7 @@ class Command(BaseCommand):
                     errors_array.append(msg)
 
                 provider.pref_address = location
-                
+
                 provider.save()
                 #sys.exit()
                 
