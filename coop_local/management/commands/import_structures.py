@@ -7,11 +7,11 @@ import datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 from django.contrib.gis.geos import Point
-from coop_tag.models import Tag
+from coop_tag.settings import get_class
 from coop_geo.models import Location
-from coop.org.models import BaseContact
+#from coop.org.models import BaseContact
 
-from coop_local.models import Provider, LegalStatus, CategoryIAE, CategoryESS
+from coop_local.models import Provider, LegalStatus, CategoryIAE, OrganizationCategory, Contact
 
 # The purpose of this script is to import human-made data (csv file) for MES providers
 # Columns are :
@@ -47,6 +47,8 @@ from coop_local.models import Provider, LegalStatus, CategoryIAE, CategoryESS
 # 29 - Fax
 # 30 - mobile
 
+Tag = get_class('tag')
+
 class Command(BaseCommand):
     args = '<import_file>'
     help = 'Import structure file'
@@ -55,7 +57,7 @@ class Command(BaseCommand):
 	    
         for import_file in args:
 
-
+            errors_array = []
             dest_file = csv.DictReader(open(import_file, 'rb'), delimiter=',', quotechar='"')
 
             for row in dest_file:
@@ -104,28 +106,34 @@ class Command(BaseCommand):
                 """ Second Import fields"""
                 
                 # New Fields
-                provider.bdis_id = row['Identifiant BDIS']
+                #provider.bdis_id = row['Identifiant BDIS']
 
                 # Old Fields
                 provider.acronym = row['Sigle']
                 
-                ess_structures_list = row['Type de structure ESS'].split(";")
-                for ess_structure in ess_structures_list:
-                    try:
-                        obj = CategoryESS.objects.get(slug=slugify(ess_structure))
-                        provider.category.add(obj)
-                    except CategoryESS.DoesNotExist:
-                        errors_array.append("Unknown CategoryESS >%(ess_structure)s< for %(name)s" 
-                                            % {'ess_structure': ess_structure, 'name': name})
-
+                ess_structures = row['Type de structure ESS']
+                if (ess_structures != ''):
+                    ess_structures_list = ess_structures.split(";")
+                    for ess_structure in ess_structures_list:
+                        try:
+                            obj = OrganizationCategory.objects.get(slug=slugify(ess_structure))
+                            provider.category.add(obj)
+                        except Exception as e:
+                            msg = "Unknown CategoryESS >%(ess_structure)s< for %(name)s" \
+                                                % {'ess_structure': ess_structure, 'name': title}
+                            errors_array.append(msg)
+                
                 provider.web = row['Site web']
-                provider.birth = row['Date de creation']
                 provider.description = row['Presentation generale']
 
-                tags_list = row['mot-clés Thèmes candidats'].split(";")
-                for tag in tags_list:
-                    (obj, success) = Tag.objects.get_or_create(slugify(tag))
-                    provider.tags.add(obj)
+                keywords = row['mot-clés Thèmes candidats']
+                if (keywords != ''):
+                    tags_list = keywords.split(";")
+                    print tags_list
+                    for tag in tags_list:
+                        slugified_tag = slugify(tag)
+                        (obj, success) = Tag.objects.get_or_create(name=slugified_tag)
+                        provider.tags.add(obj)
 
                 address_label = row["libellé de l'adresse"]
                 address_1 = row["Adresse 1"]
@@ -136,40 +144,25 @@ class Command(BaseCommand):
                 (location, success) = Location.objects.get_or_create(label=address_label,
                                                    adr1=address_1,
                                                    adr2=address_2,
-                                                   zipcode=zipcode,
+                                                   zipcode=zip_code,
                                                    city=city)
-                
                 try:
+                    latitude = longitude = ""
                     longitude = float(row["longitude"])
                     latitude = float(row["latitude"])
                     point = Point(latitude, longitude)
-                    location.point(point)
+                    location.point = point
                     location.save()
-                except:
-                    errors_array.append("Error with lat/long >%(latitude)s/%(longitude)s<" 
-                                            % {'latitude': latitude, 'longitude': longitude})
+                except Exception as e:
+                    msg = "Error with lat/long >%(latitude)s/%(longitude)s<" \
+                                            % {'latitude': latitude, 'longitude': longitude}
+                    errors_array.append(msg)
 
                 provider.pref_address = location
-
-                email = row["Email de la structure"]
-                provider.email = email
-
-                #provider.category_iae = ? 
-                #provider.agreement_iae = ?
-
-                #provider.transverse_themes = ?
-                #provider.guaranties = ?
-                
-                #provider.modification = ?
-
-                #provider.correspondence = ?
-                #provider.transmission = ?
-                #provider.author = ?
-                #provider.validation = ?
                 
                 provider.save()
                 #sys.exit()
-
+                
 
 def _clean_int(data):
     
