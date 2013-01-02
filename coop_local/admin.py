@@ -102,6 +102,7 @@ class ProviderAdminForm(OrganizationAdminForm):
             'category': chosenwidgets.ChosenSelectMultiple(),
             'category_iae': chosenwidgets.ChosenSelectMultiple(),
             'guaranties': chosenwidgets.ChosenSelectMultiple(),
+            'authors': chosenwidgets.ChosenSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -132,7 +133,7 @@ class ProviderAdmin(OrganizationAdmin):
             }),
         (_(u'Management'), {
             'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
-                       'transmission_date', 'author', 'validation']
+                       'transmission_date', 'authors', 'validation']
             }),
         (_(u'Preferences'), {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]

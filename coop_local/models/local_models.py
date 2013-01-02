@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from django.db import models
+from django.contrib.auth.models import User
 from extended_choices import Choices
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
     BaseRole)
@@ -337,7 +338,7 @@ class Provider(Organization):
     correspondence = models.TextField(_(u'correspondence'), blank=True)
     transmission = models.IntegerField(_(u'transmission mode'), choices=TRANSMISSION_MODES.CHOICES, blank=True, null=True)
     transmission_date = models.DateField(_(u'transmission date'), blank=True, null=True)
-    author = models.CharField(_(u'author'), max_length=100, blank=True)
+    authors = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('authors'))
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
 
     class Meta:
