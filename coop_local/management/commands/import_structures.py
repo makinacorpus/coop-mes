@@ -214,7 +214,8 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
 # to avoid overwriting client manual work on preprod
 def _set_attr_if_empty(provider, field_name, data):
 
-    if (getattr(provider, field_name) == None):
+    field_value = getattr(provider, field_name)
+    if ((field_value == None) or (field_value == '')):
         setattr(provider, field_name, data)
 
 
