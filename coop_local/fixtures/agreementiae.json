@@ -1,0 +1,16 @@
+[
+    {
+        "pk": 1, 
+        "model": "coop_local.agreementiae", 
+        "fields": {
+            "label": "Conventionnement IAE"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "coop_local.agreementiae", 
+        "fields": {
+            "label": "Secteur adapt\u00e9 et prot\u00e9g\u00e9"
+        }
+    }
+]
