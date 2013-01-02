@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 from django.db import models
 from extended_choices import Choices
-from coop.org.models import BaseOrganization, BaseOrganizationCategory
+from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
+    BaseRole)
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db import fields as exfields
 from django.core.validators import RegexValidator, MaxLengthValidator
@@ -33,6 +34,7 @@ class LegalStatus(models.Model):
     class Meta:
         verbose_name = _(u'legal status')
         verbose_name_plural = _(u'legal statuses')
+        ordering = ['label']
         app_label = 'coop_local'
 
     def __unicode__(self):
@@ -72,6 +74,7 @@ class CategoryIAE(models.Model):
     class Meta:
         verbose_name = _(u'category IAE')
         verbose_name_plural = _(u'categories IAE')
+        ordering = ['label']
         app_label = 'coop_local'
 
     def __unicode__(self):
@@ -112,6 +115,7 @@ class DocumentType(models.Model):
     class Meta:
         verbose_name = _(u'document type')
         verbose_name_plural = _(u'document types')
+        ordering = ['name']
         app_label = 'coop_local'
 
 
@@ -126,6 +130,7 @@ class Document(models.Model):
     class Meta:
         verbose_name = _(u'associated document')
         verbose_name_plural = _(u'associated documents')
+        ordering = ['name']
         app_label = 'coop_local'
 
 
@@ -134,6 +139,7 @@ class OrganizationCategory(BaseOrganizationCategory):
     class Meta:
         verbose_name = _(u'category ESS')
         verbose_name_plural = _(u'categories ESS')
+        ordering = ['label']
         app_label = 'coop_local'
 
 
@@ -172,6 +178,7 @@ class Guaranty(models.Model):
     class Meta:
         verbose_name = _(u'guaranty')
         verbose_name_plural = _(u'guaranties')
+        ordering = ['name']
         app_label = 'coop_local'
 
 
@@ -237,6 +244,7 @@ class ClientTarget(models.Model):
     class Meta:
         verbose_name = _(u'client target')
         verbose_name_plural = _(u'client targets')
+        ordering = ['label']
         app_label = 'coop_local'
 
 
@@ -251,6 +259,7 @@ class TransverseTheme(models.Model):
     class Meta:
         verbose_name = _(u'theme')
         verbose_name_plural = _(u'themes')
+        ordering = ['name']
         app_label = 'coop_local'
 
 
@@ -264,6 +273,7 @@ class AgreementIAE(models.Model):
     class Meta:
         verbose_name = _(u'agreement IAE')
         verbose_name_plural = _(u'agreements IAE')
+        ordering = ['label']
         app_label = 'coop_local'
 
 
@@ -376,4 +386,13 @@ class Offer(models.Model):
     class Meta:
         verbose_name = _(u'Offer')
         verbose_name_plural = _(u'Offers')
+        app_label = 'coop_local'
+
+
+class Role(BaseRole):
+
+    class Meta:
+        verbose_name = _('Role')
+        verbose_name_plural = _('Roles')
+        ordering = ['label']
         app_label = 'coop_local'
