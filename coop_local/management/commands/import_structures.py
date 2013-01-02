@@ -197,17 +197,23 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
     if is_tel_number:
         data = _format_number_to_bd_check(_clean_tel(data))
 
-    try:
-        Contact.objects.get(category=category, content=data)
-    
-    except Contact.DoesNotExist:
+    contacts = Contact.objects.filter(category=category, content=data)
+
+    if (contacts.count() == 0):
         # get_or_create method cannot be called because of generic Contact model relation
         # so we try get, and create it manually if does not exists
         contact = Contact(content_object=provider, category=category, content=data)
         contact.save()
+    else:
+        if (contacts.count() > 1):
+            logging.warn("Contact > %(data)s < of category %(category)s has duplicated entries" 
+                        % {'data': data, 'category': category})
+        contact = contacts[0]
+        contact.content_object = provider
+        contact.save()
 
-        if set_provider_field:
-            _set_attr_if_empty(provider, provider_field_name, contact)
+    if set_provider_field:
+        _set_attr_if_empty(provider, provider_field_name, contact)
 
 
 # Save field only if there is no data
