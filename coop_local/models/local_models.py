@@ -2,15 +2,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from extended_choices import Choices
-from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
-    BaseRole)
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db import fields as exfields
 from django.core.validators import RegexValidator, MaxLengthValidator
+from django.template.defaultfilters import slugify
 from mptt.models import MPTTModel, TreeForeignKey
 from django.contrib.contenttypes import generic
 from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
+
+from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
+    BaseRole)
+from coop.person.models import BasePerson
 
 ADMIN_THUMBS_SIZE = '60x60'
 
@@ -25,6 +28,11 @@ ADMIN_THUMBS_SIZE = '60x60'
 # Here you can either :
 # - Customize coop models by deriving from the abstract class (BaseOrganization, Baseperson...)
 # - Or add your own models, providing you add in their Meta class app_label="coop_local"
+
+class Person(BasePerson):
+
+    bdis_id = models.IntegerField(_(u'bdis identifiant'), blank=True, null=True)
+
 
 class LegalStatus(models.Model):
 
@@ -397,3 +405,8 @@ class Role(BaseRole):
         verbose_name_plural = _('Roles')
         ordering = ['label']
         app_label = 'coop_local'
+
+# Slugifying method is specified to avoid accents in final slug
+# See http://packages.python.org/django-autoslug/settings.html 
+# for slugify method order in Django AutoSlugField
+Role._meta.get_field('slug').slugify = slugify
