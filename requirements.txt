@@ -12,18 +12,18 @@ django
 # coop-colorbox
 
 -e git+git://github.com/makinacorpus/django-coop@master#egg=django-coop
--e git+git://github.com/quinode/coop-colorbox@master#egg=coop-colorbox
--e git+git://github.com/quinode/djaloha@master#egg=djaloha
--e git+git://github.com/quinode/coop-bar@master#egg=coop-bar
--e git+git://github.com/quinode/coop-tag@master#egg=coop-tag
--e git+git://github.com/quinode/coop-geo@master#egg=coop-geo
--e git+git://github.com/quinode/coop_cms@master#egg=coop_cms
+-e git+git://github.com/credis/coop-colorbox@master#egg=coop-colorbox
+-e git+git://github.com/credis/djaloha@master#egg=djaloha
+-e git+git://github.com/credis/coop-bar@master#egg=coop-bar
+-e git+git://github.com/credis/coop-tag@master#egg=coop-tag
+-e git+git://github.com/credis/coop-geo@master#egg=coop-geo
+-e git+git://github.com/credis/coop_cms@master#egg=coop_cms
 
 -e git+git://github.com/quinode/django-scanredirect@master#egg=django-scanredirect
 
 django-autoslug
 unicode-slugify
--e git+git://github.com/praekelt/django-preferences@master#egg=django-preferences
+-e git+git://github.com/quinode/django-preferences@master#egg=django-preferences
 #fabric
 #fabtools
 django-mptt
@@ -33,7 +33,7 @@ django-mptt
 -e git+git://github.com/quinode/django-templatetag-sugar@master#egg=django-templatetag-sugar
 
 # our forks
--e hg+https://bitbucket.org/quinode/django-admintools-bootstrap/@0.0.2-alpha#egg=django-admintools-bootstrap
+-e git+git://github.com/quinode/django-admintools-bootstrap.git#egg=django-admintools-bootstrap
 -e git+git://github.com/quinode/uriredirect@master#egg=uriredirect
 
 
@@ -72,10 +72,12 @@ rdflib
 -e git+git://github.com/RDFLib/rdfextras@master#egg=rdfextras
 -e git+git://github.com/RDFLib/rdflib-jsonld@master#egg=rdflib-jsonld
 -e git+git://github.com/RDFLib/rdflib-sparqlstore@master#egg=rdflib-sparqlstore
--e git+git://github.com/quinode/subhub@master#egg=subhub
+-e git+git://github.com/credis/subhub@master#egg=subhub
 django-appconf
 
--e git+git://github.com/toastdriven/django-haystack@master#egg=django-haystack
+-e git+git://github.com/rhec/pyelasticsearch.git#egg=pyelasticsearch
+-e git+git://github.com/quinode/django-haystack.git#egg=django-haystack
+-e git+git://github.com/quinode/haystackES-fr.git#egg=haystackES-fr
 
 # webid deps : not ready
 # pyOpenSSL
@@ -96,6 +98,8 @@ raven
 django-debug-toolbar
 FirePython
 
+# multi-site
+django-multisite
 
 # for spip translation
 # MySQL-python

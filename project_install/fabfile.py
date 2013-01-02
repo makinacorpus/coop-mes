@@ -232,7 +232,7 @@ def initialize_django_env():
             run('python ./manage.py collectstatic --noinput')
             run('python ./manage.py syncdb --all --noinput')
             run('python ./manage.py migrate --fake')
-            run('python ./manage.py loaddata coop_local/fixtures/{areatypes,django_site,exchange_methods,linkproperty,location_categories,roles,uriredirect,user,legalstatus,organizationcategory,organizationcategoryiae,agreementiae}.json')
+            run('python ./manage.py loaddata coop_local/fixtures/{areatypes,django_site,exchange_methods,linkproperty,location_categories,roles,uriredirect,user,legalstatus,organizationcategory,organizationcategoryiae,agreementiae,contact_mediums,orgrelationtypes}.json')
 
 
 @task
