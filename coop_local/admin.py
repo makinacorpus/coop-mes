@@ -98,6 +98,7 @@ class ProviderAdminForm(OrganizationAdminForm):
     class Meta:
         model = get_model('coop_local', 'Provider')
         widgets = {
+            'legal_status': chosenwidgets.ChosenSelect(),
             'category': chosenwidgets.ChosenSelectMultiple(),
             'category_iae': chosenwidgets.ChosenSelectMultiple(),
             'guaranties': chosenwidgets.ChosenSelectMultiple(),
