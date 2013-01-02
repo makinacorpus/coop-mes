@@ -106,16 +106,17 @@ class Command(BaseCommand):
                 """ Second Import fields"""
                 
                 # New Fields
-                bdis_id = row['Identifiant BDIS']
+                
                 try:
-                    provider.bdis_id = int(bdis_id)
+                    bdis_id = row['Identifiant BDIS']
+                    _set_attr_if_empty(provider, 'bdis_id', int(bdis_id))
                 except Exception:
                     msg = "Unknown BDIS ID >%(bdis_id)s< for %(name)s" \
                                         % {'bdis_id': bdis_id, 'name': title}
                     errors_array.append(msg)           
 
                 # Old Fields
-                provider.acronym = row['Sigle']
+                _set_attr_if_empty(provider, 'acronym', row['Sigle'])
                 
                 ess_structures = row['Type de structure ESS']
                 if _is_valid(ess_structures):
@@ -129,8 +130,8 @@ class Command(BaseCommand):
                                                 % {'ess_structure': ess_structure, 'name': title}
                             errors_array.append(msg)
                 
-                provider.web = row['Site web']
-                provider.description = row['Presentation generale']
+                _set_attr_if_empty(provider, 'web', row['Site web'])
+                _set_attr_if_empty(provider, 'description', row['Presentation generale'])
 
                 keywords = row['mot-clés Thèmes candidats']
                 if _is_valid(keywords):
@@ -163,38 +164,65 @@ class Command(BaseCommand):
                                             % {'latitude': latitude, 'longitude': longitude}
                     errors_array.append(msg)
 
-                provider.pref_address = location
+                _set_attr_if_empty(provider, 'pref_address', location)
 
                 email = row['Email de la structure']
                 if _is_valid(email):
-                    pr_email = Contact(content_object=provider, category=COMM_MEANS.MAIL, content=email)
-                    pr_email.save()
-                    provider.pref_email = pr_email
+                    try:
+                        Contact.objects.get(category=COMM_MEANS.MAIL, content=email)
+                    except Contact.DoesNotExist:
+                        pr_email = Contact(content_object=provider, category=COMM_MEANS.MAIL, content=email)
+                        pr_email.save()
+                        _set_attr_if_empty(provider, 'pref_email', pr_email)
 
                 cell_number = row['Teléphone']
                 if _is_valid(cell_number):
                     well_formatted_cell_number = _clean_tel(cell_number)
-                    pr_cell_number = Contact(content_object=provider, category=COMM_MEANS.LAND, content=well_formatted_cell_number)
-                    pr_cell_number.save()
-                    provider.pref_phone = pr_cell_number
+                    try:
+                        bd_formatted_number = _format_number_to_bd_check(well_formatted_cell_number)
+                        Contact.objects.get(category=COMM_MEANS.LAND, content=bd_formatted_number)
+                    except Contact.DoesNotExist:
+                        pr_cell_number = Contact(content_object=provider, category=COMM_MEANS.LAND, content=well_formatted_cell_number)
+                        pr_cell_number.save()
+                        _set_attr_if_empty(provider, 'pref_phone', pr_cell_number)
 
                 fax_number = row['Fax']
                 if _is_valid(fax_number):
                     well_formatted_fax_number = _clean_tel(fax_number)
-                    pr_fax_number = Contact(content_object=provider, category=COMM_MEANS.FAX, content=well_formatted_fax_number)
-                    pr_fax_number.save()
+                    try:
+                        bd_formatted_number = _format_number_to_bd_check(well_formatted_fax_number)
+                        Contact.objects.get(category=COMM_MEANS.FAX, content=bd_formatted_number)
+                    except Contact.DoesNotExist:
+                        pr_fax_number = Contact(content_object=provider, category=COMM_MEANS.FAX, content=well_formatted_fax_number)
+                        pr_fax_number.save()
 
                 mobile_number = row['mobile']
                 if _is_valid(mobile_number):
                     well_formatted_mobile_number = _clean_tel(mobile_number)
-                    pr_mobile_number = Contact(content_object=provider, category=COMM_MEANS.GSM, content=well_formatted_mobile_number)
-                    pr_mobile_number.save()
+                    try:
+                        bd_formatted_number = _format_number_to_bd_check(well_formatted_mobile_number)
+                        Contact.objects.get(category=COMM_MEANS.GSM, content=bd_formatted_number)
+                    except Contact.DoesNotExist:
+                        pr_mobile_number = Contact(content_object=provider, category=COMM_MEANS.GSM, content=well_formatted_mobile_number)
+                        pr_mobile_number.save()
 
                 provider.save()
 
-                #sys.exit()
         for error in errors_array:
             print error
+
+
+# Save field only if there is no data
+# to avoid overwriting client manual work on preprod
+def _set_attr_if_empty(provider, field_name, data):
+
+    if (getattr(provider, field_name) == None):
+        setattr(provider, field_name, data)
+
+
+def _format_number_to_bd_check(data):
+
+    return ".".join([data[0:2], data[2:4], data[4:6], data[6:8], data[8:10]])
 
 
 def _is_valid(data):
