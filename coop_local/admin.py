@@ -2,17 +2,23 @@
 from django import forms
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models.loading import get_model
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
+from django.db.models import Q
+from django.utils.translation import ugettext as _
+
+from chosen import widgets as chosenwidgets
+from mptt.admin import MPTTModelAdmin
+from sorl.thumbnail.admin import AdminImageMixin
+
 from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline,
     EngagementInline)
+from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
+
+from coop_geo.models import Location
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
     ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE)
-from django.db.models.loading import get_model
-from chosen import widgets as chosenwidgets
-from django.utils.translation import ugettext as _
-from mptt.admin import MPTTModelAdmin
-from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
-from django.db import models
-from sorl.thumbnail.admin import AdminImageMixin
 
 try:
     from coop.base_admin import *
@@ -106,8 +112,29 @@ class ProviderAdminForm(OrganizationAdminForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(ProviderAdminForm, self).__init__(*args, **kwargs)
+
+        # We do not call just super class, but super super class, because of redefinition of all parent logic
+        super(OrganizationAdminForm, self).__init__(*args, **kwargs)
         self.fields['category_iae'].help_text = None
+
+        engagements = self.instance.engagement_set.all()
+        members_id = engagements.values_list('person_id', flat=True)
+        org_contacts = Contact.objects.filter(
+            Q(content_type=ContentType.objects.get(model='provider'), object_id=self.instance.id)
+          | Q(content_type=ContentType.objects.get(model='person'), object_id__in=members_id)
+            )
+        phone_categories = [1, 2]
+        self.fields['pref_email'].queryset = org_contacts.filter(category=8)
+        self.fields['pref_phone'].queryset = org_contacts.filter(category__in=phone_categories)
+        self.fields['category'].help_text = None
+
+        member_locations_id = [m.location.id for m in
+            Person.objects.filter(id__in=members_id).exclude(location=None)]  # limit SQL to location field
+
+        self.fields['pref_address'].queryset = Location.objects.filter(
+            Q(id__in=self.instance.located.all().values_list('location_id', flat=True))
+          | Q(id__in=member_locations_id)
+            )
 
 
 class ProviderAdmin(OrganizationAdmin):
