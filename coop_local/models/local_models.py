@@ -129,7 +129,7 @@ class Document(models.Model):
         app_label = 'coop_local'
 
 
-class CategoryESS(BaseOrganizationCategory):
+class OrganizationCategory(BaseOrganizationCategory):
 
     class Meta:
         verbose_name = _(u'category ESS')
