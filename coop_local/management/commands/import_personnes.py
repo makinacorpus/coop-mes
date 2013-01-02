@@ -20,9 +20,7 @@ from coop_local.models import Provider, LegalStatus, CategoryIAE, Person, Engage
 
 current_time = datetime.datetime.now()
 
-logging.basicConfig(filename='%(year)s_%(month)s_%(day)s_person_migration.log' % {'year': current_time.year,
-                                                                           'month': current_time.month,
-                                                                           'day': current_time.day,},
+logging.basicConfig(filename='%(date)s_person_migration.log' % {'date': current_time.strftime("%Y-%m-%d")},
                     level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s - %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S',)
@@ -61,19 +59,29 @@ class Command(BaseCommand):
 
                     person.save()
 
-                    role_name_slug = slugify(row['Fonction'])
+                    role_name = row['Fonction']
+                    role_name_slug = slugify(role_name)
                     bdis_organization_id = row['ID Structures BDIS']
 
                     try:
-                        role = Role.objects.get(slug=role_name_slug)
                         organization = Provider.objects.get(bdis_id=bdis_organization_id)
+                        role = None
 
+                        try:
+                            role = Role.objects.get(slug=role_name_slug)
+                        except Role.DoesNotExist:
+                            logging.warn("Role > %(role_name)s < not found for "
+                                         "%(last_name)s %(first_name)s" % {'role_name': role_name,
+                                                                           'last_name': last_name,
+                                                                           'first_name': first_name})
+        
                         Engagement.objects.get_or_create(person=person, organization=organization, role=role)
-
-                    except Role.DoesNotExist:
-                        logging.warn("Role >%s< not found" % role_name_slug)
+                    
                     except Provider.DoesNotExist:
-                        logging.warn("Organization number >%s< not found" % bdis_organization_id)
+                        logging.warn("BDIS Organization number > %(bdis_id)s < not found for " 
+                                     "%(last_name)s %(first_name)s" % {'bdis_id': bdis_organization_id,
+                                                                       'last_name': last_name,
+                                                                       'first_name': first_name})
         
 
 def _is_valid(data):

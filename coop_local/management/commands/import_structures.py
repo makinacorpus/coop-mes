@@ -3,6 +3,7 @@ import csv
 import sys
 import time
 import datetime
+import logging
 
 from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
@@ -47,6 +48,12 @@ from coop_local.models import Provider, LegalStatus, CategoryIAE, OrganizationCa
 # 29 - Fax
 # 30 - mobile
 
+current_time = datetime.datetime.now()
+logging.basicConfig(filename='%(date)s_structure_migration.log' % {'date': current_time.strftime("%Y-%m-%d")},
+                    level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)s - %(message)s',
+                    datefmt='%d/%m/%Y %H:%M:%S',)
+
 Tag = get_class('tag')
 
 class Command(BaseCommand):
@@ -83,7 +90,7 @@ class Command(BaseCommand):
                     obj = LegalStatus.objects.get(label=legal_status)
                     provider.legal_status = obj
                 except LegalStatus.DoesNotExist:
-                    print "Unknown Status : >" + legal_status + "<"
+                    logging.warn("Unknown Status : >" + legal_status + "<")
 
                 
                 category_iae = row['Type de structure SIAE']
@@ -91,7 +98,7 @@ class Command(BaseCommand):
                     obj = CategoryIAE.objects.get(label=category_iae)
                     provider.category_iae = [obj]
                 except CategoryIAE.DoesNotExist:
-                    print "Unknown IAE Category : >" + category_iae + "<"
+                    logging.warn("Unknown IAE Category : >" + category_iae + "<")
                 
                 provider.brief_description = row['Description succincte']
                 provider.added_value = row['plue value sociale et environ-nementale']
@@ -113,7 +120,7 @@ class Command(BaseCommand):
                 except Exception:
                     msg = "Unknown BDIS ID >%(bdis_id)s< for %(name)s" \
                                         % {'bdis_id': bdis_id, 'name': title}
-                    errors_array.append(msg)           
+                    logging.warn(msg)           
 
                 # Old Fields
                 _set_attr_if_empty(provider, 'acronym', row['Sigle'])
@@ -128,7 +135,7 @@ class Command(BaseCommand):
                         except Exception as e:
                             msg = "Unknown CategoryESS >%(ess_structure)s< for %(name)s" \
                                                 % {'ess_structure': ess_structure, 'name': title}
-                            errors_array.append(msg)
+                            logging.warn(msg)
                 
                 _set_attr_if_empty(provider, 'web', row['Site web'])
                 _set_attr_if_empty(provider, 'description', row['Presentation generale'])
@@ -162,54 +169,45 @@ class Command(BaseCommand):
                 except Exception as e:
                     msg = "Error with lat/long >%(latitude)s/%(longitude)s<" \
                                             % {'latitude': latitude, 'longitude': longitude}
-                    errors_array.append(msg)
+                    logging.warn(msg)
 
                 _set_attr_if_empty(provider, 'pref_address', location)
 
                 email = row['Email de la structure']
                 if _is_valid(email):
-                    try:
-                        Contact.objects.get(category=COMM_MEANS.MAIL, content=email)
-                    except Contact.DoesNotExist:
-                        pr_email = Contact(content_object=provider, category=COMM_MEANS.MAIL, content=email)
-                        pr_email.save()
-                        _set_attr_if_empty(provider, 'pref_email', pr_email)
+                    _save_contact(provider, email, COMM_MEANS.MAIL, False, True, 'pref_email')
 
                 cell_number = row['Teléphone']
                 if _is_valid(cell_number):
-                    well_formatted_cell_number = _clean_tel(cell_number)
-                    try:
-                        bd_formatted_number = _format_number_to_bd_check(well_formatted_cell_number)
-                        Contact.objects.get(category=COMM_MEANS.LAND, content=bd_formatted_number)
-                    except Contact.DoesNotExist:
-                        pr_cell_number = Contact(content_object=provider, category=COMM_MEANS.LAND, content=well_formatted_cell_number)
-                        pr_cell_number.save()
-                        _set_attr_if_empty(provider, 'pref_phone', pr_cell_number)
+                    _save_contact(provider, cell_number, COMM_MEANS.LAND, True, True, 'pref_phone')
 
                 fax_number = row['Fax']
                 if _is_valid(fax_number):
-                    well_formatted_fax_number = _clean_tel(fax_number)
-                    try:
-                        bd_formatted_number = _format_number_to_bd_check(well_formatted_fax_number)
-                        Contact.objects.get(category=COMM_MEANS.FAX, content=bd_formatted_number)
-                    except Contact.DoesNotExist:
-                        pr_fax_number = Contact(content_object=provider, category=COMM_MEANS.FAX, content=well_formatted_fax_number)
-                        pr_fax_number.save()
+                    _save_contact(provider, fax_number, COMM_MEANS.FAX, True)
 
                 mobile_number = row['mobile']
                 if _is_valid(mobile_number):
-                    well_formatted_mobile_number = _clean_tel(mobile_number)
-                    try:
-                        bd_formatted_number = _format_number_to_bd_check(well_formatted_mobile_number)
-                        Contact.objects.get(category=COMM_MEANS.GSM, content=bd_formatted_number)
-                    except Contact.DoesNotExist:
-                        pr_mobile_number = Contact(content_object=provider, category=COMM_MEANS.GSM, content=well_formatted_mobile_number)
-                        pr_mobile_number.save()
+                    _save_contact(provider, mobile_number, COMM_MEANS.GSM, True)
 
                 provider.save()
 
-        for error in errors_array:
-            print error
+
+def _save_contact(provider, data, category, is_tel_number, set_provider_field=False, provider_field_name=None):
+
+    if is_tel_number:
+        data = _format_number_to_bd_check(_clean_tel(data))
+
+    try:
+        Contact.objects.get(category=category, content=data)
+    
+    except Contact.DoesNotExist:
+        # get_or_create method cannot be called because of generic Contact model relation
+        # so we try get, and create it manually if does not exists
+        contact = Contact(content_object=provider, category=category, content=data)
+        contact.save()
+
+        if set_provider_field:
+            _set_attr_if_empty(provider, provider_field_name, contact)
 
 
 # Save field only if there is no data
