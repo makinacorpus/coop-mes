@@ -145,6 +145,11 @@ class ProviderAdmin(OrganizationAdmin):
         """ Remove actions set by OrganizationAdmin class without removing ModelAdmin ones."""
         return super(OrganizationAdmin, self).get_actions(request)
 
+    def save_related(self, request, form, formsets, change):
+        super(ProviderAdmin, self).save_related(request, form, formsets, change)
+        if not change:
+            form.instance.authors.add(request.user)
+
 
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
