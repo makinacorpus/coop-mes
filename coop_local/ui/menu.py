@@ -76,6 +76,7 @@ class CustomMenu(Menu):
                         items.MenuItem(_('Document types'), '/admin/coop_local/documenttype/'),
                         items.MenuItem(_('Client targets'), '/admin/coop_local/clienttarget/'),
                         items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
+                        items.MenuItem(_('Agreements IAE'), '/admin/coop_local/agreementiae/'),
                         ]),
 
                     #items.MenuItem(_('Exchanges'), '#', icon='icon-random', children=[

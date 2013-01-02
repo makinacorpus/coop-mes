@@ -5,7 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline,
     EngagementInline)
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
-    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType)
+    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE)
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
 from django.utils.translation import ugettext as _
@@ -177,3 +177,4 @@ admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(Client, OrganizationAdmin)
 admin.site.register(Network, OrganizationAdmin)
 admin.site.register(DocumentType)
+admin.site.register(AgreementIAE)

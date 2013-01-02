@@ -1,5 +1,6 @@
 @import url("/static/css/coop_bootstrap_theming.css");
 
+fieldset#infos-cles ul,
 fieldset#garanties ul,
 fieldset#description ul,
 div#offer_set-group ul {
@@ -8,6 +9,7 @@ div#offer_set-group ul {
     margin-top: 7px;
 }
 
+fieldset#infos-cles ul li label input,
 fieldset#garanties ul li label input,
 fieldset#description ul li label input,
 div#offer_set-group ul li label input
@@ -18,12 +20,14 @@ div#offer_set-group ul li label input
 }
 
 /* workaround https://code.djangoproject.com/ticket/9321 */
+fieldset#infos-cles div.help-inline,
 fieldset#garanties div.help-inline,
 fieldset#description div.help-inline,
 div#offer_set-group div.help-inline {
     display: none;
 }
 
+a#add_id_agreement_iae,
 a#add_id_guaranties,
 a#add_id_transverse_themes,
 a#add_id_category_iae,
