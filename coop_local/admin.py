@@ -138,6 +138,11 @@ class ProviderAdmin(OrganizationAdmin):
     )
     inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
 
+    def get_actions(self, request):
+        """ Remove actions set by OrganizationAdmin class without removing ModelAdmin ones."""
+        return super(OrganizationAdmin, self).get_actions(request)
+
+
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
 admin.site.unregister(Organization)
