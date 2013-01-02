@@ -112,6 +112,7 @@ class ProviderAdmin(OrganizationAdmin):
 
     form = ProviderAdminForm
     readonly_fields = ['creation', 'modification']
+    list_filter = ['active', 'agreement_iae']
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
