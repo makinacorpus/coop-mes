@@ -42,14 +42,25 @@ class CustomMenu(Menu):
 
                     ## RSS Sync menu gets inserted here if installed (see above)
 
-                    items.MenuItem(_('Tags'), '#', icon='icon-tags', children=[
+                    items.MenuItem(_('Thesaurus'), '#', icon='icon-coop icon-rdf icon-white', children=[
+                        items.MenuItem(_('Location categories'), '/admin/coop_geo/locationcategory/'),
+                        items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
+                        items.MenuItem(_('Client targets'), '/admin/coop_local/clienttarget/'),
+                        items.MenuItem(_('Agreements IAE'), '/admin/coop_local/agreementiae/'),
+                        items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
                         items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),
+                        items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
+                        items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
+                        items.MenuItem(_('Legal statuses'), '/admin/coop_local/legalstatus/'),
                         items.MenuItem(_('Themes'), '/admin/coop_local/transversetheme/'),
+                        items.MenuItem(_('Document types'), '/admin/coop_local/documenttype/'),
+                        items.MenuItem(_('ESS categories'), '/admin/coop_local/organizationcategory/'),
+                        items.MenuItem(_('IAE categories'), '/admin/coop_local/categoryiae/'),
                         ##items.MenuItem(_('Tag categories'), '/admin/coop_tag/tagcategory/'),
                         #items.MenuItem(_('Tag trees'), '/admin/coop_local/navtree/'),
                         ]),
 
-                    items.MenuItem(_('Django'), '#', icon='icon-coop icon-django', children=[
+                    items.MenuItem(_('Django'), '#', icon='icon-coop icon-django icon-white', children=[
                         items.MenuItem(_('Users'), '/admin/auth/user/'),
                         items.MenuItem(_('Sites'), '/admin/sites/site/'),
                         ]),
@@ -67,16 +78,6 @@ class CustomMenu(Menu):
                         items.MenuItem(_('Clients'), '/admin/coop_local/client/'),
                         items.MenuItem(_('Network'), '/admin/coop_local/network/'),
                         items.MenuItem(_('Persons'), '/admin/coop_local/person/'),
-                        items.MenuItem(_('Legal statuses'), '/admin/coop_local/legalstatus/'),
-                        items.MenuItem(_('ESS categories'), '/admin/coop_local/organizationcategory/'),
-                        items.MenuItem(_('IAE categories'), '/admin/coop_local/categoryiae/'),
-                        items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
-                        items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
-                        items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
-                        items.MenuItem(_('Document types'), '/admin/coop_local/documenttype/'),
-                        items.MenuItem(_('Client targets'), '/admin/coop_local/clienttarget/'),
-                        items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
-                        items.MenuItem(_('Agreements IAE'), '/admin/coop_local/agreementiae/'),
                         ]),
 
                     #items.MenuItem(_('Exchanges'), '#', icon='icon-random', children=[
@@ -87,7 +88,6 @@ class CustomMenu(Menu):
                     items.MenuItem(_('Cartography'), '#', icon='icon-map-marker', children=[
                         items.MenuItem(_('Locations'), '/admin/coop_geo/location/'),
                         items.MenuItem(_('Areas'), '/admin/coop_geo/area/'),
-                        items.MenuItem(_('Location categories'), '/admin/coop_geo/locationcategory/'),
                         # create my map !
                         ]),
 
