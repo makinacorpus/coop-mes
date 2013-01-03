@@ -14,6 +14,7 @@ from sorl.thumbnail import default
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
     BaseRole, BaseRelation)
 from coop.person.models import BasePerson
+from coop_geo.models import Located as BaseLocated
 
 ADMIN_THUMBS_SIZE = '60x60'
 
@@ -415,3 +416,13 @@ class Role(BaseRole):
 # See http://packages.python.org/django-autoslug/settings.html 
 # for slugify method order in Django AutoSlugField
 Role._meta.get_field('slug').slugify = slugify
+
+
+class Located(BaseLocated):
+
+    opening = models.CharField(_(u'opening days and hours'), blank=True, max_length=200)
+
+    class Meta:
+        verbose_name = _(u'Located item')
+        verbose_name_plural = _(u'Located items')
+        app_label = 'coop_local'
