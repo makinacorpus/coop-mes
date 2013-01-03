@@ -70,12 +70,20 @@ class DocumentInline(admin.TabularInline):
     extra = 1
 
 
-class ReferenceInline(admin.TabularInline):
+class ReferenceInline(InlineAutocompleteAdmin):
 
     model = Reference
     verbose_name = _(u'reference')
     verbose_name_plural = _(u'references')
+    fk_name = 'source'
+    readonly_fields = ('created',)
+    fields = ('target', 'from_year', 'to_year', 'services', 'created')
+    related_search_fields = {'target': ('title', 'subtitle', 'acronym',), }
     extra = 1
+
+    def queryset(self, request):
+        queryset = super(ReferenceInline, self).queryset(request)
+        return queryset.filter(relation_type_id=2)
 
 
 class OfferAdminForm(forms.ModelForm):
@@ -177,6 +185,12 @@ class ProviderAdmin(OrganizationAdmin):
         if not change:
             form.instance.authors.add(request.user)
 
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if isinstance(instance, Reference):
+                instance.relation_type_id = 2
+            instance.save()
 
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 

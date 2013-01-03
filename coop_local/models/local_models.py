@@ -12,7 +12,7 @@ from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
 
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
-    BaseRole)
+    BaseRole, BaseRelation)
 from coop.person.models import BasePerson
 
 ADMIN_THUMBS_SIZE = '60x60'
@@ -191,18 +191,23 @@ class Guaranty(models.Model):
         app_label = 'coop_local'
 
 
-class Reference(models.Model):
+class Relation(BaseRelation):
 
-    client_name = models.CharField(_(u'client name'), max_length=100)
+    pass
+
+
+class Reference(Relation):
+
     from_year = models.IntegerField(_('from year'), blank=True, null=True)
     to_year = models.IntegerField(_('to year'), blank=True, null=True)
     services = models.TextField(_(u'services'), blank=True)
-    organization = models.ForeignKey('Organization')
 
     class Meta:
         verbose_name = _(u'reference')
         verbose_name_plural = _(u'references')
         app_label = 'coop_local'
+
+Reference._meta.get_field('target').verbose_name = _(u'client')
 
 
 class ActivityNomenclatureAvise(models.Model):

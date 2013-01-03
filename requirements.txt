@@ -12,11 +12,11 @@ django
 # coop-colorbox
 
 -e git+git://github.com/makinacorpus/django-coop@master#egg=django-coop
+-e git+git://github.com/makinacorpus/coop-geo@master#egg=coop-geo
 -e git+git://github.com/credis/coop-colorbox@master#egg=coop-colorbox
 -e git+git://github.com/credis/djaloha@master#egg=djaloha
 -e git+git://github.com/credis/coop-bar@master#egg=coop-bar
 -e git+git://github.com/credis/coop-tag@master#egg=coop-tag
--e git+git://github.com/credis/coop-geo@master#egg=coop-geo
 -e git+git://github.com/credis/coop_cms@master#egg=coop_cms
 
 -e git+git://github.com/quinode/django-scanredirect@master#egg=django-scanredirect
