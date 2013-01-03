@@ -9,7 +9,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 from django.contrib.gis.geos import Point
 from coop_tag.settings import get_class
-from coop_geo.models import Location
+from coop_geo.models import Located, Location, LocationCategory
 from coop.org.models import COMM_MEANS
 
 from coop_local.models import Provider, LegalStatus, CategoryIAE, OrganizationCategory, Contact
@@ -61,7 +61,7 @@ class Command(BaseCommand):
     help = 'Import structure file'
 
     def handle(self, *args, **options):
-	    
+
         for import_file in args:
 
             errors_array = []
@@ -71,24 +71,25 @@ class Command(BaseCommand):
                 
                 title = row['Raison sociale']
 
-                (provider, success) = Provider.objects.get_or_create(title=title);
+                (provider, created) = Provider.objects.get_or_create(title=title);
+                        
+                # First import fields (initial november import)
                 
-                """ First import fields
-                provider.acronym = row['Sigle']
-                provider.description = row['Presentation generale']
+                _set_attr_if_empty(provider, 'acronym', row['Sigle'])
+                _set_attr_if_empty(provider, 'description', row['Presentation generale'])
                 
                 # csv date is JJ/MM/YYYY, but django model needs YYYY-MM-DD
-                birth_date = _clean_row(row['Date de creation'])
+                birth_date = row['Date de creation']
                 if _is_valid(birth_date):
                     tme_struct = time.strptime(birth_date, '%d/%m/%Y')
-                    provider.birth = datetime.datetime(*tme_struct[0:3])
+                    _set_attr_if_empty(provider, 'birth', datetime.datetime(*tme_struct[0:3]))
                     
-                provider.web = row['Site web']
-                provider.siret = row['N° SIRET']
+                _set_attr_if_empty(provider, 'web', row['Site web'])
+                _set_attr_if_empty(provider, 'siret', row['N° SIRET'])
                 legal_status = row['Statut juridique']
                 try:
                     obj = LegalStatus.objects.get(label=legal_status)
-                    provider.legal_status = obj
+                    _set_attr_if_empty(provider, 'legal_status', obj)
                 except LegalStatus.DoesNotExist:
                     logging.warn("Unknown Status : >" + legal_status + "<")
 
@@ -96,24 +97,22 @@ class Command(BaseCommand):
                 category_iae = row['Type de structure SIAE']
                 try:
                     obj = CategoryIAE.objects.get(label=category_iae)
-                    provider.category_iae = [obj]
+                    _set_attr_if_empty(provider, 'category_iae', [obj])
                 except CategoryIAE.DoesNotExist:
                     logging.warn("Unknown IAE Category : >" + category_iae + "<")
                 
-                provider.brief_description = row['Description succincte']
-                provider.added_value = row['plue value sociale et environ-nementale']
-                provider.annual_revenue = _clean_int(row["Chiffre d'affaires annuel"])
-                provider.workforce = _clean_int(row['Effectif total (ETP)'])
-                provider.production_workforce = _clean_int(row['Effectif de production (ETP)'])
-                provider.supervision_workforce = _clean_int(row['Effectif d’encadrement (ETP)'])
-                provider.integration_workforce = _clean_int(row['Nombre de salariés en insertion (ETP)'])
-                provider.annual_integration_number = _clean_int(row['Nombre de personnes en insertion accompagnées par an'])
-                """
+                _set_attr_if_empty(provider, 'brief_description', row['Description succincte'])
+                _set_attr_if_empty(provider, 'added_value', row['plue value sociale et environ-nementale'])
+                _set_attr_if_empty(provider, 'annual_revenue', _clean_int(row["Chiffre d'affaires annuel"]))
+                _set_attr_if_empty(provider, 'workforce', _clean_int(row['Effectif total (ETP)']))
+                _set_attr_if_empty(provider, 'production_workforce', _clean_int(row['Effectif de production (ETP)']))
+                _set_attr_if_empty(provider, 'supervision_workforce', _clean_int(row['Effectif d’encadrement (ETP)']))
+                _set_attr_if_empty(provider, 'integration_workforce', _clean_int(row['Nombre de salariés en insertion (ETP)']))
+                _set_attr_if_empty(provider, 'annual_integration_number', _clean_int(row['Nombre de personnes en insertion accompagnées par an']))
 
-                """ Second Import fields"""
+                # Second Import fields (january import)
                 
                 # New Fields
-                
                 try:
                     bdis_id = row['Identifiant BDIS']
                     _set_attr_if_empty(provider, 'bdis_id', int(bdis_id))
@@ -145,7 +144,7 @@ class Command(BaseCommand):
                     tags_list = keywords.split(";")
                     for tag in tags_list:
                         slugified_tag = slugify(tag)
-                        (obj, success) = Tag.objects.get_or_create(name=slugified_tag)
+                        (obj, created) = Tag.objects.get_or_create(name=slugified_tag)
                         provider.tags.add(obj)
 
                 address_label = row["libellé de l'adresse"]
@@ -154,24 +153,47 @@ class Command(BaseCommand):
                 zip_code = row["Code postal"]
                 city = row["Ville"]
 
-                (location, success) = Location.objects.get_or_create(label=address_label,
+                if not _is_valid(address_label):
+                    address_label = address_1
+                
+                try:
+                    (location, created) = Location.objects.get_or_create(label=address_label,
                                                    adr1=address_1,
                                                    adr2=address_2,
                                                    zipcode=zip_code,
                                                    city=city)
+                except Location.MultipleObjectsReturned:
+                    location = Location.objects.filter(label=address_label,
+                                                       adr1=address_1,
+                                                       adr2=address_2,
+                                                       zipcode=zip_code,
+                                                       city=city)[0]
                 try:
                     latitude = longitude = ""
                     longitude = float(row["longitude"])
                     latitude = float(row["latitude"])
                     point = Point(latitude, longitude)
-                    location.point = point
+                    _set_attr_if_empty(location, 'point', point)
                     location.save()
                 except Exception as e:
                     msg = "Error with lat/long >%(latitude)s/%(longitude)s<" \
                                             % {'latitude': latitude, 'longitude': longitude}
                     logging.warn(msg)
 
-                _set_attr_if_empty(provider, 'pref_address', location)
+                location_category = LocationCategory.objects.get(slug="siege-social")
+                try:
+                    located = Located.objects.get(location=location)
+                    _set_attr_if_empty(located, 'category', location_category)
+                    located.save()
+                except Located.DoesNotExist:
+                    located = Located(content_object=provider,
+                                      location=location,
+                                      main_location=True,
+                                      category=location_category)
+                    located.save()
+                finally:    
+                    _set_attr_if_empty(provider, 'located', located)
+                    _set_attr_if_empty(provider, 'pref_address', location)
 
                 email = row['Email de la structure']
                 if _is_valid(email):
@@ -218,11 +240,11 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
 
 # Save field only if there is no data
 # to avoid overwriting client manual work on preprod
-def _set_attr_if_empty(provider, field_name, data):
+def _set_attr_if_empty(obj, field_name, data):
 
-    field_value = getattr(provider, field_name)
+    field_value = getattr(obj, field_name)
     if ((field_value == None) or (field_value == '')):
-        setattr(provider, field_name, data)
+        setattr(obj, field_name, data)
 
 
 def _format_number_to_bd_check(data):
