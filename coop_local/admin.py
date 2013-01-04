@@ -14,13 +14,13 @@ from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 
 from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline,
-    LocatedInline, ContactInline as BaseContactInline, EngagementInline)
+    LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline)
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
 
 from coop_geo.models import Location
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
     ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE,
-    Location)
+    Location, Engagement)
 
 try:
     from coop.base_admin import *
@@ -78,6 +78,18 @@ class ContactInline(BaseContactInline):
     fields = ('contact_medium', 'content', 'details', 'location', 'display')
     def get_formset(self, request, obj=None, **kwargs):
         return generic_inlineformset_factory(Contact, form=make_contact_form(obj))
+
+
+class EngagementForm(forms.ModelForm):
+
+    class Meta:
+        model = Engagement
+        widgets = {'role': chosenwidgets.ChosenSelect()}
+
+
+class EngagementInline(BaseEngagementInline):
+
+    form = EngagementForm
 
 
 class DocumentInline(admin.TabularInline):
