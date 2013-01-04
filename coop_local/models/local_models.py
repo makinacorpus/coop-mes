@@ -426,3 +426,9 @@ class Located(BaseLocated):
         verbose_name = _(u'Located item')
         verbose_name_plural = _(u'Located items')
         app_label = 'coop_local'
+
+
+# WORKAROUND to fix problem with model inheritance and django-coop post delete signal
+from django.db.models.signals import post_delete
+from coop.signals import post_delete_callback
+post_delete.disconnect(receiver=post_delete_callback)
