@@ -430,7 +430,8 @@ class Located(BaseLocated):
 
 class Contact(BaseContact):
 
-    location = models.ForeignKey('Location', verbose_name=_(u'location'), blank=True, null=True)
+    location = models.ForeignKey('Location', verbose_name=_(u'location'),
+                   blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['category']
