@@ -12,8 +12,9 @@ from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
 
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
-    BaseRole)
+    BaseRole, BaseRelation, BaseContact)
 from coop.person.models import BasePerson
+from coop_geo.models import Located as BaseLocated
 
 ADMIN_THUMBS_SIZE = '60x60'
 
@@ -191,18 +192,23 @@ class Guaranty(models.Model):
         app_label = 'coop_local'
 
 
-class Reference(models.Model):
+class Relation(BaseRelation):
 
-    client_name = models.CharField(_(u'client name'), max_length=100)
+    pass
+
+
+class Reference(Relation):
+
     from_year = models.IntegerField(_('from year'), blank=True, null=True)
     to_year = models.IntegerField(_('to year'), blank=True, null=True)
     services = models.TextField(_(u'services'), blank=True)
-    organization = models.ForeignKey('Organization')
 
     class Meta:
         verbose_name = _(u'reference')
         verbose_name_plural = _(u'references')
         app_label = 'coop_local'
+
+Reference._meta.get_field('target').verbose_name = _(u'client')
 
 
 class ActivityNomenclatureAvise(models.Model):
@@ -410,3 +416,31 @@ class Role(BaseRole):
 # See http://packages.python.org/django-autoslug/settings.html 
 # for slugify method order in Django AutoSlugField
 Role._meta.get_field('slug').slugify = slugify
+
+
+class Located(BaseLocated):
+
+    opening = models.CharField(_(u'opening days and hours'), blank=True, max_length=200)
+
+    class Meta:
+        verbose_name = _(u'Located item')
+        verbose_name_plural = _(u'Located items')
+        app_label = 'coop_local'
+
+
+class Contact(BaseContact):
+
+    location = models.ForeignKey('Location', verbose_name=_(u'location'),
+                   blank=True, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ['category']
+        verbose_name = _(u'Contact')
+        verbose_name_plural = _(u'Contacts')
+        app_label = 'coop_local'
+
+
+# WORKAROUND to fix problem with model inheritance and django-coop post delete signal
+from django.db.models.signals import post_delete
+from coop.signals import post_delete_callback
+post_delete.disconnect(receiver=post_delete_callback)

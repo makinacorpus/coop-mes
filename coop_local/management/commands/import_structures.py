@@ -9,10 +9,11 @@ from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 from django.contrib.gis.geos import Point
 from coop_tag.settings import get_class
-from coop_geo.models import Located, Location, LocationCategory
+from coop_geo.models import LocationCategory
 from coop.org.models import COMM_MEANS
 
-from coop_local.models import Provider, LegalStatus, CategoryIAE, OrganizationCategory, Contact
+from coop_local.models import (Provider, LegalStatus, CategoryIAE, OrganizationCategory,
+    Contact, Location, ContactMedium, Located)
 
 # The purpose of this script is to import human-made data (csv file) for MES providers
 # Columns are :
@@ -226,7 +227,8 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
     if (contacts.count() == 0):
         # get_or_create method cannot be called because of generic Contact model relation
         # so we try get, and create it manually if does not exists
-        contact = Contact(content_object=provider, category=category, content=data)
+        medium = ContactMedium.objects.get(id=category)
+        contact = Contact(content_object=provider, category=category, contact_medium=medium, content=data)
         contact.save()
     else:
         if (contacts.count() > 1):

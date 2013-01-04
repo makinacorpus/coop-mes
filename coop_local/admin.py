@@ -7,18 +7,20 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext as _
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
 
 from chosen import widgets as chosenwidgets
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 
-from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline,
-    EngagementInline)
+from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline,
+    LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline)
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
 
 from coop_geo.models import Location
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
-    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE)
+    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE,
+    Location, Engagement)
 
 try:
     from coop.base_admin import *
@@ -62,6 +64,34 @@ admin.site.register(Statut, CoopTagTreeAdmin)
 """
 
 
+def make_contact_form(organization):
+    class ContactForm(forms.ModelForm):
+        location = forms.ModelChoiceField(label=_(u'location'), required=False,
+            queryset=organization.locations())
+        class Meta:
+            model = Contact
+            fields = ('contact_medium', 'content', 'details', 'location', 'display')
+    return ContactForm
+
+
+class ContactInline(BaseContactInline):
+    fields = ('contact_medium', 'content', 'details', 'location', 'display')
+    def get_formset(self, request, obj=None, **kwargs):
+        return generic_inlineformset_factory(Contact, form=make_contact_form(obj))
+
+
+class EngagementForm(forms.ModelForm):
+
+    class Meta:
+        model = Engagement
+        widgets = {'role': chosenwidgets.ChosenSelect()}
+
+
+class EngagementInline(BaseEngagementInline):
+
+    form = EngagementForm
+
+
 class DocumentInline(admin.TabularInline):
 
     model = Document
@@ -70,12 +100,20 @@ class DocumentInline(admin.TabularInline):
     extra = 1
 
 
-class ReferenceInline(admin.TabularInline):
+class ReferenceInline(InlineAutocompleteAdmin):
 
     model = Reference
     verbose_name = _(u'reference')
     verbose_name_plural = _(u'references')
+    fk_name = 'source'
+    readonly_fields = ('created',)
+    fields = ('target', 'from_year', 'to_year', 'services', 'created')
+    related_search_fields = {'target': ('title', 'subtitle', 'acronym',), }
     extra = 1
+
+    def queryset(self, request):
+        queryset = super(ReferenceInline, self).queryset(request)
+        return queryset.filter(relation_type_id=2)
 
 
 class OfferAdminForm(forms.ModelForm):
@@ -124,8 +162,8 @@ class ProviderAdminForm(OrganizationAdminForm):
           | Q(content_type=ContentType.objects.get(model='person'), object_id__in=members_id)
             )
         phone_categories = [1, 2]
-        self.fields['pref_email'].queryset = org_contacts.filter(category=8)
-        self.fields['pref_phone'].queryset = org_contacts.filter(category__in=phone_categories)
+        self.fields['pref_email'].queryset = org_contacts.filter(contact_medium_id=8)
+        self.fields['pref_phone'].queryset = org_contacts.filter(contact_medium_id__in=phone_categories)
         self.fields['category'].help_text = None
 
         member_locations_id = [m.location.id for m in
@@ -177,6 +215,18 @@ class ProviderAdmin(OrganizationAdmin):
         if not change:
             form.instance.authors.add(request.user)
 
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if isinstance(instance, Reference):
+                instance.relation_type_id = 2
+                try:
+                    instance.target.client
+                except Client.DoesNotExist:
+                    client = Client(organization_ptr_id=instance.target.pk)
+                    client.__dict__.update(instance.target.__dict__)
+                    client.save()
+            instance.save()
 
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
