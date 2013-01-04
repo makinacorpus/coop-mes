@@ -404,6 +404,11 @@ class Provider(Organization):
         verbose_name = _(u'Provider')
         verbose_name_plural = _(u'Providers')
         app_label = 'coop_local'
+        permissions = (
+            ('view_provider', 'Can view Provider'),
+            ('change_its_provider', 'Can change its Provider'),
+            ('delete_its_provider', 'Can delete its Provider'),
+        )
 
 Provider._meta.get_field('category').verbose_name = _(u'category ESS')
 

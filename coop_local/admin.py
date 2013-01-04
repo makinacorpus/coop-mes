@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from django import forms
 from django.contrib import admin
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.db.models.loading import get_model
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -10,9 +10,11 @@ from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.conf.urls.defaults import patterns, url
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.defaultfilters import slugify
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
+from django.contrib.admin.util import unquote
+from django.core.urlresolvers import reverse
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -274,6 +276,42 @@ class ProviderAdmin(OrganizationAdmin):
         request.GET = query_dict
         return super(ProviderAdmin, self).changelist_view(request, extra_context)
 
+    def change_view(self, request, object_id, form_url='', extra_context={}):
+        obj = self.get_object(request, unquote(object_id))
+        if request.user.has_perm('coop_local.change_provider'):
+            has_object_change_permission = True
+        elif request.user.has_perm('coop_local.change_its_provider'):
+            has_object_change_permission = request.user in obj.authors.all()
+        else:
+            has_object_change_permission = False
+        if not has_object_change_permission and request.method == 'POST':
+            opts = obj._meta
+            module_name = opts.module_name
+            if "_continue" in request.POST:
+                if "_popup" in request.REQUEST:
+                    return HttpResponseRedirect(request.path + "?_popup=1")
+                else:
+                    return HttpResponseRedirect(request.path)
+            elif "_saveasnew" in request.POST:
+                return HttpResponseRedirect(reverse('admin:%s_%s_change' %
+                                            (opts.app_label, module_name),
+                                            args=(pk_value,),
+                                            current_app=self.admin_site.name))
+            elif "_addanother" in request.POST:
+                return HttpResponseRedirect(reverse('admin:%s_%s_add' %
+                                            (opts.app_label, module_name),
+                                            current_app=self.admin_site.name))
+            else:
+                return HttpResponseRedirect(reverse('admin:%s_%s_changelist' %
+                                            (opts.app_label, module_name),
+                                            current_app=self.admin_site.name))
+        extra_context['has_object_change_permission'] = has_object_change_permission
+        return super(ProviderAdmin, self).change_view(request, object_id, form_url, extra_context)
+
+    def add_view(self, request, form_url='', extra_context={}):
+        extra_context['has_object_change_permission'] = True
+        return super(ProviderAdmin, self).add_view(request, form_url, extra_context)
+
     def get_actions(self, request):
         """ Remove actions set by OrganizationAdmin class without removing ModelAdmin ones."""
         return super(OrganizationAdmin, self).get_actions(request)
@@ -341,6 +379,20 @@ class ProviderAdmin(OrganizationAdmin):
             url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='providers_csv'),
         )
         return my_urls + urls
+
+    #def queryset(self, request):
+        #qs = super(ProviderAdmin, self).queryset(request)
+        #if request.user.has_perm('coop_local.change_provider'):
+            #return qs
+        #return qs.filter(authors=request.user)
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.has_perm('coop_local.view_provider')
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.has_perm('coop_local.can_delete_its_provider'):
+            return obj is None or request.user in obj.authors.all()
+        return super(ProviderAdmin, self).has_delete_permission(request, obj)
 
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 

@@ -15,3 +15,18 @@
   </div>
 {% endif %}{% endif %}
 {% endblock %}
+
+
+{% block content %}
+
+{{ block.super }}
+{% endblock content %}
+
+{% block messages %}
+    {{ block.super }}
+    {% if not has_object_change_permission %}
+        <div class="alert alert-error" data-alert="alert">
+            Vous n'avez pas la permission de modifier ce Fournisseur.
+        </div>
+    {% endif %}
+{% endblock %}

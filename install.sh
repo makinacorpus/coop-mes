@@ -45,3 +45,4 @@ bin/python manage.py loaddata coop_local/fixtures/guaranty.json
 bin/python manage.py loaddata coop_local/fixtures/agreementiae.json
 bin/python manage.py loaddata coop_local/fixtures/contact_mediums.json
 bin/python manage.py loaddata coop_local/fixtures/relation_types.json
+bin/python manage.py loaddata coop_local/fixtures/group.json

@@ -36,3 +36,8 @@ a#add_id_category_iae,
 div#offer_set-group a.add-another {
     display: none;
 }
+
+select#id_permissions {
+    width: 700px;
+    height: 200px;
+}
