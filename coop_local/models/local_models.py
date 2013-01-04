@@ -12,7 +12,7 @@ from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
 
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
-    BaseRole, BaseRelation)
+    BaseRole, BaseRelation, BaseContact)
 from coop.person.models import BasePerson
 from coop_geo.models import Located as BaseLocated
 
@@ -425,6 +425,17 @@ class Located(BaseLocated):
     class Meta:
         verbose_name = _(u'Located item')
         verbose_name_plural = _(u'Located items')
+        app_label = 'coop_local'
+
+
+class Contact(BaseContact):
+
+    location = models.ForeignKey('Location', verbose_name=_(u'location'), blank=True, null=True)
+
+    class Meta:
+        ordering = ['category']
+        verbose_name = _(u'Contact')
+        verbose_name_plural = _(u'Contacts')
         app_label = 'coop_local'
 
 

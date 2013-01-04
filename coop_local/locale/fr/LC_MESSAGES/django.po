@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-03 17:53+0100\n"
+"POT-Creation-Date: 2013-01-04 14:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: admin.py:68
+#: admin.py:69 models/local_models.py:433
+msgid "location"
+msgstr "lieu"
+
+#: admin.py:86
 msgid "document"
 msgstr "document"
 
-#: admin.py:69
+#: admin.py:87
 msgid "documents"
 msgstr "documents"
 
-#: admin.py:76 models/local_models.py:207
+#: admin.py:94 models/local_models.py:207
 msgid "reference"
 msgstr "référence"
 
-#: admin.py:77 models/local_models.py:208
+#: admin.py:95 models/local_models.py:208
 msgid "references"
 msgstr "références"
 
-#: admin.py:103
+#: admin.py:121
 msgid "offer"
 msgstr "offre"
 
-#: admin.py:104
+#: admin.py:122
 msgid "offers"
 msgstr "offres"
 
-#: admin.py:154
+#: admin.py:172
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:159
+#: admin.py:177
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:163
+#: admin.py:181
 msgid "Description"
 msgstr "Description"
 
-#: admin.py:166 ui/menu.py:50
+#: admin.py:184 ui/menu.py:50
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: admin.py:169
+#: admin.py:187
 msgid "Management"
 msgstr "Gestion interne"
 
-#: admin.py:173
+#: admin.py:191
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -430,6 +434,14 @@ msgstr "Géo-localisation"
 msgid "Located items"
 msgstr "Géo-localisation"
 
+#: models/local_models.py:437
+msgid "Contact"
+msgstr "contact"
+
+#: models/local_models.py:438
+msgid "Contacts"
+msgstr "contacts"
+
 #: ui/dashboard.py:29
 msgid "Recent Actions"
 msgstr "Actions récentes"
@@ -509,6 +521,3 @@ msgstr "Lieux"
 #: ui/menu.py:90
 msgid "Areas"
 msgstr "Zones"
-
-#~ msgid "client name"
-#~ msgstr "nom du client"

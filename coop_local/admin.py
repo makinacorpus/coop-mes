@@ -7,18 +7,20 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext as _
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
 
 from chosen import widgets as chosenwidgets
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 
-from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline, LocatedInline, ContactInline,
-    EngagementInline)
+from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline,
+    LocatedInline, ContactInline as BaseContactInline, EngagementInline)
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
 
 from coop_geo.models import Location
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
-    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE)
+    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE,
+    Location)
 
 try:
     from coop.base_admin import *
@@ -60,6 +62,22 @@ admin.site.register(Statut, CoopTagTreeAdmin)
 
 
 """
+
+
+def make_contact_form(organization):
+    class ContactForm(forms.ModelForm):
+        location = forms.ModelChoiceField(label=_(u'location'), required=False,
+            queryset=organization.locations())
+        class Meta:
+            model = Contact
+            fields = ('contact_medium', 'content', 'details', 'location', 'display')
+    return ContactForm
+
+
+class ContactInline(BaseContactInline):
+    fields = ('contact_medium', 'content', 'details', 'location', 'display')
+    def get_formset(self, request, obj=None, **kwargs):
+        return generic_inlineformset_factory(Contact, form=make_contact_form(obj))
 
 
 class DocumentInline(admin.TabularInline):
