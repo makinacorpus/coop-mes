@@ -145,6 +145,8 @@ class Command(BaseCommand):
                     for tag in tags_list:
                         slugified_tag = slugify(tag)
                         (obj, created) = Tag.objects.get_or_create(name=slugified_tag)
+                        obj.name = tag
+                        obj.save()
                         provider.tags.add(obj)
 
                 address_label = row["libellé de l'adresse"]
