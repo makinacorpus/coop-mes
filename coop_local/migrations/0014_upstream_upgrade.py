@@ -23,7 +23,11 @@ class Migration(DataMigration):
             r.relation_type_id = r.reltype
             r.save()
         site = Site.objects.get(id=1)
-        for m in models.get_models():
+        for _m in models.get_models():
+            try:
+                m = orm[_m._meta.app_label + '.' + _m._meta.object_name]
+            except KeyError:
+                continue
             if coop.models.URIModel in m.__mro__:
                 for o in m.objects_manager.all():
                     o.sites.add(site)
