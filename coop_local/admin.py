@@ -66,8 +66,12 @@ admin.site.register(Statut, CoopTagTreeAdmin)
 
 def make_contact_form(organization):
     class ContactForm(forms.ModelForm):
+        if organization is None:
+            qs = Location.objects.none()
+        else:
+            qs = organization.locations()
         location = forms.ModelChoiceField(label=_(u'location'), required=False,
-            queryset=organization.locations())
+            queryset=qs)
         class Meta:
             model = Contact
             fields = ('contact_medium', 'content', 'details', 'location', 'display')
