@@ -220,16 +220,17 @@ class ProviderAdmin(OrganizationAdmin):
             form.instance.authors.add(request.user)
 
     def save_formset(self, request, form, formset, change):
+        if formset.model != Reference:
+            return super(ProviderAdmin, self).save_formset(request, form, formset, change)
         instances = formset.save(commit=False)
         for instance in instances:
-            if isinstance(instance, Reference):
-                instance.relation_type_id = 2
-                try:
-                    instance.target.client
-                except Client.DoesNotExist:
-                    client = Client(organization_ptr_id=instance.target.pk)
-                    client.__dict__.update(instance.target.__dict__)
-                    client.save()
+            instance.relation_type_id = 2
+            try:
+                instance.target.client
+            except Client.DoesNotExist:
+                client = Client(organization_ptr_id=instance.target.pk)
+                client.__dict__.update(instance.target.__dict__)
+                client.save()
             instance.save()
 
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
