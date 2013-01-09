@@ -146,9 +146,7 @@ class Command(BaseCommand):
                     tags_list = keywords.split(";")
                     for tag in tags_list:
                         slugified_tag = slugify(tag)
-                        (obj, created) = Tag.objects.get_or_create(name=slugified_tag)
-                        obj.name = tag
-                        obj.save()
+                        (obj, created) = Tag.objects.get_or_create(name=tag)
                         provider.tags.add(obj)
 
                 address_label = row["libellé de l'adresse"]
@@ -195,6 +193,10 @@ class Command(BaseCommand):
                                       main_location=True,
                                       category=location_category)
                     located.save()
+		except Located.MultipleObjectReturned:
+		    located = Located.objects.filter(location=location)[0]
+		    msg = "Location %s is not unique" % location.label
+		    logging.warn(msg)	
                 finally:    
                     _set_attr_if_empty(provider, 'located', located)
                     _set_attr_if_empty(provider, 'pref_address', location)
