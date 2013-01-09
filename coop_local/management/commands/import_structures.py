@@ -248,7 +248,6 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
 def _set_attr_if_empty(obj, field_name, data):
 
     field_value = getattr(obj, field_name)
-    print field_name, data, field_value
     if ((field_value == None) or (field_value == '')):
         setattr(obj, field_name, data)
 
@@ -256,7 +255,6 @@ def _set_attr_if_empty(obj, field_name, data):
 def _set_attr_m2m(obj, field_name, data):
 
     field_value = getattr(obj, field_name)
-    print field_value
     field_value.add(data)
 
 
