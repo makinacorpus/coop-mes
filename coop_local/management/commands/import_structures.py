@@ -4,6 +4,7 @@ import sys
 import time
 import datetime
 import logging
+import re
 
 from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
@@ -98,7 +99,7 @@ class Command(BaseCommand):
                 category_iae = row['Type de structure SIAE']
                 try:
                     obj = CategoryIAE.objects.get(label=category_iae)
-                    _set_attr_if_empty(provider, 'category_iae', [obj])
+                    _set_attr_m2m(provider, 'category_iae', obj)
                 except CategoryIAE.DoesNotExist:
                     logging.warn("Unknown IAE Category : >" + category_iae + "<")
                 
@@ -247,8 +248,16 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
 def _set_attr_if_empty(obj, field_name, data):
 
     field_value = getattr(obj, field_name)
+    print field_name, data, field_value
     if ((field_value == None) or (field_value == '')):
         setattr(obj, field_name, data)
+
+
+def _set_attr_m2m(obj, field_name, data):
+
+    field_value = getattr(obj, field_name)
+    print field_value
+    field_value.add(data)
 
 
 def _format_number_to_bd_check(data):
@@ -263,9 +272,12 @@ def _is_valid(data):
 
 def _clean_tel(data):
 
-    # Every tel number lacks first "0"
-    data = "0" + data
-    
+    data = re.sub(r'[^\d]', '', data)
+
+    # Some tel number lacks first "0"
+    if data[0] != '0':
+        data = "0" + data
+
     return data
 
 
