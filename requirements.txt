@@ -107,3 +107,4 @@ django-multisite
 # MES specific
 appy==0.8.2
 django-appypod==0.0.1
+pyxml==0.8.4
