@@ -361,6 +361,12 @@ class Provider(Organization):
     authors = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('authors'))
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
 
+    def brief_description_xhtml(self):
+        return self.brief_description.replace('\n', '<br/>').encode('ascii', 'xmlcharrefreplace')
+
+    def added_value_xhtml(self):
+        return self.added_value.replace('\n', '<br/>').encode('ascii', 'xmlcharrefreplace')
+
     def unchecked_agreements_iae(self):
         return AgreementIAE.objects.exclude(id__in=self.agreement_iae.all().values_list('id', flat=True))
 
