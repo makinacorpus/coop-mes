@@ -12,7 +12,7 @@ from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
 
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
-    BaseRole, BaseRelation, BaseContact)
+    BaseRole, BaseRelation, BaseContact, BaseEngagement)
 from coop.person.models import BasePerson
 from coop_geo.models import Located as BaseLocated
 
@@ -310,6 +310,12 @@ class Organization(BaseOrganization):
 
     pass
 
+
+class Engagement(BaseEngagement):
+
+    pass
+
+
 Organization._meta.get_field('title').verbose_name = _(u'corporate name')
 Organization._meta.get_field('description').verbose_name = _(u'general presentation')
 Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
@@ -355,6 +361,24 @@ class Provider(Organization):
     authors = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('authors'))
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
 
+    def unchecked_agreements_iae(self):
+        return AgreementIAE.objects.exclude(id__in=self.agreement_iae.all().values_list('id', flat=True))
+
+    def unchecked_transverse_themes(self):
+        return TransverseTheme.objects.exclude(id__in=self.transverse_themes.all().values_list('id', flat=True))
+
+    def references(self):
+        return Reference.objects.filter(source=self)
+
+    def source_relations(self):
+        return Relation.objects.filter(source=self)
+
+    def target_relations(self):
+        return Relation.objects.filter(target=self)
+
+    def engagements(self):
+        return Engagement.objects.filter(organization=self)
+
     class Meta:
         ordering = ['title']
         verbose_name = _(u'Provider')
@@ -397,6 +421,9 @@ class Offer(models.Model):
     def __unicode__(self):
 
         return unicode(self.activity)
+
+    def unchecked_targets(self):
+        return ClientTarget.objects.exclude(id__in=self.targets.all().values_list('id', flat=True))
 
     class Meta:
         verbose_name = _(u'Offer')

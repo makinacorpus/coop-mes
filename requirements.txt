@@ -62,7 +62,7 @@ python-dateutil
 sorl-thumbnail==11.09
 shortuuid
 django-tinymce
--e git+git://github.com/twidi/django-extended-choices@master#egg=django-extended-choices
+-e git+git://github.com/twidi/django-extended-choices@develop#egg=django-extended-choices
 -e hg+https://bitbucket.org/ubernostrum/django-profiles#egg=django-profiles
 django-positions
 django-push
@@ -103,3 +103,7 @@ django-multisite
 
 # for spip translation
 # MySQL-python
+
+# MES specific
+appy==0.8.2
+django-appypod==0.0.1

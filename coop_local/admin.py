@@ -8,10 +8,13 @@ from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
+from django.conf.urls.defaults import patterns, url
+from django.shortcuts import get_object_or_404
 
 from chosen import widgets as chosenwidgets
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
+from djappypod.response import OdtTemplateResponse
 
 from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline,
     LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline)
@@ -178,7 +181,6 @@ class ProviderAdminForm(OrganizationAdminForm):
           | Q(id__in=member_locations_id)
             )
 
-
 class ProviderAdmin(OrganizationAdmin):
 
     form = ProviderAdminForm
@@ -209,6 +211,7 @@ class ProviderAdmin(OrganizationAdmin):
         })
     )
     inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
+    change_form_template = 'admin/coop_local/provider/tabbed_change_form.html'
 
     def get_actions(self, request):
         """ Remove actions set by OrganizationAdmin class without removing ModelAdmin ones."""
@@ -232,6 +235,21 @@ class ProviderAdmin(OrganizationAdmin):
                 client.__dict__.update(instance.target.__dict__)
                 client.save()
             instance.save()
+
+    def odt_view(self, request, pk):
+        provider = get_object_or_404(Provider, pk=pk)
+        themes = TransverseTheme.objects.all()
+        response = OdtTemplateResponse(request,
+            'export/provider.odt', {'provider': provider, 'themes': themes})
+        response.render()
+        return response
+
+    def get_urls(self):
+        urls = super(ProviderAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^(?P<pk>\d+)/odt/$', self.admin_site.admin_view(self.odt_view), name='provider_odt')
+        )
+        return my_urls + urls
 
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
