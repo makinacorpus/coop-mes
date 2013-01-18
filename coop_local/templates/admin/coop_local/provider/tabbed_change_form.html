@@ -5,7 +5,7 @@
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
   <div class="pull-right">
-    <a href='{% url 'admin:provider_odt' object_id %}' class="btn btn-info">{% trans "Export ODT" %}</a>
+    <a href='{% url 'admin:provider_odt' object_id %}' class="btn btn-info">{% trans "ODT export" %}</a>
     {% block object-tools-items %}
     <a href="history/" class="btn btn-info">{% trans "History" %}</a>
     {% if has_absolute_url %}<a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="btn primary">{% trans "View on site" %}</a>{% endif%}
