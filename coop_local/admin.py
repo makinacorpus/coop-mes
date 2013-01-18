@@ -239,8 +239,10 @@ class ProviderAdmin(OrganizationAdmin):
     def odt_view(self, request, pk):
         provider = get_object_or_404(Provider, pk=pk)
         themes = TransverseTheme.objects.all()
+        client_targets = ClientTarget.objects.all()
         response = OdtTemplateResponse(request,
-            'export/provider.odt', {'provider': provider, 'themes': themes})
+            'export/provider.odt', {'provider': provider, 'themes': themes,
+            'client_targets': client_targets})
         response.render()
         return response
 
