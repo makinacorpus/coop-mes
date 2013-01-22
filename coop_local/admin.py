@@ -10,11 +10,13 @@ from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.conf.urls.defaults import patterns, url
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 from chosen import widgets as chosenwidgets
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 from djappypod.response import OdtTemplateResponse
+import csv
 
 from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline,
     LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline)
@@ -246,10 +248,31 @@ class ProviderAdmin(OrganizationAdmin):
         response.render()
         return response
 
+    def csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('providers')
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer.writerow([s.encode('cp1252') for s in [
+            _('corporate name'), _('acronym'), _('Preferred label'), _('creation date'),
+            _('legal status'), _('category ESS'), _('category IAE'),
+            _('agreement IAE'), _('web site'), _('No. SIRET')
+        ]])
+        for provider in Provider.objects.order_by('title'):
+            row  = [provider.title, provider.acronym, provider.get_pref_label_display()]
+            row += [provider.birth.strftime('%d/%m/%Y') if provider.birth else '']
+            row += [unicode(provider.legal_status) if provider.legal_status else '']
+            row += [', '.join([unicode(c) for c in provider.category.all()])]
+            row += [', '.join([unicode(c) for c in provider.category_iae.all()])]
+            row += [', '.join([unicode(a) for a in provider.agreement_iae.all()])]
+            row += [provider.web, provider.siret]
+            writer.writerow([s.encode('cp1252') for s in row])
+        return response
+
     def get_urls(self):
         urls = super(ProviderAdmin, self).get_urls()
         my_urls = patterns('',
-            url(r'^(?P<pk>\d+)/odt/$', self.admin_site.admin_view(self.odt_view), name='provider_odt')
+            url(r'^(?P<pk>\d+)/odt/$', self.admin_site.admin_view(self.odt_view), name='provider_odt'),
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='providers_csv'),
         )
         return my_urls + urls
 
