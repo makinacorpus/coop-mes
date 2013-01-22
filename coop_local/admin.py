@@ -11,6 +11,7 @@ from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.conf.urls.defaults import patterns, url
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.template.defaultfilters import slugify
 
 from chosen import widgets as chosenwidgets
 from mptt.admin import MPTTModelAdmin
@@ -245,6 +246,7 @@ class ProviderAdmin(OrganizationAdmin):
         response = OdtTemplateResponse(request,
             'export/provider.odt', {'provider': provider, 'themes': themes,
             'client_targets': client_targets})
+        response['Content-Disposition'] = 'attachment; filename=%s.odt' % slugify(provider.title)
         response.render()
         return response
 
