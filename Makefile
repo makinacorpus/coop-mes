@@ -16,3 +16,6 @@ serve:
 
 clean:
 	rm -rf bin include lib local src static_collected
+
+convert:
+	soffice --invisible --headless --accept="socket,host=localhost,port=2002;urp;" &

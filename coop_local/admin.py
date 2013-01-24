@@ -239,14 +239,20 @@ class ProviderAdmin(OrganizationAdmin):
                 client.save()
             instance.save()
 
-    def odt_view(self, request, pk):
+    def odt_view(self, request, pk, format):
         provider = get_object_or_404(Provider, pk=pk)
         themes = TransverseTheme.objects.all()
         client_targets = ClientTarget.objects.all()
+        content_type = {
+            'odt': 'application/vnd.oasis.opendocument.text',
+            'doc': 'application/ms-word',
+            'pdf': 'application/pdf',
+        }[format]
         response = OdtTemplateResponse(request,
             'export/provider.odt', {'provider': provider, 'themes': themes,
-            'client_targets': client_targets})
-        response['Content-Disposition'] = 'attachment; filename=%s.odt' % slugify(provider.title)
+            'client_targets': client_targets, 'content_type': content_type},
+            content_type=content_type)
+        response['Content-Disposition'] = 'attachment; filename=%s.%s' % (slugify(provider.title), format)
         response.render()
         return response
 
@@ -273,7 +279,7 @@ class ProviderAdmin(OrganizationAdmin):
     def get_urls(self):
         urls = super(ProviderAdmin, self).get_urls()
         my_urls = patterns('',
-            url(r'^(?P<pk>\d+)/odt/$', self.admin_site.admin_view(self.odt_view), name='provider_odt'),
+            url(r'^(?P<pk>\d+)/(?P<format>(odt|doc|pdf))/$', self.admin_site.admin_view(self.odt_view), name='provider_odt'),
             url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='providers_csv'),
         )
         return my_urls + urls
