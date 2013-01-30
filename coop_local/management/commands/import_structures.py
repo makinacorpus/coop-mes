@@ -21,16 +21,16 @@ from coop_local.models import (Provider, LegalStatus, CategoryIAE, OrganizationC
 # 0 - Identifiant BDIS
 # 1 - Raison sociale
 # 2 - Sigle
-# 3 - Date de creation
+# 3 - Date de création
 # 4 - Statut juridique
 # 5 - Type de structure ESS 
-# 6 - Type de structure SIAE
+# 6 - Type de structure IAE
 # 7 - Site web
 # 8 - N° SIRET
 # 9 - Chiffre d'affaires annuel
-# 10 - plue value sociale et environ-nementale
+# 10 - 
 # 11 - Description succincte
-# 12 - Presentation generale
+# 12 - Présentation générale
 # 13 - Effectif total (ETP)
 # 14 - Effectif de production (ETP)
 # 15 - Effectif d’encadrement (ETP)
@@ -48,7 +48,7 @@ from coop_local.models import (Provider, LegalStatus, CategoryIAE, OrganizationC
 # 27 - Email de la structure
 # 28 - Teléphone
 # 29 - Fax
-# 30 - mobile
+# 30 - Mobile
 
 current_time = datetime.datetime.now()
 logging.basicConfig(filename='%(date)s_structure_migration.log' % {'date': current_time.strftime("%Y-%m-%d")},
@@ -78,16 +78,17 @@ class Command(BaseCommand):
                 # First import fields (initial november import)
                 
                 _set_attr_if_empty(provider, 'acronym', row['Sigle'])
-                _set_attr_if_empty(provider, 'description', row['Presentation generale'])
+                _set_attr_if_empty(provider, 'description', row['Présentation générale'])
                 
                 # csv date is JJ/MM/YYYY, but django model needs YYYY-MM-DD
-                birth_date = row['Date de creation']
+                birth_date = row['Date de création']
                 if _is_valid(birth_date):
                     tme_struct = time.strptime(birth_date, '%d/%m/%Y')
                     _set_attr_if_empty(provider, 'birth', datetime.datetime(*tme_struct[0:3]))
                     
                 _set_attr_if_empty(provider, 'web', row['Site web'])
-                _set_attr_if_empty(provider, 'siret', row['N° SIRET'])
+                siret = row['N° SIRET'].replace(' ', '')
+                _set_attr_if_empty(provider, 'siret', siret)
                 legal_status = row['Statut juridique']
                 try:
                     obj = LegalStatus.objects.get(label=legal_status)
@@ -96,7 +97,7 @@ class Command(BaseCommand):
                     logging.warn("Unknown Status : >" + legal_status + "<")
 
                 
-                category_iae = row['Type de structure SIAE']
+                category_iae = row['Type de structure IAE']
                 try:
                     obj = CategoryIAE.objects.get(label=category_iae)
                     _set_attr_m2m(provider, 'category_iae', obj)
@@ -104,13 +105,12 @@ class Command(BaseCommand):
                     logging.warn("Unknown IAE Category : >" + category_iae + "<")
                 
                 _set_attr_if_empty(provider, 'brief_description', row['Description succincte'])
-                _set_attr_if_empty(provider, 'added_value', row['plue value sociale et environ-nementale'])
                 _set_attr_if_empty(provider, 'annual_revenue', _clean_int(row["Chiffre d'affaires annuel"]))
                 _set_attr_if_empty(provider, 'workforce', _clean_int(row['Effectif total (ETP)']))
                 _set_attr_if_empty(provider, 'production_workforce', _clean_int(row['Effectif de production (ETP)']))
                 _set_attr_if_empty(provider, 'supervision_workforce', _clean_int(row['Effectif d’encadrement (ETP)']))
                 _set_attr_if_empty(provider, 'integration_workforce', _clean_int(row['Nombre de salariés en insertion (ETP)']))
-                _set_attr_if_empty(provider, 'annual_integration_number', _clean_int(row['Nombre de personnes en insertion accompagnées par an']))
+                _set_attr_if_empty(provider, 'annual_integration_number', _clean_int(row['Nombre de personnes en insertion accompagnées par an']))
 
                 # Second Import fields (january import)
                 
@@ -139,20 +139,20 @@ class Command(BaseCommand):
                             logging.warn(msg)
                 
                 _set_attr_if_empty(provider, 'web', row['Site web'])
-                _set_attr_if_empty(provider, 'description', row['Presentation generale'])
+                _set_attr_if_empty(provider, 'description', row['Présentation générale'])
 
-                keywords = row['mot-clés Thèmes candidats']
-                if _is_valid(keywords):
-                    tags_list = keywords.split(";")
-                    for tag in tags_list:
-                        slugified_tag = slugify(tag)
-                        (obj, created) = Tag.objects.get_or_create(name=tag)
-                        provider.tags.add(obj)
+                #keywords = row['mot-clés Thèmes candidats']
+                #if _is_valid(keywords):
+                    #tags_list = keywords.split(";")
+                    #for tag in tags_list:
+                        #slugified_tag = slugify(tag)
+                        #(obj, created) = Tag.objects.get_or_create(name=tag)
+                        #provider.tags.add(obj)
 
                 address_label = row["libellé de l'adresse"]
                 address_1 = row["Adresse 1"]
                 address_2 = row["Adresse 2"]
-                zip_code = row["Code postal"]
+                zip_code = _clean_int(row["Code postal"])
                 city = row["Ville"]
 
                 if not _is_valid(address_label):
@@ -213,7 +213,7 @@ class Command(BaseCommand):
                 if _is_valid(fax_number):
                     _save_contact(provider, fax_number, COMM_MEANS.FAX, True)
 
-                mobile_number = row['mobile']
+                mobile_number = row['Mobile']
                 if _is_valid(mobile_number):
                     _save_contact(provider, mobile_number, COMM_MEANS.GSM, True)
 
@@ -284,7 +284,7 @@ def _clean_tel(data):
 def _clean_int(data):
     
     if _is_valid(data):
-        return int(data)
+        return int(data.replace(' ', ''))
 
 
 def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
