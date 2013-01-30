@@ -190,7 +190,7 @@ class ProviderAdmin(OrganizationAdmin):
     list_display = ['logo_list_display', 'title', 'acronym', 'active', 'has_description', 'has_location']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['active', 'agreement_iae']
+    list_filter = ['active', 'agreement_iae', 'authors']
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
