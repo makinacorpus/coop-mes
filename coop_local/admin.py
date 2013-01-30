@@ -187,6 +187,8 @@ class ProviderAdminForm(OrganizationAdminForm):
 class ProviderAdmin(OrganizationAdmin):
 
     form = ProviderAdminForm
+    list_display = ['logo_list_display', 'title', 'acronym', 'active', 'has_description', 'has_location']
+    list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
     list_filter = ['active', 'agreement_iae']
     fieldsets = (
