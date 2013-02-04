@@ -115,10 +115,10 @@ class ReferenceInline(InlineAutocompleteAdmin):
     model = Reference
     verbose_name = _(u'reference')
     verbose_name_plural = _(u'references')
-    fk_name = 'source'
+    fk_name = 'target'
     readonly_fields = ('created',)
-    fields = ('target', 'from_year', 'to_year', 'services', 'created')
-    related_search_fields = {'target': ('title', 'subtitle', 'acronym',), }
+    fields = ('source', 'from_year', 'to_year', 'services', 'created')
+    related_search_fields = {'source': ('title', 'subtitle', 'acronym',), }
     extra = 1
 
     def queryset(self, request):

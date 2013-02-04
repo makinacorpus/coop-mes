@@ -208,7 +208,7 @@ class Reference(Relation):
         verbose_name_plural = _(u'references')
         app_label = 'coop_local'
 
-Reference._meta.get_field('target').verbose_name = _(u'client')
+Reference._meta.get_field('source').verbose_name = _(u'client')
 
 
 class ActivityNomenclatureAvise(models.Model):
@@ -374,7 +374,7 @@ class Provider(Organization):
         return TransverseTheme.objects.exclude(id__in=self.transverse_themes.all().values_list('id', flat=True))
 
     def references(self):
-        return Reference.objects.filter(source=self)
+        return Reference.objects.filter(target=self)
 
     def source_relations(self):
         return Relation.objects.filter(source=self)
