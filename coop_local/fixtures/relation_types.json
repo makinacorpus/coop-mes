@@ -3,40 +3,55 @@
         "pk": 1,
         "model": "coop_local.orgrelationtype",
         "fields": {
+            "key_name": "MEMBER",
+            "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#isMemberOf",
-            "label": " est membre de"
+            "org_to_project": true,
+            "label": " membre "
         }
     },
     {
         "pk": 2,
         "model": "coop_local.orgrelationtype",
         "fields": {
+            "key_name": "REG_SUPPLIER",
+            "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#hasRegularSupplier",
-            "label": " a pour fournisseur r\u00e9gulier "
+            "org_to_project": false,
+            "label": " fournisseur r\u00e9gulier "
         }
     },
     {
         "pk": 3,
         "model": "coop_local.orgrelationtype",
         "fields": {
+            "key_name": "OCC_SUPPLIER",
+            "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#hasCasualSupplier",
-            "label": " a pour fournisseur occasionnel "
+            "org_to_project": true,
+            "label": " fournisseur occasionnel "
         }
     },
     {
         "pk": 4,
         "model": "coop_local.orgrelationtype",
         "fields": {
+            "key_name": "SUPPORT",
+            "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#receivedTechnicalSupportFrom",
-            "label": " a re\u00e7u un soutien technique de "
+            "org_to_project": true,
+            "label": " soutien technique "
         }
     },
     {
         "pk": 5,
         "model": "coop_local.orgrelationtype",
         "fields": {
+            "key_name": "FUNDING",
+            "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#receivedFinancialSupportOf",
-            "label": " a re\u00e7u un soutien financier de "
+            "org_to_project": true,
+            "label": " soutien financier "
         }
     }
 ]

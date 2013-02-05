@@ -26,10 +26,10 @@ fi
 bin/python manage.py collectstatic --noinput
 bin/python manage.py syncdb --all --noinput
 bin/python manage.py migrate --fake
-bin/python manage.py loaddata coop_local/fixtures/areatypes.json
+bin/python manage.py loaddata coop_local/fixtures/area_types.json
 bin/python manage.py loaddata coop_local/fixtures/django_site.json
 bin/python manage.py loaddata coop_local/fixtures/exchange_methods.json
-bin/python manage.py loaddata coop_local/fixtures/linkproperty.json
+bin/python manage.py loaddata coop_local/fixtures/linking_properties.json
 bin/python manage.py loaddata coop_local/fixtures/location_categories.json
 bin/python manage.py loaddata coop_local/fixtures/roles.json
 bin/python manage.py loaddata coop_local/fixtures/uriredirect.json
@@ -44,4 +44,4 @@ bin/python manage.py loaddata coop_local/fixtures/transversetheme.json
 bin/python manage.py loaddata coop_local/fixtures/guaranty.json
 bin/python manage.py loaddata coop_local/fixtures/agreementiae.json
 bin/python manage.py loaddata coop_local/fixtures/contact_mediums.json
-bin/python manage.py loaddata coop_local/fixtures/orgrelationtypes.json
+bin/python manage.py loaddata coop_local/fixtures/relation_types.json
