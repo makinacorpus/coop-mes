@@ -123,7 +123,7 @@ def server_setup():
                     'libfreetype6', 'libfreetype6-dev', 'liblcms1-dev', 'libpng12-dev',
                     'libjpeg8-dev', 'python-imaging', 'supervisor',
                     'python-setuptools', 'nano', 'python-dev', 'swig',
-                    'memcached', 'python-memcache'])
+                    'memcached', 'python-memcache', 'libgeoip1'])
 
         # pip special case
         if not fabtools.python.is_pip_installed():

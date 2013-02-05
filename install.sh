@@ -6,7 +6,7 @@ db_pass=123456
 
 sudo apt-get update
 sudo apt-get install make git mercurial postgresql postgresql-9.1-postgis postgresql-server-dev-9.1 \
-    python-virtualenv python-dev gdal-bin
+    python-virtualenv python-dev gdal-bin libgeoip1
 
 test -e bin/python || virtualenv .
 bin/pip install -r requirements.txt
