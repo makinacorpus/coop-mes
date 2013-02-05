@@ -15,7 +15,9 @@ from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
     BaseRole, BaseRelation, BaseContact, BaseEngagement)
 from coop.person.models import BasePerson
 from coop_geo.models import Located as BaseLocated
-
+from unidecode import unidecode
+import re
+ 
 ADMIN_THUMBS_SIZE = '60x60'
 
 
@@ -29,6 +31,11 @@ ADMIN_THUMBS_SIZE = '60x60'
 # Here you can either :
 # - Customize coop models by deriving from the abstract class (BaseOrganization, Baseperson...)
 # - Or add your own models, providing you add in their Meta class app_label="coop_local"
+
+
+def normalize_text(text):
+    return re.sub(r'\s+', ' ', unidecode(text).lower().strip())
+
 
 class Person(BasePerson):
 
@@ -360,6 +367,13 @@ class Provider(Organization):
     transmission_date = models.DateField(_(u'transmission date'), blank=True, null=True)
     authors = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('authors'))
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
+
+    # Search
+    norm_title = models.CharField(max_length=250, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.norm_title = normalize_text(self.title)
+        super(Provider, self).save(*args, **kwargs)
 
     def brief_description_xhtml(self):
         return self.brief_description.replace('\n', '<br/>').encode('ascii', 'xmlcharrefreplace')

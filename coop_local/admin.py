@@ -24,6 +24,7 @@ from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationIn
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
 
 from coop_geo.models import Location
+from coop_local.models.local_models import normalize_text
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
     ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE,
     Location, Engagement)
@@ -184,6 +185,14 @@ class ProviderAdminForm(OrganizationAdminForm):
           | Q(id__in=member_locations_id)
             )
 
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        norm_title = normalize_text(title)
+        if Provider.objects.filter(norm_title=norm_title).exists():
+            raise forms.ValidationError(_('A provider with this title already exists.'))
+        return title
+
+
 class ProviderAdmin(OrganizationAdmin):
 
     form = ProviderAdminForm
@@ -217,6 +226,14 @@ class ProviderAdmin(OrganizationAdmin):
     )
     inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
     change_form_template = 'admin/coop_local/provider/tabbed_change_form.html'
+    search_fields = ['norm_title', 'acronym']
+
+    def changelist_view(self, request, extra_context=None):
+        query_dict = request.GET.copy()
+        if 'q' in query_dict:
+            query_dict['q'] = normalize_text(query_dict['q'])
+        request.GET = query_dict
+        return super(ProviderAdmin, self).changelist_view(request, extra_context)
 
     def get_actions(self, request):
         """ Remove actions set by OrganizationAdmin class without removing ModelAdmin ones."""
