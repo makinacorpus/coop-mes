@@ -188,7 +188,7 @@ class ProviderAdminForm(OrganizationAdminForm):
     def clean_title(self):
         title = self.cleaned_data['title']
         norm_title = normalize_text(title)
-        if Provider.objects.filter(norm_title=norm_title).exists():
+        if Provider.objects.filter(norm_title=norm_title).exclude(pk=self.instance.pk).exists():
             raise forms.ValidationError(_('A provider with this title already exists.'))
         return title
 
