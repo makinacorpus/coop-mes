@@ -12,22 +12,27 @@ from django.conf.urls.defaults import patterns, url
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.template.defaultfilters import slugify
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 
 from chosen import widgets as chosenwidgets
+from selectable.base import ModelLookup
+from selectable.registry import registry
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 from djappypod.response import OdtTemplateResponse
 import csv
 
 from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline,
-    LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline)
-from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
+    LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline,
+    OrgInline)
+from coop.person.admin import PersonAdmin as BasePersonAdmin
+from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin, AutoComboboxSelectEditWidget, register
 
 from coop_geo.models import Location
 from coop_local.models.local_models import normalize_text
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
     ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE,
-    Location, Engagement)
+    Location, Engagement, ContactMedium)
 
 try:
     from coop.base_admin import *
@@ -71,14 +76,42 @@ admin.site.register(Statut, CoopTagTreeAdmin)
 """
 
 
-def make_contact_form(organization):
+class LocationLookup(ModelLookup):
+    model = Location
+    search_fields = ('label', 'adr1', 'adr2', 'zipcode', 'city')
+
+    def get_query(self, request, term):
+        results = super(LocationLookup, self).get_query(request, term)
+        provider_id = request.GET.get('provider')
+        if provider_id:
+            provider = Provider.objects.get(id=provider_id)
+            print provider
+            print provider.located.all()
+            results = results.filter(id__in=provider.located.all().values_list('location_id', flat=True))
+        return results
+
+
+class MediumLookup(ModelLookup):
+    model = ContactMedium
+    search_fields = ('label', )
+
+
+registry.register(LocationLookup)
+registry.register(MediumLookup)
+
+
+def make_contact_form(provider, admin_site):
     class ContactForm(forms.ModelForm):
-        if organization is None:
-            qs = Location.objects.none()
-        else:
-            qs = organization.locations()
-        location = forms.ModelChoiceField(label=_(u'location'), required=False,
-            queryset=qs)
+        def __init__(self, *args, **kwargs):
+            super(ContactForm, self).__init__(*args, **kwargs)
+            location_rel = Contact._meta.get_field_by_name('location')[0].rel
+            medium_rel = Contact._meta.get_field_by_name('contact_medium')[0].rel
+            self.fields['location'].widget = AutoComboboxSelectEditWidget(location_rel, admin_site, LocationLookup)
+            if provider:
+                self.fields['location'].widget.update_query_parameters({'provider': provider.pk})
+            self.fields['location'].widget.choices = None
+            self.fields['location'].widget = RelatedFieldWidgetWrapper(self.fields['location'].widget, location_rel, admin_site, True)
+            self.fields['contact_medium'].widget = RelatedFieldWidgetWrapper(self.fields['contact_medium'].widget, medium_rel, admin_site, True)
         class Meta:
             model = Contact
             fields = ('contact_medium', 'content', 'details', 'location', 'display')
@@ -88,22 +121,18 @@ def make_contact_form(organization):
 class ContactInline(BaseContactInline):
     fields = ('contact_medium', 'content', 'details', 'location', 'display')
     def get_formset(self, request, obj=None, **kwargs):
-        return generic_inlineformset_factory(Contact, form=make_contact_form(obj))
-
-
-class EngagementForm(forms.ModelForm):
-
-    class Meta:
-        model = Engagement
-        widgets = {'role': chosenwidgets.ChosenSelect()}
+        return generic_inlineformset_factory(Contact, form=make_contact_form(obj, self.admin_site))
 
 
 class EngagementInline(BaseEngagementInline):
+    related_search_fields = {
+        'person': ('last_name', 'first_name'),
+        'role': ('label', )
+    }
+    related_combobox = ('role', )
 
-    form = EngagementForm
 
-
-class DocumentInline(admin.TabularInline):
+class DocumentInline(InlineAutocompleteAdmin):
 
     model = Document
     verbose_name = _(u'document')
@@ -153,7 +182,6 @@ class ProviderAdminForm(OrganizationAdminForm):
     class Meta:
         model = get_model('coop_local', 'Provider')
         widgets = {
-            'legal_status': chosenwidgets.ChosenSelect(),
             'category': chosenwidgets.ChosenSelectMultiple(),
             'category_iae': chosenwidgets.ChosenSelectMultiple(),
             'guaranties': chosenwidgets.ChosenSelectMultiple(),
@@ -227,6 +255,8 @@ class ProviderAdmin(OrganizationAdmin):
     inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
     change_form_template = 'admin/coop_local/provider/tabbed_change_form.html'
     search_fields = ['norm_title', 'acronym']
+    related_search_fields = {'legal_status': ('label', )}
+    related_combobox = ('legal_status', )
 
     def changelist_view(self, request, extra_context=None):
         query_dict = request.GET.copy()
@@ -305,11 +335,6 @@ class ProviderAdmin(OrganizationAdmin):
 
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
-admin.site.unregister(Organization)
-admin.site.register(Provider, ProviderAdmin)
-
-admin.site.register(LegalStatus)
-admin.site.register(CategoryIAE)
 
 class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
 
@@ -317,8 +342,6 @@ class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display_links = ('name', )
     list_filter = ('type', )
     search_fields = ('type', 'name')
-
-admin.site.register(Guaranty, GuarantyAdmin)
 
 
 class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
@@ -328,12 +351,26 @@ class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
     mptt_level_indent = 50
     list_display = ('label', )
 
-admin.site.register(ActivityNomenclature, ActivityNomenclatureAdmin)
-admin.site.register(ActivityNomenclatureAvise)
-admin.site.register(ClientTarget)
-admin.site.register(TransverseTheme)
-admin.site.register(Organization, OrganizationAdmin)
-admin.site.register(Client, OrganizationAdmin)
-admin.site.register(Network, OrganizationAdmin)
-admin.site.register(DocumentType)
-admin.site.register(AgreementIAE)
+
+class PersonAdmin(BasePersonAdmin):
+    inlines = [ContactInline, OrgInline]
+
+
+admin.site.unregister(Organization)
+register(Guaranty, GuarantyAdmin)
+register(Provider, ProviderAdmin)
+register(ActivityNomenclature, ActivityNomenclatureAdmin)
+register(ActivityNomenclatureAvise)
+register(ClientTarget)
+register(TransverseTheme)
+register(Organization, OrganizationAdmin)
+register(Client, OrganizationAdmin)
+register(Network, OrganizationAdmin)
+register(AgreementIAE)
+register(Contact)
+register(LegalStatus)
+register(CategoryIAE)
+register(DocumentType)
+register(ContactMedium)
+admin.site.unregister(Person)
+register(Person, PersonAdmin)
