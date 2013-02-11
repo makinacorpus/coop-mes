@@ -13,7 +13,7 @@ SITE_TITLE = 'Demo Django-coop'
 # DEFAULT_URI_DOMAIN = '{{ domain }}' useless use Site.objects.get_current().domain instead
 
 # let this setting to False in production, except for urgent debugging
-DEBUG = True
+DEBUG = False
 
 # Force DEBUG setting if we're developing locally or testing
 if 'runserver' in sys.argv or 'test' in sys.argv:
