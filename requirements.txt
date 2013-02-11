@@ -33,12 +33,12 @@ django-mptt
 -e git+git://github.com/quinode/django-templatetag-sugar@master#egg=django-templatetag-sugar
 
 # our forks
--e git+git://github.com/quinode/django-admintools-bootstrap.git#egg=django-admintools-bootstrap
+-e git+git://github.com/makinacorpus/django-admintools-bootstrap.git#egg=django-admintools-bootstrap
 -e git+git://github.com/quinode/uriredirect@master#egg=uriredirect
 
 
 -e git+git://github.com/django-extensions/django-extensions@master#egg=django-extensions
--e git+git://github.com/quinode/django-chosen@master#egg=django-chosen
+-e git+git://github.com/makinacorpus/django-chosen@master#egg=django-chosen
 
 # setup.py was broken
 -e git+git://github.com/quinode/djangoembed@master#egg=djangoembed
