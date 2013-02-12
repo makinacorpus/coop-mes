@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-05 17:45+0100\n"
+"POT-Creation-Date: 2013-02-12 16:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,103 +17,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: admin.py:80 models/local_models.py:479
-msgid "location"
-msgstr "lieu"
-
-#: admin.py:109
+#: admin.py:147
 msgid "document"
 msgstr "document"
 
-#: admin.py:110
+#: admin.py:148
 msgid "documents"
 msgstr "documents"
 
-#: admin.py:117 models/local_models.py:214
+#: admin.py:155 models/local_models.py:214
 msgid "reference"
 msgstr "référence"
 
-#: admin.py:118 models/local_models.py:215
+#: admin.py:156 models/local_models.py:215
 msgid "references"
 msgstr "références"
 
-#: admin.py:144
+#: admin.py:182
 msgid "offer"
 msgstr "offre"
 
-#: admin.py:145
+#: admin.py:183
 msgid "offers"
 msgstr "offres"
 
-#: admin.py:192
+#: admin.py:229
 msgid "A provider with this title already exists."
 msgstr "Un fournisseur avec cette raison sociale existe déjà."
 
-#: admin.py:204
+#: admin.py:241
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:209
+#: admin.py:246
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:213
+#: admin.py:250
 msgid "Description"
 msgstr "Description"
 
-#: admin.py:216 ui/menu.py:50
+#: admin.py:253 ui/menu.py:50
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: admin.py:219
+#: admin.py:256
 msgid "Management"
 msgstr "Gestion interne"
 
-#: admin.py:223
+#: admin.py:260
 msgid "Preferences"
 msgstr "Préférences"
 
-#: admin.py:280
+#: admin.py:319
 msgid "providers"
 msgstr "fournisseurs"
 
-#: admin.py:283 models/local_models.py:326 models/local_models.py:329
+#: admin.py:322 models/local_models.py:326 models/local_models.py:329
 msgid "corporate name"
 msgstr "raison sociale"
 
-#: admin.py:283 models/local_models.py:329
+#: admin.py:322 models/local_models.py:329
 msgid "acronym"
 msgstr "sigle"
 
-#: admin.py:283
+#: admin.py:322
 msgid "Preferred label"
 msgstr "Nom préféré"
 
-#: admin.py:283 models/local_models.py:362
+#: admin.py:322 models/local_models.py:362
 msgid "creation date"
 msgstr "date de création"
 
-#: admin.py:284 models/local_models.py:52 models/local_models.py:338
+#: admin.py:323 models/local_models.py:52 models/local_models.py:338
 msgid "legal status"
 msgstr "statut juridique"
 
-#: admin.py:284 models/local_models.py:157 models/local_models.py:408
+#: admin.py:323 models/local_models.py:157 models/local_models.py:408
 msgid "category ESS"
 msgstr "type de structure ESS"
 
-#: admin.py:284 models/local_models.py:92 models/local_models.py:340
+#: admin.py:323 models/local_models.py:92 models/local_models.py:340
 msgid "category IAE"
 msgstr "type de structure IAE"
 
-#: admin.py:285 models/local_models.py:296 models/local_models.py:342
+#: admin.py:324 models/local_models.py:296 models/local_models.py:342
 msgid "agreement IAE"
 msgstr "conventionnement IAE"
 
-#: admin.py:285
+#: admin.py:324
 msgid "web site"
 msgstr "site web"
 
-#: admin.py:285 models/local_models.py:335
+#: admin.py:324 models/local_models.py:335
 msgid "No. SIRET"
 msgstr "n° SIRET"
 
@@ -374,7 +370,7 @@ msgstr "date de validation"
 msgid "Provider"
 msgstr "Fournisseur"
 
-#: models/local_models.py:405 ui/menu.py:77
+#: models/local_models.py:405 ui/menu.py:78
 msgid "Providers"
 msgstr "Fournisseurs"
 
@@ -382,11 +378,11 @@ msgstr "Fournisseurs"
 msgid "Client"
 msgstr "Client"
 
-#: models/local_models.py:416 ui/menu.py:78
+#: models/local_models.py:416 ui/menu.py:79
 msgid "Clients"
 msgstr "Clients"
 
-#: models/local_models.py:424 ui/menu.py:73 ui/menu.py:79
+#: models/local_models.py:424 ui/menu.py:74 ui/menu.py:80
 msgid "Network"
 msgstr "Réseau"
 
@@ -445,6 +441,10 @@ msgstr "Géo-localisation"
 #: models/local_models.py:473
 msgid "Located items"
 msgstr "Géo-localisation"
+
+#: models/local_models.py:479
+msgid "location"
+msgstr "lieu"
 
 #: models/local_models.py:484
 msgid "Contact"
@@ -538,22 +538,26 @@ msgstr "Utilisateurs"
 msgid "Sites"
 msgstr "Sites"
 
-#: ui/menu.py:76
+#: ui/menu.py:66
+msgid "Sites aliases"
+msgstr "Alias des sites"
+
+#: ui/menu.py:77
 msgid "Directory"
 msgstr "Annuaire"
 
-#: ui/menu.py:80
+#: ui/menu.py:81
 msgid "Persons"
 msgstr "Personnes"
 
-#: ui/menu.py:88
+#: ui/menu.py:89
 msgid "Cartography"
 msgstr "Cartographie"
 
-#: ui/menu.py:89
+#: ui/menu.py:90
 msgid "Locations"
 msgstr "Lieux"
 
-#: ui/menu.py:90
+#: ui/menu.py:91
 msgid "Areas"
 msgstr "Zones"
