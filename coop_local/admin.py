@@ -224,6 +224,10 @@ class ProviderAdminForm(OrganizationAdminForm):
           | Q(id__in=member_locations_id)
             )
 
+        for field_name in ('workforce', 'production_workforce', 'supervision_workforce',
+            'integration_workforce', 'annual_integration_number'):
+            self.fields[field_name].localize = True
+
     def clean_title(self):
         title = self.cleaned_data['title']
         norm_title = normalize_text(title)

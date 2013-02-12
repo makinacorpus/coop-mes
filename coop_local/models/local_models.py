@@ -349,11 +349,11 @@ class Provider(Organization):
 
     # Economic data
     annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)
-    workforce = models.IntegerField(_(u'workforce'), blank=True, null=True)
-    production_workforce = models.IntegerField(_(u'production workforce'), blank=True, null=True)
-    supervision_workforce = models.IntegerField(_(u'supervision workforce'), blank=True, null=True)
-    integration_workforce = models.IntegerField(_(u'integration workforce'), blank=True, null=True)
-    annual_integration_number = models.IntegerField(_(u'annual integration number'), blank=True, null=True)
+    workforce = models.DecimalField(_(u'workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
+    production_workforce = models.DecimalField(_(u'production workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
+    supervision_workforce = models.DecimalField(_(u'supervision workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
+    integration_workforce = models.DecimalField(_(u'integration workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
+    annual_integration_number = models.DecimalField(_(u'annual integration number'), blank=True, null=True, max_digits=10, decimal_places=1)
 
     # Guaranties
     guaranties = models.ManyToManyField(Guaranty, verbose_name=_(u'guaranties'), blank=True, null=True)
