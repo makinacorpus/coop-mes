@@ -63,6 +63,7 @@ class CustomMenu(Menu):
                     items.MenuItem(_('Django'), '#', icon='icon-coop icon-django icon-white', children=[
                         items.MenuItem(_('Users'), '/admin/auth/user/'),
                         items.MenuItem(_('Sites'), '/admin/sites/site/'),
+                        items.MenuItem(_('Sites aliases'), '/admin/multisite/alias/'),
                         ]),
                 #]
             #),
