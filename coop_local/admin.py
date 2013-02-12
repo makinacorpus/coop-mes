@@ -82,12 +82,12 @@ class LocationLookup(ModelLookup):
 
     def get_query(self, request, term):
         results = super(LocationLookup, self).get_query(request, term)
-        provider_id = request.GET.get('provider')
-        if provider_id:
-            provider = Provider.objects.get(id=provider_id)
-            print provider
-            print provider.located.all()
-            results = results.filter(id__in=provider.located.all().values_list('location_id', flat=True))
+        if 'pks' in request.GET:
+            if request.GET['pks']:
+                pks = request.GET['pks'].split(',')
+                results = results.filter(pk__in=pks)
+            else:
+                results = results.none()
         return results
 
 
@@ -100,15 +100,15 @@ registry.register(LocationLookup)
 registry.register(MediumLookup)
 
 
-def make_contact_form(provider, admin_site):
+def make_contact_form(pks, admin_site):
     class ContactForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super(ContactForm, self).__init__(*args, **kwargs)
             location_rel = Contact._meta.get_field_by_name('location')[0].rel
             medium_rel = Contact._meta.get_field_by_name('contact_medium')[0].rel
             self.fields['location'].widget = AutoComboboxSelectEditWidget(location_rel, admin_site, LocationLookup)
-            if provider:
-                self.fields['location'].widget.update_query_parameters({'provider': provider.pk})
+            if pks is not None:
+                self.fields['location'].widget.update_query_parameters({'pks': ','.join(map(str, pks))})
             self.fields['location'].widget.choices = None
             self.fields['location'].widget = RelatedFieldWidgetWrapper(self.fields['location'].widget, location_rel, admin_site, True)
             self.fields['contact_medium'].widget = RelatedFieldWidgetWrapper(self.fields['contact_medium'].widget, medium_rel, admin_site, True)
@@ -121,7 +121,16 @@ def make_contact_form(provider, admin_site):
 class ContactInline(BaseContactInline):
     fields = ('contact_medium', 'content', 'details', 'location', 'display')
     def get_formset(self, request, obj=None, **kwargs):
-        return generic_inlineformset_factory(Contact, form=make_contact_form(obj, self.admin_site))
+        if not obj:
+            pks = None
+        elif isinstance(obj, Organization):
+            pks = Location.objects.filter(located__organization=obj).values_list('pk', flat=True)
+        elif isinstance(obj, Person):
+            pks = [obj.location.pk] if obj.location else []
+            pks += Location.objects.filter(located__organization__members=obj).values_list('pk', flat=True)
+        else:
+            pks = None
+        return generic_inlineformset_factory(Contact, form=make_contact_form(pks, self.admin_site))
 
 
 class EngagementInline(BaseEngagementInline):
