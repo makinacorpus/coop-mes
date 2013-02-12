@@ -136,6 +136,11 @@
                     "provider"
                 ],
                 [
+                    "view_provider",
+                    "coop_local",
+                    "provider"
+                ],
+                [
                     "delete_its_provider",
                     "coop_local",
                     "provider"
