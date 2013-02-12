@@ -389,11 +389,6 @@ class ProviderAdmin(OrganizationAdmin):
     def has_change_permission(self, request, obj=None):
         return request.user.has_perm('coop_local.view_provider')
 
-    def has_delete_permission(self, request, obj=None):
-        if request.user.has_perm('coop_local.can_delete_its_provider'):
-            return obj is None or request.user in obj.authors.all()
-        return super(ProviderAdmin, self).has_delete_permission(request, obj)
-
 ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
 
