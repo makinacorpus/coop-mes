@@ -108,4 +108,4 @@ django-multisite
 appy==0.8.2
 django-appypod==0.0.1
 pyxml==0.8.4
-django-selectable
+-e git+git://github.com/makinacorpus/django-selectable.git@master#egg=django-selectable
