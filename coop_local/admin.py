@@ -37,7 +37,7 @@ from coop.utils.autocomplete_admin import (FkAutocompleteAdmin,
 from coop_geo.models import Location
 from coop_local.models.local_models import normalize_text
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
-    ActivityNomenclatureAvise, Offer, TransverseTheme, Client, Network, DocumentType, AgreementIAE,
+    ActivityNomenclatureAvise, Offer, TransverseTheme, DocumentType, AgreementIAE,
     Location, Engagement, ContactMedium)
 
 try:
@@ -455,8 +455,6 @@ register(ActivityNomenclatureAvise)
 register(ClientTarget)
 register(TransverseTheme)
 register(Organization, OrganizationAdmin)
-register(Client, OrganizationAdmin)
-register(Network, OrganizationAdmin)
 register(AgreementIAE)
 register(Contact)
 register(LegalStatus)

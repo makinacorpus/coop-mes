@@ -415,24 +415,6 @@ class Provider(Organization):
 Provider._meta.get_field('category').verbose_name = _(u'category ESS')
 
 
-class Client(Organization):
-
-    class Meta:
-        ordering = ['title']
-        verbose_name = _(u'Client')
-        verbose_name_plural = _(u'Clients')
-        app_label = 'coop_local'
-
-
-class Network(Organization):
-
-    class Meta:
-        ordering = ['title']
-        verbose_name = _(u'Network')
-        verbose_name_plural = _(u'Networks')
-        app_label = 'coop_local'
-
-
 class Offer(models.Model):
 
     activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'))
