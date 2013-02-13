@@ -19,21 +19,11 @@ div#offer_set-group ul li label input
         bottom: 1px;
 }
 
-/* workaround https://code.djangoproject.com/ticket/9321 */
-fieldset#gestion-interne div.help-inline,
-fieldset#infos-cles div.help-inline,
-fieldset#garanties div.help-inline,
-fieldset#description div.help-inline,
-div#offer_set-group div.help-inline {
-    display: none;
-}
-
 a#add_id_authors,
 a#add_id_agreement_iae,
 a#add_id_guaranties,
 a#add_id_transverse_themes,
-a#add_id_category_iae,
-div#offer_set-group a.add-another {
+a#add_id_category_iae {
     display: none;
 }
 
