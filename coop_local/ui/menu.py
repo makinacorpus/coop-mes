@@ -55,7 +55,7 @@ class CustomMenu(Menu):
         self.children.append(
             items.MenuItem(_('Network'), '#', icon='icon-coop icon-group icon-white', children=[
                 items.MenuItem(_('Directory'), '#', icon='icon-home', children=[
-                    items.MenuItem(_('Providers'), '/admin/coop_local/provider/'),
+                    items.MenuItem(_('Organizations'), '/admin/coop_local/organization/'),
                     items.MenuItem(_('Persons'), '/admin/coop_local/person/'),
                 ]),
                 items.MenuItem(_('Cartography'), '#', icon='icon-map-marker', children=[

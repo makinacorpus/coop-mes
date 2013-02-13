@@ -313,27 +313,20 @@ TRANSMISSION_MODES = Choices(
     ('IMPORT', 3, _('Import')),
 )
 
-class Organization(BaseOrganization):
-
-    is_provider = models.BooleanField(_('is a provider'))
-    is_customer = models.BooleanField(_('is a customer'))
-    is_network = models.BooleanField(_('is a network'))
-
 
 class Engagement(BaseEngagement):
 
     pass
 
 
-Organization._meta.get_field('title').verbose_name = _(u'corporate name')
-Organization._meta.get_field('description').verbose_name = _(u'general presentation')
-Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
-Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name')), (2, _(u'acronym')))
+class Organization(BaseOrganization):
 
+    # COMMON Organization type
+    is_provider = models.BooleanField(_('is a provider'))
+    is_customer = models.BooleanField(_('is a customer'))
+    is_network = models.BooleanField(_('is a network'))
 
-class Provider(Organization):
-
-    # Key data
+    # PROVIDER Key data
     siret = models.CharField(_(u'No. SIRET'), max_length=14, blank=True,
         validators=[RegexValidator(regex='^\d{14}$', message=_(u'No. SIRET has 14 digits'))])
     legal_status = models.ForeignKey('LegalStatus', blank=True, null=True,
@@ -344,12 +337,12 @@ class Provider(Organization):
         verbose_name=_(u'agreement IAE'))
     bdis_id = models.IntegerField(_(u'bdis identifiant'), blank=True, null=True)
 
-    # Description
+    # PROVIDER Description
     brief_description = models.TextField(_(u'brief description'), blank=True)
     added_value = models.TextField(_(u'added value'), blank=True)
     transverse_themes = models.ManyToManyField('TransverseTheme', verbose_name=_(u'themes'), blank=True, null=True)
 
-    # Economic data
+    # PROVIDER Economic data
     annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)
     workforce = models.DecimalField(_(u'workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
     production_workforce = models.DecimalField(_(u'production workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
@@ -357,10 +350,10 @@ class Provider(Organization):
     integration_workforce = models.DecimalField(_(u'integration workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
     annual_integration_number = models.DecimalField(_(u'annual integration number'), blank=True, null=True, max_digits=10, decimal_places=1)
 
-    # Guaranties
+    # PROVIDER Guaranties
     guaranties = models.ManyToManyField(Guaranty, verbose_name=_(u'guaranties'), blank=True, null=True)
 
-    # Management
+    # PROVIDER Management
     creation = models.DateField(_(u'creation date'), auto_now_add=True)
     modification = models.DateField(_(u'modification date'), auto_now=True)
     status = models.CharField(_(u'status'), max_length=1, choices=ORGANIZATION_STATUSES.CHOICES, blank=True)
@@ -370,12 +363,12 @@ class Provider(Organization):
     authors = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('authors'))
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
 
-    # Search
-    norm_title = models.CharField(max_length=250, unique=True)
+    # COMMON Search
+    norm_title = models.CharField(max_length=250) #, unique=True)
 
     def save(self, *args, **kwargs):
         self.norm_title = normalize_text(self.title)
-        super(Provider, self).save(*args, **kwargs)
+        super(Organization, self).save(*args, **kwargs)
 
     def brief_description_xhtml(self):
         return self.brief_description.replace('\n', '<br/>').encode('ascii', 'xmlcharrefreplace')
@@ -403,16 +396,20 @@ class Provider(Organization):
 
     class Meta:
         ordering = ['title']
-        verbose_name = _(u'Provider')
-        verbose_name_plural = _(u'Providers')
+        verbose_name = _(u'Organization')
+        verbose_name_plural = _(u'Organizations')
         app_label = 'coop_local'
         permissions = (
-            ('view_provider', 'Can view Provider'),
-            ('change_its_provider', 'Can change its Provider'),
-            ('delete_its_provider', 'Can delete its Provider'),
+            ('view_organization', 'Can view Organization'),
+            ('change_its_organization', 'Can change its Organization'),
+            ('delete_its_organization', 'Can delete its Organization'),
         )
 
-Provider._meta.get_field('category').verbose_name = _(u'category ESS')
+Organization._meta.get_field('category').verbose_name = _(u'category ESS')
+Organization._meta.get_field('title').verbose_name = _(u'corporate name')
+Organization._meta.get_field('description').verbose_name = _(u'general presentation')
+Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
+Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name')), (2, _(u'acronym')))
 
 
 class Offer(models.Model):

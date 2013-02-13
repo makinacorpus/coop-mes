@@ -218,12 +218,12 @@ class OfferInline(SelectableAdminMixin, admin.StackedInline):
     formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'class':'multiple_checkboxes'})}}
 
     def get_formset(self, request, obj=None, **kwargs):
-        return forms.models.inlineformset_factory(Provider, Offer, form=make_offer_form(self.admin_site, request), extra=1)
+        return forms.models.inlineformset_factory(Organization, Offer, form=make_offer_form(self.admin_site, request), extra=1)
 
-class ProviderAdminForm(OrganizationAdminForm):
+class OrganizationAdminForm(BaseOrganizationAdminForm):
 
     class Meta:
-        model = get_model('coop_local', 'Provider')
+        model = get_model('coop_local', 'Organization')
         widgets = {
             'category': chosenwidgets.ChosenSelectMultiple(),
             'category_iae': chosenwidgets.ChosenSelectMultiple(),
@@ -263,14 +263,14 @@ class ProviderAdminForm(OrganizationAdminForm):
     def clean_title(self):
         title = self.cleaned_data['title']
         norm_title = normalize_text(title)
-        if Provider.objects.filter(norm_title=norm_title).exclude(pk=self.instance.pk).exists():
+        if Organization.objects.filter(norm_title=norm_title).exclude(pk=self.instance.pk).exists():
             raise forms.ValidationError(_('A provider with this title already exists.'))
         return title
 
 
-class ProviderAdmin(OrganizationAdmin):
+class OrganizationAdmin(BaseOrganizationAdmin):
 
-    form = ProviderAdminForm
+    form = OrganizationAdminForm
     list_display = ['logo_list_display', 'title', 'acronym', 'active', 'has_description', 'has_location']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
@@ -310,7 +310,7 @@ class ProviderAdmin(OrganizationAdmin):
         if 'q' in query_dict:
             query_dict['q'] = normalize_text(query_dict['q'])
         request.GET = query_dict
-        return super(ProviderAdmin, self).changelist_view(request, extra_context)
+        return super(OrganizationAdmin, self).changelist_view(request, extra_context)
 
     def change_view(self, request, object_id, form_url='', extra_context={}):
         obj = self.get_object(request, unquote(object_id))
@@ -342,24 +342,24 @@ class ProviderAdmin(OrganizationAdmin):
                                             (opts.app_label, module_name),
                                             current_app=self.admin_site.name))
         extra_context['has_object_change_permission'] = has_object_change_permission
-        return super(ProviderAdmin, self).change_view(request, object_id, form_url, extra_context)
+        return super(OrganizationAdmin, self).change_view(request, object_id, form_url, extra_context)
 
     def add_view(self, request, form_url='', extra_context={}):
         extra_context['has_object_change_permission'] = True
-        return super(ProviderAdmin, self).add_view(request, form_url, extra_context)
+        return super(OrganizationAdmin, self).add_view(request, form_url, extra_context)
 
     def get_actions(self, request):
         """ Remove actions set by OrganizationAdmin class without removing ModelAdmin ones."""
         return super(OrganizationAdmin, self).get_actions(request)
 
     def save_related(self, request, form, formsets, change):
-        super(ProviderAdmin, self).save_related(request, form, formsets, change)
+        super(OrganizationAdmin, self).save_related(request, form, formsets, change)
         if not change:
             form.instance.authors.add(request.user)
 
     def save_formset(self, request, form, formset, change):
         if formset.model != Reference:
-            return super(ProviderAdmin, self).save_formset(request, form, formset, change)
+            return super(OrganizationAdmin, self).save_formset(request, form, formset, change)
         instances = formset.save(commit=False)
         for instance in instances:
             instance.relation_type_id = 2
@@ -372,7 +372,7 @@ class ProviderAdmin(OrganizationAdmin):
             instance.save()
 
     def odt_view(self, request, pk, format):
-        provider = get_object_or_404(Provider, pk=pk)
+        provider = get_object_or_404(Organization, pk=pk)
         themes = TransverseTheme.objects.all()
         client_targets = ClientTarget.objects.all()
         content_type = {
@@ -397,7 +397,7 @@ class ProviderAdmin(OrganizationAdmin):
             _('legal status'), _('category ESS'), _('category IAE'),
             _('agreement IAE'), _('web site'), _('No. SIRET')
         ]])
-        for provider in Provider.objects.order_by('title'):
+        for provider in Organization.objects.order_by('title'):
             row  = [provider.title, provider.acronym, provider.get_pref_label_display()]
             row += [provider.birth.strftime('%d/%m/%Y') if provider.birth else '']
             row += [unicode(provider.legal_status) if provider.legal_status else '']
@@ -409,7 +409,7 @@ class ProviderAdmin(OrganizationAdmin):
         return response
 
     def get_urls(self):
-        urls = super(ProviderAdmin, self).get_urls()
+        urls = super(OrganizationAdmin, self).get_urls()
         my_urls = patterns('',
             url(r'^(?P<pk>\d+)/(?P<format>(odt|doc|pdf))/$', self.admin_site.admin_view(self.odt_view), name='provider_odt'),
             url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='providers_csv'),
@@ -424,7 +424,7 @@ class ProviderAdmin(OrganizationAdmin):
     def has_change_permission(self, request, obj=None):
         return request.user.has_perm('coop_local.view_provider')
 
-ProviderAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
+OrganizationAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
 
 class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
@@ -449,12 +449,11 @@ class PersonAdmin(BasePersonAdmin):
 
 admin.site.unregister(Organization)
 register(Guaranty, GuarantyAdmin)
-register(Provider, ProviderAdmin)
+register(Organization, OrganizationAdmin)
 register(ActivityNomenclature, ActivityNomenclatureAdmin)
 register(ActivityNomenclatureAvise)
 register(ClientTarget)
 register(TransverseTheme)
-register(Organization, OrganizationAdmin)
 register(AgreementIAE)
 register(Contact)
 register(LegalStatus)
