@@ -315,7 +315,9 @@ TRANSMISSION_MODES = Choices(
 
 class Organization(BaseOrganization):
 
-    pass
+    is_provider = models.BooleanField(_('is a provider'))
+    is_customer = models.BooleanField(_('is a customer'))
+    is_network = models.BooleanField(_('is a network'))
 
 
 class Engagement(BaseEngagement):
