@@ -1,0 +1,40 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n admintools_bootstrap mptt_tags %}
+{% load url from future %}
+
+{% block content %}
+
+  <div id="content-main">
+
+      <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+
+      {% block result_list %}
+
+<ul id="activity-tree">
+    {% recursetree activities %}
+        {% if node.level > 0 or children %}
+            <li>
+                {% if node.level == 0 and children %}
+                    <a href="#" onclick="$('.activity-children').hide(); $('#activity-children-{{ node.id }}').show(); return false;"><b id="activity-label-{{ node.id }}">{{ node.label }}</b></a>
+                    <ul class="activity-children" id="activity-children-{{ node.id }}" style="display: none;">
+                        {{ children }}
+                    </ul>
+                {% elif node.level == 1 %}
+                    {{ node.label }}
+                    <ul>
+                        {{ children }}
+                    </ul>
+                {% elif node.level == 2 %}
+                    <a href="" onclick="opener.dismissActivityLookupPopup(window, '{{ node.id }}', '{{ node.path }}'); return false;">{{ node.label }}</a>
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endrecursetree %}
+</ul>
+
+      {% endblock %}
+
+      </form>
+  </div>
+
+{% endblock %}

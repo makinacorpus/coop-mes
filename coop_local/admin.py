@@ -9,12 +9,14 @@ from django.db.models import Q
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.conf.urls.defaults import patterns, url
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.defaultfilters import slugify
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from django.contrib.admin.util import unquote
 from django.core.urlresolvers import reverse
+from django.contrib.admin.templatetags.admin_static import static
+from django.utils.safestring import mark_safe
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -28,7 +30,9 @@ from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationIn
     LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline,
     OrgInline)
 from coop.person.admin import PersonAdmin as BasePersonAdmin
-from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin, AutoComboboxSelectEditWidget, register
+from coop.utils.autocomplete_admin import (FkAutocompleteAdmin,
+    InlineAutocompleteAdmin, SelectableAdminMixin,
+    AutoComboboxSelectEditWidget, AutoCompleteSelectEditWidget, register)
 
 from coop_geo.models import Location
 from coop_local.models.local_models import normalize_text
@@ -95,14 +99,21 @@ class LocationLookup(ModelLookup):
 
 class MediumLookup(ModelLookup):
     model = ContactMedium
-    search_fields = ('label', )
+    search_fields = ('label__icontains', )
+
+
+class ActivityLookup(ModelLookup):
+    model = ActivityNomenclature
+    search_fields = ('path__icontains', )
+    filters = {'level': 2}
 
 
 registry.register(LocationLookup)
 registry.register(MediumLookup)
+registry.register(ActivityLookup)
 
 
-def make_contact_form(pks, admin_site):
+def make_contact_form(pks, admin_site, request):
     class ContactForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super(ContactForm, self).__init__(*args, **kwargs)
@@ -112,8 +123,8 @@ def make_contact_form(pks, admin_site):
             if pks is not None:
                 self.fields['location'].widget.update_query_parameters({'pks': ','.join(map(str, pks))})
             self.fields['location'].widget.choices = None
-            self.fields['location'].widget = RelatedFieldWidgetWrapper(self.fields['location'].widget, location_rel, admin_site, True)
-            self.fields['contact_medium'].widget = RelatedFieldWidgetWrapper(self.fields['contact_medium'].widget, medium_rel, admin_site, True)
+            self.fields['location'].widget = RelatedFieldWidgetWrapper(self.fields['location'].widget, location_rel, admin_site, can_add_related=False)
+            self.fields['contact_medium'].widget = RelatedFieldWidgetWrapper(self.fields['contact_medium'].widget, medium_rel, admin_site, can_add_related=False)
         class Meta:
             model = Contact
             fields = ('contact_medium', 'content', 'details', 'location', 'display')
@@ -132,7 +143,7 @@ class ContactInline(BaseContactInline):
             pks += Location.objects.filter(located__organization__members=obj).values_list('pk', flat=True)
         else:
             pks = None
-        return generic_inlineformset_factory(Contact, form=make_contact_form(pks, self.admin_site))
+        return generic_inlineformset_factory(Contact, form=make_contact_form(pks, self.admin_site, request))
 
 
 class EngagementInline(BaseEngagementInline):
@@ -167,26 +178,47 @@ class ReferenceInline(InlineAutocompleteAdmin):
         return queryset.filter(relation_type_id=2)
 
 
-class OfferAdminForm(forms.ModelForm):
+class ActivityWidget(AutoCompleteSelectEditWidget):
 
-    class Meta:
-        model = get_model('coop_local', 'Offer')
+    def render(self, name, value, attrs=None):
+        markup = super(ActivityWidget, self).render(name, value, attrs)
+        related_url = '/admin/coop_local/provider/activity_list/'
+        related_url = reverse('admin:coop_local_offer_activity_list', current_app=self.admin_site.name)
+        markup += u'&nbsp;<a href="%s" class="activity-lookup" id="lookup_id_%s" onclick="return showActivityLookupPopup(this);">' % (related_url, name)
+        markup += u'<img src="%s" width="16" height="16"></a>' % static('admin/img/selector-search.gif')
+        return mark_safe(markup)
 
-    def __init__(self, *args, **kwargs):
-        super(OfferAdminForm, self).__init__(*args, **kwargs)
-        self.fields['activity'].help_text = None
+
+def make_offer_form(admin_site, request):
+    class OfferAdminForm(forms.ModelForm):
+        class Meta:
+            model = get_model('coop_local', 'Offer')
+        def __init__(self, *args, **kwargs):
+            super(OfferAdminForm, self).__init__(*args, **kwargs)
+            activity_rel = Offer._meta.get_field_by_name('activity')[0].rel
+            related_modeladmin = admin_site._registry.get(activity_rel.to)
+            can_change_related = bool(related_modeladmin and
+                related_modeladmin.has_change_permission(request))
+            can_add_related = bool(related_modeladmin and
+                related_modeladmin.has_add_permission(request))
+            activity_widget = ActivityWidget(activity_rel, admin_site, ActivityLookup, can_change_related=can_change_related)
+            activity_widget.choices = None
+            self.fields['activity'].widget = RelatedFieldWidgetWrapper(activity_widget, activity_rel, admin_site, can_add_related=can_add_related)
+            targets_rel = Offer._meta.get_field_by_name('targets')[0].rel
+            targets_widget = forms.CheckboxSelectMultiple(attrs={'class': 'multiple_checkboxes'}, choices=self.fields['targets'].choices)
+            self.fields['targets'].widget = RelatedFieldWidgetWrapper(targets_widget, targets_rel, admin_site, can_add_related=False)
+    return OfferAdminForm
 
 
-class OfferInline(admin.StackedInline, InlineAutocompleteAdmin):
+class OfferInline(SelectableAdminMixin, admin.StackedInline):
 
     model = Offer
-    form = OfferAdminForm
     verbose_name = _(u'offer')
     verbose_name_plural = _(u'offers')
-    extra = 1
-    related_search_fields = {'activity': ('path',)}
     formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'class':'multiple_checkboxes'})}}
 
+    def get_formset(self, request, obj=None, **kwargs):
+        return forms.models.inlineformset_factory(Provider, Offer, form=make_offer_form(self.admin_site, request), extra=1)
 
 class ProviderAdminForm(OrganizationAdminForm):
 
@@ -381,14 +413,13 @@ class ProviderAdmin(OrganizationAdmin):
         my_urls = patterns('',
             url(r'^(?P<pk>\d+)/(?P<format>(odt|doc|pdf))/$', self.admin_site.admin_view(self.odt_view), name='provider_odt'),
             url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='providers_csv'),
+            url(r'^activity_list/$', self.activity_list_view, name='coop_local_offer_activity_list')
         )
         return my_urls + urls
 
-    #def queryset(self, request):
-        #qs = super(ProviderAdmin, self).queryset(request)
-        #if request.user.has_perm('coop_local.change_provider'):
-            #return qs
-        #return qs.filter(authors=request.user)
+    def activity_list_view(self, request):
+        activities = ActivityNomenclature.objects.all()
+        return render(request, 'admin/activity_list.html', {'activities': activities, 'is_popup': True})
 
     def has_change_permission(self, request, obj=None):
         return request.user.has_perm('coop_local.view_provider')
