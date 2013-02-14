@@ -1,141 +1,34 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
-
-class Migration(SchemaMigration):
+class Migration(DataMigration):
 
     def forwards(self, orm):
-        # Adding field 'Organization.siret'
-        db.add_column('coop_local_organization', 'siret',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=14, blank=True),
-                      keep_default=False)
+        organization_ctid = orm['contenttypes.ContentType'].objects.get(model='organization').id
+        provider_ctid = orm['contenttypes.ContentType'].objects.get(model='provider').id
+        client_ctid = orm['contenttypes.ContentType'].objects.get(model='client').id
+        network_ctid = orm['contenttypes.ContentType'].objects.get(model='network').id
 
-        # Adding field 'Organization.legal_status'
-        db.add_column('coop_local_organization', 'legal_status',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['coop_local.LegalStatus'], null=True, blank=True),
-                      keep_default=False)
+        # Update permissions
+        db.execute('DELETE FROM auth_permission WHERE content_type_id IN (%s, %s, %s)',
+            [organization_ctid, client_ctid, network_ctid])
+        db.execute('''UPDATE auth_permission SET content_type_id=%s,
+            name=REGEXP_REPLACE(name, \'Provider\', \'Organization\'),
+            codename=REGEXP_REPLACE(codename, \'provider\', \'organization\')
+            WHERE content_type_id=%s''', [organization_ctid, provider_ctid])
 
-        # Adding field 'Organization.bdis_id'
-        db.add_column('coop_local_organization', 'bdis_id',
-                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.brief_description'
-        db.add_column('coop_local_organization', 'brief_description',
-                      self.gf('django.db.models.fields.TextField')(default='', blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.added_value'
-        db.add_column('coop_local_organization', 'added_value',
-                      self.gf('django.db.models.fields.TextField')(default='', blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.annual_revenue'
-        db.add_column('coop_local_organization', 'annual_revenue',
-                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.workforce'
-        db.add_column('coop_local_organization', 'workforce',
-                      self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.production_workforce'
-        db.add_column('coop_local_organization', 'production_workforce',
-                      self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.supervision_workforce'
-        db.add_column('coop_local_organization', 'supervision_workforce',
-                      self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.integration_workforce'
-        db.add_column('coop_local_organization', 'integration_workforce',
-                      self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.annual_integration_number'
-        db.add_column('coop_local_organization', 'annual_integration_number',
-                      self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=10, decimal_places=1, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.creation'
-        db.add_column('coop_local_organization', 'creation',
-                      self.gf('django.db.models.fields.DateField')(auto_now_add=True, default='1900-01-01', blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.modification'
-        db.add_column('coop_local_organization', 'modification',
-                      self.gf('django.db.models.fields.DateField')(auto_now=True, default='1900-01-01', blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.status'
-        db.add_column('coop_local_organization', 'status',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=1, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.correspondence'
-        db.add_column('coop_local_organization', 'correspondence',
-                      self.gf('django.db.models.fields.TextField')(default='', blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.transmission'
-        db.add_column('coop_local_organization', 'transmission',
-                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.transmission_date'
-        db.add_column('coop_local_organization', 'transmission_date',
-                      self.gf('django.db.models.fields.DateField')(null=True, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.validation'
-        db.add_column('coop_local_organization', 'validation',
-                      self.gf('django.db.models.fields.DateField')(null=True, blank=True),
-                      keep_default=False)
-
-        # Adding field 'Organization.norm_title'
-        db.add_column('coop_local_organization', 'norm_title',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=250),
-                      keep_default=False)
-
-        # Rename M2M table for field category_iae on 'Organization'
-        db.delete_unique('coop_local_provider_category_iae', ['provider_id', 'categoryiae_id'])
-        db.rename_table('coop_local_provider_category_iae', 'coop_local_organization_category_iae')
-        db.rename_column('coop_local_organization_category_iae', 'provider_id', 'organization_id')
-        db.create_unique('coop_local_organization_category_iae', ['organization_id', 'categoryiae_id'])
-
-        # Adding M2M table for field agreement_iae on 'Organization'
-        db.delete_unique('coop_local_provider_agreement_iae', ['provider_id', 'agreementiae_id'])
-        db.rename_table('coop_local_provider_agreement_iae', 'coop_local_organization_agreement_iae')
-        db.rename_column('coop_local_organization_agreement_iae', 'provider_id', 'organization_id')
-        db.create_unique('coop_local_organization_agreement_iae', ['organization_id', 'agreementiae_id'])
-
-        # Adding M2M table for field transverse_themes on 'Organization'
-        db.delete_unique('coop_local_provider_transverse_themes', ['provider_id', 'transversetheme_id'])
-        db.rename_table('coop_local_provider_transverse_themes', 'coop_local_organization_transverse_themes')
-        db.rename_column('coop_local_organization_transverse_themes', 'provider_id', 'organization_id')
-        db.create_unique('coop_local_organization_transverse_themes', ['organization_id', 'transversetheme_id'])
-
-        # Adding M2M table for field guaranties on 'Organization'
-        db.delete_unique('coop_local_provider_guaranties', ['provider_id', 'guaranty_id'])
-        db.rename_table('coop_local_provider_guaranties', 'coop_local_organization_guaranties')
-        db.rename_column('coop_local_organization_guaranties', 'provider_id', 'organization_id')
-        db.create_unique('coop_local_organization_guaranties', ['organization_id', 'guaranty_id'])
-
-        # Adding M2M table for field authors on 'Organization'
-        db.delete_unique('coop_local_provider_authors', ['provider_id', 'user_id'])
-        db.rename_table('coop_local_provider_authors', 'coop_local_organization_authors')
-        db.rename_column('coop_local_organization_authors', 'provider_id', 'organization_id')
-        db.create_unique('coop_local_organization_authors', ['organization_id', 'user_id'])
-
+        # Update generic relations
+        for table in ('coop_local_contact', 'coop_local_located', 'coop_local_taggeditem', 'django_admin_log'):
+            command = 'UPDATE ' + table + ' SET content_type_id=%s WHERE content_type_id IN (%s, %s, %s)'
+            db.execute(command, [organization_ctid, provider_ctid, client_ctid, network_ctid])
+        db.execute('DELETE FROM django_content_type WHERE id IN (%s, %s, %s)',
+            [provider_ctid, client_ctid, network_ctid])
 
     def backwards(self, orm):
-        raise
+        "Write your backwards methods here."
 
     models = {
         'auth.group': {
@@ -251,7 +144,7 @@ class Migration(SchemaMigration):
             'update_auto': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'mnZfWzoDSQyc4mEneJBaff'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'gjvg7c5iSKnTmWpWXFbyQY'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.article': {
             'Meta': {'ordering': "['-modified']", 'object_name': 'Article'},
@@ -281,7 +174,7 @@ class Migration(SchemaMigration):
             'title': ('django.db.models.fields.TextField', [], {'default': "u'Page title'", 'blank': 'True'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'FuVrRpCv5D5SWuTTcr84NB'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'r7vVvxHcwhqoBLWF34ybQd'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.categoryiae': {
             'Meta': {'ordering': "['label']", 'object_name': 'CategoryIAE'},
@@ -312,7 +205,7 @@ class Migration(SchemaMigration):
             'sites': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['sites.Site']", 'symmetrical': 'False'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'CMmUH7Voadq3mbPaioxLiN'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'2mFeJuGEzoLNYQ2qERUrd5'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.contactmedium': {
             'Meta': {'object_name': 'ContactMedium'},
@@ -364,7 +257,7 @@ class Migration(SchemaMigration):
             'sites': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['sites.Site']", 'symmetrical': 'False'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'sRRrsMj2QeNnK9xvzp2ZmA'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'eNHiKqLMP8CGdHbVkhF7Yj'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.exchange': {
             'Meta': {'ordering': "('-modified',)", 'object_name': 'Exchange'},
@@ -392,7 +285,7 @@ class Migration(SchemaMigration):
             'title': ('django.db.models.fields.CharField', [], {'max_length': '250'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'ErpLWPDxadfUFwVRWhasdA'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'7yzuqsn2qZAhDYommavhNn'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.exchangemethod': {
             'Meta': {'object_name': 'ExchangeMethod'},
@@ -461,7 +354,7 @@ class Migration(SchemaMigration):
             'sites': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['sites.Site']", 'symmetrical': 'False'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'gW7gSHcjgsDmeFdoMmRdsK'", 'max_length': '50', 'null': 'True'}),
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'AziUrNCeZSk7mWZi2tzJQE'", 'max_length': '50', 'null': 'True'}),
             'x_code': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'zipcode': ('django.db.models.fields.CharField', [], {'max_length': '5', 'null': 'True', 'blank': 'True'})
         },
@@ -477,7 +370,7 @@ class Migration(SchemaMigration):
             'types': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['coop_cms.NavType']", 'symmetrical': 'False', 'blank': 'True'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'eEuYMKrXSUUhJ5fMwft449'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'KvMggxrbgzmVXm4pU27piM'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.offer': {
             'Meta': {'object_name': 'Offer'},
@@ -522,7 +415,7 @@ class Migration(SchemaMigration):
             'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['coop_local.Person']", 'through': "orm['coop_local.Engagement']", 'symmetrical': 'False'}),
             'modification': ('django.db.models.fields.DateField', [], {'auto_now': 'True', 'blank': 'True'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'null': 'True', 'blank': 'True'}),
-            'norm_title': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '250'}),
+            'norm_title': ('django.db.models.fields.CharField', [], {'max_length': '250'}),
             'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'pref_address': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'pref_address_org'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': "orm['coop_local.Location']"}),
             'pref_email': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'pref_email'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': "orm['coop_local.Contact']"}),
@@ -542,7 +435,7 @@ class Migration(SchemaMigration):
             'transverse_themes': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['coop_local.TransverseTheme']", 'null': 'True', 'blank': 'True'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'j9ACFt8W9wbnbcn3gpEnqY'", 'max_length': '50', 'null': 'True'}),
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'ZVgt9fqGxDCqmpVCNeddtD'", 'max_length': '50', 'null': 'True'}),
             'validation': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'web': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'workforce': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '10', 'decimal_places': '1', 'blank': 'True'})
@@ -585,7 +478,7 @@ class Migration(SchemaMigration):
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100', 'blank': 'True'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'kREQJXokbwHJxUUdKrg8Zi'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'wrUbFhQkqdnDE9icRGkSiJ'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.personcategory': {
             'Meta': {'object_name': 'PersonCategory'},
@@ -608,7 +501,7 @@ class Migration(SchemaMigration):
             'title': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'2mLQRfvZd3kuyaaBfhcEci'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'jPHyUiqKE7gbfZBRErGezN'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.reference': {
             'Meta': {'object_name': 'Reference', '_ormbases': ['coop_local.Relation']},
@@ -639,7 +532,7 @@ class Migration(SchemaMigration):
             'slug': ('autoslug.fields.AutoSlugField', [], {'unique': 'True', 'max_length': '50', 'populate_from': "'label'", 'unique_with': '()'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'uFXyzJaG32CYAHkahqC8u9'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'KfdNgF6xrjaMSn3a5GeMFJ'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.rolecategory': {
             'Meta': {'ordering': "['label']", 'object_name': 'RoleCategory'},
@@ -668,7 +561,7 @@ class Migration(SchemaMigration):
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '250', 'null': 'True', 'blank': 'True'}),
             'uri_mode': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'uuid': ('django.db.models.fields.CharField', [], {'default': "'zHMycn8f5XmZsoiALoxGqk'", 'max_length': '50', 'null': 'True'})
+            'uuid': ('django.db.models.fields.CharField', [], {'default': "'WDYMGKh6CQgdD6JF5NxRZm'", 'max_length': '50', 'null': 'True'})
         },
         'coop_local.taggeditem': {
             'Meta': {'object_name': 'TaggedItem'},
@@ -697,3 +590,4 @@ class Migration(SchemaMigration):
     }
 
     complete_apps = ['coop_local']
+    symmetrical = True

@@ -5,9 +5,9 @@
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
   <div class="pull-right">
-    <a href='{% url 'admin:provider_odt' object_id 'doc' %}' class="btn btn-info">{% trans "DOC export" %}</a>
-    <a href='{% url 'admin:provider_odt' object_id 'odt' %}' class="btn btn-info">{% trans "ODT export" %}</a>
-    <a href='{% url 'admin:provider_odt' object_id 'pdf' %}' class="btn btn-info">{% trans "PDF export" %}</a>
+    <a href='{% url 'admin:organization_odt' object_id 'doc' %}' class="btn btn-info">{% trans "DOC export" %}</a>
+    <a href='{% url 'admin:organization_odt' object_id 'odt' %}' class="btn btn-info">{% trans "ODT export" %}</a>
+    <a href='{% url 'admin:organization_odt' object_id 'pdf' %}' class="btn btn-info">{% trans "PDF export" %}</a>
     {% block object-tools-items %}
     <a href="history/" class="btn btn-info">{% trans "History" %}</a>
     {% if has_absolute_url %}<a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="btn primary">{% trans "View on site" %}</a>{% endif%}
@@ -49,6 +49,17 @@ function dismissActivityLookupPopup(win, chosenId, chosenRepr) {
         win.close();
     }
 };
+
+jQuery(document).ready(function() {
+    $('#id_is_provider').change(function() {
+        var elems = $('a[href="#target-group"], a[href="#offer_set-group"]').parent();
+        if ($(this).is(':checked'))
+            elems.removeClass('hide');
+        else
+            elems.addClass('hide');
+    });
+    $('#id_is_provider').trigger('change');
+});
 
 </script>
 

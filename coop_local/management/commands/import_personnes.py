@@ -7,7 +7,7 @@ import datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 
-from coop_local.models import Provider, LegalStatus, CategoryIAE, Person, Engagement, Role
+from coop_local.models import Organization, LegalStatus, CategoryIAE, Person, Engagement, Role
 
     
 # Columns are :
@@ -64,7 +64,7 @@ class Command(BaseCommand):
                     bdis_organization_id = row['ID Structures BDIS']
 
                     try:
-                        organization = Provider.objects.get(bdis_id=bdis_organization_id)
+                        organization = Organization.objects.get(bdis_id=bdis_organization_id)
                         role = None
 
                         try:
@@ -77,7 +77,7 @@ class Command(BaseCommand):
         
                         Engagement.objects.get_or_create(person=person, organization=organization, role=role)
                     
-                    except Provider.DoesNotExist:
+                    except Organization.DoesNotExist:
                         logging.warn("BDIS Organization number > %(bdis_id)s < not found for " 
                                      "%(last_name)s %(first_name)s" % {'bdis_id': bdis_organization_id,
                                                                        'last_name': last_name,

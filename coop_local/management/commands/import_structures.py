@@ -13,7 +13,7 @@ from coop_tag.settings import get_class
 from coop_geo.models import LocationCategory
 from coop.org.models import COMM_MEANS
 
-from coop_local.models import (Provider, LegalStatus, CategoryIAE, OrganizationCategory,
+from coop_local.models import (Organization, LegalStatus, CategoryIAE, OrganizationCategory,
     Contact, Location, ContactMedium, Located)
 
 # The purpose of this script is to import human-made data (csv file) for MES providers
@@ -73,7 +73,8 @@ class Command(BaseCommand):
                 
                 title = row['Raison sociale']
 
-                (provider, created) = Provider.objects.get_or_create(title=title);
+                (provider, created) = Organization.objects.get_or_create(title=title);
+                provider.is_provider = True
                         
                 # First import fields (initial november import)
                 

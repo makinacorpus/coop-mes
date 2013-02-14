@@ -7,7 +7,6 @@ from django_extensions.db import fields as exfields
 from django.core.validators import RegexValidator, MaxLengthValidator
 from django.template.defaultfilters import slugify
 from mptt.models import MPTTModel, TreeForeignKey
-from django.contrib.contenttypes import generic
 from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
 
@@ -215,7 +214,7 @@ class Reference(Relation):
         verbose_name_plural = _(u'references')
         app_label = 'coop_local'
 
-Reference._meta.get_field('source').verbose_name = _(u'client')
+Reference._meta.get_field('source').verbose_name = _(u'customer')
 
 
 class ActivityNomenclatureAvise(models.Model):
@@ -264,8 +263,8 @@ class ClientTarget(models.Model):
         return self.label
 
     class Meta:
-        verbose_name = _(u'client target')
-        verbose_name_plural = _(u'client targets')
+        verbose_name = _(u'customer target')
+        verbose_name_plural = _(u'customer targets')
         ordering = ['label']
         app_label = 'coop_local'
 
@@ -416,7 +415,7 @@ class Offer(models.Model):
 
     activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'))
     description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)])
-    targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'client targets'), blank=True, null=True)
+    targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'customer targets'), blank=True, null=True)
     technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
     workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
     practical_modalities = models.TextField(_(u'practical modalities'), blank=True, validators = [MaxLengthValidator(400)])

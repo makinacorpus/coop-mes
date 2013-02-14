@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-12 17:22+0100\n"
+"POT-Creation-Date: 2013-02-14 15:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,99 +17,103 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: admin.py:149
+#: admin.py:180
 msgid "document"
 msgstr "document"
 
-#: admin.py:150
+#: admin.py:181
 msgid "documents"
 msgstr "documents"
 
-#: admin.py:157 models/local_models.py:214
+#: admin.py:188 models/local_models.py:213
 msgid "reference"
 msgstr "référence"
 
-#: admin.py:158 models/local_models.py:215
+#: admin.py:189 models/local_models.py:214
 msgid "references"
 msgstr "références"
 
-#: admin.py:184
+#: admin.py:235
 msgid "offer"
 msgstr "offre"
 
-#: admin.py:185
+#: admin.py:236
 msgid "offers"
 msgstr "offres"
 
-#: admin.py:231
-msgid "A provider with this title already exists."
-msgstr "Un fournisseur avec cette raison sociale existe déjà."
+#: admin.py:286
+msgid "An organization with this title already exists."
+msgstr "Une organisation avec cette raison sociale existe déjà."
 
-#: admin.py:243
+#: admin.py:299
 msgid "Key info"
 msgstr "Infos clés"
 
-#: admin.py:248
+#: admin.py:304
+msgid "Organization type"
+msgstr "Type d'organisation"
+
+#: admin.py:307
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:252
+#: admin.py:311
 msgid "Description"
 msgstr "Description"
 
-#: admin.py:255 ui/menu.py:33
+#: admin.py:314 ui/menu.py:33
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: admin.py:258
+#: admin.py:317
 msgid "Management"
 msgstr "Gestion interne"
 
-#: admin.py:262
+#: admin.py:321
 msgid "Preferences"
 msgstr "Préférences"
 
-#: admin.py:357
-msgid "providers"
-msgstr "fournisseurs"
+#: admin.py:413
+msgid "organizations"
+msgstr "organisations"
 
-#: admin.py:360 models/local_models.py:326 models/local_models.py:329
+#: admin.py:416 models/local_models.py:408 models/local_models.py:411
 msgid "corporate name"
 msgstr "raison sociale"
 
-#: admin.py:360 models/local_models.py:329
+#: admin.py:416 models/local_models.py:411
 msgid "acronym"
 msgstr "sigle"
 
-#: admin.py:360
+#: admin.py:416
 msgid "Preferred label"
 msgstr "Nom préféré"
 
-#: admin.py:360 models/local_models.py:362
+#: admin.py:416 models/local_models.py:356
 msgid "creation date"
 msgstr "date de création"
 
-#: admin.py:361 models/local_models.py:52 models/local_models.py:338
+#: admin.py:417 models/local_models.py:51 models/local_models.py:332
 msgid "legal status"
 msgstr "statut juridique"
 
-#: admin.py:361 models/local_models.py:157 models/local_models.py:413
+#: admin.py:417 models/local_models.py:156 models/local_models.py:407
 msgid "category ESS"
 msgstr "type de structure ESS"
 
-#: admin.py:361 models/local_models.py:92 models/local_models.py:340
+#: admin.py:417 models/local_models.py:91 models/local_models.py:334
 msgid "category IAE"
 msgstr "type de structure IAE"
 
-#: admin.py:362 models/local_models.py:296 models/local_models.py:342
+#: admin.py:418 models/local_models.py:295 models/local_models.py:336
 msgid "agreement IAE"
 msgstr "conventionnement IAE"
 
-#: admin.py:362
+#: admin.py:418
 msgid "web site"
 msgstr "site web"
 
-#: admin.py:362 models/local_models.py:335
+#: admin.py:418 models/local_models.py:329
 msgid "No. SIRET"
 msgstr "n° SIRET"
 
@@ -117,364 +121,360 @@ msgstr "n° SIRET"
 msgid "Tags"
 msgstr "Mots clés"
 
-#: models/local_models.py:42 models/local_models.py:343
+#: models/local_models.py:41 models/local_models.py:337
 msgid "bdis identifiant"
 msgstr "identifiant BDIS"
 
-#: models/local_models.py:49 models/local_models.py:89
-#: models/local_models.py:142 models/local_models.py:175
-#: models/local_models.py:276 models/local_models.py:437
+#: models/local_models.py:48 models/local_models.py:88
+#: models/local_models.py:141 models/local_models.py:174
+#: models/local_models.py:275 models/local_models.py:417
 msgid "description"
 msgstr "description"
 
-#: models/local_models.py:53
+#: models/local_models.py:52
 msgid "legal statuses"
 msgstr "statuts juridiques"
 
-#: models/local_models.py:93
+#: models/local_models.py:92
 msgid "categories IAE"
 msgstr "types de structure IAE"
 
-#: models/local_models.py:127 models/local_models.py:141
-#: models/local_models.py:174 models/local_models.py:275
+#: models/local_models.py:126 models/local_models.py:140
+#: models/local_models.py:173 models/local_models.py:274
 msgid "name"
 msgstr "nom"
 
-#: models/local_models.py:133
+#: models/local_models.py:132
 msgid "document type"
 msgstr "type de document"
 
-#: models/local_models.py:134
+#: models/local_models.py:133
 msgid "document types"
 msgstr "types de document"
 
-#: models/local_models.py:143
+#: models/local_models.py:142
 msgid "attachment"
 msgstr "pièce jointe"
 
-#: models/local_models.py:145 models/local_models.py:173
+#: models/local_models.py:144 models/local_models.py:172
 msgid "type"
 msgstr "type"
 
-#: models/local_models.py:148
+#: models/local_models.py:147
 msgid "associated document"
 msgstr "document associé"
 
-#: models/local_models.py:149
+#: models/local_models.py:148
 msgid "associated documents"
 msgstr "documents associés"
 
-#: models/local_models.py:158
+#: models/local_models.py:157
 msgid "categories ESS"
 msgstr "types de structure ESS"
 
-#: models/local_models.py:164
+#: models/local_models.py:163
 msgid "Norme"
 msgstr "Norme"
 
-#: models/local_models.py:165
+#: models/local_models.py:164
 msgid "Official label"
 msgstr "Label officiel"
 
-#: models/local_models.py:166
+#: models/local_models.py:165
 msgid "Private label"
 msgstr "Label privé"
 
-#: models/local_models.py:167
+#: models/local_models.py:166
 msgid "Quality process"
 msgstr "Démarche qualité"
 
-#: models/local_models.py:168
+#: models/local_models.py:167
 msgid "Agreement"
 msgstr "Agrément"
 
-#: models/local_models.py:187 models/local_models.py:190
+#: models/local_models.py:186 models/local_models.py:189
 msgid "No Image"
 msgstr "Pas d'image"
 
-#: models/local_models.py:192
+#: models/local_models.py:191
 msgid "logo"
 msgstr "logo"
 
-#: models/local_models.py:196
+#: models/local_models.py:195
 msgid "guaranty"
 msgstr "garantie"
 
-#: models/local_models.py:197 models/local_models.py:359
+#: models/local_models.py:196 models/local_models.py:353
 msgid "guaranties"
 msgstr "garanties"
 
-#: models/local_models.py:209
+#: models/local_models.py:208
 msgid "from year"
 msgstr "de l'année"
 
-#: models/local_models.py:210
+#: models/local_models.py:209
 msgid "to year"
 msgstr "à l'année"
 
-#: models/local_models.py:211
+#: models/local_models.py:210
 msgid "services"
 msgstr "prestations"
 
-#: models/local_models.py:218
-msgid "client"
-msgstr "client"
+#: models/local_models.py:217
+msgid "customer"
+msgstr "acheteur"
 
-#: models/local_models.py:223 models/local_models.py:237
-#: models/local_models.py:238 models/local_models.py:261
-#: models/local_models.py:290
+#: models/local_models.py:222 models/local_models.py:236
+#: models/local_models.py:237 models/local_models.py:260
+#: models/local_models.py:289
 msgid "label"
 msgstr "label"
 
-#: models/local_models.py:229
+#: models/local_models.py:228
 msgid "AVISE activity nomenclature item"
 msgstr "item de nomenclature d'activité AVISE"
 
-#: models/local_models.py:230
+#: models/local_models.py:229
 msgid "AVISE activity nomenclature"
 msgstr "nomenclature d'activité AVISE"
 
-#: models/local_models.py:239
+#: models/local_models.py:238
 msgid "parent"
 msgstr "parent"
 
-#: models/local_models.py:240
+#: models/local_models.py:239
 msgid "AVISE equivalent"
 msgstr "équivalent AVISE"
 
-#: models/local_models.py:253
+#: models/local_models.py:252
 msgid "activity nomenclature item"
 msgstr "item de nomenclature d'activité"
 
-#: models/local_models.py:254
+#: models/local_models.py:253
 msgid "activity nomenclature"
 msgstr "nomenclature d'activité"
 
-#: models/local_models.py:267
-msgid "client target"
-msgstr "cible client"
+#: models/local_models.py:266
+msgid "customer target"
+msgstr "cible acheteur"
 
-#: models/local_models.py:268 models/local_models.py:438
-msgid "client targets"
-msgstr "cibles client"
+#: models/local_models.py:267 models/local_models.py:418
+msgid "customer targets"
+msgstr "cibles acheteur"
 
-#: models/local_models.py:282
+#: models/local_models.py:281
 msgid "theme"
 msgstr "thématique"
 
-#: models/local_models.py:283 models/local_models.py:348
+#: models/local_models.py:282 models/local_models.py:342
 msgid "themes"
 msgstr "thématiques"
 
-#: models/local_models.py:297
+#: models/local_models.py:296
 msgid "agreements IAE"
 msgstr "conventionnements IAE"
 
-#: models/local_models.py:303
+#: models/local_models.py:302
 msgid "Proposed"
 msgstr "Proposée"
 
-#: models/local_models.py:304
+#: models/local_models.py:303
 msgid "Validated"
 msgstr "Validée"
 
-#: models/local_models.py:305
+#: models/local_models.py:304
 msgid "Transmitted for validation"
 msgstr "Transmise pour validation"
 
-#: models/local_models.py:306
+#: models/local_models.py:305
 msgid "Incomplete"
 msgstr "Incomplète"
 
-#: models/local_models.py:311
+#: models/local_models.py:310
 msgid "Keboarded online"
 msgstr "Saisie sur le site"
 
-#: models/local_models.py:312
+#: models/local_models.py:311
 msgid "Administration"
 msgstr "Administration"
 
-#: models/local_models.py:313
+#: models/local_models.py:312
 msgid "Import"
 msgstr "Import"
 
-#: models/local_models.py:327
-msgid "general presentation"
-msgstr "présentation générale"
+#: models/local_models.py:324
+msgid "is a provider"
+msgstr "est un fournisseur"
 
-#: models/local_models.py:336
+#: models/local_models.py:325
+msgid "is a customer"
+msgstr "est un acheteur"
+
+#: models/local_models.py:326
+msgid "is a network"
+msgstr "est un réseau"
+
+#: models/local_models.py:330
 msgid "No. SIRET has 14 digits"
 msgstr "Le n° SIRET comporte 14 chiffres"
 
-#: models/local_models.py:346
+#: models/local_models.py:340
 msgid "brief description"
 msgstr "description succincte"
 
-#: models/local_models.py:347
+#: models/local_models.py:341
 msgid "added value"
 msgstr "plus value sociale et environnementale"
 
-#: models/local_models.py:351
+#: models/local_models.py:345
 msgid "annual revenue"
 msgstr "chiffre d'affaire annuel"
 
-#: models/local_models.py:352
+#: models/local_models.py:346
 msgid "workforce"
 msgstr "effectif total (ETP)"
 
-#: models/local_models.py:353
+#: models/local_models.py:347
 msgid "production workforce"
 msgstr "effectif de production (ETP)"
 
-#: models/local_models.py:354
+#: models/local_models.py:348
 msgid "supervision workforce"
 msgstr "effectif d'encadrement (ETP)"
 
-#: models/local_models.py:355
+#: models/local_models.py:349
 msgid "integration workforce"
 msgstr "nombre de salariés en insertion (ETP)"
 
-#: models/local_models.py:356
+#: models/local_models.py:350
 msgid "annual integration number"
 msgstr "nombre de personnes en insertion accompagnées par an"
 
-#: models/local_models.py:363
+#: models/local_models.py:357
 msgid "modification date"
 msgstr "date de modification"
 
-#: models/local_models.py:364
+#: models/local_models.py:358
 msgid "status"
 msgstr "statut de la fiche"
 
-#: models/local_models.py:365
+#: models/local_models.py:359
 msgid "correspondence"
 msgstr "correspondance"
 
-#: models/local_models.py:366
+#: models/local_models.py:360
 msgid "transmission mode"
 msgstr "mode de transmission"
 
-#: models/local_models.py:367
+#: models/local_models.py:361
 msgid "transmission date"
 msgstr "date de transmission"
 
-#: models/local_models.py:368
+#: models/local_models.py:362
 msgid "authors"
 msgstr "rédacteurs"
 
-#: models/local_models.py:369
+#: models/local_models.py:363
 msgid "validation date"
 msgstr "date de validation"
 
-#: models/local_models.py:404
-msgid "Provider"
-msgstr "Fournisseur"
+#: models/local_models.py:398
+msgid "Organization"
+msgstr "Organisation"
 
-#: models/local_models.py:405 ui/menu.py:58
-msgid "Providers"
-msgstr "Fournisseurs"
+#: models/local_models.py:399 ui/menu.py:58
+msgid "Organizations"
+msgstr "Organisations"
 
-#: models/local_models.py:420
-msgid "Client"
-msgstr "Client"
+#: models/local_models.py:409
+msgid "general presentation"
+msgstr "présentation générale"
 
-#: models/local_models.py:421 ui/menu.py:59
-msgid "Clients"
-msgstr "Clients"
-
-#: models/local_models.py:429 ui/menu.py:56 ui/menu.py:60
-msgid "Network"
-msgstr "Réseau"
-
-#: models/local_models.py:430
-msgid "Networks"
-msgstr "Réseaux"
-
-#: models/local_models.py:436
+#: models/local_models.py:416
 msgid "activity sector"
 msgstr "secteur d'activité"
 
-#: models/local_models.py:439
+#: models/local_models.py:419
 msgid "technical means"
 msgstr "Moyens techniques disponibles"
 
-#: models/local_models.py:440
+#: models/local_models.py:420
 msgid "available workforce"
 msgstr "effectif total mobilisable (ETP)"
 
-#: models/local_models.py:441
+#: models/local_models.py:421
 msgid "practical modalities"
 msgstr "modalités pratiques"
 
-#: models/local_models.py:442
+#: models/local_models.py:422
 msgid "coverage"
 msgstr "couverture géographique"
 
-#: models/local_models.py:443
+#: models/local_models.py:423
 msgid "provider"
 msgstr "fournisseur"
 
-#: models/local_models.py:453
+#: models/local_models.py:433
 msgid "Offer"
 msgstr "Offre"
 
-#: models/local_models.py:454
+#: models/local_models.py:434
 msgid "Offers"
 msgstr "Offres"
 
-#: models/local_models.py:461
+#: models/local_models.py:441
 msgid "Role"
 msgstr "Rôle"
 
-#: models/local_models.py:462 ui/menu.py:36
+#: models/local_models.py:442 ui/menu.py:36
 msgid "Roles"
 msgstr "Rôles"
 
-#: models/local_models.py:474
+#: models/local_models.py:454
 msgid "opening days and hours"
 msgstr "jours et horaires d'ouverture"
 
-#: models/local_models.py:477
+#: models/local_models.py:457
 msgid "Located item"
 msgstr "Géo-localisation"
 
-#: models/local_models.py:478
+#: models/local_models.py:458
 msgid "Located items"
 msgstr "Géo-localisation"
 
-#: models/local_models.py:484
+#: models/local_models.py:464
 msgid "location"
 msgstr "lieu"
 
-#: models/local_models.py:489
+#: models/local_models.py:469
 msgid "Contact"
 msgstr "contact"
 
-#: models/local_models.py:490
+#: models/local_models.py:470
 msgid "Contacts"
 msgstr "contacts"
 
-#: templates/admin/coop_local/provider/change_list.html:8
+#: templates/admin/coop_local/organization/change_list.html:8
 msgid "CSV export"
 msgstr "Export CSV"
 
-#: templates/admin/coop_local/provider/tabbed_change_form.html:8
+#: templates/admin/coop_local/organization/tabbed_change_form.html:8
 msgid "DOC export"
 msgstr "Word"
 
-#: templates/admin/coop_local/provider/tabbed_change_form.html:9
+#: templates/admin/coop_local/organization/tabbed_change_form.html:9
 msgid "ODT export"
 msgstr "ODT"
 
-#: templates/admin/coop_local/provider/tabbed_change_form.html:10
+#: templates/admin/coop_local/organization/tabbed_change_form.html:10
 msgid "PDF export"
 msgstr "PDF"
 
-#: templates/admin/coop_local/provider/tabbed_change_form.html:12
+#: templates/admin/coop_local/organization/tabbed_change_form.html:12
 msgid "History"
 msgstr "Historique"
 
-#: templates/admin/coop_local/provider/tabbed_change_form.html:13
+#: templates/admin/coop_local/organization/tabbed_change_form.html:13
 msgid "View on site"
 msgstr "Voir sur le site"
 
@@ -495,8 +495,8 @@ msgid "Person categories"
 msgstr "Catégories de personnes"
 
 #: ui/menu.py:31
-msgid "Client targets"
-msgstr "Cibles client"
+msgid "Customer targets"
+msgstr "Cibles acheteur"
 
 #: ui/menu.py:32
 msgid "Agreements IAE"
@@ -546,22 +546,26 @@ msgstr "Sites"
 msgid "Sites aliases"
 msgstr "Alias des sites"
 
+#: ui/menu.py:56
+msgid "Network"
+msgstr "Réseau"
+
 #: ui/menu.py:57
 msgid "Directory"
 msgstr "Annuaire"
 
-#: ui/menu.py:61
+#: ui/menu.py:59
 msgid "Persons"
 msgstr "Personnes"
 
-#: ui/menu.py:63
+#: ui/menu.py:61
 msgid "Cartography"
 msgstr "Cartographie"
 
-#: ui/menu.py:64
+#: ui/menu.py:62
 msgid "Locations"
 msgstr "Lieux"
 
-#: ui/menu.py:65
+#: ui/menu.py:63
 msgid "Areas"
 msgstr "Zones"

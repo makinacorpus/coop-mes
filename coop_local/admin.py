@@ -21,18 +21,29 @@ from django.utils.safestring import mark_safe
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
 from selectable.registry import registry
+from selectable.exceptions import LookupAlreadyRegistered
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 from djappypod.response import OdtTemplateResponse
 import csv
 
-from coop.org.admin import (OrganizationAdmin, OrganizationAdminForm, RelationInline,
-    LocatedInline, ContactInline as BaseContactInline, EngagementInline as BaseEngagementInline,
+from coop.org.admin import (
+    OrganizationAdmin as BaseOrganizationAdmin,
+    OrganizationAdminForm as BaseOrganizationAdminForm,
+    RelationInline,
+    LocatedInline,
+    ContactInline as BaseContactInline,
+    EngagementInline as BaseEngagementInline,
     OrgInline)
-from coop.person.admin import PersonAdmin as BasePersonAdmin
-from coop.utils.autocomplete_admin import (FkAutocompleteAdmin,
-    InlineAutocompleteAdmin, SelectableAdminMixin,
-    AutoComboboxSelectEditWidget, AutoCompleteSelectEditWidget, register)
+from coop.person.admin import (
+    PersonAdmin as BasePersonAdmin)
+from coop.utils.autocomplete_admin import (
+    FkAutocompleteAdmin,
+    InlineAutocompleteAdmin,
+    SelectableAdminMixin,
+    AutoComboboxSelectEditWidget,
+    AutoCompleteSelectEditWidget,
+    register)
 
 from coop_geo.models import Location
 from coop_local.models.local_models import normalize_text
@@ -108,9 +119,18 @@ class ActivityLookup(ModelLookup):
     filters = {'level': 2}
 
 
-registry.register(LocationLookup)
-registry.register(MediumLookup)
-registry.register(ActivityLookup)
+try:
+    registry.register(LocationLookup)
+except LookupAlreadyRegistered:
+    pass
+try:
+    registry.register(MediumLookup)
+except LookupAlreadyRegistered:
+    pass
+try:
+    registry.register(ActivityLookup)
+except LookupAlreadyRegistered:
+    pass
 
 
 def make_contact_form(pks, admin_site, request):
@@ -182,7 +202,6 @@ class ActivityWidget(AutoCompleteSelectEditWidget):
 
     def render(self, name, value, attrs=None):
         markup = super(ActivityWidget, self).render(name, value, attrs)
-        related_url = '/admin/coop_local/provider/activity_list/'
         related_url = reverse('admin:coop_local_offer_activity_list', current_app=self.admin_site.name)
         markup += u'&nbsp;<a href="%s" class="activity-lookup" id="lookup_id_%s" onclick="return showActivityLookupPopup(this);">' % (related_url, name)
         markup += u'<img src="%s" width="16" height="16"></a>' % static('admin/img/selector-search.gif')
@@ -240,7 +259,7 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
         engagements = self.instance.engagement_set.all()
         members_id = engagements.values_list('person_id', flat=True)
         org_contacts = Contact.objects.filter(
-            Q(content_type=ContentType.objects.get(model='provider'), object_id=self.instance.id)
+            Q(content_type=ContentType.objects.get(model='organization'), object_id=self.instance.id)
           | Q(content_type=ContentType.objects.get(model='person'), object_id__in=members_id)
             )
         phone_categories = [1, 2]
@@ -264,14 +283,15 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
         title = self.cleaned_data['title']
         norm_title = normalize_text(title)
         if Organization.objects.filter(norm_title=norm_title).exclude(pk=self.instance.pk).exists():
-            raise forms.ValidationError(_('A provider with this title already exists.'))
+            raise forms.ValidationError(_('An organization with this title already exists.'))
         return title
 
 
 class OrganizationAdmin(BaseOrganizationAdmin):
 
     form = OrganizationAdminForm
-    list_display = ['logo_list_display', 'title', 'acronym', 'active', 'has_description', 'has_location']
+    list_display = ['logo_list_display', 'title', 'acronym', 'is_provider',
+        'is_customer', 'is_network', 'active', 'has_description', 'has_location']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
     list_filter = ['active', 'agreement_iae', 'authors']
@@ -280,6 +300,9 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
                        'legal_status', 'category', 'category_iae', 'agreement_iae',
                        'web', 'siret', 'bdis_id']
+            }),
+        (_(u'Organization type'), {
+            'fields': ['is_provider', 'is_customer', 'is_network']
             }),
         (_(u'Economic info'), {
             'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),
@@ -299,8 +322,8 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
         })
     )
-    inlines = [DocumentInline, ReferenceInline, RelationInline, LocatedInline, ContactInline, EngagementInline, OfferInline]
-    change_form_template = 'admin/coop_local/provider/tabbed_change_form.html'
+    inlines = [DocumentInline, RelationInline, LocatedInline, ContactInline, EngagementInline, ReferenceInline, OfferInline]
+    change_form_template = 'admin/coop_local/organization/tabbed_change_form.html'
     search_fields = ['norm_title', 'acronym']
     related_search_fields = {'legal_status': ('label', )}
     related_combobox = ('legal_status', )
@@ -314,9 +337,9 @@ class OrganizationAdmin(BaseOrganizationAdmin):
 
     def change_view(self, request, object_id, form_url='', extra_context={}):
         obj = self.get_object(request, unquote(object_id))
-        if request.user.has_perm('coop_local.change_provider'):
+        if request.user.has_perm('coop_local.change_organization'):
             has_object_change_permission = True
-        elif request.user.has_perm('coop_local.change_its_provider'):
+        elif request.user.has_perm('coop_local.change_its_organization'):
             has_object_change_permission = request.user in obj.authors.all()
         else:
             has_object_change_permission = False
@@ -363,16 +386,13 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         instances = formset.save(commit=False)
         for instance in instances:
             instance.relation_type_id = 2
-            try:
-                instance.target.client
-            except Client.DoesNotExist:
-                client = Client(organization_ptr_id=instance.target.pk)
-                client.__dict__.update(instance.target.__dict__)
-                client.save()
             instance.save()
+            instance.source.is_customer = True
+            # FIXME: save only the is_customer field
+            instance.source.save()
 
     def odt_view(self, request, pk, format):
-        provider = get_object_or_404(Organization, pk=pk)
+        organization = get_object_or_404(Organization, pk=pk)
         themes = TransverseTheme.objects.all()
         client_targets = ClientTarget.objects.all()
         content_type = {
@@ -381,38 +401,38 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'pdf': 'application/pdf',
         }[format]
         response = OdtTemplateResponse(request,
-            'export/provider.odt', {'provider': provider, 'themes': themes,
+            'export/organization.odt', {'organization': organization, 'themes': themes,
             'client_targets': client_targets, 'content_type': content_type},
             content_type=content_type)
-        response['Content-Disposition'] = 'attachment; filename=%s.%s' % (slugify(provider.title), format)
+        response['Content-Disposition'] = 'attachment; filename=%s.%s' % (slugify(organization.title), format)
         response.render()
         return response
 
     def csv_view(self, request):
         response = HttpResponse(mimetype='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('providers')
+        response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('organizations')
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [
             _('corporate name'), _('acronym'), _('Preferred label'), _('creation date'),
             _('legal status'), _('category ESS'), _('category IAE'),
             _('agreement IAE'), _('web site'), _('No. SIRET')
         ]])
-        for provider in Organization.objects.order_by('title'):
-            row  = [provider.title, provider.acronym, provider.get_pref_label_display()]
-            row += [provider.birth.strftime('%d/%m/%Y') if provider.birth else '']
-            row += [unicode(provider.legal_status) if provider.legal_status else '']
-            row += [', '.join([unicode(c) for c in provider.category.all()])]
-            row += [', '.join([unicode(c) for c in provider.category_iae.all()])]
-            row += [', '.join([unicode(a) for a in provider.agreement_iae.all()])]
-            row += [provider.web, provider.siret]
+        for organization in Organization.objects.order_by('title'):
+            row  = [organization.title, organization.acronym, organization.get_pref_label_display()]
+            row += [organization.birth.strftime('%d/%m/%Y') if organization.birth else '']
+            row += [unicode(organization.legal_status) if organization.legal_status else '']
+            row += [', '.join([unicode(c) for c in organization.category.all()])]
+            row += [', '.join([unicode(c) for c in organization.category_iae.all()])]
+            row += [', '.join([unicode(a) for a in organization.agreement_iae.all()])]
+            row += [organization.web, organization.siret]
             writer.writerow([s.encode('cp1252') for s in row])
         return response
 
     def get_urls(self):
         urls = super(OrganizationAdmin, self).get_urls()
         my_urls = patterns('',
-            url(r'^(?P<pk>\d+)/(?P<format>(odt|doc|pdf))/$', self.admin_site.admin_view(self.odt_view), name='provider_odt'),
-            url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='providers_csv'),
+            url(r'^(?P<pk>\d+)/(?P<format>(odt|doc|pdf))/$', self.admin_site.admin_view(self.odt_view), name='organization_odt'),
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='organization_csv'),
             url(r'^activity_list/$', self.activity_list_view, name='coop_local_offer_activity_list')
         )
         return my_urls + urls
@@ -422,7 +442,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         return render(request, 'admin/activity_list.html', {'activities': activities, 'is_popup': True})
 
     def has_change_permission(self, request, obj=None):
-        return request.user.has_perm('coop_local.view_provider')
+        return request.user.has_perm('coop_local.view_organization')
 
 OrganizationAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 

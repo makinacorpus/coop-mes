@@ -28,7 +28,7 @@ class CustomMenu(Menu):
                 items.MenuItem(_('Thesaurus'), '#', icon='icon-coop icon-rdf icon-white', children=[
                     items.MenuItem(_('Location categories'), '/admin/coop_geo/locationcategory/'),
                     items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
-                    items.MenuItem(_('Client targets'), '/admin/coop_local/clienttarget/'),
+                    items.MenuItem(_('Customer targets'), '/admin/coop_local/clienttarget/'),
                     items.MenuItem(_('Agreements IAE'), '/admin/coop_local/agreementiae/'),
                     items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
                     items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),

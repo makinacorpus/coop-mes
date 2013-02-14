@@ -126,24 +126,24 @@
                     "person"
                 ],
                 [
-                    "add_provider",
+                    "add_organization",
                     "coop_local",
-                    "provider"
+                    "organization"
                 ],
                 [
-                    "change_its_provider",
+                    "change_its_organization",
                     "coop_local",
-                    "provider"
+                    "organization"
                 ],
                 [
-                    "view_provider",
+                    "view_organization",
                     "coop_local",
-                    "provider"
+                    "organization"
                 ],
                 [
-                    "delete_its_provider",
+                    "delete_its_organization",
                     "coop_local",
-                    "provider"
+                    "organization"
                 ],
                 [
                     "add_relation",
