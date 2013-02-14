@@ -294,7 +294,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         'is_customer', 'is_network', 'active', 'has_description', 'has_location']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['active', 'agreement_iae', 'authors']
+    list_filter = ['authors', 'is_provider', 'is_customer', 'is_network']
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
