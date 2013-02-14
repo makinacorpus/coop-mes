@@ -302,7 +302,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                        'web', 'siret', 'bdis_id']
             }),
         (_(u'Organization type'), {
-            'fields': ['is_provider', 'is_customer', 'is_network']
+            'fields': ['is_provider', 'is_customer', 'is_network', 'customer_type']
             }),
         (_(u'Economic info'), {
             'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),

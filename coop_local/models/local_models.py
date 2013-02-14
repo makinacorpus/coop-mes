@@ -313,6 +313,12 @@ TRANSMISSION_MODES = Choices(
 )
 
 
+CUSTOMER_TYPES = Choices(
+    ('PUBLIC', 1, _(u'Public')),
+    ('PRIVATE', 2, _(u'Private')),
+)
+
+
 class Engagement(BaseEngagement):
 
     pass
@@ -324,6 +330,7 @@ class Organization(BaseOrganization):
     is_provider = models.BooleanField(_('is a provider'))
     is_customer = models.BooleanField(_('is a customer'))
     is_network = models.BooleanField(_('is a network'))
+    customer_type = models.IntegerField(_('Customer type'), choices=CUSTOMER_TYPES.CHOICES, blank=True, null=True)
 
     # PROVIDER Key data
     siret = models.CharField(_(u'No. SIRET'), max_length=14, blank=True,

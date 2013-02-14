@@ -62,7 +62,16 @@ jQuery(document).ready(function() {
             fields.hide()
         }
     });
+    $('#id_is_customer').change(function() {
+        var fields = $('#id_customer_type, label[for="id_customer_type"]')
+        if ($(this).is(':checked')) {
+            fields.show()
+        } else {
+            fields.hide()
+        }
+    });
     $('#id_is_provider').trigger('change');
+    $('#id_is_customer').trigger('change');
 });
 
 </script>
