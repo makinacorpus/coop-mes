@@ -330,7 +330,10 @@ class Organization(BaseOrganization):
     is_provider = models.BooleanField(_('is a provider'))
     is_customer = models.BooleanField(_('is a customer'))
     is_network = models.BooleanField(_('is a network'))
+
+    # CUSTOMER
     customer_type = models.IntegerField(_('Customer type'), choices=CUSTOMER_TYPES.CHOICES, blank=True, null=True)
+    testimony = models.TextField(_(u'testimony'), blank=True)
 
     # PROVIDER Key data
     siret = models.CharField(_(u'No. SIRET'), max_length=14, blank=True,

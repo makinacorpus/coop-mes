@@ -63,10 +63,13 @@ jQuery(document).ready(function() {
         }
     });
     $('#id_is_customer').change(function() {
+        var tabs = $('a[href="#temoignage"]').parent();
         var fields = $('#id_customer_type, label[for="id_customer_type"]')
         if ($(this).is(':checked')) {
+            tabs.removeClass('hide');
             fields.show()
         } else {
+            tabs.addClass('hide');
             fields.hide()
         }
     });

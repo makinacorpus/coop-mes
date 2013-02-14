@@ -295,6 +295,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
     list_filter = ['authors', 'is_provider', 'is_customer', 'is_network']
+    ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
@@ -320,7 +321,10 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             }),
         (_(u'Preferences'), {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
-        })
+            }),
+        (_(u'Testimony'), {
+            'fields': ['testimony',]
+            })
     )
     inlines = [DocumentInline, RelationInline, LocatedInline, ContactInline, EngagementInline, ReferenceInline, OfferInline]
     change_form_template = 'admin/coop_local/organization/tabbed_change_form.html'
