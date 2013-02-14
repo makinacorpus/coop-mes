@@ -363,7 +363,7 @@ class Organization(BaseOrganization):
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
 
     # COMMON Search
-    norm_title = models.CharField(max_length=250) #, unique=True)
+    norm_title = models.CharField(max_length=250, unique=True)
 
     def save(self, *args, **kwargs):
         self.norm_title = normalize_text(self.title)
