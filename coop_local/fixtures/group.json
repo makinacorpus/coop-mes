@@ -159,6 +159,21 @@
                     "delete_relation",
                     "coop_local",
                     "relation"
+                ],
+                [
+                    "add_reference",
+                    "coop_local",
+                    "reference"
+                ],
+                [
+                    "change_reference",
+                    "coop_local",
+                    "reference"
+                ],
+                [
+                    "delete_reference",
+                    "coop_local",
+                    "reference"
                 ]
             ]
         }
