@@ -405,7 +405,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'pdf': 'application/pdf',
         }[format]
         response = OdtTemplateResponse(request,
-            'export/organization.odt', {'organization': organization, 'themes': themes,
+            'export/organization.odt', {'provider': organization, 'themes': themes,
             'client_targets': client_targets, 'content_type': content_type},
             content_type=content_type)
         response['Content-Disposition'] = 'attachment; filename=%s.%s' % (slugify(organization.title), format)
