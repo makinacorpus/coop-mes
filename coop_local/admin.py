@@ -298,7 +298,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
     ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
-            'fields': ['title', ('acronym', 'pref_label'), 'logo', ('birth', 'active',),
+            'fields': ['title', ('acronym', 'pref_label'), 'logo', 'birth', 'active',
                        'legal_status', 'category', 'category_iae', 'agreement_iae',
                        'web', 'siret', 'bdis_id']
             }),
