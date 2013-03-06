@@ -429,8 +429,8 @@ class Offer(models.Model):
     technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
     workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
     practical_modalities = models.TextField(_(u'practical modalities'), blank=True, validators = [MaxLengthValidator(400)])
-    coverage = models.CommaSeparatedIntegerField(_(u'coverage'), max_length=100, blank=True, null=True)
     provider = models.ForeignKey('Organization', verbose_name=_('provider'))
+    area = models.ManyToManyField('coop_local.Area', verbose_name=_(u'coverage'), blank=True, null=True)
 
     def __unicode__(self):
 

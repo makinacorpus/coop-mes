@@ -22,6 +22,7 @@ from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
 from selectable.registry import registry
 from selectable.exceptions import LookupAlreadyRegistered
+from selectable.forms import AutoCompleteSelectMultipleWidget
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 from djappypod.response import OdtTemplateResponse
@@ -44,8 +45,7 @@ from coop.utils.autocomplete_admin import (
     AutoComboboxSelectEditWidget,
     AutoCompleteSelectEditWidget,
     register)
-
-from coop_geo.models import Location
+from coop_geo.models import Location, Area
 from coop_local.models.local_models import normalize_text
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
     ActivityNomenclatureAvise, Offer, TransverseTheme, DocumentType, AgreementIAE,
@@ -108,6 +108,11 @@ class LocationLookup(ModelLookup):
         return results
 
 
+class AreaLookup(ModelLookup):
+    model = Area
+    search_fields = ('label__icontains', 'reference__icontains')
+
+
 class MediumLookup(ModelLookup):
     model = ContactMedium
     search_fields = ('label__icontains', )
@@ -121,6 +126,10 @@ class ActivityLookup(ModelLookup):
 
 try:
     registry.register(LocationLookup)
+except LookupAlreadyRegistered:
+    pass
+try:
+    registry.register(AreaLookup)
 except LookupAlreadyRegistered:
     pass
 try:
@@ -226,10 +235,11 @@ def make_offer_form(admin_site, request):
             targets_rel = Offer._meta.get_field_by_name('targets')[0].rel
             targets_widget = forms.CheckboxSelectMultiple(attrs={'class': 'multiple_checkboxes'}, choices=self.fields['targets'].choices)
             self.fields['targets'].widget = RelatedFieldWidgetWrapper(targets_widget, targets_rel, admin_site, can_add_related=False)
+            #area_rel = Offer._meta.get_field_by_name('area')[0].rel
+            self.fields['area'].widget = AutoCompleteSelectMultipleWidget(AreaLookup)
     return OfferAdminForm
 
-
-class OfferInline(SelectableAdminMixin, admin.StackedInline):
+class OfferInline(admin.StackedInline):
 
     model = Offer
     verbose_name = _(u'offer')
