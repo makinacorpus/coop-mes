@@ -59,7 +59,7 @@ rq
 
 django-apptemplates
 python-dateutil
-sorl-thumbnail==11.09
+-e git+git://github.com/makinacorpus/sorl-thumbnail@master#egg=sorl-thumbnail
 shortuuid
 django-tinymce
 -e git+git://github.com/twidi/django-extended-choices@develop#egg=django-extended-choices
