@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from extended_choices import Choices
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db import fields as exfields
-from django.core.validators import RegexValidator, MaxLengthValidator
+from django.core.validators import (BaseValidator, RegexValidator,
+    MaxLengthValidator)
 from django.template.defaultfilters import slugify
 from mptt.models import MPTTModel, TreeForeignKey
 from sorl.thumbnail import ImageField
@@ -30,6 +31,13 @@ ADMIN_THUMBS_SIZE = '60x60'
 # Here you can either :
 # - Customize coop models by deriving from the abstract class (BaseOrganization, Baseperson...)
 # - Or add your own models, providing you add in their Meta class app_label="coop_local"
+
+
+class HtmlMaxLengthValidator(BaseValidator):
+    compare = lambda self, a, b: a > b
+    clean = lambda self, x: len(re.sub('<[^>]*>', '', x))
+    message = _('Ensure this value has at most %(limit_value)d characters (it has %(show_value)d).')
+    code = 'max_length'
 
 
 def normalize_text(text):
@@ -417,7 +425,7 @@ class Organization(BaseOrganization):
 Organization._meta.get_field('category').verbose_name = _(u'category ESS')
 Organization._meta.get_field('title').verbose_name = _(u'corporate name')
 Organization._meta.get_field('description').verbose_name = _(u'general presentation')
-Organization._meta.get_field('description').validators = [MaxLengthValidator(3000)]
+Organization._meta.get_field('description').validators = [HtmlMaxLengthValidator(3000)]
 Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name')), (2, _(u'acronym')))
 
 
