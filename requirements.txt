@@ -1,6 +1,6 @@
 # Django
 
-django
+Django==1.4.5
 
 # coop apps
 
@@ -11,37 +11,37 @@ django
 # djaloha
 # coop-colorbox
 
--e git+git://github.com/makinacorpus/django-coop@master#egg=django-coop
--e git+git://github.com/makinacorpus/coop-geo@master#egg=coop-geo
--e git+git://github.com/credis/coop-colorbox@master#egg=coop-colorbox
--e git+git://github.com/credis/djaloha@master#egg=djaloha
--e git+git://github.com/credis/coop-bar@master#egg=coop-bar
--e git+git://github.com/credis/coop-tag@master#egg=coop-tag
--e git+git://github.com/credis/coop_cms@master#egg=coop_cms
+git+git://github.com/makinacorpus/django-coop.git
+git+git://github.com/credis/coop-colorbox.git
+git+git://github.com/credis/djaloha.git
+git+git://github.com/credis/coop-bar.git
+git+git://github.com/credis/coop-tag.git
+git+git://github.com/makinacorpus/coop-geo.git
+git+git://github.com/credis/coop_cms.git
 
--e git+git://github.com/quinode/django-scanredirect@master#egg=django-scanredirect
+git+git://github.com/quinode/django-scanredirect
 
 django-autoslug
 unicode-slugify
--e git+git://github.com/quinode/django-preferences@master#egg=django-preferences
+git+git://github.com/quinode/django-preferences
 #fabric
 #fabtools
 django-mptt
 
 # forks we depend on
--e hg+https://bitbucket.org/psyton/django-admin-tools#egg=django-admin-tools
--e git+git://github.com/quinode/django-templatetag-sugar@master#egg=django-templatetag-sugar
+hg+https://bitbucket.org/psyton/django-admin-tools
+git+git://github.com/quinode/django-templatetag-sugar
 
 # our forks
--e git+git://github.com/makinacorpus/django-admintools-bootstrap.git#egg=django-admintools-bootstrap
--e git+git://github.com/quinode/uriredirect@master#egg=uriredirect
+git+git://github.com/makinacorpus/django-admintools-bootstrap.git
+git+git://github.com/quinode/uriredirect
 
 
--e git+git://github.com/django-extensions/django-extensions@master#egg=django-extensions
--e git+git://github.com/makinacorpus/django-chosen@master#egg=django-chosen
+git+git://github.com/django-extensions/django-extensions
+git+git://github.com/makinacorpus/django-chosen
 
 # setup.py was broken
--e git+git://github.com/quinode/djangoembed@master#egg=djangoembed
+git+git://github.com/quinode/djangoembed
 
 # mailing deps
 SOAPpy
@@ -55,41 +55,41 @@ django-forms-builder
 
 # Queues
 rq
--e git+git://github.com/ui/django-rq@master#egg=django-rq
+git+git://github.com/ui/django-rq@8d8f9d7fd9a8857394862ff8125dd98c0028abed
 
 django-apptemplates
 python-dateutil
--e git+git://github.com/makinacorpus/sorl-thumbnail@master#egg=sorl-thumbnail
+git+git://github.com/makinacorpus/sorl-thumbnail
 shortuuid
 django-tinymce
--e git+git://github.com/twidi/django-extended-choices@develop#egg=django-extended-choices
--e hg+https://bitbucket.org/ubernostrum/django-profiles#egg=django-profiles
+git+git://github.com/twidi/django-extended-choices@develop
+hg+https://bitbucket.org/ubernostrum/django-profiles
 django-positions
 django-push
 mimeparse
 geohash
 rdflib
--e git+git://github.com/RDFLib/rdfextras@master#egg=rdfextras
--e git+git://github.com/RDFLib/rdflib-jsonld@master#egg=rdflib-jsonld
--e git+git://github.com/RDFLib/rdflib-sparqlstore@master#egg=rdflib-sparqlstore
--e git+git://github.com/credis/subhub@master#egg=subhub
+git+git://github.com/RDFLib/rdfextras
+git+git://github.com/RDFLib/rdflib-jsonld
+git+git://github.com/RDFLib/rdflib-sparqlstore
+git+git://github.com/credis/subhub
 django-appconf
 
--e git+git://github.com/rhec/pyelasticsearch.git#egg=pyelasticsearch
--e git+git://github.com/quinode/django-haystack.git#egg=django-haystack
--e git+git://github.com/quinode/haystackES-fr.git#egg=haystackES-fr
+git+git://github.com/rhec/pyelasticsearch.git
+git+git://github.com/quinode/django-haystack.git
+git+git://github.com/quinode/haystackES-fr.git
 
 # webid deps : not ready
 # pyOpenSSL
-# -e git+git://github.com/bennomadic/django-webid-auth@master#egg=django-webid-auth
-# -e git+git://github.com/bennomadic/django-webid-provider@master#egg=django-webid-provider
-# -e git+git://github.com/bennomadic/django-conneg@master#egg=django-conneg
+# git+git://github.com/bennomadic/django-webid-auth
+# git+git://github.com/bennomadic/django-webid-provider
+# git+git://github.com/bennomadic/django-conneg
 
 # coop_cms deps
 django-floppyforms==0.4.7
 django-pagination
 feedparser
--e git+git://github.com/gabrielgrant/django-html-field@master#egg=django-html-field
+git+git://github.com/gabrielgrant/django-html-field
 
 # central logging
 raven
@@ -108,4 +108,5 @@ django-multisite
 appy==0.8.2
 django-appypod==0.0.1
 pyxml==0.8.4
--e git+git://github.com/makinacorpus/django-selectable.git@master#egg=django-selectable
+git+git://github.com/makinacorpus/django-selectable.git
+git+git://github.com/credis/geo-django-fla.git
