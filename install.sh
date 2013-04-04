@@ -8,8 +8,8 @@ sudo apt-get update
 sudo apt-get install make git mercurial postgresql postgresql-9.1-postgis postgresql-server-dev-9.1 \
     python-virtualenv python-dev gdal-bin libgeoip1
 
-test -e bin/python || virtualenv .
-bin/pip install -r requirements.txt
+test -e ve/bin/python || virtualenv ve
+ve/bin/pip install -r requirements.txt
 
 if ! sudo -u postgres psql -tAc "SELECT 'ok' FROM pg_roles WHERE rolname='${db_user}'" | grep "ok"; then
     sudo -u postgres psql -c "CREATE USER ${db_user} PASSWORD '${db_pass}';"
@@ -23,26 +23,26 @@ if ! sudo -u postgres psql -tAl | grep "^${db_name}"; then
         sudo -u postgres psql ${db_name} -c "ALTER TABLE spatial_ref_sys OWNER TO ${db_user};"
 fi
 
-bin/python manage.py collectstatic --noinput
-bin/python manage.py syncdb --all --noinput
-bin/python manage.py migrate --fake
-bin/python manage.py loaddata coop_local/fixtures/area_types.json
-bin/python manage.py loaddata coop_local/fixtures/django_site.json
-bin/python manage.py loaddata coop_local/fixtures/exchange_methods.json
-bin/python manage.py loaddata coop_local/fixtures/linking_properties.json
-bin/python manage.py loaddata coop_local/fixtures/location_categories.json
-bin/python manage.py loaddata coop_local/fixtures/roles.json
-bin/python manage.py loaddata coop_local/fixtures/uriredirect.json
-bin/python manage.py loaddata coop_local/fixtures/user.json
-bin/python manage.py loaddata coop_local/fixtures/legalstatus.json
-bin/python manage.py loaddata coop_local/fixtures/organizationcategory.json
-bin/python manage.py loaddata coop_local/fixtures/categoryiae.json
-bin/python manage.py loaddata coop_local/fixtures/activitynomenclatureavise.json
-bin/python manage.py loaddata coop_local/fixtures/activitynomenclature.json
-bin/python manage.py loaddata coop_local/fixtures/clienttarget.json
-bin/python manage.py loaddata coop_local/fixtures/transversetheme.json
-bin/python manage.py loaddata coop_local/fixtures/guaranty.json
-bin/python manage.py loaddata coop_local/fixtures/agreementiae.json
-bin/python manage.py loaddata coop_local/fixtures/contact_mediums.json
-bin/python manage.py loaddata coop_local/fixtures/relation_types.json
-bin/python manage.py loaddata coop_local/fixtures/group.json
+ve/bin/python manage.py collectstatic --noinput
+ve/bin/python manage.py syncdb --all --noinput
+ve/bin/python manage.py migrate --fake
+ve/bin/python manage.py loaddata coop_local/fixtures/area_types.json
+ve/bin/python manage.py loaddata coop_local/fixtures/django_site.json
+ve/bin/python manage.py loaddata coop_local/fixtures/exchange_methods.json
+ve/bin/python manage.py loaddata coop_local/fixtures/linking_properties.json
+ve/bin/python manage.py loaddata coop_local/fixtures/location_categories.json
+ve/bin/python manage.py loaddata coop_local/fixtures/roles.json
+ve/bin/python manage.py loaddata coop_local/fixtures/uriredirect.json
+ve/bin/python manage.py loaddata coop_local/fixtures/user.json
+ve/bin/python manage.py loaddata coop_local/fixtures/legalstatus.json
+ve/bin/python manage.py loaddata coop_local/fixtures/organizationcategory.json
+ve/bin/python manage.py loaddata coop_local/fixtures/categoryiae.json
+ve/bin/python manage.py loaddata coop_local/fixtures/activitynomenclatureavise.json
+ve/bin/python manage.py loaddata coop_local/fixtures/activitynomenclature.json
+ve/bin/python manage.py loaddata coop_local/fixtures/clienttarget.json
+ve/bin/python manage.py loaddata coop_local/fixtures/transversetheme.json
+ve/bin/python manage.py loaddata coop_local/fixtures/guaranty.json
+ve/bin/python manage.py loaddata coop_local/fixtures/agreementiae.json
+ve/bin/python manage.py loaddata coop_local/fixtures/contact_mediums.json
+ve/bin/python manage.py loaddata coop_local/fixtures/relation_types.json
+ve/bin/python manage.py loaddata coop_local/fixtures/group.json

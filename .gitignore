@@ -1,8 +1,4 @@
-bin/
-include/
-lib/
-local/
-build/
+ve/
 static_collected/
 src/
 media/
