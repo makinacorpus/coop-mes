@@ -351,12 +351,14 @@ class OrganizationAdmin(BaseOrganizationAdmin):
 
     def change_view(self, request, object_id, form_url='', extra_context={}):
         obj = self.get_object(request, unquote(object_id))
-        if request.user.has_perm('coop_local.change_organization'):
+        if request.user.is_superuser:
             has_object_change_permission = True
-        elif request.user.has_perm('coop_local.change_its_organization'):
+        elif not request.user.has_perm('coop_local.change_organization'):
+            has_object_change_permission = False
+        elif request.user.has_perm('coop_local.change_only_his_organization'):
             has_object_change_permission = request.user in obj.authors.all()
         else:
-            has_object_change_permission = False
+            has_object_change_permission = True
         if not has_object_change_permission and request.method == 'POST':
             opts = obj._meta
             module_name = opts.module_name
@@ -457,6 +459,16 @@ class OrganizationAdmin(BaseOrganizationAdmin):
 
     def has_change_permission(self, request, obj=None):
         return request.user.has_perm('coop_local.view_organization')
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        elif not request.user.has_perm('coop_local.delete_organization'):
+            return False
+        elif obj is not None and request.user.has_perm('coop_local.delete_only_his_organization'):
+            return request.user in obj.authors.all()
+        else:
+            return True
 
 OrganizationAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 

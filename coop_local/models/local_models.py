@@ -417,9 +417,9 @@ class Organization(BaseOrganization):
         verbose_name_plural = _(u'Organizations')
         app_label = 'coop_local'
         permissions = (
-            ('view_organization', 'Can view Organization'),
-            ('change_its_organization', 'Can change its Organization'),
-            ('delete_its_organization', 'Can delete its Organization'),
+            ('view_organization', 'Can view organization'),
+            ('change_only_his_organization', 'Can change only his organization'),
+            ('delete_only_his_organization', 'Can delete only his organization'),
         )
 
 Organization._meta.get_field('category').verbose_name = _(u'category ESS')
