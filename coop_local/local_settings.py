@@ -79,3 +79,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_buttons1': 'bold,italic,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,unlink,|,code',
     'theme_advanced_buttons2': '', 'theme_advanced_buttons3': ''
 }
+
+ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 2
+
