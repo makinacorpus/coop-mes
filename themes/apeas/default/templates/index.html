@@ -1,0 +1,22 @@
+{% extends "themes/html5.html" %}
+{% load staticfiles %}
+
+{% block theme-design-css %}
+    <link rel="stylesheet" type="text/css" href="{% static "themes/apeas/default/css/index.css" %}">
+{% endblock %}
+
+{% block header %}
+    <div id="top-line" class="bg-orange">
+        <div class="bg-green"></div>
+        <div class="bg-blue"></div>
+    </div>
+    <header id="header">
+        {% include "apeas/default/templates/header.html" %}
+    </header>
+{% endblock header %}
+
+{% block footer %}
+    <footer id="footer">
+        {% include "apeas/default/templates/footer.html" %}
+    </footer>
+{% endblock footer %}

@@ -1,0 +1,13 @@
+{
+    "title": "Achetons solidaires APEAS",
+    "description": "Theme for http://www.achetons-solidaires-paca.com/ web site.",
+    "author": "Makina Corpus",
+    "website": "http://www.makina-corpus.com/",
+    "date": "13/03/2013",
+    "preview": "preview.png",
+    "editable": false,
+    "templates": [
+        {"title": "Standard", "file": "index.html", "preview": "index.png"},
+        {"title": "Home page", "file": "home.html", "preview": "home.png"}
+    ]
+}
