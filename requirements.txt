@@ -4,20 +4,12 @@ Django==1.4.5
 
 # coop apps
 
-# coop_cms
 # coop-geo
 # coop-tag
-# coop-bar
-# djaloha
-# coop-colorbox
 
-git+git://github.com/makinacorpus/django-coop.git
-git+git://github.com/credis/coop-colorbox.git
-git+git://github.com/credis/djaloha.git
-git+git://github.com/credis/coop-bar.git
+#git+git://github.com/makinacorpus/django-coop.git
 git+git://github.com/credis/coop-tag.git
 git+git://github.com/makinacorpus/coop-geo.git
-git+git://github.com/credis/coop_cms.git
 
 git+git://github.com/quinode/django-scanredirect
 
@@ -26,22 +18,21 @@ unicode-slugify
 git+git://github.com/quinode/django-preferences
 #fabric
 #fabtools
-django-mptt
 
 # forks we depend on
 hg+https://bitbucket.org/psyton/django-admin-tools
-git+git://github.com/quinode/django-templatetag-sugar
+git+git://github.com/quinode/django-templatetag-sugar.git
 
 # our forks
 git+git://github.com/makinacorpus/django-admintools-bootstrap.git
-git+git://github.com/quinode/uriredirect
+git+git://github.com/quinode/uriredirect.git
 
 
-git+git://github.com/django-extensions/django-extensions
-git+git://github.com/makinacorpus/django-chosen
+git+git://github.com/django-extensions/django-extensions.git
+git+git://github.com/makinacorpus/django-chosen.git
 
 # setup.py was broken
-git+git://github.com/quinode/djangoembed
+git+git://github.com/quinode/djangoembed.git
 
 # mailing deps
 SOAPpy
@@ -55,41 +46,31 @@ django-forms-builder
 
 # Queues
 rq
-git+git://github.com/ui/django-rq@8d8f9d7fd9a8857394862ff8125dd98c0028abed
+git+git://github.com/ui/django-rq.git@8d8f9d7fd9a8857394862ff8125dd98c0028abed
 
 django-apptemplates
 python-dateutil
-git+git://github.com/makinacorpus/sorl-thumbnail
+git+git://github.com/makinacorpus/sorl-thumbnail.git
 shortuuid
-django-tinymce
-git+git://github.com/twidi/django-extended-choices@develop
+django-tinymce==1.5.1b2
+git+git://github.com/twidi/django-extended-choices.git@develop
 hg+https://bitbucket.org/ubernostrum/django-profiles
 django-positions
 django-push
 mimeparse
 geohash
 rdflib
-git+git://github.com/RDFLib/rdfextras
-git+git://github.com/RDFLib/rdflib-jsonld
-git+git://github.com/RDFLib/rdflib-sparqlstore
-git+git://github.com/credis/subhub
+git+git://github.com/RDFLib/rdfextras.git
+git+git://github.com/RDFLib/rdflib-jsonld.git
+git+git://github.com/RDFLib/rdflib-sparqlstore.git
+git+git://github.com/credis/subhub.git
 django-appconf
-
-git+git://github.com/rhec/pyelasticsearch.git
-git+git://github.com/quinode/django-haystack.git
-git+git://github.com/quinode/haystackES-fr.git
 
 # webid deps : not ready
 # pyOpenSSL
-# git+git://github.com/bennomadic/django-webid-auth
-# git+git://github.com/bennomadic/django-webid-provider
-# git+git://github.com/bennomadic/django-conneg
-
-# coop_cms deps
-django-floppyforms==0.4.7
-django-pagination
-feedparser
-git+git://github.com/gabrielgrant/django-html-field
+# git+git://github.com/bennomadic/django-webid-auth.git
+# git+git://github.com/bennomadic/django-webid-provider.git
+# git+git://github.com/bennomadic/django-conneg.git
 
 # central logging
 raven
@@ -104,9 +85,29 @@ django-multisite
 # for spip translation
 # MySQL-python
 
+git+git://github.com/rhec/pyelasticsearch.git
+git+git://github.com/quinode/django-haystack.git
+git+git://github.com/quinode/haystackES-fr.git
+
 # MES specific
 appy==0.8.2
 django-appypod==0.0.1
 pyxml==0.8.4
-git+git://github.com/makinacorpus/django-selectable.git
+git+git://github.com/makinacorpus/django-selectable.git@master
 git+git://github.com/credis/geo-django-fla.git
+
+# Ionyweb
+git+git://github.com/makinacorpus/ionyweb.git
+Jinja2
+PIL
+PyYAML
+django-floppyforms
+django-mptt
+djangorestframework==0.4.0
+dnspython
+python-magic
+requests
+django-less
+django-sekizai
+django-grappelli==2.3.8
+URLObject

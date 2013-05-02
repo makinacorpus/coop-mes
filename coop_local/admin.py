@@ -481,14 +481,6 @@ class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
     search_fields = ('type', 'name')
 
 
-class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
-
-    related_search_fields = {'avise': ('label',), 'parent': ('path',)}
-    mptt_indent_field = 'label'
-    mptt_level_indent = 50
-    list_display = ('label', )
-
-
 class PersonAdmin(BasePersonAdmin):
     inlines = [ContactInline, OrgInline]
 
@@ -496,10 +488,7 @@ class PersonAdmin(BasePersonAdmin):
 admin.site.unregister(Organization)
 register(Guaranty, GuarantyAdmin)
 register(Organization, OrganizationAdmin)
-register(ActivityNomenclature, ActivityNomenclatureAdmin)
-register(ActivityNomenclatureAvise)
 register(ClientTarget)
-register(TransverseTheme)
 register(AgreementIAE)
 register(Contact)
 register(LegalStatus)

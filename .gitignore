@@ -5,3 +5,4 @@ media/
 project_install/config_dev.py
 *.pyc
 pg_dump.data
+build/

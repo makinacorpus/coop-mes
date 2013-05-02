@@ -225,44 +225,6 @@ class Reference(Relation):
 Reference._meta.get_field('source').verbose_name = _(u'customer')
 
 
-class ActivityNomenclatureAvise(models.Model):
-
-    label = models.CharField(_(u'label'), max_length=100, unique=True)
-
-    def __unicode__(self):
-        return self.label
-
-    class Meta:
-        verbose_name = _(u'AVISE activity nomenclature item')
-        verbose_name_plural = _(u'AVISE activity nomenclature')
-        app_label = 'coop_local'
-        ordering = ['label']
-
-
-class ActivityNomenclature(MPTTModel):
-
-    label = models.CharField(_(u'label'), max_length=100)
-    path = models.CharField(_(u'label'), max_length=306, editable=False) # denormalized field
-    parent = TreeForeignKey('self', verbose_name=_(u'parent'), null=True, blank=True, related_name='children')
-    avise = models.ForeignKey('ActivityNomenclatureAvise', verbose_name=_(u'AVISE equivalent'), blank=True, null=True)
-
-    def __unicode__(self):
-        return self.path
-
-    def save(self, *args, **kwargs):
-        labels = [item.label for item in self.parent.get_ancestors(include_self=True)] if self.parent else []
-        labels.append(self.label)
-        self.path = u' / '.join(labels)
-        super(ActivityNomenclature, self).save(*args, **kwargs)
-
-    class Meta:
-        unique_together = ('label', 'parent')
-        verbose_name = _(u'activity nomenclature item')
-        verbose_name_plural = _(u'activity nomenclature')
-        app_label = 'coop_local'
-        ordering = ['tree_id', 'lft'] # needed for TreeEditor
-
-
 class ClientTarget(models.Model):
 
     label = models.CharField(_(u'label'), max_length=100, unique=True)
@@ -274,21 +236,6 @@ class ClientTarget(models.Model):
         verbose_name = _(u'customer target')
         verbose_name_plural = _(u'customer targets')
         ordering = ['label']
-        app_label = 'coop_local'
-
-
-class TransverseTheme(models.Model):
-
-    name = models.CharField(_(u'name'), blank=True, max_length=100)
-    description = models.TextField(_(u'description'), blank=True)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _(u'theme')
-        verbose_name_plural = _(u'themes')
-        ordering = ['name']
         app_label = 'coop_local'
 
 
@@ -357,7 +304,6 @@ class Organization(BaseOrganization):
     # PROVIDER Description
     brief_description = models.TextField(_(u'brief description'), blank=True)
     added_value = models.TextField(_(u'added value'), blank=True)
-    transverse_themes = models.ManyToManyField('TransverseTheme', verbose_name=_(u'themes'), blank=True, null=True)
 
     # PROVIDER Economic data
     annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)
@@ -431,7 +377,7 @@ Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name'))
 
 class Offer(models.Model):
 
-    activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'))
+    activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
     description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)])
     targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'customer targets'), blank=True, null=True)
     technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
