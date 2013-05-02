@@ -1,5 +1,6 @@
-html {
-    font-size: 100%;
+@font-face {
+    font-family: "Melbourne";
+    src: url('../fonts/melbourne.otf');
 }
 
 body {
@@ -10,8 +11,7 @@ body {
 body, input {
     color: #999999;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 12px;
 }
 
 .bg-green {
@@ -63,7 +63,7 @@ body, input {
     border-left: solid 1px #dcdcdc;
     height: 100%;
     width: 179px;
-    padding-top: 2px;
+    padding-top: 3px;
     text-align: center;
 }
 
@@ -97,9 +97,9 @@ body, input {
     float: left;
     width: 85px;
     background: #d3d9e0;
-    height: 21px;
+    height: 17px;
     color: #7691ae;
-    padding: 6px 10px;
+    padding: 8px 10px;
     font-weight: bold;
 }
 
@@ -122,6 +122,13 @@ body, input {
     height: 39px;
     padding: 8px 15px 8px 60px;
     color: #ffffff;
+}
+
+#login #your-account {
+    margin-top: 5px;
+    font-family: "Melbourne";
+    font-weight: bold;
+    font-size: 14px;
 }
 
 nav {
@@ -159,7 +166,7 @@ nav a {
     text-decoration: none;
     font-weight: bold;
     text-shadow: 0 -2px #808080;
-    padding: 10px 10px;
+    padding: 12px 10px;
     margin: -8px 10px;
 }
 
@@ -212,4 +219,123 @@ nav a:hover {
     width: 940px;
     margin: 10px auto;
     padding: 10px;
+}
+
+#accueil-bleu {
+    background-color: #86bddc;
+}
+
+.page-header {
+    height: 40px;
+    background: url('../images/3dots.png') repeat-x 0 35px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    height: 30px;
+    margin: 0;
+    padding-top: 7px;
+    font-family: "Melbourne", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+}
+
+#home-search h2 {
+    background: url('../images/icon-search.png') no-repeat;
+    padding-left: 44px;
+}
+
+#last-news h2 {
+    background: url('../images/icon-last-news.png') no-repeat;
+    padding-left: 44px;
+}
+
+#direct-header {
+    border: solid 1px #8393a0;
+    height: 42px;
+    background: url('../images/icon-direct.png') no-repeat;
+    box-shadow: 0px 2px 4px #aaa;
+}
+
+#direct-header h2 {
+    margin-left: 70px;
+    padding-top: 14px;
+    display: inline-block;
+}
+
+#direct ul {
+    float: right;
+    margin: 13px 0;
+}
+
+#direct li {
+    display: inline;
+    font-weight: bold;
+    height: 20px;
+    padding: 13px 10px;
+    padding-left: 30px;
+    border-left: solid 1px #dcdcdc;
+    background: url('../images/arrow-right.png') no-repeat 13px 12px;
+}
+
+#direct li:first-child {
+    border-left: none;
+}
+
+#direct li:hover {
+    background-color: #dcdcdc;
+}
+
+#direct li.selected {
+    background: #dcdcdc url('../images/arrow-down.png') 10px 16px no-repeat;
+}
+
+h3 {
+    margin: 0;
+    font-size: 13px;
+    border-bottom: solid 1px #d6d6d6;
+    padding-bottom: 8px;
+}
+
+h4 {
+    margin: 0;
+    margin-top: 2px;
+    color: #d6d6d6;
+    font-size: 10px;
+    border-bottom: solid 1px #d6d6d6;
+}
+
+#home-annuaire h3 {
+    background: url('../images/icon-annuaire.png') no-repeat 15px 0;
+    padding-left: 40px;
+}
+
+#home-carto h3 {
+    background: url('../images/icon-carto.png') no-repeat 7px 0;
+    padding-left: 40px;
+}
+
+#home-carto img {
+    display: block;
+    margin: 10px auto;
+}
+
+.button {
+    padding: 5px 20px;
+    background: #9cc464;
+    background: linear-gradient( #b1cd80, #8fba46);
+    border-radius: 5px;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 0px 1px 0px #728d4a;
+    border: solid 1px #74963f;
+    margin: 10px auto;
+}
+
+p {
+    text-align: justify;
+}
+
+.center {
+    text-align: center;
 }

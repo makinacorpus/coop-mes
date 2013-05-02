@@ -50,6 +50,9 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'coop_geo',  # est obligatoirement APRES coop_local
     'mptt',
     'geodjangofla',
+    'plugin_home_search',
+    'plugin_last_news',
+    'plugin_direct',
 ]
 
 # TODO: to be discuss this settings could be in default_project_setings.py
