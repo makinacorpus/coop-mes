@@ -6,19 +6,21 @@
 
 <div id="accueil-bleu">
 
-    <div style="width: 50%; float: left; min-height: 1px;">
-    <div style="margin-right: 15px;">
-        {% render_placeholder "1" %}
-    </div>
-    </div>
+    <div id="accueil-bleu-content">
 
-    <div style="width: 50%; float: left; min-height: 1px;">
-    {% render_placeholder "2" %}
+        <div class="accueil-bleu-left">
+            {% render_placeholder "1" %}
+        </div>
+
+        <div class="accueil-bleu-right">
+            {% render_placeholder "2" %}
+        </div>
+
     </div>
 
 </div>
 
-<div style="clear: both; width: 100%;">
+<div id="accueil-bottom">
   {% render_placeholder "3" %}
 </div>
 

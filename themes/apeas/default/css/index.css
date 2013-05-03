@@ -214,15 +214,50 @@ nav a:hover {
     font-size: 12px;
 }
 
-#main-content {
+/*#main-content {
     border: solid 4px #e8ebef;
     width: 940px;
     margin: 10px auto;
     padding: 10px;
-}
+}*/
 
 #accueil-bleu {
     background-color: #86bddc;
+    height: 390px;
+}
+
+#accueil-bleu-content {
+    position: relative;
+    width: 940px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.accueil-bleu-left, .accueil-bleu-right {
+    position: absolute;
+    width: 445px;
+    height: 330px;
+    padding: 10px;
+    box-shadow: 0px 2px 4px #aaa;
+    background: #ffffff;
+}
+
+.accueil-bleu-left {
+    top: 20px;
+    left: 0;
+}
+
+.accueil-bleu-right {
+    top: 20px;
+    left: 485px;
+}
+
+#accueil-bottom {
+    width: 940px;
+    margin: 0 auto 10px auto;
+    padding: 10px;
+    border: solid 4px #e8ebef;
+    border-top: none;
 }
 
 .page-header {
@@ -287,6 +322,21 @@ h2 {
 
 #direct li.selected {
     background: #dcdcdc url('../images/arrow-down.png') 10px 16px no-repeat;
+}
+
+#direct-content {
+    padding: 10px;
+    padding-left: 240px;
+    height: 250px;
+    background: url('../images/pastille-appels-offres.png') no-repeat 60px 60px;
+}
+
+#direct-content div {
+    float: left;
+    width: 210px;
+    height: 110px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 h3 {
