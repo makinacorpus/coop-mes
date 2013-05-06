@@ -2,39 +2,78 @@
     <div id="direct-header">
         <h2>{{ object.title }}</h2>
         <ul>
-            <li class="selected">Appel d'offre</li><li>Fournisseurs</li><li>Acheteurs</li><li>Agenda</li><li>Actualités</li>
+            <li class="selected" data-tab="appels_d_offres">Appels d'offres</li><li data-tab="fournisseurs">Fournisseurs</li><li data-tab="acheteurs">Acheteurs</li><li data-tab="agenda">Agenda</li><li data-tab="actualites">Actualités</li>
         </ul>
     </div>
-    <div id="direct-content">
+    <div class="direct-content selected" data-tab="appels_d_offres">
         <div>
-            <h3>Nom de l'appel d'offre</h3>
+            <h3><a href="#">Nom de l'appel d'offre</a></h3>
             <h4>25/01/2013 - Catégorie Lorem ipsum</h4>
             <p>This is the Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor.</p>
         </div>
         <div>
-            <h3>Nom de l'appel d'offre</h3>
+            <h3><a href="#">Nom de l'appel d'offre</a></h3>
             <h4>25/01/2013 - Catégorie Lorem ipsum</h4>
             <p>This is the Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor.</p>
         </div>
         <div>
-            <h3>Nom de l'appel d'offre</h3>
+            <h3><a href="#">Nom de l'appel d'offre</a></h3>
             <h4>25/01/2013 - Catégorie Lorem ipsum</h4>
             <p>This is the Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor.</p>
         </div>
         <div>
-            <h3>Nom de l'appel d'offre</h3>
+            <h3><a href="#">Nom de l'appel d'offre</a></h3>
             <h4>25/01/2013 - Catégorie Lorem ipsum</h4>
             <p>This is the Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor.</p>
         </div>
         <div>
-            <h3>Nom de l'appel d'offre</h3>
+            <h3><a href="#">Nom de l'appel d'offre</a></h3>
             <h4>25/01/2013 - Catégorie Lorem ipsum</h4>
             <p>This is the Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor.</p>
         </div>
         <div>
-            <h3>Nom de l'appel d'offre</h3>
+            <h3><a href="#">Nom de l'appel d'offre</a></h3>
             <h4>25/01/2013 - Catégorie Lorem ipsum</h4>
             <p>This is the Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor.</p>
         </div>
     </div>
+    <div class="direct-content" data-tab="fournisseurs">
+        {% for provider in providers %}
+            <div>
+                <h3><a href="#">{{ provider.label }}</a></h3>
+                <h4>{{ provider.validation|date:"d/m/Y" }} - Catégorie {{ provider.category.all|join:", " }}</h4>
+                <p>{{ provider.brief_description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="direct-content" data-tab="acheteurs">
+        {% for customer in customers %}
+            <div>
+                <h3><a href="#">{{ customer.label }}</a></h3>
+                <h4>{{ customer.validation|date:"d/m/Y" }} - Catégorie {{ customer.category.all|join:", " }}</h4>
+                <p>{{ customer.brief_description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="direct-content" data-tab="agenda">
+    </div>
+    <div class="direct-content" data-tab="actualites">
+        {% for actu in actus %}
+            <div>
+                <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
+                <h4>{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</h4>
+                {{ actu.body|safe }}
+            </div>
+        {% endfor %}
+    </div>
 </div>
+
+<script type="text/javascript">
+    $("#direct-header li").click(function(event) {
+        var tab = $(this).attr("data-tab");
+        $("#direct-header li").removeClass("selected");
+        $(".direct-content").removeClass("selected");
+        $(this).addClass("selected");
+        $(".direct-content[data-tab=" + tab + "]").addClass("selected");
+    });
+</script>
