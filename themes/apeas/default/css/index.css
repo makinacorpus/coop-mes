@@ -38,17 +38,10 @@ body, input {
 }
 
 #header {
-/*     background: url('../images/logo.png') no-repeat 8px 12px; */
     position: relative;
     width: 960px;
     height: 121px;
     margin: 0 auto;
-}
-
-#logo {
-    position: absolute;
-    top: 8px;
-    left: 12px;
 }
 
 #top-links {
@@ -446,7 +439,7 @@ p {
     margin-top: 0;
 }
 
-#layout-content > .placeholder {
+#main-content > #layout-content > .placeholder {
     width: 960px;
     margin: 0 auto;
 }
