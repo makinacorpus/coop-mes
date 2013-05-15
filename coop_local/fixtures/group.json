@@ -111,6 +111,36 @@
                     "offer"
                 ],
                 [
+                    "add_organization",
+                    "coop_local",
+                    "organization"
+                ],
+                [
+                    "change_only_his_organization",
+                    "coop_local",
+                    "organization"
+                ],
+                [
+                    "change_organization",
+                    "coop_local",
+                    "organization"
+                ],
+                [
+                    "delete_only_his_organization",
+                    "coop_local",
+                    "organization"
+                ],
+                [
+                    "delete_organization",
+                    "coop_local",
+                    "organization"
+                ],
+                [
+                    "view_organization",
+                    "coop_local",
+                    "organization"
+                ],
+                [
                     "add_person",
                     "coop_local",
                     "person"
@@ -126,24 +156,19 @@
                     "person"
                 ],
                 [
-                    "add_organization",
+                    "add_reference",
                     "coop_local",
-                    "organization"
+                    "reference"
                 ],
                 [
-                    "change_its_organization",
+                    "change_reference",
                     "coop_local",
-                    "organization"
+                    "reference"
                 ],
                 [
-                    "view_organization",
+                    "delete_reference",
                     "coop_local",
-                    "organization"
-                ],
-                [
-                    "delete_its_organization",
-                    "coop_local",
-                    "organization"
+                    "reference"
                 ],
                 [
                     "add_relation",
@@ -159,21 +184,6 @@
                     "delete_relation",
                     "coop_local",
                     "relation"
-                ],
-                [
-                    "add_reference",
-                    "coop_local",
-                    "reference"
-                ],
-                [
-                    "change_reference",
-                    "coop_local",
-                    "reference"
-                ],
-                [
-                    "delete_reference",
-                    "coop_local",
-                    "reference"
                 ]
             ]
         }
