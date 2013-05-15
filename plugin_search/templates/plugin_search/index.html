@@ -1,0 +1,33 @@
+<form id="annuaires-search">
+    <table>
+        <tr>
+            <td>
+                <label>Je recherche</label>
+                {{ form.org_type }}
+            </td>
+            <td rowspan="2">
+                <label>Secteur d'activité</label>
+                {{ form.sector }}
+            </td>
+            <td>
+                <label>Territoire</label>
+                {{ form.area }}
+            </td>
+            <td id="results">
+                <p>888</p>
+                <p>Résultats</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <label>Recherche libre</label>
+                {{ form.q }}
+            </td>
+            <td class="center">
+                <input class="button" type="submit" value="Cartographie">
+            </td>
+        </tr>
+    <table>
+</form>

@@ -5,8 +5,9 @@ from ionyweb.plugin.models import AbstractPlugin
 
 
 class Plugin_HomeSearch(AbstractPlugin):
-    
-    # Define your fields here
+
+    texte_annuaire = models.TextField(blank=True)
+    texte_carto = models.TextField(blank=True)
 
     def __unicode__(self):
         return u'HomeSearch #%d' % (self.pk)

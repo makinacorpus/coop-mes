@@ -38,12 +38,17 @@ body, input {
 }
 
 #header {
-    background: url('../images/logo.png') no-repeat 8px 12px;
+/*     background: url('../images/logo.png') no-repeat 8px 12px; */
     position: relative;
     width: 960px;
     height: 121px;
     margin: 0 auto;
-/*     overflow: hidden; */
+}
+
+#logo {
+    position: absolute;
+    top: 8px;
+    left: 12px;
 }
 
 #top-links {
@@ -405,8 +410,8 @@ h4 {
 
 .button {
     padding: 5px 20px;
-    background: #9cc464;
-    background: linear-gradient( #b1cd80, #8fba46);
+    background-color: #9cc464;
+    background-image: linear-gradient(#b1cd80, #8fba46);
     border-radius: 5px;
     color: #ffffff;
     text-decoration: none;
@@ -423,4 +428,91 @@ p {
 
 .center {
     text-align: center;
+}
+
+#home-annuaire select {
+    background: #7a8ea6;
+    background-image: url('dropdown.png') no-repeat right;
+    border: solid 1px #5e6e7e;
+    border-radius: 3px;
+    color: #ffffff;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 3px;
+    font-weight: bold;
+}
+
+#home-annuaire p.center {
+    margin-top: 0;
+}
+
+#layout-content > .placeholder {
+    width: 960px;
+    margin: 0 auto;
+}
+
+#annuaires-search table {
+    width: 968px;
+    border: solid 4px #51A3D3;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+#annuaires-search td {
+    width: 25%;
+    border: solid 1px #D7DBDE;
+    padding: 10px;
+    vertical-align: top;
+}
+
+#annuaires-search label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #565656;
+    display: block;
+}
+
+#annuaires-search #results {
+    background-color: #51A3D3;
+    color: #ffffff;
+}
+
+#annuaires-search #results p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#annuaires-search #results p:first-child {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#annuaires-search select {
+    background: #ffffff;
+    background-image: url('dropdown.png') no-repeat right;
+    border: solid 1px #EAEAEA;
+    border-radius: 3px;
+    color: #7790A6;
+    width: 100%;
+    padding: 3px;
+    margin-top: 8px;
+    font-weight: bold;
+    box-shadow: 0px 2px 0px #EAEAEA;
+}
+
+#annuaires-search input[type=text] {
+    border: solid 1px #EAEAEA;
+    border-radius: 3px;
+    width: 190px;
+    padding: 4px;
+    padding-left: 25px;
+    margin-top: 4px;
+    font-style: italic;
+    background: url('../images/search.png') no-repeat 5px 4px;
+}
+
+#annuaires-search .button {
+    background-image: linear-gradient(#b1cd80, #8fba46), url('../images/icon-carto-white.png') no-repeat 10px 2px;
+    padding-left: 40px;
 }
