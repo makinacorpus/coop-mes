@@ -359,7 +359,7 @@ h2 a {
     background: url('../images/les_actualites.png') no-repeat 60px 60px;
 }
 
-.direct-content div {
+.direct-content > div {
     float: left;
     width: 210px;
     height: 110px;
@@ -444,7 +444,7 @@ p {
     margin-top: 0;
 }
 
-#main-content > #layout-content > .placeholder {
+body > #main-content > #layout-content > .placeholder {
     width: 968px;
     margin: 0 auto;
 }
