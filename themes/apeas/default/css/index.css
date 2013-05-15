@@ -179,7 +179,7 @@ nav a:hover {
 #footer {
     border: solid 4px #e8ebef;
     width: 960px;
-    margin: 0 auto;
+    margin: 10px auto 0 auto;
     padding-top: 75px;
     background: url('../images/logo-footer.png') no-repeat 333px 15px;
     text-align: center;
@@ -270,6 +270,11 @@ h2 {
     padding-top: 7px;
     font-family: "Melbourne", Helvetica, Arial, sans-serif;
     font-size: 15px;
+}
+
+h2 a {
+    text-decoration: none;
+    color: #999999;
 }
 
 #home-search h2 {
@@ -440,7 +445,7 @@ p {
 }
 
 #main-content > #layout-content > .placeholder {
-    width: 960px;
+    width: 968px;
     margin: 0 auto;
 }
 
@@ -508,4 +513,10 @@ p {
 #annuaires-search .button {
     background-image: linear-gradient(#b1cd80, #8fba46), url('../images/icon-carto-white.png') no-repeat 10px 2px;
     padding-left: 40px;
+}
+
+.pasr-box {
+    border: solid 4px #e8ebef;
+    margin-top: 10px;
+    padding: 10px;
 }
