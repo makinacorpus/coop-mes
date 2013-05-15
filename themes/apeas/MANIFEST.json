@@ -5,9 +5,5 @@
     "website": "http://www.makina-corpus.com/",
     "date": "13/03/2013",
     "preview": "preview.png",
-    "editable": false,
-    "templates": [
-        {"title": "Standard", "file": "index.html", "preview": "index.png"},
-        {"title": "Home page", "file": "home.html", "preview": "home.png"}
-    ]
+    "editable": false
 }

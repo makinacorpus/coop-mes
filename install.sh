@@ -9,7 +9,8 @@ sudo apt-get install make git mercurial postgresql postgresql-9.1-postgis postgr
     python-virtualenv python-dev gdal-bin libgeoip1
 
 test -e ve/bin/python || virtualenv ve
-ve/bin/pip install -r requirements.txt
+ve/bin/pip install -U distribute
+ve/bin/pip install --no-deps -r requirements.txt
 
 if ! sudo -u postgres psql -tAc "SELECT 'ok' FROM pg_roles WHERE rolname='${db_user}'" | grep "ok"; then
     sudo -u postgres psql -c "CREATE USER ${db_user} PASSWORD '${db_pass}';"

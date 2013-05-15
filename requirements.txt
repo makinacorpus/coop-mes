@@ -7,7 +7,7 @@ Django==1.4.5
 # coop-geo
 # coop-tag
 
-#git+git://github.com/makinacorpus/django-coop.git
+-e git+git://github.com/makinacorpus/django-coop.git@pasr#egg=django-coop
 git+git://github.com/credis/coop-tag.git
 git+git://github.com/makinacorpus/coop-geo.git
 
@@ -113,3 +113,19 @@ django-grappelli==2.3.8
 URLObject
 django-classy-tags>=0.3.1
 MySQL-python
+
+# Various deps
+isodate
+redis==2.7.2
+times
+pytz
+six
+importlib
+unidecode
+feedparser
+httplib2
+simplejson
+django-email-extras
+python-gnupg
+sphinx-me
+BeautifulSoup
