@@ -75,13 +75,13 @@
         </div>
     {% endfor %}
     <div class="pagination bottom-pagination">
-        Page&nbsp;:
+        Page&nbsp;:&nbsp;
         {% for p in orgs.paginator.page_range %}
-            <span class="page-link{% if p == orgs.number %} current{% endif %}">{{ p }}</span>
+            <a href="?page={{ p }}" class="page-link{% if p == orgs.number %} current{% endif %}">{{ p }}</a>
         {% endfor %}
         <span class="step-links">
-            <a href="?page={{ orgs.previous_page_number }}" disabled="{{ orgs.has_previous|yesno:"true,false" }}">&lt;</a>
-            <a href="?page={{ orgs.next_page_number }}" disabled="{{ orgs.has_next|yesno:"true,false" }}">Page suivante &gt;</a>
+            <a href="?page={{ orgs.previous_page_number }}" class="prev-link" disabled="{{ orgs.has_previous|yesno:"true,false" }}">&nbsp;</a>
+            <a href="?page={{ orgs.next_page_number }}" class="next-link" disabled="{{ orgs.has_next|yesno:"true,false" }}">Page suivante</a>
         </span>
     </div>
 {% else %}
