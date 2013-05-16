@@ -9,19 +9,19 @@
 <h3>Annuaire</h3>
 <p>{{ object.texte_annuaire }}</p>
 <form method="POST" action="/annuaires">
-<select>
+<select name="org_type">
     <option value="">Acheteur / fournisseur</option>
     <option value="fournisseur">Fournisseur</option>
     <option value="acheteur-prive">Acheteur privé</option>
     <option value="acheteur-public">Acheteur public</option>
 </select><br />
-<select>
+<select name="sector">
     <option value="">Secteur d'activité</option>
 {% for sector in sectors %}
     <option value="{{ sector.id }}">{{ sector.label }}</option>
 {% endfor %}
 </select><br />
-<select>
+<select name="area">
     <option value="">Territoire</option>
 </select><br />
 <p class="center"><input class="button" type="submit" value="Rechercher"></p>

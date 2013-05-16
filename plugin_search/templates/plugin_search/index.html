@@ -1,4 +1,4 @@
-<form id="annuaires-search">
+<form id="annuaires-search" method="POST" action="#">
     <table>
         <tr>
             <td>
@@ -14,20 +14,77 @@
                 {{ form.area }}
             </td>
             <td id="results">
-                <p>888</p>
-                <p>Résultats</p>
+                <p>{{ orgs|length }}</p>
+                <p>Résultat{{ orgs|length|pluralize }}</p>
             </td>
         </tr>
         <tr>
-            <td>
+            <td id="prov-type-cell">
+                <label>Type de fournisseur</label>
+                {{ form.prov_type }}
             </td>
             <td>
                 <label>Recherche libre</label>
                 {{ form.q }}
             </td>
             <td class="center">
-                <input class="button" type="submit" value="Cartographie">
+                <input class="button" type="submit" value="Rechercher">
             </td>
         </tr>
-    <table>
+    </table>
 </form>
+
+<script type="text/javascript">
+    // Show org_type search field only if "Fournisseurs" is selected
+    function org_type_change() {
+        var cell = document.getElementById('prov-type-cell');
+        if (this.options[this.selectedIndex].value == "fournisseur") {
+            cell.style.visibility = 'visible';
+        } else {
+            cell.style.visibility = 'hidden';
+        }
+    };
+    var org_type_select = document.getElementById('id_org_type');
+    org_type_select.addEventListener(
+        "change",
+        org_type_change,
+        false
+    );
+    org_type_change.apply(org_type_select);
+</script>
+
+<div id="annuaire-results" class="pasr-box">
+{% if orgs.object_list %}
+    <div class="pagination top-pagination">
+        Page&nbsp;:&nbsp;
+        {% for p in orgs.paginator.page_range %}
+            <a href="?page={{ p }}" class="page-link{% if p == orgs.number %} current{% endif %}">{{ p }}</a>
+        {% endfor %}
+        <span class="step-links">
+            <a href="?page={{ orgs.previous_page_number }}" class="prev-link" disabled="{{ orgs.has_previous|yesno:"true,false" }}">&nbsp;</a>
+            <a href="?page={{ orgs.next_page_number }}" class="next-link" disabled="{{ orgs.has_next|yesno:"true,false" }}">Page suivante</a>
+        </span>
+    </div>
+    {% for org in orgs %}
+        <div class="result{% if forloop.last %} last{% endif %}">
+            <a class="blue-button" href="#">Lieu de l'activité</a>
+            <p class="activity">{{ org.offer_activities }}</p>
+            <p class="title">{{ org.title }}</p>
+            <p>{{ org.brief_description }}</p>
+            <a class="button" href="#">Fiche personnelle</a>
+        </div>
+    {% endfor %}
+    <div class="pagination bottom-pagination">
+        Page&nbsp;:
+        {% for p in orgs.paginator.page_range %}
+            <span class="page-link{% if p == orgs.number %} current{% endif %}">{{ p }}</span>
+        {% endfor %}
+        <span class="step-links">
+            <a href="?page={{ orgs.previous_page_number }}" disabled="{{ orgs.has_previous|yesno:"true,false" }}">&lt;</a>
+            <a href="?page={{ orgs.next_page_number }}" disabled="{{ orgs.has_next|yesno:"true,false" }}">Page suivante &gt;</a>
+        </span>
+    </div>
+{% else %}
+    <p>Aucun résultat.</p>
+{% endif %}
+</div>

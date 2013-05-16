@@ -512,11 +512,90 @@ body > #main-content > #layout-content > .placeholder {
 
 #annuaires-search .button {
     background-image: linear-gradient(#b1cd80, #8fba46), url('../images/icon-carto-white.png') no-repeat 10px 2px;
-    padding-left: 40px;
+/*     padding-left: 40px; */
+}
+
+#annuaire-results .top-pagination {
+    background: url('../images/3dots.png') repeat-x 0 25px;
+    height: 30px;
+}
+
+#annuaire-results .bottom-pagination {
+    padding-top: 15px;
+    background: url('../images/3dots.png') repeat-x;
+}
+
+#annuaire-results .pagination .page-link {
+    background: #D7DBDE;
+    color: #ffffff;
+    padding: 2px 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#annuaire-results .pagination .page-link:hover {
+    background: #51A3D3;
+}
+
+#annuaire-results .pagination .page-link.current {
+    background: #51A3D3;
+}
+
+#annuaire-results .pagination .step-links {
+    float: right;
+}
+
+#annuaire-results .pagination .step-links a {
+    text-decoration: none;
+    color: #999999;
+}
+
+#annuaire-results .pagination .prev-link {
+    background: url('../images/icon-prev.png') no-repeat;
+    padding:  3px 0 3px 20px;
+    border-right: solid 1px #D7DBDE;
+}
+
+#annuaire-results .pagination .next-link {
+    background: url('../images/icon-next.png') no-repeat top right;
+    padding:  3px 20px 3px 10px;
+}
+
+#annuaire-results .result {
+    padding-bottom: 20px;
+    border-bottom: solid 1px #D7DBDE;
+}
+
+#annuaire-results .result.last {
+    border-bottom: none;
+}
+
+#annuaire-results .blue-button {
+    float: right;
+    padding: 3px 10px;
+    border-radius: 3px;
+    color: #7790A6;
+    text-decoration: none;
+    text-align: center;
+    border: solid 1px #C9DFF4;
+    cursor: pointer;
+    background: #EFF6FE url('../images/icon-lieu.png') no-repeat 7px 4px;
+    padding-left: 20px;
+}
+
+#annuaire-results .title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #575757;
 }
 
 .pasr-box {
     border: solid 4px #e8ebef;
     margin-top: 10px;
     padding: 10px;
+}
+
+.wa_placeholder_structure, .wa_placeholder_widget {
+    z-index: 999;
 }

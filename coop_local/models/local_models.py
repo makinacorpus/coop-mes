@@ -357,6 +357,9 @@ class Organization(BaseOrganization):
     def engagements(self):
         return Engagement.objects.filter(organization=self)
 
+    def offer_activities(self):
+        return ", ".join([o.activity.label for o in self.offer_set.all()])
+
     class Meta:
         ordering = ['title']
         verbose_name = _(u'Organization')
