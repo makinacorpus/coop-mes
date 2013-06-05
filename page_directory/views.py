@@ -6,6 +6,7 @@ from .forms import OrgSearch
 from coop_local.models import Organization
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.shortcuts import get_object_or_404
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
 MEDIAS = (
@@ -53,5 +54,13 @@ def index_view(request, page_app):
     return render_view('page_directory/index.html',
                        {'object': page_app, 'form': form, 'orgs': orgs_page,
                         'get_params': get_params.urlencode()},
+                       MEDIAS,
+                       context_instance=RequestContext(request))
+
+
+def detail_view(request, page_app, pk):
+    org = get_object_or_404(Organization, pk=pk)
+    return render_view('page_directory/detail.html',
+                       {'object': page_app, 'org': org},
                        MEDIAS,
                        context_instance=RequestContext(request))
