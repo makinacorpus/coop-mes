@@ -361,7 +361,7 @@ class Organization(BaseOrganization):
         return Engagement.objects.filter(organization=self)
 
     def offer_activities(self):
-        return ", ".join([o.activity.label for o in self.offer_set.all()])
+        return ", ".join(self.offer_set.values_list('activity__label', flat=True).distinct())
 
     class Meta:
         ordering = ['title']
