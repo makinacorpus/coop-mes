@@ -17,6 +17,7 @@ from coop.person.models import BasePerson
 from coop_geo.models import Located as BaseLocated
 from unidecode import unidecode
 import re
+from django.contrib.gis.db.models import GeoManager
  
 ADMIN_THUMBS_SIZE = '60x60'
 
@@ -328,6 +329,8 @@ class Organization(BaseOrganization):
 
     # COMMON Search
     norm_title = models.CharField(max_length=250, unique=True)
+
+    geo_objects = GeoManager()
 
     def save(self, *args, **kwargs):
         self.norm_title = normalize_text(self.title)

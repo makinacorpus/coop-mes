@@ -19,7 +19,7 @@ MEDIAS = (
 def index_view(request, plugin):
     form = OrgSearch(request.POST)
     if form.is_valid():
-        orgs = Organization.objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
+        orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
         orgs = orgs.filter(title__icontains=form.cleaned_data['q'])
         if form.cleaned_data['org_type'] == 'fournisseur':
             orgs = orgs.filter(is_provider=True)
@@ -33,6 +33,9 @@ def index_view(request, plugin):
         if sector:
             descendants = sector.get_descendants(include_self=True)
             orgs = orgs.filter(offer__activity__in=descendants)
+        if form.cleaned_data['area']:
+            orgs = orgs.filter(offer__area__polygon__intersects=form.cleaned_data['area'].polygon)
+        orgs = orgs.distinct()
     else:
         orgs = Organization.objects.none()
     paginator = Paginator(orgs, 10)

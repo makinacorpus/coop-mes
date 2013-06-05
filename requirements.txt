@@ -130,4 +130,4 @@ python-gnupg
 sphinx-me
 BeautifulSoup
 django-filebrowser
-django-grappelli
+
