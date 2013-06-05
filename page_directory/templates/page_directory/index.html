@@ -1,3 +1,5 @@
+{% load thumbnail %}
+
 <form id="annuaires-search" method="GET" action="#">
     <table>
         <tr>
@@ -60,6 +62,13 @@
     </div>
     {% for org in orgs %}
         <div class="result{% if forloop.last %} last{% endif %}">
+            {% if org.logo %}
+                {% thumbnail org.logo "220x140" upscale=0 as logo %}
+                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" />
+                {% endthumbnail %}
+            {% else %}
+                <div class="logo"></div>
+            {% endif %}
             {% with org.main_location.city as city %}{% if city %}
                 <span class="blue-button" href="#">{{ city }}</span>
             {% endif %}{% endwith %}

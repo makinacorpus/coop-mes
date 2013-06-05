@@ -565,6 +565,18 @@ body > #main-content > #layout-content > .placeholder {
 #annuaire-results .result {
     padding-bottom: 20px;
     border-bottom: solid 1px #D7DBDE;
+    clear: both;
+    min-height: 140px;
+}
+
+#annuaire-results .result .logo {
+    float: left;
+    margin-right: 20px;
+}
+
+#annuaire-results .result div.logo {
+    width: 220px;
+    height: 140px;
 }
 
 #annuaire-results .result.last {
