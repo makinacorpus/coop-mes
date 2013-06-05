@@ -579,7 +579,6 @@ body > #main-content > #layout-content > .placeholder {
     text-decoration: none;
     text-align: center;
     border: solid 1px #C9DFF4;
-    cursor: pointer;
     background: #EFF6FE url('../images/icon-lieu.png') no-repeat 7px 4px;
     padding-left: 20px;
 }

@@ -60,7 +60,9 @@
     </div>
     {% for org in orgs %}
         <div class="result{% if forloop.last %} last{% endif %}">
-            <a class="blue-button" href="#">Lieu de l'activité</a>
+            {% with org.main_location.city as city %}{% if city %}
+                <span class="blue-button" href="#">{{ city }}</span>
+            {% endif %}{% endwith %}
             <p class="activity">{{ org.offer_activities }}</p>
             <p class="title">{{ org.title }}</p>
             <p>{{ org.brief_description }}</p>
