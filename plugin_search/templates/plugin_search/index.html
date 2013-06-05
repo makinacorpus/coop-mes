@@ -1,4 +1,4 @@
-<form id="annuaires-search" method="POST" action="#">
+<form id="annuaires-search" method="GET" action="#">
     <table>
         <tr>
             <td>
@@ -56,14 +56,7 @@
 <div id="annuaire-results" class="pasr-box">
 {% if orgs.object_list %}
     <div class="pagination top-pagination">
-        Page&nbsp;:&nbsp;
-        {% for p in orgs.paginator.page_range %}
-            <a href="?page={{ p }}" class="page-link{% if p == orgs.number %} current{% endif %}">{{ p }}</a>
-        {% endfor %}
-        <span class="step-links">
-            <a href="?page={{ orgs.previous_page_number }}" class="prev-link" disabled="{{ orgs.has_previous|yesno:"true,false" }}">&nbsp;</a>
-            <a href="?page={{ orgs.next_page_number }}" class="next-link" disabled="{{ orgs.has_next|yesno:"true,false" }}">Page suivante</a>
-        </span>
+        {% include "plugin_search/pagination.html" %}
     </div>
     {% for org in orgs %}
         <div class="result{% if forloop.last %} last{% endif %}">
@@ -75,14 +68,7 @@
         </div>
     {% endfor %}
     <div class="pagination bottom-pagination">
-        Page&nbsp;:&nbsp;
-        {% for p in orgs.paginator.page_range %}
-            <a href="?page={{ p }}" class="page-link{% if p == orgs.number %} current{% endif %}">{{ p }}</a>
-        {% endfor %}
-        <span class="step-links">
-            <a href="?page={{ orgs.previous_page_number }}" class="prev-link" disabled="{{ orgs.has_previous|yesno:"true,false" }}">&nbsp;</a>
-            <a href="?page={{ orgs.next_page_number }}" class="next-link" disabled="{{ orgs.has_next|yesno:"true,false" }}">Page suivante</a>
-        </span>
+        {% include "plugin_search/pagination.html" %}
     </div>
 {% else %}
     <p>Aucun résultat.</p>

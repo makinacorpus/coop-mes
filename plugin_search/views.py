@@ -17,7 +17,7 @@ MEDIAS = (
     )
 
 def index_view(request, plugin):
-    form = OrgSearch(request.POST)
+    form = OrgSearch(request.GET)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
         orgs = orgs.filter(title__icontains=form.cleaned_data['q'])
@@ -46,7 +46,11 @@ def index_view(request, plugin):
         orgs_page = paginator.page(1)
     except EmptyPage:
         orgs_page = paginator.page(paginator.num_pages)
+    get_params = request.GET.copy()
+    if 'page' in get_params:
+        del get_params['page']
     return render_view('plugin_search/index.html',
-                       {'object': plugin, 'form': form, 'orgs': orgs_page},
+                       {'object': plugin, 'form': form, 'orgs': orgs_page,
+                        'get_params': get_params.urlencode()},
                        MEDIAS,
                        context_instance=RequestContext(request))
