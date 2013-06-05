@@ -14,7 +14,7 @@
                 {{ form.area }}
             </td>
             <td id="results">
-                <p>{{ orgs|length }}</p>
+                <p>{{ orgs.paginator.count }}</p>
                 <p>Résultat{{ orgs|length|pluralize }}</p>
             </td>
         </tr>
