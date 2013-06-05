@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from .forms import OrgSearch
@@ -9,14 +10,14 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
 MEDIAS = (
     # App CSS
-    # CSSMedia('plugin_search.css'),
+    # CSSMedia('page_directory.css'),
     # App JS
-    # JSMedia('plugin_search.js'),
+    # JSMedia('page_directory.js'),
     # Actions JSAdmin
-    # JSAdminMedia('plugin_search_actions.js'),
+    # JSAdminMedia('page_directory_actions.js'),
     )
 
-def index_view(request, plugin):
+def index_view(request, page_app):
     form = OrgSearch(request.GET)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
@@ -49,8 +50,8 @@ def index_view(request, plugin):
     get_params = request.GET.copy()
     if 'page' in get_params:
         del get_params['page']
-    return render_view('plugin_search/index.html',
-                       {'object': plugin, 'form': form, 'orgs': orgs_page,
+    return render_view('page_directory/index.html',
+                       {'object': page_app, 'form': form, 'orgs': orgs_page,
                         'get_params': get_params.urlencode()},
                        MEDIAS,
                        context_instance=RequestContext(request))

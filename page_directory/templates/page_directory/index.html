@@ -56,7 +56,7 @@
 <div id="annuaire-results" class="pasr-box">
 {% if orgs.object_list %}
     <div class="pagination top-pagination">
-        {% include "plugin_search/pagination.html" %}
+        {% include "page_directory/pagination.html" %}
     </div>
     {% for org in orgs %}
         <div class="result{% if forloop.last %} last{% endif %}">
@@ -70,7 +70,7 @@
         </div>
     {% endfor %}
     <div class="pagination bottom-pagination">
-        {% include "plugin_search/pagination.html" %}
+        {% include "page_directory/pagination.html" %}
     </div>
 {% else %}
     <p>Aucun résultat.</p>

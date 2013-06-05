@@ -8,18 +8,16 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Plugin_Search'
-        db.create_table('plugin_search_plugin_search', (
+        # Adding model 'PageApp_Directory'
+        db.create_table('page_directory_pageapp_directory', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('title_rule', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
-        db.send_create_signal('plugin_search', ['Plugin_Search'])
+        db.send_create_signal('page_directory', ['PageApp_Directory'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Plugin_Search'
-        db.delete_table('plugin_search_plugin_search')
+        # Deleting model 'PageApp_Directory'
+        db.delete_table('page_directory_pageapp_directory')
 
 
     models = {
@@ -98,21 +96,9 @@ class Migration(SchemaMigration):
             'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'website': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'pages'", 'to': "orm['website.WebSite']"})
         },
-        'plugin.pluginrelation': {
-            'Meta': {'ordering': "['plugin_order']", 'object_name': 'PluginRelation'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'display_on_new_pages': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'pages': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'plugins'", 'symmetrical': 'False', 'to': "orm['page.Page']"}),
-            'placeholder_slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
-            'plugin_order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
-        },
-        'plugin_search.plugin_search': {
-            'Meta': {'object_name': 'Plugin_Search'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'title_rule': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
+        'page_directory.pageapp_directory': {
+            'Meta': {'object_name': 'PageApp_Directory'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         'sites.site': {
             'Meta': {'ordering': "('domain',)", 'object_name': 'Site', 'db_table': "'django_site'"},
@@ -148,4 +134,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['plugin_search']
+    complete_apps = ['page_directory']

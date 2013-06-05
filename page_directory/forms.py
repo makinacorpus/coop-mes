@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
+
 import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
-from .models import Plugin_Search
+from .models import PageApp_Directory
 from coop_local.models import ActivityNomenclature, AgreementIAE, Area
 
-
-class Plugin_SearchForm(ModuloModelForm):
+class PageApp_DirectoryForm(ModuloModelForm):
 
     class Meta:
-        model = Plugin_Search
+        model = PageApp_Directory
 
 
 ORG_TYPE_CHOICES = (
