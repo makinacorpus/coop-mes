@@ -19,13 +19,13 @@
                     <ul class="activity-children" id="activity-children-{{ node.id }}" style="display: none;">
                         {{ children }}
                     </ul>
-                {% elif node.level == 1 %}
+                {% elif node.level == filter_level %}
+                    <a href="" onclick="opener.dismissActivityLookupPopup(window, '{{ node.id }}', '{{ node.path }}'); return false;">{{ node.label }}</a>
+                {% else %}
                     {{ node.label }}
                     <ul>
                         {{ children }}
                     </ul>
-                {% elif node.level == 2 %}
-                    <a href="" onclick="opener.dismissActivityLookupPopup(window, '{{ node.id }}', '{{ node.path }}'); return false;">{{ node.label }}</a>
                 {% endif %}
             </li>
         {% endif %}

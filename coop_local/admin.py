@@ -17,6 +17,7 @@ from django.contrib.admin.util import unquote
 from django.core.urlresolvers import reverse
 from django.contrib.admin.templatetags.admin_static import static
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -121,7 +122,7 @@ class MediumLookup(ModelLookup):
 class ActivityLookup(ModelLookup):
     model = ActivityNomenclature
     search_fields = ('path__icontains', )
-    filters = {'level': 2}
+    filters = {'level': settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL}
 
 
 try:
@@ -455,7 +456,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
 
     def activity_list_view(self, request):
         activities = ActivityNomenclature.objects.all()
-        return render(request, 'admin/activity_list.html', {'activities': activities, 'is_popup': True})
+        return render(request, 'admin/activity_list.html', {'activities': activities, 'is_popup': True, 'filter_level': settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL})
 
     def has_change_permission(self, request, obj=None):
         return request.user.has_perm('coop_local.view_organization')

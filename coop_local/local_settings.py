@@ -86,3 +86,5 @@ ADMIN_TOOLS_THEMING_CSS = 'css/coop_local_bootstrap_theming.css'
 
 SITE_NAME = 'Achetons Solidaires'
 DOMAIN_NAME = 'mes:8000'
+ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 2
+
