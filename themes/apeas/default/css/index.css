@@ -365,6 +365,7 @@ h2 a {
     height: 110px;
     margin-left: 20px;
     margin-top: 10px;
+    overflow: hidden;
 }
 
 h3 {
