@@ -432,7 +432,9 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         writer.writerow([s.encode('cp1252') for s in [
             _('corporate name'), _('acronym'), _('Preferred label'), _('creation date'),
             _('legal status'), _('category ESS'), _('category IAE'),
-            _('agreement IAE'), _('web site'), _('No. SIRET')
+            _('agreement IAE'), _('web site'), _('No. SIRET'),
+            _('creation'), _('modification'), _('status'), _('correspondence'),
+            _('transmission'), _('transmission_date'), _('authors'), _('validation'),
         ]])
         for organization in Organization.objects.order_by('title'):
             row  = [organization.title, organization.acronym, organization.get_pref_label_display()]
@@ -442,6 +444,14 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             row += [', '.join([unicode(c) for c in organization.category_iae.all()])]
             row += [', '.join([unicode(a) for a in organization.agreement_iae.all()])]
             row += [organization.web, organization.siret]
+            row.append(organization.creation.strftime('%d/%m/%Y') if organization.creation else '')
+            row.append(organization.modification.strftime('%d/%m/%Y') if organization.modification else '')
+            row.append(organization.get_status_display() or '')
+            row.append(organization.correspondence)
+            row.append(organization.get_transmission_display() or '')
+            row.append(organization.transmission_date.strftime('%d/%m/%Y') if organization.transmission_date else '')
+            row.append(', '.join([unicode(a) for a in organization.authors.all()]))
+            row.append(organization.validation.strftime('%d/%m/%Y') if organization.validation else '')
             writer.writerow([s.encode('cp1252') for s in row])
         return response
 
