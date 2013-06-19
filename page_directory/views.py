@@ -8,10 +8,10 @@ from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
 
-# from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
+from ionyweb.website.rendering.medias import CSSMedia #, JSMedia, JSAdminMedia
 MEDIAS = (
     # App CSS
-    # CSSMedia('page_directory.css'),
+    CSSMedia('page_directory/bootstrap.min.css'),
     # App JS
     # JSMedia('page_directory.js'),
     # Actions JSAdmin

@@ -1,3 +1,80 @@
 {% load thumbnail %}
 
-{{ org.title }}
+<div id="directory-detail">
+
+<div id="navigation">
+    <a id="back" href="../../?{{ get_params }}">RETOUR A LA LISTE</a>
+    {#<a id="next" href="#">Fiche suivante</a>#}
+    {#<a id="prev" href="#">Fiche précédente</a>#}
+</div>
+
+<div id="title">
+    {{ org.title }}
+    {#<a id="contact" href="#">CONTACTER LA STRUCTURE</a>#}
+    {#<a id="print" href="#">IMPRIMER LA FICHE</a>#}
+</div>
+
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Présentation</a></li>
+        <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
+        <li><a href="#tab3" data-toggle="tab">Lieux et contacts</a></li>
+        <li><a href="#tab4" data-toggle="tab">Témoignages</a></li>
+        <li><a href="#tab5" data-toggle="tab">Mots-clés</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <div id="left">
+                <h2>BIENS ET SERVICES</h2>
+                {% if org.offer_set %}
+                    {% for o in org.offer_set.all %}
+                        <h3>{{ o.activity }}</h3>
+                        <p>{{ o.description }}</p>
+                    {% endfor %}
+                {% endif %}
+                {% if org.guaranties.all %}
+                    <h2>GARANTIES</h2>
+                    {% for g in org.guaranties.all %}
+                    <div>
+                        {% thumbnail g.logo "55x50" upscale=0 as logo %}
+                            <img src="{{ logo.url }}" style="padding: {{ logo|margin:"55x50" }}" />
+                        {% endthumbnail %}
+                        <h3>{{ g.name }}</h3>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div id="right">
+                {% thumbnail org.logo "55x50" upscale=0 as logo %}
+                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"55x50" }}" />
+                {% endthumbnail %}
+                <div>
+                    <h2>{{ org.title }}</h2>
+                    <p>Secteur d'activité&nbsp;: {{ org.offer_activities }}</p>
+                    <p>Dernière mise à jour&nbsp;: {{ org.modification|date:"d/m/Y" }}</p>
+                </div>
+                <div id="brief_desc">{{ org.brief_description }}</div>
+                <div id="encart">
+                    <h2 id="statut">Statut juridique&nbsp;:</h2>
+                    {% if org.category_iae %}<p>{{ org.category_iae.all|join:", " }}</p>{% endif %}
+                    {% if org.category %}<p>{{ org.category.all|join:", " }}</p>{% endif %}
+                    <h2 id="theme">Thématiques&nbsp;:</h2>
+                    <p>{{ org.transverse_themes.all|join:", " }}</p>
+                    <h2 id="tags">Mots-clés&nbsp;:</h2>
+                    <p>{{ org.tags.all|join:", " }}</p>
+                </div>
+                <div id="desc">{{ org.description|safe }}</div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+        </div>
+        <div class="tab-pane" id="tab3">
+        </div>
+        <div class="tab-pane" id="tab4">
+        </div>
+        <div class="tab-pane" id="tab5">
+        </div>
+    </div>
+</div>
+
+<div>

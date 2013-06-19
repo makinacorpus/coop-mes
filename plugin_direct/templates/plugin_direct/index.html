@@ -2,10 +2,10 @@
     <div id="direct-header">
         <h2>{{ object.title }}</h2>
         <ul>
-            <li class="selected" data-tab="appels_d_offres">Appels d'offres</li><li data-tab="fournisseurs">Fournisseurs</li><li data-tab="acheteurs">Acheteurs</li><li data-tab="agenda">Agenda</li><li data-tab="actualites">Actualités</li>
+            <li data-tab="appels_d_offres">Appels d'offres</li><li class="selected" data-tab="fournisseurs">Fournisseurs</li><li data-tab="acheteurs">Acheteurs</li><li data-tab="agenda">Agenda</li><li data-tab="actualites">Actualités</li>
         </ul>
     </div>
-    <div class="direct-content selected" data-tab="appels_d_offres">
+    <div class="direct-content" data-tab="appels_d_offres">
         <div>
             <h3><a href="#">Nom de l'appel d'offre</a></h3>
             <h4>25/01/2013 - Catégorie Lorem ipsum</h4>
@@ -37,7 +37,7 @@
             <p>This is the Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor.</p>
         </div>
     </div>
-    <div class="direct-content" data-tab="fournisseurs">
+    <div class="direct-content selected" data-tab="fournisseurs">
         {% for provider in providers %}
             <div>
                 <h3><a href="/annuaire/p/{{ provider.pk }}/">{{ provider.label }}</a></h3>
