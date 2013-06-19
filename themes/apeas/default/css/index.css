@@ -720,6 +720,7 @@ ul.nav-tabs li.active a {
 #directory-detail #left p {
     border-bottom: solid 1px #d6d6d6;
     padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #directory-detail #right {
@@ -746,13 +747,13 @@ ul.nav-tabs li.active a {
     margin-top: 20px;
 }
 
-#directory-detail #right #encart h2 {
+#directory-detail #encart h2 {
     color: #7c8aa7;
     margin-top: 10px;
     padding-left: 20px;
 }
 
-#directory-detail #right #encart p {
+#directory-detail #encart p {
     padding-left: 20px;
 }
 
@@ -768,7 +769,7 @@ ul.nav-tabs li.active a {
     background: url('../images/icon-tag.png') no-repeat 0 2px;
 }
 
-#directory-detail #right h2 {
+#directory-detail .tabbable h2 {
     height: 20px;
     margin: 0;
     padding-top: 0;
@@ -776,7 +777,7 @@ ul.nav-tabs li.active a {
     font-size: 15px;
 }
 
-#directory-detail #right p {
+#directory-detail .tabbable p {
     margin: 0;
 }
 
@@ -787,4 +788,8 @@ ul.nav-tabs li.active a {
 
 #directory-detail #desc {
     margin-top: 20px;
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+  outline:none;
 }

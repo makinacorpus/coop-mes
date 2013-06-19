@@ -67,12 +67,30 @@
             </div>
         </div>
         <div class="tab-pane" id="tab2">
+            <div id="encart">
+                <h2>Chiffre d'affaire annuel&nbsp;:</h2>
+                <p>{{ org.annual_revenue|default_if_none:"-" }}</p>
+                <h2>Effectif total (ETP)&nbsp;:</h2>
+                <p>{{ org.workforce|default_if_none:"-" }}</p>
+                <h2>Effectif de production (ETP)&nbsp;:</h2>
+                <p>{{ org.production_workforce|default_if_none:"-" }}</p>
+                <h2>Effectif d'encadrement&nbsp;:</h2>
+                <p>{{ org.supervision_workforce|default_if_none:"-" }}</p>
+                <h2>Nombre de salariés en insertion (ETP)&nbsp;:</h2>
+                <p>{{ org.integration_workforce|default_if_none:"-" }}</p>
+                <h2>Nombre de personnes en insertion accompagnées par an&nbsp;:</h2>
+                <p>{{ org.annual_integration_number|default_if_none:"-" }}</p>
+            </div>
         </div>
         <div class="tab-pane" id="tab3">
         </div>
         <div class="tab-pane" id="tab4">
+            <p>{{ org.testimony }}</p>
         </div>
         <div class="tab-pane" id="tab5">
+            <ul><li>
+            {{ org.tags.all|join:"</li><li>"  }}
+            </li></ul>
         </div>
     </div>
 </div>
