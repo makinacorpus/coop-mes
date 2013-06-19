@@ -1,0 +1,90 @@
+{% load thumbnail leaflet_tags l10n %}
+
+<form id="annuaires-search" method="GET" action="#">
+    <table>
+        <tr>
+            <td>
+                <label>Je recherche</label>
+                {{ form.org_type }}
+            </td>
+            <td rowspan="2">
+                <label>Secteur d'activité</label>
+                {{ form.sector }}
+            </td>
+            <td>
+                <label>Territoire</label>
+                {{ form.area }}
+            </td>
+            <td id="results">
+                <p>{{ orgs.count }}</p>
+                <p>Résultat{{ orgs.count|pluralize }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td id="prov-type-cell">
+                <label>Type de fournisseur</label>
+                {{ form.prov_type }}
+            </td>
+            <td>
+                <label>Recherche libre</label>
+                {{ form.q }}
+            </td>
+            <td class="center">
+                <input class="button" type="submit" value="Rechercher">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script type="text/javascript">
+    // Show org_type search field only if "Fournisseurs" is selected
+    function org_type_change() {
+        var cell = document.getElementById('prov-type-cell');
+        if (this.options[this.selectedIndex].value == "fournisseur") {
+            cell.style.visibility = 'visible';
+        } else {
+            cell.style.visibility = 'hidden';
+        }
+    };
+    var org_type_select = document.getElementById('id_org_type');
+    org_type_select.addEventListener(
+        "change",
+        org_type_change,
+        false
+    );
+    org_type_change.apply(org_type_select);
+</script>
+
+<div id="map-results" class="pasr-box">
+    {% leaflet_map "orgsmap" %}
+</div>
+
+<script type="text/javascript">
+
+function orgsmapInit(map, bounds) {
+
+    // Add markers
+    var tab_markers = new Array();
+
+    {% for o in orgs %}
+        {% if o.located %}
+            {% for l in o.located.all %}
+                {% if l.location.point %}
+                    tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
+                    L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
+                            .bindPopup("{{ o.title|safe }}<br/><a href=\"/annuaire/p/{{ o.pk }}/\">En savoir plus</a>")
+                            .openPopup();
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+    if(tab_markers.length > 0) {
+        global_bounds = new L.LatLngBounds(tab_markers);
+        map.fitBounds(global_bounds);
+        map.zoomOut();
+    }
+
+}
+
+</script>

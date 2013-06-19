@@ -807,6 +807,16 @@ ul.nav-tabs li.active a {
     float: right;
 }
 
+#map-results {
+    height: 600px;
+}
+
+#orgsmap {
+    width: 100%;
+    height: 100%;
+    float: none;
+}
+
 #directory-detail #right h2 {
     clear: right;
 }
