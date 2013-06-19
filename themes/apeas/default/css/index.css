@@ -634,6 +634,11 @@ body > #main-content > #layout-content > .placeholder {
     background: #ffffff;
 }
 
+#directory-detail a {
+    text-decoration: none;
+    color: #6da5d4;
+}
+
 #directory-detail #navigation {
     padding: 10px;
     height: 20px;
@@ -710,6 +715,8 @@ ul.nav-tabs li.active a {
 
 #directory-detail #left h2 {
     background: url('../images/3dots.png') repeat-x 0 25px;
+    height: 30px;
+    padding-bottom: 10px;
 }
 
 #directory-detail #left h3 {
@@ -770,7 +777,7 @@ ul.nav-tabs li.active a {
 }
 
 #directory-detail .tabbable h2 {
-    height: 20px;
+    height: auto;
     margin: 0;
     padding-top: 0;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -791,5 +798,15 @@ ul.nav-tabs li.active a {
 }
 
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
-  outline:none;
+  outline: none;
+}
+
+.leaflet-container {  /* all maps */
+    width:  300px;
+    height: 300px;
+    float: right;
+}
+
+#directory-detail #right h2 {
+    clear: right;
 }

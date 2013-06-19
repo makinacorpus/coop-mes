@@ -54,6 +54,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'plugin_last_news',
     'plugin_direct',
     'page_directory',
+    'leaflet',
 ]
 
 # TODO: to be discuss this settings could be in default_project_setings.py
@@ -88,3 +89,9 @@ SITE_NAME = 'Achetons Solidaires'
 DOMAIN_NAME = 'mes:8000'
 ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 2
 
+LEAFLET_CONFIG = {
+    'TILES_URL': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    'SPATIAL_EXTENT': (2.56, 42.34, 9.14, 45.79),
+    'DEFAULT_CENTER': (5.85, 44.07),
+    'DEFAULT_ZOOM': 14,
+}

@@ -357,6 +357,18 @@ class Organization(BaseOrganization):
     def target_relations(self):
         return Relation.objects.filter(target=self)
 
+    def reseaux(self):
+        return Relation.objects.filter(source=self, relation_type__id=1)
+
+    def part_tech(self):
+        return Relation.objects.filter(source=self, relation_type__id=4)
+
+    def part_fin(self):
+        return Relation.objects.filter(source=self, relation_type__id=5)
+
+    def other_contacts(self):
+        return self.contacts.filter(location__isnull=True)
+
     def engagements(self):
         return Engagement.objects.filter(organization=self)
 
@@ -422,6 +434,9 @@ Role._meta.get_field('slug').slugify = slugify
 class Located(BaseLocated):
 
     opening = models.CharField(_(u'opening days and hours'), blank=True, max_length=200)
+
+    def map_id(self):
+        return 'located%u' % self.id
 
     class Meta:
         verbose_name = _(u'Located item')

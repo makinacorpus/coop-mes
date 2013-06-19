@@ -8,12 +8,14 @@ from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
 
-from ionyweb.website.rendering.medias import CSSMedia #, JSMedia, JSAdminMedia
+from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
     # App CSS
     CSSMedia('page_directory/bootstrap.min.css'),
+    CSSMedia('leaflet/leaflet.css', prefix_file=''),
     # App JS
-    # JSMedia('page_directory.js'),
+    JSMedia('leaflet/leaflet-src.js', prefix_file=''),
+    JSMedia('leaflet/leaflet.extras.js', prefix_file=''),
     # Actions JSAdmin
     # JSAdminMedia('page_directory_actions.js'),
     )

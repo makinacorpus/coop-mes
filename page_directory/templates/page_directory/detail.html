@@ -1,4 +1,4 @@
-{% load thumbnail %}
+{% load thumbnail leaflet_tags %}
 
 <div id="directory-detail">
 
@@ -18,9 +18,9 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tab1" data-toggle="tab">Présentation</a></li>
         <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
-        <li><a href="#tab3" data-toggle="tab">Lieux et contacts</a></li>
-        <li><a href="#tab4" data-toggle="tab">Témoignages</a></li>
-        <li><a href="#tab5" data-toggle="tab">Mots-clés</a></li>
+        <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
+        <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
+        <li><a href="#tab5" data-toggle="tab">Liens</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab1">
@@ -80,17 +80,64 @@
                 <p>{{ org.integration_workforce|default_if_none:"-" }}</p>
                 <h2>Nombre de personnes en insertion accompagnées par an&nbsp;:</h2>
                 <p>{{ org.annual_integration_number|default_if_none:"-" }}</p>
+                <h2>Références client</h2>
+                {% for r in org.references %}
+                    <p><a href="{{ r.source.web }}">{{ r.source }}</a> (de {{ r.from_year|default:"-" }} à {{ r.to_year|default:"-" }})&nbsp;: {{ r.services }}</p>
+                {% empty %}
+                    <p>-</p>
+                {% endfor %}
+                <p></p>
             </div>
         </div>
         <div class="tab-pane" id="tab3">
+            <div id="left">
+                <h2>Membres</h2>
+                {% for e in org.engagement_set.all %}
+                    <p>{{ e.person.first_name }} {{ e.person.last_name }}<br/>
+                    {{ e.role }}<br/>
+                    {% for c in e.person.contacts.all %}
+                        {{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
+                    {% endfor %}
+                    </p>
+                {% endfor %}
+            </div>
+            <div id="right">
+            {% for l in org.located.all %}
+                <h2>{{ l.category }}</h2>
+                {#{% leaflet_map l.map_id %}#}
+                <p>{{ l.location.adr1 }}</p>
+                {% if l.location.adr2 %}<p>{{ l.location.adr2 }}</p>{% endif %}
+                <p>{{ l.location.zipcode }} {{ l.location.city }}</p>
+                {% for c in l.location.contact_set.all %}
+                    <p>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}</p>
+                {% endfor %}
+                <p>&nbsp;</p>
+            {% endfor %}
+            {% if org.other_contacts %}
+                <h2>Contacts</h2>
+                {% for c in org.other_contacts %}
+                    <p>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}</p>
+                {% endfor %}
+            {% endif %}
+            </div>
         </div>
         <div class="tab-pane" id="tab4">
-            <p>{{ org.testimony }}</p>
+            <p>{{ org.testimony|default:"Pas de témoignage." }}</p>
         </div>
         <div class="tab-pane" id="tab5">
-            <ul><li>
-            {{ org.tags.all|join:"</li><li>"  }}
-            </li></ul>
+            <div id="encart">
+                <h2>Est membre de&nbsp;:</h2>
+                <ul>{% for r in org.reseaux %}
+                    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
+                {% endfor %}</ul>
+                <h2>Partenariat technique avec&nbsp;:</h2>
+                <ul>{% for r in org.part_tech %}
+                    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
+                {% endfor %}</ul>
+                <h2>Partenariat financier avec&nbsp;:</h2>
+                <ul>{% for r in org.part_fin %}
+                    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
+                {% endfor %}</ul>
         </div>
     </div>
 </div>
