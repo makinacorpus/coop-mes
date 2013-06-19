@@ -62,7 +62,9 @@ def index_view(request, page_app):
 
 def detail_view(request, page_app, pk):
     org = get_object_or_404(Organization, pk=pk)
+    get_params = request.GET.copy()
     return render_view('page_directory/detail.html',
-                       {'object': page_app, 'org': org},
+                       {'object': page_app, 'org': org,
+                        'get_params': get_params.urlencode()},
                        MEDIAS,
                        context_instance=RequestContext(request))
