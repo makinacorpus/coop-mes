@@ -56,6 +56,7 @@
                 <div id="brief_desc">{{ org.brief_description }}</div>
                 <div id="encart">
                     <h2 id="statut">Statut juridique&nbsp;:</h2>
+                    <p>{{ org.legal_status }}</p>
                     {% if org.category_iae %}<p>{{ org.category_iae.all|join:", " }}</p>{% endif %}
                     {% if org.category %}<p>{{ org.category.all|join:", " }}</p>{% endif %}
                     <h2 id="theme">Thématiques&nbsp;:</h2>
