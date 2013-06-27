@@ -526,6 +526,21 @@ body > #main-content > #layout-content > .placeholder {
 /*     padding-left: 40px; */
 }
 
+#annuaires-search li {
+    list-style: none;
+}
+
+#annuaires-search li label {
+    color: #999999;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+#annuaires-search ul {
+    padding: 0;
+    margin: 0;
+}
+
 #annuaire-results {
     background: #ffffff;
 }

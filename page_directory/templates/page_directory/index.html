@@ -9,6 +9,7 @@
             </td>
             <td rowspan="2">
                 <label>Secteur d'activité</label>
+                {{ form.interim }}
                 {{ form.sector }}
             </td>
             <td>
@@ -53,6 +54,27 @@
         false
     );
     org_type_change.apply(org_type_select);
+
+    // Show activity field only if "Production de biens et services" is selected
+    interim1 = document.getElementById('id_interim_1');
+    interim1.addEventListener(
+        "change",
+        function() {
+            document.getElementById('id_sector').style.visibility = 'hidden';
+        },
+        false
+    );
+    interim2 = document.getElementById('id_interim_2');
+    interim2.addEventListener(
+        "change",
+        function() {
+            document.getElementById('id_sector').style.visibility = 'visible';
+        },
+        false
+    );
+    if (!interim2.checked) {
+        document.getElementById('id_sector').style.visibility = 'hidden';
+    }
 </script>
 
 <div id="annuaire-results" class="pasr-box">
