@@ -7,6 +7,7 @@ from coop_local.models import Organization, ActivityNomenclature
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -21,6 +22,8 @@ MEDIAS = (
     )
 
 def index_view(request, page_app):
+    if request.GET.get('display') == 'Cartographie':
+        return HttpResponseRedirect('../cartographie/?' + request.GET.urlencode())
     qd = request.GET.copy()
     if 'interim' not in qd:
         qd['interim'] = '2'

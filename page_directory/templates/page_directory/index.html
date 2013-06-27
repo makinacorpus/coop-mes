@@ -3,37 +3,46 @@
 <form id="annuaires-search" method="GET" action="#">
     <table>
         <tr>
-            <td>
+            <td rowspan="3">
                 <label>Je recherche</label>
                 {{ form.org_type }}
             </td>
-            <td rowspan="2">
+            <td rowspan="6">
                 <label>Secteur d'activité</label>
                 {{ form.interim }}
                 {{ form.sector }}
             </td>
-            <td>
+            <td rowspan="3">
                 <label>Territoire</label>
                 {{ form.area }}
             </td>
-            <td id="results">
-                <p>{{ orgs.paginator.count }}</p>
-                <p>Résultat{{ orgs|length|pluralize }}</p>
+            <td rowspan="2" id="results">
+                <p><span>{{ orgs.paginator.count }}</span>
+                Résultat{{ orgs.paginator.count|pluralize }}</p>
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td rowspan="2" class="center">
+                <input class="button carto" type="submit" name="display" value="Cartographie">
             </td>
         </tr>
         <tr>
-            <td id="prov-type-cell">
+            <td rowspan="3" id="prov-type-cell">
                 <label>Type de fournisseur</label>
                 {{ form.prov_type }}
             </td>
-            <td>
+            <td rowspan="3">
                 <label>Recherche libre</label>
                 {{ form.q }}
             </td>
-            <td class="center">
-                <input class="button" type="submit" value="Rechercher">
+        </tr>
+        <tr>
+            <td rowspan="2" class="center">
+                <input class="button" type="submit" name="display" value="RECHERCHER">
             </td>
         </tr>
+        <tr></tr>
     </table>
 </form>
 

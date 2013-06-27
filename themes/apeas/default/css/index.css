@@ -492,7 +492,7 @@ body > #main-content > #layout-content > .placeholder {
     text-align: center;
 }
 
-#annuaires-search #results p:first-child {
+#annuaires-search #results span {
     font-weight: bold;
     font-size: 30px;
 }
@@ -522,8 +522,12 @@ body > #main-content > #layout-content > .placeholder {
 }
 
 #annuaires-search .button {
-    background-image: linear-gradient(#b1cd80, #8fba46), url('../images/icon-carto-white.png') no-repeat 10px 2px;
+    margin: 0 auto;
 /*     padding-left: 40px; */
+}
+
+#annuaires-search .button.carto {
+    background-image: url('../images/icon-carto-white.png') no-repeat 10px 2px;
 }
 
 #annuaires-search li {

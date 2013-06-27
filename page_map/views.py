@@ -3,10 +3,11 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from .forms import OrgSearch
-from coop_local.models import Organization
+from coop_local.models import Organization, ActivityNomenclature
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -20,7 +21,12 @@ MEDIAS = (
     )
 
 def index_view(request, page_app):
-    form = OrgSearch(request.GET)
+    if request.GET.get('display') == 'Annuaire':
+        return HttpResponseRedirect('../annuaire/?' + request.GET.urlencode())
+    qd = request.GET.copy()
+    if 'interim' not in qd:
+        qd['interim'] = '2'
+    form = OrgSearch(qd)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
         orgs = orgs.filter(title__icontains=form.cleaned_data['q'])
@@ -32,9 +38,14 @@ def index_view(request, page_app):
             orgs = orgs.filter(is_customer=True, customer_type=1)
         if form.cleaned_data['org_type'] == 'acheteur-prive':
             orgs = orgs.filter(is_customer=True, customer_type=2)
-        sector = form.cleaned_data['sector']
-        if sector:
-            descendants = sector.get_descendants(include_self=True)
+        interim = form.cleaned_data['interim']
+        if interim == '1':
+            descendants = ActivityNomenclature.objects.filter(label__in=(u'mise à disposition de personnel', u'travail temporaire'))
+            print descendants
+        else:
+            sector = form.cleaned_data['sector']
+            descendants = sector and sector.get_descendants(include_self=True)
+        if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
         if form.cleaned_data['area']:
             orgs = orgs.filter(offer__area__polygon__intersects=form.cleaned_data['area'].polygon)
