@@ -92,7 +92,7 @@
                 <div class="logo"></div>
             {% endif %}
             {% with org.main_location.city as city %}{% if city %}
-                <span class="blue-button" href="#">{{ city }}</span>
+                <span class="blue-button" href="#">{{ org.main_location.zipcode }} {{ city }}</span>
             {% endif %}{% endwith %}
             <p class="activity">{{ org.offer_activities }}</p>
             <p class="title">{{ org.title }}</p>
