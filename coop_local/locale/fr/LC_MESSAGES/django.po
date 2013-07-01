@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-01 11:36+0200\n"
+"POT-Creation-Date: 2013-07-01 11:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <gael.utard@makina-corpus.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,10 +152,6 @@ msgstr "rédacteurs"
 #: admin.py:437
 msgid "validation"
 msgstr "validation"
-
-#: admin.py:502 models/local_models.py:288 models/local_models.py:424
-msgid "activity sector"
-msgstr "secteur d'activité"
 
 #: models/__init__.py:25 ui/menu.py:34
 msgid "Tags"
@@ -329,9 +325,13 @@ msgstr "Privé"
 msgid "title"
 msgstr "titre"
 
+#: models/local_models.py:288 models/local_models.py:424
+msgid "activity sector"
+msgstr "secteur d'activité"
+
 #: models/local_models.py:289
 msgid "organization"
-msgstr "organisations"
+msgstr "organisation"
 
 #: models/local_models.py:290
 msgid "execution location"
