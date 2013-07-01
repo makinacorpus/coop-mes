@@ -18,6 +18,8 @@ from coop_geo.models import Located as BaseLocated
 from unidecode import unidecode
 import re
 from django.contrib.gis.db.models import GeoManager
+from coop_local.models.fields import MultiSelectField
+
  
 ADMIN_THUMBS_SIZE = '60x60'
 
@@ -278,6 +280,30 @@ CUSTOMER_TYPES = Choices(
 class Engagement(BaseEngagement):
 
     pass
+
+
+class CallForTenders(models.Model):
+
+    title = models.CharField(u'title', max_length=200)
+    activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
+    organization = models.ForeignKey('Organization', verbose_name=_('organization'))
+    area = models.ForeignKey('coop_local.Area', verbose_name=_(u'execution location'), blank=True, null=True)
+    allotment = models.BooleanField(u'allotment')
+    lot_numbers = models.CharField(u'lot numbers', max_length=200, blank=True)
+    deadline = models.DateTimeField(u'deadline', blank=True, null=True)
+    clauses = MultiSelectField(u'clauses (si marché public)', max_length=200, choices=(('14', '14'), ('15', '15'), ('30', '30'), ('53', '53')), blank=True)
+
+    def __unicode__(self):
+
+        return self.title
+
+    def activities(self):
+        return ', '.join([unicode(a) for a in self.activity.all()])
+
+    class Meta:
+        verbose_name = _(u'Call for tenders')
+        verbose_name_plural = _(u'Calls for tenders')
+        app_label = 'coop_local'
 
 
 class Organization(BaseOrganization):

@@ -50,7 +50,7 @@ from coop_geo.models import Location, Area
 from coop_local.models.local_models import normalize_text
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
     ActivityNomenclatureAvise, Offer, TransverseTheme, DocumentType, AgreementIAE,
-    Location, Engagement, ContactMedium)
+    Location, Engagement, ContactMedium, CallForTenders)
 
 try:
     from coop.base_admin import *
@@ -496,6 +496,23 @@ class PersonAdmin(BasePersonAdmin):
     inlines = [ContactInline, OrgInline]
 
 
+class CFTActivityInline(InlineAutocompleteAdmin):
+    model = CallForTenders.activity.through
+    related_search_fields = {'activitynomenclature': ('path', ), }
+
+
+class CallForTendersAdmin(FkAutocompleteAdmin):
+
+    list_display = ('title', 'organization', 'activities')
+    search_fields = ('title', 'organization__title', 'organization__acronym')
+    related_search_fields = {
+        'organization': ('title', 'acronym', ),
+        'area': ('label', ),
+    }
+    inlines = [CFTActivityInline, ]
+    exclude = ('activity',)
+
+
 admin.site.unregister(Organization)
 register(Guaranty, GuarantyAdmin)
 register(Organization, OrganizationAdmin)
@@ -508,3 +525,4 @@ register(DocumentType)
 register(ContactMedium)
 admin.site.unregister(Person)
 register(Person, PersonAdmin)
+register(CallForTenders, CallForTendersAdmin)
