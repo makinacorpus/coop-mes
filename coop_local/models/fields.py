@@ -42,7 +42,7 @@ class MultiSelectField(models.Field):
         defaults.update(kwargs)
         return MultiSelectFormField(**defaults)
 
-    def get_db_prep_value(self, value):
+    def get_db_prep_value(self, value, connection=None, prepared=False):
         if isinstance(value, basestring):
             return value
         elif isinstance(value, list):
@@ -52,6 +52,21 @@ class MultiSelectField(models.Field):
         if isinstance(value, list):
             return value
         return value.split(",")
+
+    def get_choices_selected(self, arr_choices=''):
+        if not arr_choices:
+            return False
+        list = []
+        for choice_selected in arr_choices:
+            list.append(choice_selected[0])
+        return list
+
+    def validate(self, value, model_instance):
+        arr_choices = self.get_choices_selected(self.get_choices_default())
+        for opt_select in value:
+            if (opt_select not in arr_choices):  # the int() here is for comparing with integer choices
+                raise exceptions.ValidationError(self.error_messages['invalid_choice'] % value)
+        return
 
     def contribute_to_class(self, cls, name):
         super(MultiSelectField, self).contribute_to_class(cls, name)
