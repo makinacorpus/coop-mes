@@ -284,14 +284,14 @@ class Engagement(BaseEngagement):
 
 class CallForTenders(models.Model):
 
-    title = models.CharField(u'title', max_length=200)
+    title = models.CharField(_(u'title'), max_length=200)
     activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
     organization = models.ForeignKey('Organization', verbose_name=_('organization'))
     area = models.ForeignKey('coop_local.Area', verbose_name=_(u'execution location'), blank=True, null=True)
-    allotment = models.BooleanField(u'allotment')
-    lot_numbers = models.CharField(u'lot numbers', max_length=200, blank=True)
-    deadline = models.DateTimeField(u'deadline', blank=True, null=True)
-    clauses = MultiSelectField(u'clauses (si marché public)', max_length=200, choices=(('14', '14'), ('15', '15'), ('30', '30'), ('53', '53')), blank=True)
+    allotment = models.BooleanField(_(u'allotment'))
+    lot_numbers = models.CharField(_(u'lot numbers'), max_length=200, blank=True)
+    deadline = models.DateTimeField(_(u'deadline'), blank=True, null=True)
+    clauses = MultiSelectField(_(u'clauses (si marché public)'), max_length=200, choices=(('14', '14'), ('15', '15'), ('30', '30'), ('53', '53')), blank=True)
 
     def __unicode__(self):
 
