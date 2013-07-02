@@ -401,6 +401,9 @@ class Organization(BaseOrganization):
     def offer_activities(self):
         return ", ".join(self.offer_set.values_list('activity__label', flat=True).distinct())
 
+    def get_absolute_url(self):
+        return '/annuaire/p/%u/' % self.id
+
     class Meta:
         ordering = ['title']
         verbose_name = _(u'Organization')
