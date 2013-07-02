@@ -452,7 +452,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             row.append(organization.transmission_date.strftime('%d/%m/%Y') if organization.transmission_date else '')
             row.append(', '.join([unicode(a) for a in organization.authors.all()]))
             row.append(organization.validation.strftime('%d/%m/%Y') if organization.validation else '')
-            writer.writerow([s.encode('cp1252') for s in row])
+            writer.writerow([s.encode('cp1252', errors='replace') for s in row])
         return response
 
     def get_urls(self):
