@@ -432,7 +432,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         writer.writerow([s.encode('cp1252') for s in [
             _('corporate name'), _('acronym'), _('Preferred label'), _('creation date'),
             _('legal status'), _('category ESS'), _('category IAE'),
-            _('agreement IAE'), _('web site'), _('No. SIRET'),
+            _('agreement IAE'), _('web site'), _('preferred email'), _('No. SIRET'),
             _('creation'), _('modification'), _('status'), _('correspondence'),
             _('transmission'), _('transmission_date'), _('authors'), _('validation'),
         ]])
@@ -443,7 +443,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             row += [', '.join([unicode(c) for c in organization.category.all()])]
             row += [', '.join([unicode(c) for c in organization.category_iae.all()])]
             row += [', '.join([unicode(a) for a in organization.agreement_iae.all()])]
-            row += [organization.web, organization.siret]
+            row += [organization.web, organization.pref_email.content if organization.pref_email else '', organization.siret]
             row.append(organization.creation.strftime('%d/%m/%Y') if organization.creation else '')
             row.append(organization.modification.strftime('%d/%m/%Y') if organization.modification else '')
             row.append(organization.get_status_display() or '')
