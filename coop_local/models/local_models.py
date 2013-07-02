@@ -372,7 +372,7 @@ class Organization(BaseOrganization):
         return AgreementIAE.objects.exclude(id__in=self.agreement_iae.all().values_list('id', flat=True))
 
     def unchecked_transverse_themes(self):
-        return TransverseTheme.objects.exclude(id__in=self.transverse_themes.all().values_list('id', flat=True))
+        return models.get_model('coop_local', 'TransverseTheme').objects.exclude(id__in=self.transverse_themes.all().values_list('id', flat=True))
 
     def references(self):
         return Reference.objects.filter(target=self)
