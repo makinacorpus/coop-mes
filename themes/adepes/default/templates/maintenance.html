@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load staticfiles %}
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/">
+<head>
+<title>Achetons solidaires PACA</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+* { font-family: sans-serif; font-size: 14px; }
+body { text-align: center; }
+div { padding: 2px; }
+#content { width: 980px; }
+.half { width: 490px; }
+.bloc { padding: 25px; margin: 0px; }
+.bold { font-weight: bold; }
+.inline { display: inline-block; vertical-align: top; }
+.left { text-align: left; }
+.center { text-align: center; }
+.size200 { font-size: 200%; }
+.size150 { font-size: 150%; }
+.blue { font-weight: bold; color: #3366ff; text-transform:uppercase; }
+.orange { font-weight: bold; color: #ff6c26; background: url('{% static "themes/adepes/default/images/arrow.png" %}') 0px 4px no-repeat; padding-left: 20px; }
+</style>
+</head>
+<body>
+
+<div>
+
+<div class="bloc inline center half">
+    <img src="{% static "themes/adepes/default/images/logo.png" %}">
+</div>
+<div class="bloc bold inline center half">
+    <div class="size200">Développons les achats</div>
+    <div class="size200">socialement responsables</div>
+    <div class="size150">en région Midi-Pyrénées</div>
+    <div class="size150">&nbsp;</div>
+    <div class="size150">Un programme piloté par l’ADEPES</div>
+<!--     <div class="size150">Contact : <a href="mailto:achats.responsables@adepes.fr">achats.responsables@adepes.fr</a></div> -->
+</div>
+<div class="bloc center size150">
+    <div>Le site <span class="bold">achetons solidaires MP sera  mis en ligne bientôt.</span></div>
+    <div>&nbsp;</div>
+    <div>En attendant, découvrez <span class="bold">toutes les fonctionnalités</span> que vous retrouverez</div>
+</div>
+
+<div class="inline half left">
+    <div class="blue">En tant qu’Acheteurs publics ou privés,</div>
+    <div class="orange">Accédez à l’annuaire et à la cartographie</div>
+    <div>de l’offre de biens et services socialement responsables</div>
+    <div class="orange">Recherchez des partenariats durables</div>
+    <div>avec des entreprises sociales et solidaires.</div>
+    <div class="orange">Publiez vos appels d’offres</div>
+    <div>et valorisez vos actions dans l’achat responsable.</div>
+    <div class="orange">Exploitez notre base d’informations</div>
+    <div>modèles de marchés, témoignages, innovations</div>
+</div>
+<div class="inline half left">
+    <div class="blue bold">En tant qu'ENTREPRISES SOCIALES,</div>
+    <div class="orange">Présentez votre offre de produits / services</div>
+    <div>en valorisant vos différences et votre diversité.</div>
+    <div class="orange">Soyez en lien direct avec les acheteurs responsables</div>
+    <div>et accédez à leurs appels d’offres.</div>
+    <div class="orange">Créez des partenariats avec des fournisseurs engagés</div>
+    <div>ayant une offre complémentaire pour renforcer vos démarches commerciales.</div>
+    <div class="orange">Explorez l’espace ressources qui vous est dédié</div>
+    <div>agréments, normes et labels, marchés publics, expériences…</div>
+</div>
+<div class="bloc">
+    <a href="/admin/">Administration du site</a>
+</div>
+</body>
+</html>
