@@ -294,7 +294,7 @@ h2 a {
 }
 
 #direct-header {
-    border: solid 1px #8393a0;
+    border: solid 1px #fdd635;
     height: 42px;
     background: url('../images/icon-direct.png') no-repeat;
     box-shadow: 0px 2px 4px #aaa;
@@ -320,6 +320,7 @@ h2 a {
     border-left: solid 1px #dcdcdc;
     background: url('../images/arrow-right.png') no-repeat 13px 12px;
     cursor: pointer;
+    color: #ed7009;
 }
 
 #direct li:first-child {
@@ -327,11 +328,11 @@ h2 a {
 }
 
 #direct li:hover {
-    background-color: #dcdcdc;
+    background-color: #fbefbf;
 }
 
 #direct li.selected {
-    background: #dcdcdc url('../images/arrow-down.png') 10px 16px no-repeat;
+    background: #fbefbf url('../images/arrow-down.png') 10px 16px no-repeat;
 }
 
 .direct-content {
