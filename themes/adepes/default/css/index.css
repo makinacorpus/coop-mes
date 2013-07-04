@@ -86,31 +86,46 @@ body, input {
     text-decoration: none;
 }
 
+#feedback {
+    border: solid 1px #fdd635;
+    border-radius: 3px;
+    position: absolute;
+    top: 56px;
+    left: 410px;
+    width: 238px;
+    height: 18px;
+    background: url('../images/icon-feedback.png') no-repeat;
+    color: #fdd635;
+    font-weight: bold;
+    padding-left: 50px;
+    padding-top: 3px;
+}
+
 #search {
     border: solid 1px #ed7009;
     border-radius: 3px;
     position: absolute;
-    top: 76px;
+    top: 83px;
     left: 410px;
     width: 288px;
-    height: 33px;
-    background: url('../images/search.png') no-repeat 265px 8px;
+    height: 26px;
+    background: url('../images/search.png') no-repeat 265px 5px;
 }
 
 #search label {
     float: left;
     width: 85px;
     background: #f0c098;
-    height: 17px;
+    height: 16px;
     color: #ed7009;
-    padding: 8px 10px;
+    padding: 5px 10px;
     font-weight: bold;
 }
 
 #search input {
     width: 140px;
-    height: 21px;
-    padding: 6px 10px;
+    height: 20px;
+    padding: 3px 10px;
     border: none;
     font-style: italic;
     color: #808080;
@@ -288,6 +303,16 @@ h2 a {
     padding-left: 44px;
 }
 
+#home-search-map {
+    background-image: url("../images/search-map.png");
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 160px;
+    margin: 0;
+    padding: 0;
+    margin-left:20px;
+}
+
 #last-news h2 {
     background: url('../images/icon-last-news.png') no-repeat;
     padding-left: 44px;
@@ -396,7 +421,7 @@ h4 {
 }
 
 .direct-content h3 a:hover {
-    color: #A7C976;
+    color: #ed7009;
 }
 
 #home-annuaire h3 {
@@ -416,8 +441,8 @@ h4 {
 
 .button {
     padding: 5px 20px;
-    background-color: #9cc464;
-    background-image: linear-gradient(#b1cd80, #8fba46);
+    background-color: #54ae4e;
+    background-image: linear-gradient(#95cd91, #5cb256);
     border-radius: 5px;
     color: #ffffff;
     text-decoration: none;
@@ -437,7 +462,7 @@ p {
 }
 
 #home-annuaire select {
-    background: #7a8ea6;
+    background: #54ae4e;
     background-image: url('dropdown.png') no-repeat right;
     border: solid 1px #5e6e7e;
     border-radius: 3px;

@@ -288,6 +288,16 @@ h2 a {
     padding-left: 44px;
 }
 
+#home-search-map {
+    background-image: url("../images/search-map.png");
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 160px;
+    margin: 0;
+    padding: 0;
+    margin-left:20px;
+}
+
 #last-news h2 {
     background: url('../images/icon-last-news.png') no-repeat;
     padding-left: 44px;
