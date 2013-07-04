@@ -225,7 +225,7 @@ nav a:hover {
 }*/
 
 #accueil-bleu {
-    background: url('../images/index_background.png') repeat-x;
+    background: url('../images/index_background.png') repeat-x center;
     height: 390px;
 }
 
