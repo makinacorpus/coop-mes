@@ -95,10 +95,19 @@ body, input {
     width: 238px;
     height: 18px;
     background: url('../images/icon-feedback.png') no-repeat;
-    color: #fdd635;
     font-weight: bold;
     padding-left: 50px;
     padding-top: 3px;
+}
+
+#feedback a {
+    text-decoration: none;
+    color: #fdd635;
+}
+
+#feedback a:hover {
+    text-decoration: underline;
+    color: #fdd635;
 }
 
 #search {
