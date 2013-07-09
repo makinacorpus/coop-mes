@@ -292,6 +292,7 @@ class CallForTenders(models.Model):
     lot_numbers = models.CharField(_(u'lot numbers'), max_length=200, blank=True)
     deadline = models.DateTimeField(_(u'deadline'), blank=True, null=True)
     clauses = MultiSelectField(_(u'clauses (si marché public)'), max_length=200, choices=(('14', '14'), ('15', '15'), ('30', '30'), ('53', '53')), blank=True)
+    url = models.URLField(u'URL', blank=True, null=True, max_length=250)
 
     def __unicode__(self):
 
