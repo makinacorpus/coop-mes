@@ -9,3 +9,11 @@ $ ./manage.py collectstatic
 $ python manage.py syncdb --all
 $ python manage.py migrate --fake
 $ ./manage.py loaddata coop_local/fixtures/{areatypes,django_site,exchange_methods,linkproperty,location_categories,top_roles,uriredirect}.json
+
+
+dans tinymce/compressor.py
+modifier
+base_path = os.path.join(os.path.dirname(__file__), "media/js/tiny_mce")
+par
+from django.contrib.staticfiles import finders
+base_path = finders.find('tiny_mce')
