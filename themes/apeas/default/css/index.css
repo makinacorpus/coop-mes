@@ -850,6 +850,19 @@ ul.nav-tabs li.active a {
     clear: right;
 }
 
+.iw-plugin-contact input, .iw-plugin-contact textarea {
+    width: 500px;
+}
+
+.iw-plugin-contact {
+    border: solid 4px #e8ebef;
+    width: 960px;
+    margin: 10px auto 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
 .plugin-subpages {
     border: solid 4px #e8ebef;
     width: 920px;
