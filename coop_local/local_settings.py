@@ -53,6 +53,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'plugin_home_search',
     'plugin_last_news',
     'plugin_direct',
+    'plugin_subpages',
     'page_directory',
     'page_map',
     'leaflet',

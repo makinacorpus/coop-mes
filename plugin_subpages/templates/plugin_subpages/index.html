@@ -1,0 +1,7 @@
+<div class="plugin-subpages">
+    <ul>
+        {% for p in pages %}
+            <li><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

@@ -849,3 +849,22 @@ ul.nav-tabs li.active a {
 #directory-detail #right h2 {
     clear: right;
 }
+
+.plugin-subpages {
+    border: solid 4px #e8ebef;
+    width: 920px;
+    margin: 10px auto 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.plugin-subpages a {
+    color: #7691ae;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.plugin-subpages a:hover {
+    text-decoration: underline;
+}
