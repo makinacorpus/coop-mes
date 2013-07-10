@@ -53,7 +53,7 @@ def index_view(request, page_app):
         orgs = orgs.distinct()
     else:
         orgs = Organization.objects.none()
-    paginator = Paginator(orgs, 10)
+    paginator = Paginator(orgs, 20)
     page = request.GET.get('page')
     try:
         orgs_page = paginator.page(page)
