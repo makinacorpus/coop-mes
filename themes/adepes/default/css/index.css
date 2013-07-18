@@ -151,6 +151,9 @@ body, input {
     padding: 8px 15px 8px 60px;
     color: #ffffff;
 }
+#login a {
+    color: #ffffff;
+}
 
 #login #your-account {
     margin-top: 5px;
@@ -240,13 +243,6 @@ nav a:hover {
     text-decoration: none;
     font-size: 12px;
 }
-
-/*#main-content {
-    border: solid 4px #e8ebef;
-    width: 940px;
-    margin: 10px auto;
-    padding: 10px;
-}*/
 
 #accueil-bleu {
     background: url('../images/index_background.png') repeat-x center;
@@ -905,4 +901,18 @@ ul.nav-tabs li.active a {
 
 .plugin-subpages a:hover {
     text-decoration: underline;
+}
+
+.reg {
+    display: table;
+    margin: 10px auto;
+    background: #ffffff;
+    border: 4px solid #51A3D3;
+}
+.reg .client > p {
+    display: table-row;
+}
+.reg label, .reg input{
+    display: table-cell;
+    margin: 10px;
 }
