@@ -90,6 +90,19 @@ ADMIN_TOOLS_THEMING_CSS = 'css/coop_local_bootstrap_theming.css'
 SITE_NAME = 'Achetons Solidaires'
 DOMAIN_NAME = 'mes:8000'
 ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 2
+SEARCH_DEPARTEMENTS = (
+    u'01', u'02', u'03', u'04', u'05', u'06', u'07', u'08', u'09', u'10',
+    u'11', u'12', u'13', u'14', u'15', u'16', u'17', u'18', u'19',
+    u'2A', u'2B',
+    u'21', u'22', u'23', u'24', u'25', u'26', u'27', u'28', u'29', u'30',
+    u'31', u'32', u'33', u'34', u'35', u'36', u'37', u'38', u'39', u'40',
+    u'41', u'42', u'43', u'44', u'45', u'46', u'47', u'48', u'49', u'50',
+    u'51', u'52', u'53', u'54', u'55', u'56', u'57', u'58', u'59', u'60',
+    u'61', u'62', u'63', u'64', u'65', u'66', u'67', u'68', u'69', u'70',
+    u'71', u'72', u'73', u'74', u'75', u'76', u'77', u'78', u'79', u'80',
+    u'81', u'82', u'83', u'84', u'85', u'86', u'87', u'88', u'89', u'90',
+    u'91', u'92', u'93', u'94', u'95'
+)
 
 LEAFLET_CONFIG = {
     'TILES_URL': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

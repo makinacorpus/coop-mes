@@ -3,6 +3,7 @@ import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import Plugin_HomeSearch
 from coop_local.models import ActivityNomenclature, Area
+from django.conf import settings
 
 
 class Plugin_HomeSearchForm(ModuloModelForm):
@@ -23,7 +24,7 @@ class AreaModelChoiceField(forms.ModelChoiceField):
         return "%s - %s" % (obj.reference, unicode(obj))
 
 class OrgSearch(forms.Form):
-    areas = Area.objects.filter(area_type_id=2).order_by('reference')
+    areas = Area.objects.filter(reference__in=settings.SEARCH_DEPARTEMENTS).order_by('reference')
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Secteur d\'activité', required=False)
     area  = AreaModelChoiceField(queryset=areas, empty_label=u'Territoire', required=False)
