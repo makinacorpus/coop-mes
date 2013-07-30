@@ -151,15 +151,17 @@ body, input {
     padding: 8px 15px 8px 60px;
     color: #ffffff;
 }
-#login a {
-    color: #ffffff;
-}
 
 #login #your-account {
     margin-top: 5px;
     font-family: "Melbourne";
     font-weight: bold;
     font-size: 14px;
+}
+
+#login a {
+    text-decoration: none;
+    color: #ffffff;
 }
 
 nav {

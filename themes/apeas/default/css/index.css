@@ -135,6 +135,11 @@ body, input {
     font-size: 14px;
 }
 
+#login a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
 nav {
     background: url('../images/menu.png');
     height: 40px;

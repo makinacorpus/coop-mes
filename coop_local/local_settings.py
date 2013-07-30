@@ -8,6 +8,9 @@ import sys
 # - coop/default_project_settings.py
 # - coop/db_settings.py
 
+import os.path
+PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 SITE_AUTHOR = 'Organisme'
 SITE_TITLE = 'Demo Django-coop'
 # DEFAULT_URI_DOMAIN = '{{ domain }}' useless use Site.objects.get_current().domain instead
@@ -20,6 +23,12 @@ if 'runserver' in sys.argv or 'test' in sys.argv:
     DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
+
+TEMPLATE_DIRS = [
+    PROJECT_PATH + '/themes/apeas/default/templates',
+    PROJECT_PATH + '/templates/',
+    PROJECT_PATH + '/coop_local/templates/',
+]
 
 ADMINS = (
     ('Administrateur', 'web@quinode.fr'),
