@@ -66,6 +66,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'page_directory',
     'page_map',
     'page_account',
+    'page_calls',
     'leaflet',
 ]
 

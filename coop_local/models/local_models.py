@@ -294,12 +294,14 @@ class CallForTenders(models.Model):
     clauses = MultiSelectField(_(u'clauses (si marché public)'), max_length=200, choices=(('14', '14'), ('15', '15'), ('30', '30'), ('53', '53')), blank=True)
     url = models.URLField(u'URL', blank=True, null=True, max_length=250)
 
+    geo_objects = GeoManager()
+
     def __unicode__(self):
 
         return self.title
 
     def activities(self):
-        return ', '.join([unicode(a) for a in self.activity.all()])
+        return ", ".join(self.activity.values_list('label', flat=True))
 
     class Meta:
         verbose_name = _(u'Call for tenders')

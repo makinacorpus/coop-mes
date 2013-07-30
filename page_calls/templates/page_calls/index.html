@@ -1,0 +1,64 @@
+{% load thumbnail %}
+
+<form id="annuaires-search" method="GET" action="#">
+    <table>
+        <tr>
+            <td rowspan="2">
+                <label>Donneur d'ordre</label>
+                {{ form.org_type }}
+            </td>
+            <td>
+                <label>Organisation</label>
+            </td>
+            <td>
+                <label>Période de publication</label>
+            </td>
+            <td id="results">
+                <p><span>{{ calls.paginator.count }}</span>
+                Résultat{{ calls.paginator.count|pluralize }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Secteurs d'activités</label>
+                {{ form.sector }}
+            </td>
+            <td>
+                <label>Période de publication</label>
+            </td>
+            <td class="center">
+                <input class="button" type="submit" name="display" value="RECHERCHER">
+            </td>
+        </tr>
+        <tr></tr>
+    </table>
+</form>
+
+<div id="annuaire-results" class="pasr-box">
+{% if calls.object_list %}
+    <div class="pagination top-pagination">
+        {% include "page_calls/pagination.html" %}
+    </div>
+    {% for call in calls %}
+        <div class="result{% if forloop.last %} last{% endif %}">
+            {% if call.organization.logo %}
+                {% thumbnail call.organization.logo "220x140" upscale=0 as logo %}
+                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" />
+                {% endthumbnail %}
+            {% else %}
+                <div class="logo"></div>
+            {% endif %}
+            <span class="blue-button" href="#">{{ call.area.label }}</span>
+            <p class="activity">{{ call.activities }}</p>
+            <p class="title">{{ call.title }}</p>
+            <p>Date limite de remise des offres&nbsp;: {{ call.deadline }}</p>
+            <a class="button" href="{{ object.page.get.get_absolute_url }}p/{{ call.pk }}/?{{ get_params }}&page={{ calls.number }}">Détails de l'offre</a>
+        </div>
+    {% endfor %}
+    <div class="pagination bottom-pagination">
+        {% include "page_calls/pagination.html" %}
+    </div>
+{% else %}
+    <p>Aucun résultat.</p>
+{% endif %}
+</div>
