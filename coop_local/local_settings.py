@@ -65,6 +65,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'plugin_subpages',
     'page_directory',
     'page_map',
+    'page_account',
     'leaflet',
 ]
 

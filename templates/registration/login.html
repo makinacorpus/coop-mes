@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block meta_title %}Identification{% endblock %}
+{% block title %}Identification{% endblock %}
+
+{% block content %}
+<div id="main-content">
+    <div id="layout-content">
+        <div class="placeholder">
+            <form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="reg">
+
+                {% if form.errors %}
+                    <p class="warn_errors">Votre identifiant et votre mot de passe ne correspondent pas.<br/>
+                        Vérifiez votre mot de passe SVP.</p>
+                {% endif %}
+
+            <fieldset class="client">
+                {{ form.as_p }}
+                <p><label></label><input class="bouton" id="ajouter" type="submit" value="Valider" /></p>
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
+            </fieldset>
+            </form>
+
+            <p>Vous n'avez pas encore de compte&nbsp;? <a href="../inscription/">Inscrivez-vous</a>.</p>
+
+            <!-- FIXME
+            <p>Vous avez <a href="/client/password/reset/">oublié votre mot de passe</a> ?</p>
+            -->
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

@@ -14,11 +14,11 @@
     <label for="search-input">Rechercher</label>
     <input id="search-input" type="search" name="q"></input>
 </form>
-<a href="/profil/login/">
+<a href="{% if request.user.is_active %}/mon-compte/{% else %}/mon-compte/p/connexion/?next={{ request.get_full_path }}{% endif %}">
     <div id="login">
         <div id="your-account">VOTRE COMPTE</div>
         <div>Bonjour,
-            {% if request.user %}
+            {% if request.user.is_active %}
                 <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
             {% else %}
                 <b>Identifiez-vous</b>

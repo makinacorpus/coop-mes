@@ -1,0 +1,23 @@
+{% load url from future %}
+{% load i18n %}
+
+<form method="post" action="">
+
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <p class="warn_errors">Votre identifiant et votre mot de passe ne correspondent pas.<br/>
+            Vérifiez votre mot de passe SVP.</p>
+    {% endif %}
+
+    {{ form.as_p }}
+    <p><label></label><input type="submit" value="Valider" /></p>
+    <input type="hidden" name="next" value="{{ next }}" />
+
+</form>
+
+<p>Vous n'avez pas encore de compte&nbsp;? <a href="../inscription/">Inscrivez-vous</a>.</p>
+
+<!-- FIXME
+<p>Vous avez <a href="/client/password/reset/">oublié votre mot de passe</a> ?</p>
+-->
