@@ -6,6 +6,7 @@ from .views import (
     login_view,
     logout_view,
     inscription_view,
+    organizations_view,
     #InscriptionView,
     #inscription_forms
 )
@@ -16,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^inscription/$', inscription_view),
     url(r'^connexion/$', login_view),
     url(r'^deconnexion/$', logout_view),
+    url(r'^mes-organisations/$', organizations_view),
 )

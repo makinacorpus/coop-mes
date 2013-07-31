@@ -13,6 +13,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.models import get_current_site
 from django.utils.http import is_safe_url
 from django.http import HttpResponseRedirect
+from coop_local.models import Organization
 
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
@@ -104,6 +105,18 @@ def inscription_view(request, page_app):
 
     return render_view('page_account/inscription.html',
         {'form1': form1, 'form2': form2},
+        MEDIAS,
+        context_instance=RequestContext(request))
+
+
+def organizations_view(request, page_app):
+
+    #organizations = Organization.objects.filter(engagement__org_admin=True, engagement__person__user=request.user)
+    organizations = Organization.objects.filter(engagement__person__user=request.user)
+    print organizations
+
+    return render_view('page_account/organizations.html',
+        {'organizations': organizations},
         MEDIAS,
         context_instance=RequestContext(request))
 

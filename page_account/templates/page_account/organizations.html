@@ -1,0 +1,7 @@
+<h2>Mes clients et fournisseurs</h2>
+
+<ul>
+{% for org in organizations %}
+    <li><a href="/annuaire/p/{{ org.pk }}/">{{ org }}</a></li>
+{% endfor %}
+</ul>
