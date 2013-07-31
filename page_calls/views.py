@@ -8,6 +8,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from coop_local.models.local_models import ORGANIZATION_STATUSES
+from django.utils.timezone import now
+from datetime import timedelta
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -27,13 +29,23 @@ def index_view(request, page_app):
             calls = calls.filter(organization__is_customer=True, organization__customer_type=1)
         if form.cleaned_data['org_type'] == 'prive':
             calls = calls.filter(organization__is_customer=True, organization__customer_type=2)
+        if form.cleaned_data['clause']:
+            calls = calls.filter(clauses__contains=form.cleaned_data['clause'])
+        if form.cleaned_data['organization']:
+            calls = calls.filter(organization=form.cleaned_data['organization'])
         sector = form.cleaned_data['sector']
         descendants = sector and sector.get_descendants(include_self=True)
         if descendants:
             calls = calls.filter(activity__in=descendants)
-        if form.cleaned_data['area']:
-            calls = calls.filter(area__polygon__intersects=form.cleaned_data['area'].polygon)
         calls = calls.distinct()
+        if form.cleaned_data['period2'] == 'archive':
+            calls = calls.filter(deadline__lt=now())
+            if form.cleaned_data['period']:
+                calls = calls.filter(deadline__gte=now()-timedelta(days=int(form.cleaned_data['period'])))
+        elif form.cleaned_data['period2'] != 'tout':
+            calls = calls.filter(deadline__gte=now())
+            if form.cleaned_data['period']:
+                calls = calls.filter(deadline__lt=now()+timedelta(days=int(form.cleaned_data['period'])))
     else:
         calls = Organization.objects.none()
     paginator = Paginator(calls, 20)

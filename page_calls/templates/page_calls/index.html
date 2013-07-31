@@ -1,17 +1,20 @@
 {% load thumbnail %}
 
 <form id="annuaires-search" method="GET" action="#">
+    {{ form.non_field_errors }}
     <table>
         <tr>
-            <td rowspan="2">
+            <td>
                 <label>Donneur d'ordre</label>
                 {{ form.org_type }}
             </td>
             <td>
                 <label>Organisation</label>
+                {{ form.organization }}
             </td>
             <td>
                 <label>Période de publication</label>
+                {{ form.period }}
             </td>
             <td id="results">
                 <p><span>{{ calls.paginator.count }}</span>
@@ -20,11 +23,16 @@
         </tr>
         <tr>
             <td>
+                <label>Clause</label>
+                {{ form.clause }}
+            </td>
+            <td>
                 <label>Secteurs d'activités</label>
                 {{ form.sector }}
             </td>
             <td>
                 <label>Période de publication</label>
+                {{ form.period2 }}
             </td>
             <td class="center">
                 <input class="button" type="submit" name="display" value="RECHERCHER">

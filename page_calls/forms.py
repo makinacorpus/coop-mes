@@ -3,26 +3,35 @@
 import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Calls
-from coop_local.models import CallForTenders, Area, ActivityNomenclature 
+from coop_local.models import CallForTenders, ActivityNomenclature, Organization
+from coop_local.models.local_models import CLAUSE_CHOICES, ORGANIZATION_STATUSES
 from django.conf import settings
 
 
 ORG_TYPE_CHOICES = (
+    ('tout', u'Public ou privé'),
     ('prive', u'Privé'),
     ('public', u'Public'),
 )
 
-PERIOD_CHOICES = (
+PERIOD2_CHOICES = (
     ('current', u'En cours'),
     ('archive', u'Archivé'),
+    ('tout', u'Tout voir'),
 )
 
-class AreaModelChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
-        return "%s - %s" % (obj.reference, unicode(obj))
+PERIOD_CHOICES = (
+    ('', u'Tout voir'),
+    ('15', u'15 jours'),
+    ('30', u'1 mois'),
+    ('90', u'3 mois'),
+    ('365', u'1 an'),
+)
 
 class CallSearch(forms.Form):
-    areas = Area.objects.filter(reference__in=settings.SEARCH_DEPARTEMENTS).order_by('reference')
-    org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, widget=forms.RadioSelect, required=False)
+    org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
+    clause = forms.ChoiceField(choices=(('', u'Tout voir'), ) + CLAUSE_CHOICES, required=False)
+    organization = forms.ModelChoiceField(queryset=Organization.objects.filter(status=ORGANIZATION_STATUSES.VALIDATED), required=False, empty_label=u'Toutes')
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
-    area  = AreaModelChoiceField(queryset=areas, empty_label=u'Tout voir', required=False)
+    period = forms.ChoiceField(choices=PERIOD_CHOICES, required=False)
+    period2 = forms.ChoiceField(choices=PERIOD2_CHOICES, required=False)
