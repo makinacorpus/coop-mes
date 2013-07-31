@@ -4,11 +4,11 @@ from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from django.contrib.auth.views import login, logout
 from django.contrib.formtools.wizard.views import SessionWizardView
-from .forms import AccountForm
+from .forms import PersonForm, AccountForm
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login
+from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.models import get_current_site
 from django.utils.http import is_safe_url
@@ -86,30 +86,46 @@ def logout_view(request, page_app):
 
 def inscription_view(request, page_app):
 
+    if request.method == "POST":
+        form1 = PersonForm(request.POST)
+        form2 = AccountForm(request.POST)
+        if form1.is_valid() and form2.is_valid():
+            user = form2.save()
+            person = form1.save(commit=False)
+            person.user = user
+            person.username = user.username
+            person.save()
+            user = authenticate(username=user.username, password=form2.cleaned_data['password1'])
+            auth_login(request, user)
+            return HttpResponseRedirect('../..')
+    else:
+        form1 = PersonForm()
+        form2 = AccountForm()
+
     return render_view('page_account/inscription.html',
-        {},
+        {'form1': form1, 'form2': form2},
         MEDIAS,
         context_instance=RequestContext(request))
 
 
-inscription_forms = (
-    ('account', AccountForm),
-)
+#inscription_forms = (
+    #('account', AccountForm),
+#)
 
-class InscriptionView(SessionWizardView):
+#class InscriptionView(SessionWizardView):
 
-    def get_template_names(self):
-        return {
-            'account': 'page_account/account.html'
-        }[self.steps.current]
+    #def get_template_names(self):
+        #return {
+            #'account': 'page_account/account.html'
+        #}[self.steps.current]
 
-    def done(self, form_list, **kwargs):
-        #do_something_with_the_form_data(form_list)
-        return HttpResponseRedirect('/')
+    #def done(self, form_list, **kwargs):
+        ##do_something_with_the_form_data(form_list)
+        #return HttpResponseRedirect('/')
 
-    def render_to_response(self, context, **response_kwargs):
-        assert response_kwargs == {}
-        return render_view(self.get_template_names(),
-            context,
-            MEDIAS,
-            context_instance=RequestContext(self.request))
+    #def render_to_response(self, context, **response_kwargs):
+        #assert response_kwargs == {}
+        #return render_view(self.get_template_names(),
+            #context,
+            #MEDIAS,
+            #context_instance=RequestContext(self.request))

@@ -1,1 +1,49 @@
-<p>Inscription</p>
+{% load i18n %}
+
+<form action="" method="post">{% csrf_token %}
+
+{{ form1.non_field_errors }}
+{{ form2.non_field_errors }}
+
+<table>
+    <tr>
+        <th><label for="id_gender">Genre&nbsp;:</label></th>
+        <td>{{ form1.gender.errors }}{{ form1.gender }}</td>
+    </tr>
+    <tr>
+        <th><label for="id_first_name">Prénom&nbsp;:</label></th>
+        <td>{{ form1.first_name.errors }}{{ form1.first_name }}</td>
+    </tr>
+    <tr>
+        <th><label for="id_last_name">Nom&nbsp;:</label></th>
+        <td>{{ form1.last_name.errors }}{{ form1.last_name }}</td>
+    </tr>
+    <tr>
+        <th><label for="id_email">Adresse électronique&nbsp;:</label></th>
+        <td>{{ form2.email.errors }}{{ form2.email }}</td>
+    </tr>
+    <tr>
+        <th><label for="id_username">Nom d&#39;utilisateur&nbsp;:</label></th>
+        <td>{{ form2.username.errors }}{{ form2.username }}<br /><span class="helptext">Requis. 30 caractères maximum. Uniquement des lettres, nombres et les caractères « @ », « . », « + », « - » et « _ ».</span></td>
+    </tr>
+    <tr>
+        <th><label for="id_password1">Mot de passe&nbsp;:</label></th>
+        <td>{{ form2.password1.errors }}{{ form2.password1 }}</td>
+    </tr>
+    <tr>
+        <th><label for="id_password2">Confirmation du mot de passe&nbsp;:</label></th>
+        <td>{{ form2.password2.errors }}{{ form2.password2 }}<br /><span class="helptext">Saisissez le même mot de passe que précédemment, pour vérification.</span></td>
+    </tr>
+    <tr>
+        <th><label for="id_charte_0">J'accepte la <a href="#">charte de l'utilisateur</a>&nbsp;:</label></th>
+        <td>
+            {{ form1.charte.errors }}
+            <label for="id_charte_1"><input type="radio" id="id_charte_1" value="1" name="charte" /> Oui</label>
+            <label for="id_charte_0"><input checked="checked" type="radio" id="id_charte_0" value="0" name="charte" /> Non</label>
+        </td>
+    </tr>
+</table>
+
+<input type="submit" value="{% trans "submit" %}"/>
+
+</form>
