@@ -24,7 +24,7 @@ class AreaModelChoiceField(forms.ModelChoiceField):
         return "%s - %s" % (obj.reference, unicode(obj))
 
 class OrgSearch(forms.Form):
-    areas = Area.objects.filter(reference__in=settings.SEARCH_DEPARTEMENTS).order_by('reference')
+    areas = Area.objects.filter(parent_rels__parent__label=settings.REGION_LABEL).order_by('reference')
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Secteur d\'activité', required=False)
     area  = AreaModelChoiceField(queryset=areas, empty_label=u'Territoire', required=False)

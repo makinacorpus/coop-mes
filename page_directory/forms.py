@@ -29,7 +29,7 @@ class AreaModelChoiceField(forms.ModelChoiceField):
         return "%s - %s" % (obj.reference, unicode(obj))
 
 class OrgSearch(forms.Form):
-    areas = Area.objects.filter(reference__in=settings.SEARCH_DEPARTEMENTS).order_by('reference')
+    areas = Area.objects.filter(parent_rels__parent__label=settings.REGION_LABEL).order_by('reference')
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     prov_type = forms.ModelChoiceField(queryset=AgreementIAE.objects.all(), empty_label=u'Tout voir', required=False)
     interim = forms.ChoiceField(choices=INTERIM_CHOICES, widget=forms.RadioSelect)

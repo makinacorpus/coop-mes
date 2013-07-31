@@ -3,11 +3,12 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from .forms import OrgSearch
-from coop_local.models import Organization, ActivityNomenclature
+from coop_local.models import Organization, ActivityNomenclature, Area
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
+from django.conf import settings
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -53,8 +54,11 @@ def index_view(request, page_app):
     else:
         orgs = Organization.objects.none()
     get_params = request.GET.copy()
+    coords = Area.objects.get(label=settings.REGION_LABEL).polygon.envelope.coords[0]
+    print coords
+    bounds = (coords[0][1], coords[0][0], coords[2][1], coords[2][0])
     return render_view('page_map/index.html',
                        {'object': page_app, 'form': form, 'orgs': orgs,
-                        'get_params': get_params.urlencode()},
+                        'bounds': bounds, 'get_params': get_params.urlencode()},
                        MEDIAS,
                        context_instance=RequestContext(request))

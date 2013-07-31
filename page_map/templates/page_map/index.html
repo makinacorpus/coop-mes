@@ -90,6 +90,7 @@
     {% leaflet_map "orgsmap" %}
 </div>
 
+{% localize off %}
 <script type="text/javascript">
 
 function orgsmapInit(map, bounds) {
@@ -110,12 +111,12 @@ function orgsmapInit(map, bounds) {
         {% endif %}
     {% endfor %}
 
-    if(tab_markers.length > 0) {
-        global_bounds = new L.LatLngBounds(tab_markers);
-        map.fitBounds(global_bounds);
-        map.zoomOut();
-    }
+    var southWest = new L.LatLng({{ bounds.0 }}, {{ bounds.1 }});
+    var northEast = new L.LatLng({{ bounds.2 }}, {{ bounds.3 }});
+    var bounds = new L.LatLngBounds(southWest, northEast);
+    map.fitBounds(bounds);
 
 }
 
 </script>
+{% endlocalize %}
