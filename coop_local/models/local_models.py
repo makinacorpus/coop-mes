@@ -297,6 +297,7 @@ class CallForTenders(models.Model):
     clauses = MultiSelectField(_(u'clauses (si marché public)'), max_length=200, choices=CLAUSE_CHOICES, blank=True)
     url = models.URLField(u'URL', blank=True, null=True, max_length=250)
 
+    objects = models.Manager()
     geo_objects = GeoManager()
 
     def __unicode__(self):
