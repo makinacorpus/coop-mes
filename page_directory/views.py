@@ -79,3 +79,10 @@ def detail_view(request, page_app, pk):
                         'get_params': get_params.urlencode()},
                        MEDIAS,
                        context_instance=RequestContext(request))
+
+
+def add_view(request, page_app):
+    return render_view('page_directory/add.html',
+                       {'object': page_app},
+                       MEDIAS,
+                       context_instance=RequestContext(request))
