@@ -1,5 +1,11 @@
 {% load thumbnail leaflet_tags l10n %}
 
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-box top">
+
 <form id="annuaires-search" method="GET" action="#">
     <table>
         <tr>
@@ -86,37 +92,54 @@
     }
 </script>
 
-<div id="map-results" class="pasr-box">
-    {% leaflet_map "orgsmap" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+
+                    {% leaflet_map "orgsmap" %}
+
+                    {% localize off %}
+                    <script type="text/javascript">
+
+                    function orgsmapInit(map, bounds) {
+
+                        // Add markers
+                        var tab_markers = new Array();
+
+                        {% for o in orgs %}
+                            {% if o.located %}
+                                {% for l in o.located.all %}
+                                    {% if l.location.point %}
+                                        tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
+                                        L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
+                                                .bindPopup("{{ o.title|safe }}<br/><a href=\"/annuaire/p/{{ o.pk }}/\">En savoir plus</a>")
+                                                .openPopup();
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+
+                        var southWest = new L.LatLng({{ bounds.0 }}, {{ bounds.1 }});
+                        var northEast = new L.LatLng({{ bounds.2 }}, {{ bounds.3 }});
+                        var bounds = new L.LatLngBounds(southWest, northEast);
+                        map.fitBounds(bounds);
+
+                    }
+
+                    </script>
+                    {% endlocalize %}
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 sidebar">
+                {% include "apeas/default/templates/right-menu.html" %}
+            </div>
+
+        </div>
+    </div>
 </div>
-
-{% localize off %}
-<script type="text/javascript">
-
-function orgsmapInit(map, bounds) {
-
-    // Add markers
-    var tab_markers = new Array();
-
-    {% for o in orgs %}
-        {% if o.located %}
-            {% for l in o.located.all %}
-                {% if l.location.point %}
-                    tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
-                    L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
-                            .bindPopup("{{ o.title|safe }}<br/><a href=\"/annuaire/p/{{ o.pk }}/\">En savoir plus</a>")
-                            .openPopup();
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
-
-    var southWest = new L.LatLng({{ bounds.0 }}, {{ bounds.1 }});
-    var northEast = new L.LatLng({{ bounds.2 }}, {{ bounds.3 }});
-    var bounds = new L.LatLngBounds(southWest, northEast);
-    map.fitBounds(bounds);
-
-}
-
-</script>
-{% endlocalize %}

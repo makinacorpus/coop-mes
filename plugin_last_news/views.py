@@ -16,8 +16,11 @@ MEDIAS = (
 def index_view(request, plugin):
     entries = Entry.objects.filter(status=Entry.STATUS_ONLINE)
     entries = entries.order_by('-publication_date')
-    entries = entries[:1]
+    if entries:
+        entry = entries[0]
+    else:
+        entry = None
     return render_view('plugin_last_news/index.html',
-                       {'object': plugin, 'entries': entries},
+                       {'object': plugin, 'entry': entry},
                        MEDIAS,
                        context_instance=RequestContext(request))

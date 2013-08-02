@@ -4,24 +4,29 @@
 
 {% block layout %}
 
-<div id="accueil-bleu">
-
-    <div id="accueil-bleu-content">
-
-        <div class="accueil-bleu-left">
-            {% render_placeholder "1" %}
+<div class="top-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+            <div class="top-content-box">
+                {% render_placeholder "1" %}
+            </div>
+            </div>
+            <div class="col-lg-6">
+            <div class="top-content-box">
+                {% render_placeholder "2" %}
+            </div>
+            </div>
         </div>
-
-        <div class="accueil-bleu-right">
-            {% render_placeholder "2" %}
-        </div>
-
     </div>
-
 </div>
 
-<div id="accueil-bottom">
-  {% render_placeholder "3" %}
+<div class="main-content">
+    <div class="container">
+        <div class="content-box">
+            {% render_placeholder "3" %}
+        </div>
+    </div>
 </div>
 
 {% endblock layout %}

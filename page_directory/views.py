@@ -12,7 +12,6 @@ from django.http import HttpResponseRedirect
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
     # App CSS
-    CSSMedia('page_directory/bootstrap.min.css'),
     CSSMedia('leaflet/leaflet.css', prefix_file=''),
     # App JS
     JSMedia('leaflet/leaflet-src.js', prefix_file=''),

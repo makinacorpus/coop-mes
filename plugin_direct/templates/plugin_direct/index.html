@@ -1,60 +1,70 @@
-<div id="direct">
-    <div id="direct-header">
-        <h2>{{ object.title }}</h2>
-        <ul>
-            <li data-tab="appels_d_offres" class="selected">Appels d'offres</li>
-            <li data-tab="fournisseurs">Fournisseurs</li>
-            <li data-tab="acheteurs">Acheteurs</li>
-            <li data-tab="agenda">Agenda</li>
-            <li data-tab="actualites">Actualités</li>
-        </ul>
+<div class="navbar">
+    <i></i>
+    <h1 class="navbar-brand title">{{ object.title }}</h1>
+    <ul class="nav navbar-nav">
+        <li data-tab="Les appels d'offres" class="active"><a href="javascript:void(0);">Appels d'offres</a></li>
+        <li data-tab="Les fournisseurs"><a href="javascript:void(0);">Fournisseurs</a></li>
+        <li data-tab="Les acheteurs"><a href="javascript:void(0);">Acheteurs</a></li>
+        <li data-tab="L'agenda"><a href="javascript:void(0);">Agenda</a></li>
+        <li data-tab="Les actualites"><a href="javascript:void(0);">Actualités</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="vignette">
+            <div class="border"></div>
+            <span>Les appels d'offres</span>
+            <div class="border"></div>
+        </div>
     </div>
-    <div class="direct-content selected" data-tab="appels_d_offres">
+    <div class="col-lg-9 direct-content" data-tab="Les appels d'offres">
         {% for call in calls %}
-            <div>
+            <div class="article-extract">
                 <h3><a href="/appels-d-offres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
-                <h4>{{ call.deadline|date:"d/m/Y" }} - {{ call.organization }}</h4>
+                <div class="article-meta">{{ call.deadline|date:"d/m/Y" }} - {{ call.organization }}</div>
                 <p>{{ call.activities }}</p>
             </div>
         {% endfor %}
     </div>
-    <div class="direct-content" data-tab="fournisseurs">
+    <div class="col-lg-9 direct-content" data-tab="Les fournisseurs" style="display: none;">
         {% for provider in providers %}
-            <div>
+            <div class="article-extract">
                 <h3><a href="/annuaire/p/{{ provider.pk }}/">{{ provider.label }}</a></h3>
-                <h4>{{ provider.validation|date:"d/m/Y" }} - Catégorie {{ provider.category.all|join:", " }}</h4>
+                <div class="article-meta">{{ provider.validation|date:"d/m/Y" }} - Catégorie {{ provider.category.all|join:", " }}</div>
                 <p>{{ provider.brief_description|truncatewords:10 }}</p>
             </div>
         {% endfor %}
     </div>
-    <div class="direct-content" data-tab="acheteurs">
+    <div class="col-lg-9 direct-content" data-tab="Les acheteurs" style="display: none;">
         {% for customer in customers %}
-            <div>
+            <div class="article-extract">
                 <h3><a href="/annuaire/p/{{ customer.pk }}/">{{ customer.label }}</a></h3>
-                <h4>{{ customer.validation|date:"d/m/Y" }} - Catégorie {{ customer.category.all|join:", " }}</h4>
+                <div class="article-meta">{{ customer.validation|date:"d/m/Y" }} - Catégorie {{ customer.category.all|join:", " }}</div>
                 <p>{{ customer.brief_description|truncatewords:10 }}</p>
             </div>
         {% endfor %}
     </div>
-    <div class="direct-content" data-tab="agenda">
+    <div class="col-lg-9 direct-content" data-tab="L'agenda" style="display: none;">
     </div>
-    <div class="direct-content" data-tab="actualites">
+    <div class="col-lg-9 direct-contentt" data-tab="Les actualites" style="display: none;">
         {% for actu in actus %}
-            <div>
+            <div class="article-extract">
                 <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
-                <h4>{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</h4>
+                <div class="article-meta">{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</div>
                 {{ actu.body|safe }}
             </div>
         {% endfor %}
     </div>
 </div>
 
+
 <script type="text/javascript">
-    $("#direct-header li").click(function(event) {
+    $(".navbar-nav li").click(function(event) {
         var tab = $(this).attr("data-tab");
-        $("#direct-header li").removeClass("selected");
-        $(".direct-content").removeClass("selected");
-        $(this).addClass("selected");
-        $(".direct-content[data-tab=" + tab + "]").addClass("selected");
+        $(".navbar-nav li").removeClass("active");
+        $(".direct-content").hide();
+        $(".vignette span").html(tab);
+        $(this).addClass("active");
+        $(".direct-content[data-tab=\"" + tab + "\" ]").show();
     });
 </script>

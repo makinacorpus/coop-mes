@@ -1,118 +1,141 @@
 {% load thumbnail %}
 
-<form id="annuaires-search" method="GET" action="#">
-    <table>
-        <tr>
-            <td rowspan="3">
-                <label>Je recherche</label>
-                {{ form.org_type }}
-            </td>
-            <td rowspan="6">
-                <label>Secteur d'activité</label>
-                {{ form.interim }}
-                {{ form.sector }}
-            </td>
-            <td rowspan="3">
-                <label>Territoire</label>
-                {{ form.area }}
-            </td>
-            <td rowspan="2" id="results">
-                <p><span>{{ orgs.paginator.count }}</span>
-                Résultat{{ orgs.paginator.count|pluralize }}</p>
-            </td>
-        </tr>
-        <tr></tr>
-        <tr>
-            <td rowspan="2" class="center">
-                <input class="button carto" type="submit" name="display" value="Cartographie">
-            </td>
-        </tr>
-        <tr>
-            <td rowspan="3" id="prov-type-cell">
-                <label>Type de fournisseur</label>
-                {{ form.prov_type }}
-            </td>
-            <td rowspan="3">
-                <label>Recherche libre</label>
-                {{ form.q }}
-            </td>
-        </tr>
-        <tr>
-            <td rowspan="2" class="center">
-                <input class="button" type="submit" name="display" value="RECHERCHER">
-            </td>
-        </tr>
-        <tr></tr>
-    </table>
-</form>
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-box top">
 
-<script type="text/javascript">
-    // Show org_type search field only if "Fournisseurs" is selected
-    function org_type_change() {
-        var cell = document.getElementById('prov-type-cell');
-        if (this.options[this.selectedIndex].value == "fournisseur") {
-            cell.style.visibility = 'visible';
-        } else {
-            cell.style.visibility = 'hidden';
-        }
-    };
-    var org_type_select = document.getElementById('id_org_type');
-    org_type_select.addEventListener(
-        "change",
-        org_type_change,
-        false
-    );
-    org_type_change.apply(org_type_select);
+                    <form id="annuaires-search" method="GET" action="#">
+                        <table>
+                            <tr>
+                                <td rowspan="3">
+                                    <label>Je recherche</label>
+                                    {{ form.org_type }}
+                                </td>
+                                <td rowspan="6">
+                                    <label>Secteur d'activité</label>
+                                    {{ form.interim }}
+                                    {{ form.sector }}
+                                </td>
+                                <td rowspan="3">
+                                    <label>Territoire</label>
+                                    {{ form.area }}
+                                </td>
+                                <td rowspan="2" id="results">
+                                    <p><span>{{ orgs.paginator.count }}</span>
+                                    Résultat{{ orgs.paginator.count|pluralize }}</p>
+                                </td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <td rowspan="2" class="center">
+                                    <input class="button carto" type="submit" name="display" value="Cartographie">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" id="prov-type-cell">
+                                    <label>Type de fournisseur</label>
+                                    {{ form.prov_type }}
+                                </td>
+                                <td rowspan="3">
+                                    <label>Recherche libre</label>
+                                    {{ form.q }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="center">
+                                    <input class="button" type="submit" name="display" value="RECHERCHER">
+                                </td>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </form>
 
-    // Show activity field only if "Production de biens et services" is selected
-    interim1 = document.getElementById('id_interim_1');
-    interim1.addEventListener(
-        "change",
-        function() {
-            document.getElementById('id_sector').style.visibility = 'hidden';
-        },
-        false
-    );
-    interim2 = document.getElementById('id_interim_2');
-    interim2.addEventListener(
-        "change",
-        function() {
-            document.getElementById('id_sector').style.visibility = 'visible';
-        },
-        false
-    );
-    if (!interim2.checked) {
-        document.getElementById('id_sector').style.visibility = 'hidden';
-    }
-</script>
+                    <script type="text/javascript">
+                        // Show org_type search field only if "Fournisseurs" is selected
+                        function org_type_change() {
+                            var cell = document.getElementById('prov-type-cell');
+                            if (this.options[this.selectedIndex].value == "fournisseur") {
+                                cell.style.visibility = 'visible';
+                            } else {
+                                cell.style.visibility = 'hidden';
+                            }
+                        };
+                        var org_type_select = document.getElementById('id_org_type');
+                        org_type_select.addEventListener(
+                            "change",
+                            org_type_change,
+                            false
+                        );
+                        org_type_change.apply(org_type_select);
 
-<div id="annuaire-results" class="pasr-box">
-{% if orgs.object_list %}
-    <div class="pagination top-pagination">
-        {% include "page_directory/pagination.html" %}
-    </div>
-    {% for org in orgs %}
-        <div class="result{% if forloop.last %} last{% endif %}">
-            {% if org.logo %}
-                {% thumbnail org.logo "220x140" upscale=0 as logo %}
-                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" />
-                {% endthumbnail %}
-            {% else %}
-                <div class="logo"></div>
-            {% endif %}
-            {% with org.main_location.city as city %}{% if city %}
-                <span class="blue-button" href="#">{{ org.main_location.zipcode }} {{ city }}</span>
-            {% endif %}{% endwith %}
-            <p class="activity">{{ org.offer_activities }}</p>
-            <p class="title">{{ org.title }}</p>
-            <p>{{ org.brief_description }}</p>
-            <a class="button" href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">Fiche personnelle</a>
+                        // Show activity field only if "Production de biens et services" is selected
+                        interim1 = document.getElementById('id_interim_1');
+                        interim1.addEventListener(
+                            "change",
+                            function() {
+                                document.getElementById('id_sector').style.visibility = 'hidden';
+                            },
+                            false
+                        );
+                        interim2 = document.getElementById('id_interim_2');
+                        interim2.addEventListener(
+                            "change",
+                            function() {
+                                document.getElementById('id_sector').style.visibility = 'visible';
+                            },
+                            false
+                        );
+                        if (!interim2.checked) {
+                            document.getElementById('id_sector').style.visibility = 'hidden';
+                        }
+                    </script>
+
+                </div>
+            </div>
         </div>
-    {% endfor %}
-    <div class="pagination bottom-pagination">
-        {% include "page_directory/pagination.html" %}
-    </div>
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+
+{% if orgs.object_list %}
+                    <div class="pagination top-pagination">
+                        {% include "page_directory/pagination.html" %}
+                    </div>
+                    {% for org in orgs %}
+                        <div class="result{% if forloop.last %} last{% endif %}">
+                            {% if org.logo %}
+                                {% thumbnail org.logo "220x140" upscale=0 as logo %}
+                                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" />
+                                {% endthumbnail %}
+                            {% else %}
+                                <div class="logo"></div>
+                            {% endif %}
+                            {% with org.main_location.city as city %}{% if city %}
+                                <span class="blue-button" href="#">{{ org.main_location.zipcode }} {{ city }}</span>
+                            {% endif %}{% endwith %}
+                            <p class="activity">{{ org.offer_activities }}</p>
+                            <p class="title">{{ org.title }}</p>
+                            <p>{{ org.brief_description }}</p>
+                            <a class="button" href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">Fiche personnelle</a>
+                        </div>
+                    {% endfor %}
+                    <div class="pagination bottom-pagination">
+                        {% include "page_directory/pagination.html" %}
+                    </div>
 {% else %}
-    <p>Aucun résultat.</p>
+                    <p>Aucun résultat.</p>
 {% endif %}
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 sidebar">
+                {% include "apeas/default/templates/right-menu.html" %}
+            </div>
+
+        </div>
+    </div>
 </div>

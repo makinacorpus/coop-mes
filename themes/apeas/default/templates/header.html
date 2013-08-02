@@ -1,30 +1,36 @@
 {% load ionyweb_tags %}
 
-<div id="inner-header">
-
-<div id="logo">
-    {% render_layout "logo" %}
-</div>
-<ul id="top-links">
-    <li><a href="/qui-sommes-nous/">Qui sommes-nous ?</a></li>
-    <li><a href="/pourquoi-sinscrire/">Pourquoi s'inscrire ?</a></li>
-    <li><a href="/espace-presse/">Espace Presse</a></li>
-</ul>
-<form id="search" method="GET" action="#">
-    <label for="search-input">Rechercher</label>
-    <input id="search-input" type="search" name="q"></input>
-</form>
-<a href="{% if request.user.is_active %}/mon-compte/{% else %}/mon-compte/p/connexion/?next={{ request.get_full_path }}{% endif %}">
-    <div id="login">
-        <div id="your-account">VOTRE COMPTE</div>
-        <div>Bonjour,
-            {% if request.user.is_active %}
-                <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
-            {% else %}
-                <b>Identifiez-vous</b>
-            {% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5">
+            {% render_layout "logo" %}
+        </div>
+        <div class="col-lg-7">
+            <nav class="second-nav">
+                <ul class="nav nav-justified">
+                    <li><a href="/qui-sommes-nous/">Qui sommes nous ?</a></li>
+                    <li><a href="/pourquoi-sinscrire/">Pourquoi s'inscrire ?</a></li>
+                    <li><a href="/espace-presse/">Espace Presse</a></li>
+                </ul>
+            </nav>
+            <form class="search">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                    <button class="btn" type="button">Rechercher</button>
+                    </span>
+                    <input type="search" class="form-control">
+                </div><!-- /input-group -->
+            </form>
+            <a class="login btn" href="{% if request.user.is_active %}/mon-compte/{% else %}/mon-compte/p/connexion/?next={{ request.get_full_path }}{% endif %}">
+                <img src="avatar.png" width="35" height="35" />
+                <b class="uppercase">Votre compte</b><br/>
+                Bonjour,
+                {% if request.user.is_active %}
+                    <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
+                {% else %}
+                    <b>Identifiez-vous</b>
+                {% endif %}
+            </a>
         </div>
     </div>
-</a>
-
 </div>

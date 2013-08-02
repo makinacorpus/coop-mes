@@ -1,22 +1,110 @@
-{% extends "themes/html5.html" %}
-{% load staticfiles %}
+{% load ionyweb_tags i18n staticfiles %}
+{# Minimum HTML5 template #}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<!--[if lt IE 7]>      <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js"> <!--<![endif]-->
+<head>
+    {% admin_toolbar_medias %}
 
-{% block theme-design-css %}
-    <link rel="stylesheet" type="text/css" href="{% static "themes/apeas/default/css/index.css" %}">
-{% endblock %}
+    {% block head %}
+        {% block header_title %}
+            <title>{% title %} - {{ request.website.title }}</title>
+        {% endblock %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width">
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% render_favicon %}
+        {% block theme-design-css %}
+            <link rel="stylesheet" href="{% static "css/bootstrap/bootstrap.css" %}">
+            <link rel="stylesheet" href="{% static "css/main.css" %}">
+            <link rel="stylesheet" href="{% static "css/toto.css" %}">
+        {% endblock %}
+        {% block theme-design-js %}
+            <script src="{% static "js/vendor/modernizr-2.6.2.min.js" %}"></script>
+        {% endblock %}
+    {% endblock %}
 
-{% block header %}
-    <div id="top-line" class="bg-orange">
-        <div class="bg-green"></div>
-        <div class="bg-blue"></div>
+    {% render_meta_kw %}
+    {% render_meta_description %}
+    {% render_medias %}
+</head>
+
+{% block body-tag %}<body>{% endblock %}
+
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    {% admin_toolbar %}
+
+    {% block top_body %}{% endblock %}
+
+    {% block body %}
+
+    <div class="topsite-border">
+        <div class="color1"></div>
+        <div class="color2"></div>
+        <div class="color3"></div>
     </div>
-    <header id="header">
-        {% include "apeas/default/templates/header.html" %}
-    </header>
-{% endblock header %}
 
-{% block footer %}
-    <footer id="footer">
+    <header  class="main-header">
+
+        <!-- Header -->
+        {% block header %}
+            {% include "apeas/default/templates/header.html" %}
+        {% endblock %}
+        <!-- End of Header -->
+
+        <!-- Navigation -->
+        {% block navigation %}
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".main-nav">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <nav class="main-nav nav-collapse collapse">{% render_navigation %}</nav>
+        {% endblock %}
+        <!-- End of Navigation -->
+
+    </header>
+
+    <!-- Content -->
+    {% block content %}
+        {% block page %}{% render_page %}{% endblock %}
+    {% endblock %}
+    <!-- End of Content -->
+
+    <!-- Footer -->
+    {% block footer %}
         {% include "apeas/default/templates/footer.html" %}
-    </footer>
-{% endblock footer %}
+    {% endblock %}
+    <!-- End of Footer -->
+    {% render_clipboard %}
+
+    {% block render_default %}
+        {% render_default %}
+    {% endblock %}
+
+    {% endblock %}
+
+    {% googleanalytics %}
+    {% block extra-medias %}{% endblock %}
+
+    {% block bottom_body %}{% endblock %}
+
+    {# <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> #}
+    {# <script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-1.9.1.min.js" %}"><\/script>')</script> #}
+    {# <script src="{% static "js/vendor/bootstrap.min.js" %}"></script> #}
+    <script src="{% static "js/plugins.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+
+  </body>
+
+</html>

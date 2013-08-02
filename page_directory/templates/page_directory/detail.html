@@ -1,18 +1,14 @@
-{% load thumbnail leaflet_tags %}
+{% load thumbnail  %}
 
-<div id="directory-detail">
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
 
-<div id="navigation">
-    <a id="back" href="../../?{{ get_params }}">RETOUR A LA LISTE</a>
-    {#<a id="next" href="#">Fiche suivante</a>#}
-    {#<a id="prev" href="#">Fiche précédente</a>#}
-</div>
+<a id="back" href="../../?{{ get_params }}">RETOUR A LA LISTE</a>
 
-<div id="title">
-    {{ org.title }}
-    {#<a id="contact" href="#">CONTACTER LA STRUCTURE</a>#}
-    {#<a id="print" href="#">IMPRIMER LA FICHE</a>#}
-</div>
+<h1>{{ org.title }}</h1>
 
 <div class="tabbable">
     <ul class="nav nav-tabs">
@@ -105,7 +101,6 @@
             <div id="right">
             {% for l in org.located.all %}
                 <h2>{{ l.category }}</h2>
-                {#{% leaflet_map l.map_id %}#}
                 <p>{{ l.location.adr1 }}</p>
                 {% if l.location.adr2 %}<p>{{ l.location.adr2 }}</p>{% endif %}
                 <p>{{ l.location.zipcode }} {{ l.location.city }}</p>
@@ -143,4 +138,11 @@
     </div>
 </div>
 
-<div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 sidebar">
+            {% include "apeas/default/templates/right-menu.html" %}
+        </div>
+    </div>
+</div>

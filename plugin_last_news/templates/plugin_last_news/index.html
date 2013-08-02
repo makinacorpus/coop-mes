@@ -1,22 +1,14 @@
 {% load staticfiles %}
 
-<div id="last-news">
-
-{% include 'themes/plugin_app_title.html' %}
-
-<div style="width: 50%; float: left; min-height: 1px;">
-<img src="{% static 'themes/apeas/default/images/photo-sample.jpeg' %}">
-<div style="margin-right: 15px;">
-</div>
-</div>
-
-{% for entry in entries %}
-<div style="width: 50%; float: left; min-height: 1px;">
-<h3>{{ entry.title }}</h3>
-<h4>{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</h4>
-{{ entry.body|safe }}
-<p class="center"><a class="button" href="{{ entry.get_absolute_url }}">Lire l'article</a></p>
-</div>
-{% endfor %}
-
+<h1 class="icon section-title">{{ object.title }}</h1>
+<div class="row">
+    <div class="col-lg-6"><img src="{% static 'img/avatar.png' %}" width="410" height="280" /></div>
+    <div class="col-lg-6">
+    <div class="article-extract">
+        <h3><a href="">{{ entry.title }}</a></h3>
+        <div class="article-meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
+        {{ entry.body|safe }}
+    </div>
+    <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a></p>
+    </div>
 </div>

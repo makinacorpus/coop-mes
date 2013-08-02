@@ -1,0 +1,9 @@
+{% load mptt_tags %}
+
+<ul class="container nav navbar-nav">
+    {% recursetree menu %}
+    <li class="{% if page.lft >= node.lft and page.rght <= node.rght and page.tree_id == node.tree_id %}active {% endif %}{% if node.draft %}draft{% endif %}">
+        <a href="{{ node.get_absolute_url }}">{% firstof node.menu_title node.title %}</a>
+    </li>
+    {% endrecursetree %}
+</ul>
