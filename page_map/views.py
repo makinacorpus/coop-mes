@@ -49,7 +49,7 @@ def index_view(request, page_app):
         if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
         if form.cleaned_data['area']:
-            orgs = orgs.filter(offer__area__polygon__intersects=form.cleaned_data['area'].polygon)
+            orgs = orgs.filter(pref_address__point__contained=form.cleaned_data['area'].polygon)
         orgs = orgs.distinct()
     else:
         orgs = Organization.objects.none()
