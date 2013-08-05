@@ -3,7 +3,8 @@
 import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
-from coop_local.models import ActivityNomenclature, AgreementIAE, Area
+from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
+    Organization, Engagement)
 from django.conf import settings
 
 class PageApp_DirectoryForm(ModuloModelForm):
@@ -28,6 +29,7 @@ class AreaModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return "%s - %s" % (obj.reference, unicode(obj))
 
+
 class OrgSearch(forms.Form):
     areas = Area.objects.filter(parent_rels__parent__label=settings.REGION_LABEL).order_by('reference')
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
@@ -36,3 +38,31 @@ class OrgSearch(forms.Form):
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
     area  = AreaModelChoiceField(queryset=areas, empty_label=u'Tout voir', required=False)
     q = forms.CharField(required=False)
+
+
+class OrganizationForm(forms.ModelForm):
+
+    class Meta:
+        model = Organization
+        fields = ('title', 'is_provider', 'is_customer', 'customer_type')
+
+    def clean(self):
+        cleaned_data = super(OrganizationForm, self).clean()
+        if not cleaned_data['is_provider'] and not cleaned_data['is_customer']:
+            raise forms.ValidationError(u'Veuillez cocher une des cases Fournisseur ou Acheteur.')
+        if cleaned_data['is_customer'] and not cleaned_data['customer_type']:
+            raise forms.ValidationError(u'Veuillez sélectionner un type d\'Acheteur.')
+
+        # Always return the full collection of cleaned data.
+        return cleaned_data
+
+
+class EngagementForm(forms.ModelForm):
+
+    class Meta:
+        model = Engagement
+        fields = ('role', )
+
+    def __init__(self, *args, **kwargs):
+        super(EngagementForm, self).__init__(*args, **kwargs)
+        self.fields['role'].label = u'Votre rôle'

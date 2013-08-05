@@ -2,12 +2,13 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import OrgSearch
+from .forms import OrgSearch, OrganizationForm, EngagementForm
 from coop_local.models import Organization, ActivityNomenclature
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -80,8 +81,45 @@ def detail_view(request, page_app, pk):
                        context_instance=RequestContext(request))
 
 
+@login_required
 def add_view(request, page_app):
-    return render_view('page_directory/add.html',
-                       {'object': page_app},
-                       MEDIAS,
-                       context_instance=RequestContext(request))
+
+    if request.method == "POST":
+        form = OrganizationForm(request.POST)
+        form2 = EngagementForm(request.POST)
+        if form.is_valid() and form2.is_valid():
+            org = form.save()
+            eng = form2.save(commit=False)
+            eng.person = request.user.get_profile()
+            eng.organization = org
+            eng.org_admin = True
+            eng.save()
+            return HttpResponseRedirect(org.get_absolute_url())
+    else:
+        form = OrganizationForm()
+        form2 = EngagementForm()
+
+    return render_view('page_directory/edit.html',
+        {'form': form, 'form2': form2,
+         'title': u'Ajouter un acheteur / Fournisseur'},
+        MEDIAS,
+        context_instance=RequestContext(request))
+
+
+def edit_view(request, page_app, pk):
+
+    org = get_object_or_404(Organization, pk=pk,
+        engagement__person__user=request.user, engagement__org_admin=True)
+
+    if request.method == "POST":
+        form = OrganizationForm(request.POST, instance=org)
+        if form.is_valid():
+            org = form.save()
+            return HttpResponseRedirect(org.get_absolute_url())
+    else:
+        form = OrganizationForm(instance=org)
+
+    return render_view('page_directory/edit.html',
+        {'form': form, 'title': u'Modifier un acheteur / Fournisseur'},
+        MEDIAS,
+        context_instance=RequestContext(request))
