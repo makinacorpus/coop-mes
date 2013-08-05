@@ -40,14 +40,16 @@ class OrgSearch(forms.Form):
     q = forms.CharField(required=False)
 
 
-class OrganizationForm(forms.ModelForm):
+class OrganizationForm1(forms.ModelForm):
 
     class Meta:
         model = Organization
-        fields = ('title', 'is_provider', 'is_customer', 'customer_type')
+        fields = ('title', 'acronym', 'pref_label', 'logo', 'birth',
+                  'legal_status', 'web', 'siret', 'is_provider',
+                  'is_customer', 'customer_type')
 
     def clean(self):
-        cleaned_data = super(OrganizationForm, self).clean()
+        cleaned_data = super(OrganizationForm1, self).clean()
         if not cleaned_data['is_provider'] and not cleaned_data['is_customer']:
             raise forms.ValidationError(u'Veuillez cocher une des cases Fournisseur ou Acheteur.')
         if cleaned_data['is_customer'] and not cleaned_data['customer_type']:
@@ -66,3 +68,10 @@ class EngagementForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EngagementForm, self).__init__(*args, **kwargs)
         self.fields['role'].label = u'Votre rôle'
+
+
+class OrganizationForm2(forms.ModelForm):
+
+    class Meta:
+        model = Organization
+        fields = ('brief_description', 'description', 'tags')
