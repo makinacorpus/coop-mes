@@ -201,20 +201,10 @@ i[class*="icon-"] {
   background-position: 0 -813px;
 }
 .icon-search {
-  background-position: 0 -878px;
+  background-position: 0 -784px;
 }
 .icon-zoom-on {
   background-position: 0 -944px;
-}
-.icon-a-la-une:before {
-  background-position: 5px 8px;
-  background-repeat: no-repeat;
-}
-.icon-search:before {
-  background-position: 7px -872px;
-}
-.icon-zoom-on:before {
-  background-position: 5px -938px;
 }
 /* ==========================================================================
    Helper classes
@@ -616,6 +606,24 @@ img {
 .icon-en-direct {
   background-position: 10px -421px;
 }
+.section-title.icon-a-la-une:before {
+  background-position: 5px 8px;
+}
+.section-title.icon-search:before {
+  background-position: 7px -777px;
+}
+.section-title.icon-participez:before {
+  background-position: 10px -646px;
+}
+.section-title.icon-follow:before {
+  background-position: 10px -902px;
+}
+.section-title.icon-zoom-on:before {
+  background-position: 6px -845px;
+}
+.section-title[class^="iconf-"]:before {
+  padding-top: 5px;
+}
 .sidebar .content-box {
   padding-bottom: 0;
 }
@@ -694,9 +702,9 @@ img {
   border-bottom: 1px dotted #d3d3d3;
 }
 .section-title[class^="icon-"]:before,
-.section-title[class*=" icon-"]:before {
+.section-title[class*=" icon-"]:before,
+.section-title[class^="iconf-"]:before {
   display: block;
-  content: "";
   height: 30px;
   width: 30px;
   float: left;
@@ -705,7 +713,12 @@ img {
   margin-right: 15px;
   background-color: #ee8908;
   color: white;
+  font-size: 20px;
   background-repeat: no-repeat;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .nav li:before {
   position: absolute;
