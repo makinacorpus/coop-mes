@@ -1,15 +1,25 @@
 {% load thumbnail leaflet_tags %}
 
-<div id="directory-detail">
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
 
-<div id="navigation">
-    <a id="back" href="../../?{{ get_params }}">RETOUR A LA LISTE</a>
-    {#<a id="next" href="#">Suivant</a>#}
-    {#<a id="prev" href="#">Précédent</a>#}
+                    <div id="navigation">
+                        <a id="back" href="../../?{{ get_params }}">RETOUR A LA LISTE</a>
+                        {#<a id="next" href="#">Suivant</a>#}
+                        {#<a id="prev" href="#">Précédent</a>#}
+                    </div>
+
+                    <h1>{{ call.title }}</h1>
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 sidebar">
+                {% include "apeas/default/templates/right-menu.html" %}
+            </div>
+        </div>
+    </div>
 </div>
-
-<div id="title">
-    {{ call.title }}
-</div>
-
-<div>
