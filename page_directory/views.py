@@ -2,26 +2,18 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch, OrganizationForm1, OrganizationForm2,
-    EngagementForm)
+from .forms import (OrgSearch, OrganizationForm1, OrganizationForm2)
 from coop_local.models import Organization, ActivityNomenclature
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.formtools.wizard.views import SessionWizardView
+from django.core.files.storage import FileSystemStorage
+from tempfile import gettempdir
+from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 
-
-from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
-MEDIAS = (
-    # App CSS
-    CSSMedia('leaflet/leaflet.css', prefix_file=''),
-    # App JS
-    JSMedia('leaflet/leaflet-src.js', prefix_file=''),
-    JSMedia('leaflet/leaflet.extras.js', prefix_file=''),
-    # Actions JSAdmin
-    # JSAdminMedia('page_directory_actions.js'),
-    )
 
 def index_view(request, page_app):
     if request.GET.get('display') == 'Cartographie':
@@ -44,7 +36,6 @@ def index_view(request, page_app):
         interim = form.cleaned_data['interim']
         if interim == '1':
             descendants = ActivityNomenclature.objects.filter(label__in=(u'mise à disposition de personnel', u'travail temporaire'))
-            print descendants
         else:
             sector = form.cleaned_data['sector']
             descendants = sector and sector.get_descendants(include_self=True)
@@ -69,7 +60,7 @@ def index_view(request, page_app):
     return render_view('page_directory/index.html',
                        {'object': page_app, 'form': form, 'orgs': orgs_page,
                         'get_params': get_params.urlencode()},
-                       MEDIAS,
+                       (),
                        context_instance=RequestContext(request))
 
 
@@ -79,11 +70,10 @@ def detail_view(request, page_app, pk):
     return render_view('page_directory/detail.html',
                        {'object': page_app, 'org': org,
                         'get_params': get_params.urlencode()},
-                       MEDIAS,
+                       (),
                        context_instance=RequestContext(request))
 
 
-@login_required
 def add_view(request, page_app):
 
     if request.method == "POST":
@@ -104,7 +94,7 @@ def add_view(request, page_app):
     return render_view('page_directory/edit.html',
         {'form1': form1, 'form2': form2,
          'title': u'Ajouter un acheteur / Fournisseur'},
-        MEDIAS,
+        (),
         context_instance=RequestContext(request))
 
 
@@ -123,7 +113,7 @@ def edit1_view(request, page_app, pk):
 
     return render_view('page_directory/edit.html',
         {'form1': form, 'title': u'Modifier un acheteur / Fournisseur'},
-        MEDIAS,
+        (),
         context_instance=RequestContext(request))
 
 
@@ -142,5 +132,29 @@ def edit2_view(request, page_app, pk):
 
     return render_view('page_directory/edit.html',
         {'form1': form, 'title': u'Modifier un acheteur / Fournisseur'},
-        MEDIAS,
+        (),
         context_instance=RequestContext(request))
+
+
+organization_forms = (
+    OrganizationForm1,
+    OrganizationForm2,
+)
+
+class OrganizationView(SessionWizardView):
+
+    template_name = 'page_directory/edit.html'
+    file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
+
+    def done(self, form_list, **kwargs):
+        #do_something_with_the_form_data(form_list)
+        return HttpResponseRedirect('/')
+
+    def render_to_response(self, context, **response_kwargs):
+        assert response_kwargs == {}
+        return render_view(self.get_template_names(),
+            context,
+            (CSSMedia('tagger/css/coop_tag.css', prefix_file=''), JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file='')),
+            context_instance=RequestContext(self.request))
+
+add_view = login_required(OrganizationView.as_view(organization_forms))

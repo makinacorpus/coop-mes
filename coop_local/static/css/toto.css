@@ -7,3 +7,47 @@ select {
     margin-bottom: 5px;
     width: 100%;
 }
+
+
+/* Autosuggest  */
+
+ul.as-selections{
+width: 608px;
+
+  background: #fff;
+  border: 1px solid #ccc;
+  font-family: sans-serif;
+        padding: 4px;
+}
+
+ul.as-selections li{
+        list-style-type: none;
+        font-size: 1.1em;
+        font-weight: bold;
+}
+
+input.as-input{
+        border-style: none;
+        float: left;
+        width: 150px;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-moz-shadow:none;
+        margin-top: 4px;
+        font-size: 17px;
+}
+
+div.as-results{
+        padding-left: 0;
+}
+
+ul.as-list{
+        padding: 0;
+}
+
+ul.as-list li{
+        list-style-type: none;
+        font-size: 16px;
+        padding: 2px;
+
+}

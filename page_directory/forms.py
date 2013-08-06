@@ -6,6 +6,8 @@ from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
     Organization, Engagement)
 from django.conf import settings
+from tinymce.widgets import AdminTinyMCE
+
 
 class PageApp_DirectoryForm(ModuloModelForm):
 
@@ -59,19 +61,12 @@ class OrganizationForm1(forms.ModelForm):
         return cleaned_data
 
 
-class EngagementForm(forms.ModelForm):
-
-    class Meta:
-        model = Engagement
-        fields = ('role', )
-
-    def __init__(self, *args, **kwargs):
-        super(EngagementForm, self).__init__(*args, **kwargs)
-        self.fields['role'].label = u'Votre rôle'
-
-
 class OrganizationForm2(forms.ModelForm):
+
+    #description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 15}), required=False)
 
     class Meta:
         model = Organization
-        fields = ('brief_description', 'description', 'tags')
+        fields = ('brief_description', 'description', 'added_value', 'tags', 'transverse_themes')
+
+print OrganizationForm2().media

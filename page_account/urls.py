@@ -7,13 +7,10 @@ from .views import (
     logout_view,
     inscription_view,
     organizations_view,
-    #InscriptionView,
-    #inscription_forms
 )
 
 urlpatterns = patterns('',
     url(r'^$', index_view),
-    #url(r'^inscription/$', InscriptionView.as_view(inscription_forms)),
     url(r'^inscription/$', inscription_view),
     url(r'^connexion/$', login_view),
     url(r'^deconnexion/$', logout_view),

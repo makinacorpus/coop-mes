@@ -3,7 +3,6 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from django.contrib.auth.views import login, logout
-from django.contrib.formtools.wizard.views import SessionWizardView
 from .forms import PersonForm, AccountForm
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
@@ -122,26 +121,3 @@ def organizations_view(request, page_app):
         {'organizations': organizations},
         MEDIAS,
         context_instance=RequestContext(request))
-
-
-#inscription_forms = (
-    #('account', AccountForm),
-#)
-
-#class InscriptionView(SessionWizardView):
-
-    #def get_template_names(self):
-        #return {
-            #'account': 'page_account/account.html'
-        #}[self.steps.current]
-
-    #def done(self, form_list, **kwargs):
-        ##do_something_with_the_form_data(form_list)
-        #return HttpResponseRedirect('/')
-
-    #def render_to_response(self, context, **response_kwargs):
-        #assert response_kwargs == {}
-        #return render_view(self.get_template_names(),
-            #context,
-            #MEDIAS,
-            #context_instance=RequestContext(self.request))
