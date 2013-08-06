@@ -2,19 +2,15 @@
 
 {% if latest %}
     {% for entry in latest %}
-    <div class="entry pasr-box">
-        <h2 class="page-header"><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
-        <p class="entry-meta">
-            {{ entry.publication_date|date:"d/m/Y" }} - Catégorie
-			{% with entry as object %}
-			{% include 'page_blog/display_category.html' %}
-			{% endwith %}
-        </p>
-        <div class="entry-body">
-            {{ entry.body|truncatewords_html:50|safe }}
-        </div>
-        <p class="center"><a class="button" href="{{ entry.get_absolute_url }}">Lire l'article</a></p>
-    </div>
+    <h2 class="page-header"><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
+    <p class="article-meta">
+        {{ entry.publication_date|date:"d/m/Y" }} - Catégorie
+                    {% with entry as object %}
+                    {% include 'page_blog/display_category.html' %}
+                    {% endwith %}
+    </p>
+    {{ entry.body|truncatewords_html:50|safe }}
+    <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a></p>
     {% endfor %}
 {% else %}
     <p><strong>{% trans "No entry yet" %}.</strong></p>

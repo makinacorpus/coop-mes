@@ -37,7 +37,7 @@ class OrgSearch(forms.Form):
     interim = forms.ChoiceField(choices=INTERIM_CHOICES, widget=forms.RadioSelect)
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
     area  = AreaModelChoiceField(queryset=areas, empty_label=u'Tout voir', required=False)
-    q = forms.CharField(required=False)
+    q = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'ex : restauration'}))
 
 
 class OrganizationForm1(forms.ModelForm):

@@ -1,9 +1,5 @@
-<div class="entry pasr-box">
-    <h2 class="page-header">{{ object.title }}</h2>
-    <p class="entry-meta">
-        {{ object.publication_date|date:"d/m/Y" }} - Catégorie {% include 'page_blog/display_category.html' %}
-    </p>
-    <div class="entry-body">
-        {{ object.body|safe }}
-    </div>
-</div>
+<h1 class="ection-title">{{ object.title }}</h1>
+<p class="article-meta">
+    {{ object.publication_date|date:"d/m/Y" }} - Catégorie {% include 'page_blog/display_category.html' %}
+</p>
+{{ object.body|safe }}

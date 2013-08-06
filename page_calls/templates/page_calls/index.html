@@ -1,72 +1,88 @@
 {% load thumbnail %}
 
-<form id="annuaires-search" method="GET" action="#">
-    {{ form.non_field_errors }}
-    <table>
-        <tr>
-            <td>
-                <label>Donneur d'ordre</label>
-                {{ form.org_type }}
-            </td>
-            <td>
-                <label>Organisation</label>
-                {{ form.organization }}
-            </td>
-            <td>
-                <label>Période de publication</label>
-                {{ form.period }}
-            </td>
-            <td id="results">
-                <p><span>{{ calls.paginator.count }}</span>
-                Résultat{{ calls.paginator.count|pluralize }}</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Clause</label>
-                {{ form.clause }}
-            </td>
-            <td>
-                <label>Secteurs d'activités</label>
-                {{ form.sector }}
-            </td>
-            <td>
-                <label>Période de publication</label>
-                {{ form.period2 }}
-            </td>
-            <td class="center">
-                <input class="button" type="submit" name="display" value="RECHERCHER">
-            </td>
-        </tr>
-        <tr></tr>
-    </table>
-</form>
 
-<div id="annuaire-results" class="pasr-box">
-{% if calls.object_list %}
-    <div class="pagination top-pagination">
-        {% include "page_calls/pagination.html" %}
-    </div>
-    {% for call in calls %}
-        <div class="result{% if forloop.last %} last{% endif %}">
-            {% if call.organization.logo %}
-                {% thumbnail call.organization.logo "220x140" upscale=0 as logo %}
-                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" />
-                {% endthumbnail %}
-            {% else %}
-                <div class="logo"></div>
-            {% endif %}
-            <span class="blue-button" href="#">{{ call.area.label }}</span>
-            <p class="activity">{{ call.activities }}</p>
-            <p class="title">{{ call.title }}</p>
-            <p>Date limite de remise des offres&nbsp;: {{ call.deadline }}</p>
-            <a class="button" href="{{ object.page.get.get_absolute_url }}p/{{ call.pk }}/?{{ get_params }}&page={{ calls.number }}">Détails de l'offre</a>
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="annuaires-search" method="GET" action="#" class="content-box top mycustomform">
+                    {{ form.non_field_errors }}
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Donneur d'ordre</h3>
+                                {{ form.org_type }}
+                            </div>
+                            <div class="item">
+                                <h3>Clause</h3>
+                                {{ form.clause }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Organization</h3>
+                                {{ form.organization }}
+                            </div>
+                            <div class="item">
+                                <h3>Secteurs d'activités</h3>
+                                {{ form.sector }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Période de publication</h3>
+                                {{ form.period }}
+                            </div>
+                            <div class="item">
+                                <h3>Période de publication</h3>
+                                {{ form.period2 }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <div class="result">
+                                    <span class="number">{{ calls.paginator.count }}</span> Résultat{{ calls.paginator.count|pluralize }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <p class="text-center"><input class="btn btn-default" type="submit" name="display" value="RECHERCHER"></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    {% endfor %}
-    <div class="pagination bottom-pagination">
-        {% include "page_calls/pagination.html" %}
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+                    <div class="section-head">
+                        {% include "page_calls/pagination.html" %}
+                    </div>
+{% for call in calls %}
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                        {% if call.organization.logo %}
+                            {% thumbnail call.organization.logo "220x140" upscale=0 as logo %}
+                                <img class="media-object" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" width="220" height="140" />
+                            {% endthumbnail %}
+                        {% else %}
+                            <div class="media-object"></div>
+                        {% endif %}
+                        </a>
+                        <div class="media-body">
+                        <h4 class="media-heading">{{ call.activities }}</h4>
+                        <p>Date limite de remise des offres&nbsp;: {{ call.deadline }}</p>
+                        <a href="{{ object.page.get.get_absolute_url }}p/{{ call.pk }}/?{{ get_params }}&page={{ calls.number }}" class="btn btn-default">Détails de l'offre</a>
+                        </div>
+                    </div>
+{% empty %}
+                    <p>Aucun résultat.</p>
+{% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar">
+                {% include "apeas/default/templates/right-menu.html" %}
+            </div>
+        </div>
     </div>
-{% else %}
-    <p>Aucun résultat.</p>
-{% endif %}
 </div>

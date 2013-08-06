@@ -4,58 +4,59 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="content-box top">
-
-                    <form id="annuaires-search" method="GET" action="#">
-                        <table>
-                            <tr>
-                                <td rowspan="3">
-                                    <label>Je recherche</label>
-                                    {{ form.org_type }}
-                                </td>
-                                <td rowspan="6">
-                                    <label>Secteur d'activité</label>
-                                    {{ form.interim }}
-                                    {{ form.sector }}
-                                </td>
-                                <td rowspan="3">
-                                    <label>Territoire</label>
-                                    {{ form.area }}
-                                </td>
-                                <td rowspan="2" id="results">
-                                    <p><span>{{ orgs.paginator.count }}</span>
-                                    Résultat{{ orgs.paginator.count|pluralize }}</p>
-                                </td>
-                            </tr>
-                            <tr></tr>
-                            <tr>
-                                <td rowspan="2" class="center">
-                                    <input class="button carto" type="submit" name="display" value="Cartographie">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="3" id="prov-type-cell">
-                                    <label>Type de fournisseur</label>
-                                    {{ form.prov_type }}
-                                </td>
-                                <td rowspan="3">
-                                    <label>Recherche libre</label>
-                                    {{ form.q }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2" class="center">
-                                    <input class="button" type="submit" name="display" value="RECHERCHER">
-                                </td>
-                            </tr>
-                            <tr></tr>
-                        </table>
+                <form id="annuaires-search" method="GET" action="#" class="content-box top">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Je recherche</h3>
+                                {{ form.org_type }}
+                            </div>
+                            <div class="item" id="prov-type">
+                                <h3>Type de fournisseur</h3>
+                                {{ form.prov_type }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div id="id_interim" class="item">
+                                <h3>Secteur d'activité</h3>
+                                <div id="id_interim_0" class="radio">
+                                    {{ form.interim.0 }}
+                                </div>
+                                <div id="id_interim_1" class="radio">
+                                    {{ form.interim.1 }}
+                                </div>
+                                {{ form.sector }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Territoire</h3>
+                                {{ form.area }}
+                            </div>
+                            <div class="item">
+                                <h3>Recherche libre</h3>
+                                {{ form.q }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <div class="result">
+                                    <span class="number">{{ orgs.paginator.count }}</span> Résultat{{ orgs.paginator.count|pluralize }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <p class="text-center"><input class="btn btn-second iconf-geopins" type="submit" name="display" value="Cartographie"></p>
+                            </div>
+                            <div class="item">
+                                <p class="text-center"><input class="btn btn-default" type="submit" name="display" value="RECHERCHER"></p>
+                            </div>
+                        </div>
                     </form>
 
                     <script type="text/javascript">
                         // Show org_type search field only if "Fournisseurs" is selected
                         function org_type_change() {
-                            var cell = document.getElementById('prov-type-cell');
+                            var cell = document.getElementById('prov-type');
                             if (this.options[this.selectedIndex].value == "fournisseur") {
                                 cell.style.visibility = 'visible';
                             } else {
@@ -71,24 +72,16 @@
                         org_type_change.apply(org_type_select);
 
                         // Show activity field only if "Production de biens et services" is selected
-                        interim1 = document.getElementById('id_interim_1');
-                        interim1.addEventListener(
-                            "change",
-                            function() {
-                                document.getElementById('id_sector').style.visibility = 'hidden';
-                            },
-                            false
-                        );
-                        interim2 = document.getElementById('id_interim_2');
-                        interim2.addEventListener(
-                            "change",
-                            function() {
-                                document.getElementById('id_sector').style.visibility = 'visible';
-                            },
-                            false
-                        );
-                        if (!interim2.checked) {
-                            document.getElementById('id_sector').style.visibility = 'hidden';
+                        interim0 = $('#id_interim_0 input');
+                        interim0.change(function() {
+                            $('#id_sector').hide();
+                        });
+                        interim1 = $('#id_interim_1 input');
+                        interim1.change(function() {
+                            $('#id_sector').show();
+                        });
+                        if ($('#id_interim input:checked').val() != 2) {
+                            $('#id_sector').hide();
                         }
                     </script>
 
@@ -122,9 +115,6 @@
                             <a class="button" href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">Fiche personnelle</a>
                         </div>
                     {% endfor %}
-                    <div class="pagination bottom-pagination">
-                        {% include "page_directory/pagination.html" %}
-                    </div>
 {% else %}
                     <p>Aucun résultat.</p>
 {% endif %}

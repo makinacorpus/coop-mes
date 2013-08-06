@@ -1,8 +1,10 @@
-Page&nbsp;:&nbsp;
+Page&nbsp;:
+<ul class="pagination">
 {% for p in calls.paginator.page_range %}
-    <a href="?{{ get_params }}&page={{ p }}" class="page-link{% if p == calls.number %} current{% endif %}">{{ p }}</a>
+    <li class="{% if p == calls.number %}active{% endif %}"><a href="?{{ get_params }}&page={{ p }}">{{ p }}</a></li>
 {% endfor %}
-<span class="step-links">
-    <a href="?{{ get_params }}&page={{ calls.previous_page_number }}" class="prev-link" disabled="{{ calls.has_previous|yesno:"true,false" }}">&nbsp;</a>
-    <a href="?{{ get_params }}&page={{ calls.next_page_number }}" class="next-link" disabled="{{ calls.has_next|yesno:"true,false" }}">Page suivante</a>
-</span>
+</ul>
+<ul class="pager">
+    <li><a href="?{{ get_params }}&page={{ calls.previous_page_number }}" class="prev {% if not calls.has_previous %}inactive{% endif %}"><span>g</span> Page précédente</a></li>
+    <li><a href="?{{ get_params }}&page={{ calls.next_page_number }}" class="next {#{% if not calls.has_next %}inactive{% endif %}#}">Page suivante <span>f</span></a></li>
+</ul>

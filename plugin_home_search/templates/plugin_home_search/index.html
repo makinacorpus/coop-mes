@@ -1,11 +1,11 @@
 {% load staticfiles %}
 
-<h1 class="icon section-title">{{ object.title }}</h1>
+<h1 class="icon-search section-title">{{ object.title }}</h1>
 <div class="row">
     <div class="col-lg-6">
-        <h3 class="col-subtitle">Annuaire</h3>
+        <h3 class="col-subtitle iconf-book">Annuaire</h3>
         {{ object.texte_annuaire }}
-        <form class="checkboxes" method="GET" action="/annuaire/">
+        <form method="GET" action="/annuaire/">
             {{ form.org_type }}<br />
             {{ form.sector }}<br />
             {{ form.area }}<br />
@@ -13,7 +13,7 @@
         </form>
     </div>
     <div class="col-lg-6">
-        <h3 class="col-subtitle">Cartographie</h3>
+        <h3 class="col-subtitle iconf-geopins">Cartographie</h3>
         {{ object.texte_carto }}
     </div>
 </div>

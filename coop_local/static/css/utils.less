@@ -1,0 +1,220 @@
+ /* ==========================================================================
+    Custom mixins
+    ========================================================================== */
+.border-radius(@radius) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+/* ==========================================================================
+    Custom fonts
+    ========================================================================== */
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: "icons-font";
+  src:url("fonts/icons-font.eot");
+  src:url("fonts/icons-font.eot?#iefix") format("embedded-opentype"),
+    url("fonts/icons-font.ttf") format("truetype"),
+    url("fonts/icons-font.svg#icons-font") format("svg"),
+    url("fonts/icons-font.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "icons-font";
+  content: attr(data-icon);
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none !important;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  width: 1em;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+}
+
+[class^="iconf-"]:before,
+[class*=" iconf-"]:before {
+  font-family: "icons-font";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none !important;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  width: 1em;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+}
+
+.iconf {
+  font-family: "icons-font";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none !important;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  width: 1em;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+}
+
+.iconf-emails:before {
+  content: "a";
+}
+
+.iconf-user:before {
+  content: "b";
+}
+
+.iconf-info-circled:before {
+  content: "d";
+}
+
+.iconf-discussion:before {
+  content: "e";
+}
+
+.iconf-chevron-right:before {
+  content: "f";
+}
+
+.iconf-chevron-left:before {
+  content: "g";
+}
+
+.iconf-fontawesome-webfont:before {
+  content: "j";
+}
+
+.iconf-content-43:before {
+  content: "l";
+}
+
+.iconf-twitter-circled:before {
+  content: "k";
+}
+
+.iconf-gplus-circled:before {
+  content: "m";
+}
+
+.iconf-facebook-circled:before {
+  content: "n";
+}
+
+.iconf-calendar:before {
+  content: "o";
+}
+
+.iconf-email:before {
+  content: "p";
+}
+
+.iconf-phone:before {
+  content: "q";
+}
+
+.iconf-fax:before {
+  content: "r";
+}
+
+.iconf-pins:before {
+  content: "s";
+}
+
+.iconf-circled:before {
+  content: "t";
+}
+
+.iconf-print:before {
+  content: "u";
+}
+
+.iconf-rubon:before {
+  content: "v";
+}
+
+.iconf-print-circled:before {
+  content: "x";
+}
+
+.iconf-share-circled:before {
+  content: "y";
+}
+
+.iconf-time:before {
+  content: "z";
+}
+
+.iconf-social-email:before {
+  content: "w";
+}
+
+.iconf-book:before {
+  content: "c";
+}
+
+.iconf-geopins:before {
+  content: "h";
+}
+
+.iconf-chevron-down:before {
+  content: "i";
+}
+
+.iconf-chevron-up:before {
+  content: "A";
+}
+
+
+/* ==========================================================================
+    Sprites
+    ========================================================================== */
+[class^="icon-"]:before,
+[class*=" icon-"]:before,
+i[class*="icon-"] {
+    display: block;
+    content: "";
+    background-image: url(../img/sprite.png);
+}
+
+// generated with http://spritegen.website-performance.org/
+.icon-a-la-une{ background-position: 0 0;  } 
+.icon-back{ background-position: 0 -65px;  } 
+.icon-book{ background-position: 0 -130px;  } 
+.icon-cancel-small{ background-position: 0 -239px;  } 
+.icon-cancel{ background-position: 0 -297px;  } 
+.icon-check{ background-position: 0 -365px;  } 
+.icon-en-direct{ background-position: 0 -429px;  } 
+.icon-export-doc{ background-position: 0 -505px;  } 
+.icon-export-pdf{ background-position: 0 -578px;  } 
+.icon-follow{ background-position: 0 -651px;  } 
+.icon-participez{ background-position: 0 -745px;  } 
+.icon-search-small{ background-position: 0 -813px;  } 
+.icon-search{ background-position: 0 -878px;  } 
+.icon-zoom-on{ background-position: 0 -944px;  }
+
+// overrides
+.icon-a-la-une:before{ background-position: 5px 8px; background-repeat: no-repeat; } 
+.icon-search:before{ background-position: 7px -872px; } 
+.icon-zoom-on:before{ background-position: 5px -938px;  }
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.uppercase {
+    text-transform: uppercase;
+}

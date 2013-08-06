@@ -1,6 +1,12 @@
 {% load staticfiles %}
 
-<h1 class="icon section-title">{{ object.title }}</h1>
+<h1 class="icon-a-la-une section-title">{{ object.title }}</h1>
+{% comment %}
+<ul class="pager simple">
+    <li><a href="#prev" class="iconf-chevron-left">Page précédente</a></li>
+    <li><a href="#next" class="iconf-chevron-right">Page suivante</a></li>
+</ul>
+{% endcomment %}
 <div class="row">
     <div class="col-lg-6"><img src="{% static 'img/avatar.png' %}" width="410" height="280" /></div>
     <div class="col-lg-6">

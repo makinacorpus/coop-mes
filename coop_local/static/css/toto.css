@@ -1,3 +1,9 @@
 #orgsmap {
     height: 600px;
 }
+
+select {
+    margin-left: 0;
+    margin-bottom: 5px;
+    width: 100%;
+}
