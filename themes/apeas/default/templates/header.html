@@ -21,7 +21,7 @@
                     <input type="search" class="form-control">
                 </div><!-- /input-group -->
             </form>
-            <a class="login btn" href="{% if request.user.is_active %}/mon-compte/{% else %}/mon-compte/p/connexion/?next={{ request.get_full_path }}{% endif %}">
+            <a class="login btn" href="/mon-compte/">
                 <img src="avatar.png" width="35" height="35" />
                 <b class="uppercase">Votre compte</b><br/>
                 Bonjour,

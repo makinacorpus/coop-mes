@@ -14,6 +14,7 @@ from django.contrib.sites.models import get_current_site
 from django.utils.http import is_safe_url
 from django.http import HttpResponseRedirect
 from coop_local.models import Organization
+from django.contrib.auth.decorators import login_required
 
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
@@ -26,6 +27,7 @@ MEDIAS = (
     # JSAdminMedia('page_account_actions.js'),
     )
 
+@login_required
 def index_view(request, page_app):
     return render_view('page_account/index.html',
                        { 'object': page_app },
@@ -109,6 +111,7 @@ def inscription_view(request, page_app):
         context_instance=RequestContext(request))
 
 
+@login_required
 def organizations_view(request, page_app):
 
     #organizations = Organization.objects.filter(engagement__org_admin=True, engagement__person__user=request.user)

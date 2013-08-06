@@ -112,3 +112,5 @@ LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (0, 46.39),
     'DEFAULT_ZOOM': 8,
 }
+
+LOGIN_URL = '/mon-compte/p/connexion/'
