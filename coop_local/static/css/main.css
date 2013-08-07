@@ -231,7 +231,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #699fd1;
+  color: #98be2c;
   text-decoration: none;
 }
 img {
@@ -507,7 +507,7 @@ img {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  border: 1px solid #ee8908;
+  border: 1px solid #8b9eaf;
   -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
@@ -546,11 +546,11 @@ img {
 .home .main-content .navbar .nav > li > a {
   padding-top: 12px;
   padding-bottom: 12px;
-  color: #575657;
+  color: #8b9eaf;
   font-weight: 500;
 }
 .home .main-content .navbar .nav > li > a:hover {
-  color: #242324;
+  color: #576b7d;
 }
 .home .main-content .navbar .nav > li > a:before {
   font-family: "icons-font";
@@ -585,13 +585,10 @@ img {
 .home .main-content .navbar-nav > .active > a,
 .home .main-content .navbar-nav > .active > a:hover,
 .home .main-content .navbar-nav > .active > a:focus {
-  background-color: #fbce94;
+  background-color: #c8d0d8;
 }
 .home .main-content .vignette {
   margin: 50px auto 0 auto;
-}
-.content-box .section-head .pager {
-  margin-top: -10px;
 }
 .mycustomform .btn {
   min-width: 140px;
@@ -679,6 +676,19 @@ img {
   height: 1px;
   margin-bottom: 1px;
   margin-top: 10px;
+  content: "";
+  border-top: 1px dotted #d3d3d3;
+  border-bottom: 1px dotted #d3d3d3;
+}
+.section-foot {
+  border-top: 1px dotted #d3d3d3;
+  margin-top: 10px;
+}
+.section-foot:before {
+  display: block;
+  height: 1px;
+  margin-top: 1px;
+  margin-bottom: 10px;
   content: "";
   border-top: 1px dotted #d3d3d3;
   border-bottom: 1px dotted #d3d3d3;
@@ -914,6 +924,23 @@ img {
   border-right: none;
   border-bottom: none;
   padding-right: 0;
+  padding-left: 0;
+}
+.list-group-item:before {
+  font-family: "icons-font";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none !important;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  width: 1em;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+  content: "f";
+  margin-right: 5px;
+  vertical-align: middle;
 }
 .list-group-item:first-child {
   border-top: none;
@@ -951,6 +978,7 @@ img {
 }
 .pagination + .pager {
   margin: 0;
+  margin-top: -10px;
   float: right;
 }
 .pagination + .pager a {

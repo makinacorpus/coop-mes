@@ -498,10 +498,6 @@ img {
     }
 }
 
-.content-box .section-head .pager {
-    margin-top: -10px;
-}
-
 .mycustomform {
     .btn {
         min-width: 140px;
@@ -609,6 +605,21 @@ img {
         height: 1px;
         margin-bottom: 1px;
         margin-top: 10px;
+        content: "";
+        border-top: 1px dotted @grey-divider;
+        border-bottom: 1px dotted @grey-divider;
+    }
+}
+
+.section-foot {
+    border-top: 1px dotted @grey-divider;
+    margin-top: 10px;
+
+    &:before {
+        display: block;
+        height: 1px;
+        margin-top: 1px;
+        margin-bottom: 10px;
         content: "";
         border-top: 1px dotted @grey-divider;
         border-bottom: 1px dotted @grey-divider;
@@ -855,6 +866,14 @@ img {
     border-right: none;
     border-bottom: none;
     padding-right: 0;
+    padding-left: 0;
+
+    &:before {
+        .iconf;
+        content: "f"; // .iconf-chevron-right
+        margin-right: 5px;
+        vertical-align: middle;
+    }
 
     &:first-child {
         border-top: none;
@@ -905,6 +924,7 @@ img {
 
 .pagination + .pager {
     margin: 0;
+    margin-top: -10px;
     float: right;
 
     a {
