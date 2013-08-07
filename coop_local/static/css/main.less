@@ -402,8 +402,11 @@ img {
             width: 33.33333333333333%;
             float: left;
             padding: 10px 0 0 20px;
-            height: 135px;
-            overflow: hidden;
+
+            p {
+                height: 55px;
+                overflow: hidden;
+            }
         }
 
         .navbar {
@@ -452,6 +455,7 @@ img {
             .nav > li > a {
                 padding-top: 12px;
                 padding-bottom: 12px;
+                padding-left: 22px;
                 color: @tab-text;
                 font-weight: 500;
 
@@ -464,22 +468,28 @@ img {
                     vertical-align: middle;
                     content: "f";
                     margin-right: 3px;
+                    top: 4px;
+                    bottom: 4px;
+                    left: 0;
+                    padding-left: 5px;
+                    padding-top: 13px;
+                    border-left-color: @greylighter2;
                 }
             }
 
-            li:before {
-                top: 4px;
-                bottom: 4px;
-                border-left-color: @greylighter2;
-            }
-
-            li.active + li:before {
-                display: none;
+            li.active + li a:before {
+                border-left-color: transparent;
             }
 
             li.active {
+                a {
+                    color: darken(@tab-text, 20%);
+                }
+
                 a:before {
                     content: "i";
+                    border: none;
+                    color: white;
                 }
             }
 
