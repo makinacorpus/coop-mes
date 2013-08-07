@@ -1,22 +1,5 @@
-{% extends "themes/html5.html" %}
+{% extends "base_index.html" %}
+
 {% load staticfiles %}
 
-{% block theme-design-css %}
-    <link rel="stylesheet" type="text/css" href="{% static "themes/adepes/default/css/index.css" %}">
-{% endblock %}
-
-{% block header %}
-    <div id="top-line" class="bg-orange">
-        <div class="bg-green"></div>
-        <div class="bg-blue"></div>
-    </div>
-    <header id="header">
-        {% include "adepes/default/templates/header.html" %}
-    </header>
-{% endblock header %}
-
-{% block footer %}
-    <footer id="footer">
-        {% include "adepes/default/templates/footer.html" %}
-    </footer>
-{% endblock footer %}
+{% block main_css %}<link rel="stylesheet" href="{% static "css/main-orange.css" %}">{% endblock %}

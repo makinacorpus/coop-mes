@@ -1,62 +1,66 @@
 // COLORS
 
 // -- Base colors
-@orange:            #ee8908;
-@green:             #98be2c;
+@orange:            #ed7009;
+@greenlighter:      #a5ca72;
+@green:             #54ae4e;
+@greendarker:       #58762f;
 @blue:              #699fd1;
-
-
-// Main UI elements color
-@color1:    desaturate(@blue, 35%);
-// Secondary UI elements color
-@color2:    @orange;
-// Buttons color
-@color3:    @green;
+@yellow:            #fdd635;
+@purple:            #6e567c;
 
 @color1lighter:  #d4d9e0;
-@color1darker:  @color1;
+@color1:  #699fd1;
+@color1darker:  @green;
 @color1darker2:  #596b84;
 @color1darkest:  #444a5a;
+
+// Main UI elements color
+@color1:    @orange;
+// Secondary UI elements color
+@color2:    @yellow;
+// Buttons color
+@color3:    @green;
 
 // Objects colors
 @body-bg:   #f5f5f5;
 @body-color: @grey;
-@body-link-color: @blue;
+@body-link-color: @color1;
 
 // Top border of the site
 @topsiteborder-color1: @color3;
-@topsiteborder-color2: @blue;
+@topsiteborder-color2: @color1;
 @topsiteborder-color3: @color2;
 
 // Main navigation color
-@mainnav-bg: darken(@color1, 10%);
+@mainnav-bg: @color1;
 
 // Second navigation color
-@secondnav-bg: lighten(desaturate(@color3, 20%), 10%);
-@secondnav-selected: darken(@color3, 20%);
-@secondnav-selected-bg: lighten(desaturate(@color3, 20%), 10%);
+@secondnav-bg: @purple;
+@secondnav-selected: white;
+@secondnav-selected-bg: darken(@purple, 10%);
 
 // Homepage image
 @home-img: "bg-home.jpg";
 
 // Section title
-@sectiontitle-bg: @color2;
+@sectiontitle-bg: @color3;
 
 // Content tabs
-@tab-text: @greydarker;
+@tab-text: @color1;
 @tab-bg: white;
 @tabselected-bg: lighten(@color2, 30%);
 @tab-border: @color2;
 
 // Others
-@vignette-bg: @blue;
+@vignette-bg: @color2;
 @endirect-bg: @color2;
 
 // Login button color
-@loginbtn-bg: darken(@color1, 10%);
+@loginbtn-bg: @color1;
 
 // Footer
-@footer-bg: darken(@color1, 30%);
+@footer-bg: @color1;
 
 // -- buttons
 @btn-border: darken(@green, 5%);
