@@ -67,10 +67,10 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="content-box">
+{% for call in calls %}
                     <div class="section-head">
                         {% include "page_calls/pagination.html" %}
                     </div>
-{% for call in calls %}
                     <div class="media">
                         <a class="pull-left" href="#">
                         {% if call.organization.logo %}
@@ -87,12 +87,12 @@
                             <a href="{{ object.page.get.get_absolute_url }}p/{{ call.pk }}/?{{ get_params }}&page={{ calls.number }}" class="btn btn-default">Détails de l'offre</a>
                         </div>
                     </div>
-{% empty %}
-                    <p>Aucun résultat.</p>
-{% endfor %}
                     <div class="section-foot">
                         {% include "page_calls/pagination.html" %}
                     </div>
+{% empty %}
+                    <p>Aucun résultat.</p>
+{% endfor %}
                 </div>
             </div>
             <div class="col-lg-3 sidebar">
