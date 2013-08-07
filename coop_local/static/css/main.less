@@ -12,6 +12,11 @@
    Base styles
    ========================================================================== */
 
+// Ionyweb Bootstrap 3.0 override bug fix
+#ionyweb_admin * {
+    .box-sizing(content-box);
+}
+
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
  * These selection rule sets have to be separate.
@@ -911,7 +916,7 @@ img {
     .location {
         position: absolute;
         right: 0;
-        top: 15px;
+        top: 10px;
         background: lighten(@color1lighter2, 15%);
         font-size: 11px;
         color: @color1;
@@ -930,7 +935,7 @@ img {
 
     h4 {
         font-size: 14px;
-        margin: 10px 0;
+        margin: 15px 0 10px 0;
     }
 
     .media-object {
