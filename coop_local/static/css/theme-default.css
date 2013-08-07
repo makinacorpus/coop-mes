@@ -931,11 +931,11 @@ img {
   line-height: 1.2;
 }
 .vignette {
-  width: 126px;
-  height: 126px;
-  -webkit-border-radius: 63px;
-  -moz-border-radius: 63px;
-  border-radius: 63px;
+  width: 160px;
+  height: 160px;
+  -webkit-border-radius: 80px;
+  -moz-border-radius: 80px;
+  border-radius: 80px;
   -webkit-transform: rotate(-13deg);
   -ms-transform: rotate(-13deg);
   transform: rotate(-13deg);
@@ -947,7 +947,7 @@ img {
   -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
-  padding-top: 26px;
+  padding-top: 43px;
 }
 .vignette .border {
   width: 50%;
