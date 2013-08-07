@@ -41,6 +41,11 @@ class OrgSearch(forms.Form):
     area  = AreaModelChoiceField(queryset=areas, empty_label=u'Tout voir', required=False)
     q = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'ex : restauration'}))
 
+    def __init__(self, *args, **kwargs):
+        super(OrgSearch, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+
 
 class OrganizationForm1(forms.ModelForm):
 

@@ -9,11 +9,15 @@
                         <div class="col-lg-3">
                             <div class="item">
                                 <h3>Je recherche</h3>
-                                {{ form.org_type }}
+                                <div class="dropdown">
+                                    {{ form.org_type }}
+                                </div>
                             </div>
                             <div class="item" id="prov-type">
                                 <h3>Type de fournisseur</h3>
-                                {{ form.prov_type }}
+                                <div class="dropdown">
+                                    {{ form.prov_type }}
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -25,17 +29,23 @@
                                 <div id="id_interim_1" class="radio">
                                     {{ form.interim.1 }}
                                 </div>
-                                {{ form.sector }}
+                                <div class="dropdown">
+                                    {{ form.sector }}
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="item">
                                 <h3>Territoire</h3>
-                                {{ form.area }}
+                                <div class="dropdown">
+                                    {{ form.area }}
+                                </div>
                             </div>
                             <div class="item">
                                 <h3>Recherche libre</h3>
-                                {{ form.q }}
+                                <div class="dropdown">
+                                    {{ form.q }}
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-3">

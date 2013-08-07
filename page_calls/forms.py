@@ -35,3 +35,8 @@ class CallSearch(forms.Form):
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
     period = forms.ChoiceField(choices=PERIOD_CHOICES, required=False)
     period2 = forms.ChoiceField(choices=PERIOD2_CHOICES, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(CallSearch, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
