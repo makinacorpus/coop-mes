@@ -6,9 +6,15 @@
         <h3 class="col-subtitle iconf-book">Annuaire</h3>
         {{ object.texte_annuaire }}
         <form method="GET" action="/annuaire/">
-            {{ form.org_type }}<br />
-            {{ form.sector }}<br />
-            {{ form.area }}<br />
+            <div class="dropdown">
+                {{ form.org_type }}
+            </div>
+            <div class="dropdown">
+                {{ form.sector }}
+            </div>
+            <div class="dropdown">
+                {{ form.area }}
+            </div>
             <button type="submit" class="btn btn-default">Rechercher</button>
         </form>
     </div>

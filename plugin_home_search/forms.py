@@ -28,3 +28,8 @@ class OrgSearch(forms.Form):
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Secteur d\'activité', required=False)
     area  = AreaModelChoiceField(queryset=areas, empty_label=u'Territoire', required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(OrgSearch, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
