@@ -189,6 +189,10 @@ img {
                 padding-right: 0;
                 margin-left: 10px;         
                 margin-right: 10px;
+
+                &:before {
+                    left: -10px;
+                }
             }
         }
 
@@ -684,19 +688,19 @@ img {
 
 // NAVIGATION MENU SKINS
 .nav li {
-    &:before {
+    a:before {
         position: absolute;
         display: block;
         content: "";
         border-left: 1px solid white; 
         width: 1px;
-        left: 0;
+        left: 1px;
         top: 7px;
         bottom: 7px;
         z-index: 1;
     }
 
-    &:first-child:before {
+    &:first-child a:before {
         display: none;
     }
 }
