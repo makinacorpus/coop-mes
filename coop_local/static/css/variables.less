@@ -7,13 +7,14 @@
 
 
 // Main UI elements color
-@color1:    desaturate(@blue, 35%);
+@color1:    desaturate(darken(@blue, 5%), 40%);
 // Secondary UI elements color
 @color2:    @orange;
 // Buttons color
 @color3:    @green;
 
-@color1lighter:  #d4d9e0;
+@color1lighter2:  lighten(@blue, 20%);
+@color1lighter:  @blue;
 @color1darker:  @color1;
 @color1darker2:  #596b84;
 @color1darkest:  #444a5a;
@@ -60,7 +61,7 @@
 
 // -- buttons
 @btn-border: darken(@green, 5%);
-@btn-bg: @green;
+@btn-bg: lighten(#88b844, 5%);
 
 @btn2-border: #699fd1;
 @btn2-bg: #699fd1;

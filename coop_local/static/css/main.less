@@ -178,7 +178,7 @@ img {
         background-image: -o-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
         background-image: -ms-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
         background-image: linear-gradient(to bottom, rgba(255,255,255,.34), rgba(255,255,255,0));
-
+        .box-shadow(0px 2px 3px 0px rgba(0, 0, 0, 0.2));
         margin-top: 10px;
 
         .navbar-nav {
@@ -302,7 +302,7 @@ img {
 
         &.top {
             .result {
-                    background: @color1;
+                    background: @color1lighter;
                     color: white;
                     margin-top: -10px;
                     margin-right: -10px;
@@ -504,7 +504,7 @@ img {
     }
 }
 
-.btn-second.iconf-geopins {
+.btn-second[class*="iconf-"] {
     position: relative;
     padding-left: 40px;
 
@@ -547,7 +547,22 @@ img {
     }
 }
 
+// Map popup
+.leaflet-popup-content-wrapper {
+    .border-radius(0);
+}
 
+.leaflet-container a.leaflet-popup-close-button {
+    top: -10px;
+    right: -10px;
+    background: #2d3038;
+    padding: 2px 5px 3px 5px;
+    border-radius: 10px;
+    color: white;
+    font-size: 12px;
+    line-height: 15px;
+    .box-shadow(0px 0px 4px 2px rgba(0,0,0,0.3));
+}
 
 
 /* ==========================================================================
@@ -583,7 +598,7 @@ img {
 
     // inherit
     &.top {
-        border-color: @color1;
+        border-color: @color1lighter;
     }
 
     // inherit
@@ -883,8 +898,52 @@ img {
 
 // MEDIA SKINS
 .media {
+    border-top: 1px solid @greylighter2;
+    padding-top: 15px;
+    position: relative;
+
+    &:first-child {
+        border: none;
+    }
+
     > .pull-left {
         margin-right: 20px;
+    }
+
+    .activity {
+        font-size: 10px;
+        font-style: italic;
+        color: @greylighter;
+        margin: 0;
+    }
+
+    .location {
+        position: absolute;
+        right: 0;
+        top: 15px;
+        background: lighten(@color1lighter2, 15%);
+        font-size: 11px;
+        color: @color1;
+        border: 1px solid @color1lighter2;
+        padding: 4px 10px 4px 3px;
+        .border-radius(3px);
+        
+        &:before {
+            .iconf;
+            content: "s"; // .iconf-pins
+            font-size: 14px;
+            vertical-align: middle;
+            margin-right: 3px;
+        }
+    }
+
+    h4 {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+
+    .media-object {
+        margin-top: 5px;
     }
 }
 
@@ -910,7 +969,7 @@ img {
     & > li > a:focus,
     & > .active > a,
     & > .active > span {
-        background: @color1;
+        background: @color1lighter;
         color: white;
     }
 
@@ -1027,8 +1086,6 @@ img {
         }
     }
 }
-
-
 
 
 

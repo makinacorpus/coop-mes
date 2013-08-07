@@ -92,35 +92,40 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="content-box">
-
 {% if orgs.object_list %}
                     <div class="section-head">
                         {% include "page_directory/pagination.html" %}
                     </div>
-                    {% for org in orgs %}
-                        <div class="result{% if forloop.last %} last{% endif %}">
-                            {% if org.logo %}
-                                {% thumbnail org.logo "220x140" upscale=0 as logo %}
-                                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" />
-                                {% endthumbnail %}
-                            {% else %}
-                                <div class="logo"></div>
-                            {% endif %}
-                            {% with org.main_location.city as city %}{% if city %}
-                                <span class="blue-button" href="#">{{ org.main_location.zipcode }} {{ city }}</span>
-                            {% endif %}{% endwith %}
-                            <p class="activity">{{ org.offer_activities }}</p>
-                            <p class="title">{{ org.title }}</p>
-                            <p>{{ org.brief_description }}</p>
-                            <a class="button" href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">Fiche personnelle</a>
-                        </div>
-                    {% endfor %}
-{% else %}
-                    <p>Aucun résultat.</p>
-{% endif %}
+                    <div class="results">
+                        {% for org in orgs %}
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    {% if org.logo %}
+                                        {% thumbnail org.logo "220x140" upscale=0 as logo %}
+                                            <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
+                                        {% endthumbnail %}
+                                    {% else %}
+                                        <img class="media-object" src="" width="220" height="140">
+                                    {% endif %}
+                                </a>
+                                <div class="media-body">
+                                    <p class="activity">{{ org.offer_activities }}</p>
+                                    {% with org.main_location.city as city %}{% if city %}
+                                        <span class="location">{{ org.main_location.zipcode }} {{ city }}</span>
+                                    {% endif %}{% endwith %}
+                                    <h4 class="media-heading">{{ org.title }}</h4>
+                                    <p>{{ org.brief_description }}</p>
+                                    <a href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" class="btn btn-default">Fiche personnelle</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                     <div class="section-foot">
                         {% include "page_directory/pagination.html" %}
                     </div>
+{% else %}
+                    <div>Aucun résultat.</div>
+{% endif %}
                 </div>
             </div>
 
