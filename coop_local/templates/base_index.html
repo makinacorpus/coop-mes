@@ -22,8 +22,7 @@
         <![endif]-->
         {% render_favicon %}
         {% block theme-design-css %}
-            <link rel="stylesheet" href="{% static "css/bootstrap/bootstrap.css" %}">
-            {% block main_css %}<link rel="stylesheet" href="{% static "css/main.css" %}">{% endblock %}
+            {% block main_css %}<link rel="stylesheet" href="{% static "css/theme-default.css" %}">{% endblock %}
             <link rel="stylesheet" href="{% static "css/datepicker.css" %}">
             <link rel="stylesheet" href="{% static "css/toto.css" %}">
         {% endblock %}
