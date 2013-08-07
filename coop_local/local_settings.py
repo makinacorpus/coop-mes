@@ -25,7 +25,6 @@ if 'runserver' in sys.argv or 'test' in sys.argv:
 TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_DIRS = [
-    PROJECT_PATH + '/themes/apeas/default/templates',
     PROJECT_PATH + '/templates/',
     PROJECT_PATH + '/coop_local/templates/',
 ]
