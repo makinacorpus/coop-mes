@@ -259,6 +259,8 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
             'category_iae': chosenwidgets.ChosenSelectMultiple(),
             'guaranties': chosenwidgets.ChosenSelectMultiple(),
             'authors': chosenwidgets.ChosenSelectMultiple(),
+            'activities': chosenwidgets.ChosenSelectMultiple(),
+            'transverse_themes': forms.CheckboxSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -321,7 +323,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                        ('integration_workforce', 'annual_integration_number')]
             }),
         (_(u'Description'), {
-            'fields': ['brief_description', 'description', 'added_value', 'tags', 'transverse_themes']
+            'fields': ['brief_description', 'description', 'added_value', 'activities', 'tags', 'transverse_themes']
             }),
         (_(u'Guaranties'), {
             'fields': ['guaranties']
@@ -480,8 +482,6 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             return request.user in obj.authors.all()
         else:
             return True
-
-OrganizationAdmin.formfield_overrides[models.ManyToManyField] = {'widget': forms.CheckboxSelectMultiple}
 
 
 class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):

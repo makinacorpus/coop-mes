@@ -53,21 +53,21 @@ function dismissActivityLookupPopup(win, chosenId, chosenRepr) {
 jQuery(document).ready(function() {
     $('#id_is_provider').change(function() {
         var tabs = $('a[href="#target-group"], a[href="#offer_set-group"]').parent();
-        var fields = $('label[for="id_added_value"], label[for="id_transverse_themes_0"], label[for="id_category"], label[for="id_category_iae"], label[for="id_agreement_iae_0"]').parent()
+        var fields = $('label[for="id_added_value"], label[for="id_transverse_themes_0"], label[for="id_category"], label[for="id_category_iae"], label[for="id_agreement_iae_0"]').parent();
         if ($(this).is(':checked')) {
             tabs.removeClass('hide');
-            fields.show()
+            fields.show();
         } else {
             tabs.addClass('hide');
-            fields.hide()
+            fields.hide();
         }
     });
     $('#id_is_customer').change(function() {
-        var fields = $('#id_customer_type, label[for="id_customer_type"]')
+        var fields = $('label[for="id_customer_type"], label[for="id_activities"]').parent();
         if ($(this).is(':checked')) {
-            fields.show()
+            fields.show();
         } else {
-            fields.hide()
+            fields.hide();
         }
     });
     $('#id_is_provider').trigger('change');
