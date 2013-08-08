@@ -301,11 +301,11 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
 class OrganizationAdmin(BaseOrganizationAdmin):
 
     form = OrganizationAdminForm
-    list_display = ['logo_list_display', 'title', 'acronym', 'is_provider',
+    list_display = ['logo_list_display', 'title', 'acronym', 'status', 'is_provider',
         'is_customer', 'is_network', 'active', 'has_description', 'has_location']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['authors', 'is_provider', 'is_customer', 'is_network']
+    list_filter = ['status', 'authors', 'is_provider', 'is_customer', 'is_network']
     ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
