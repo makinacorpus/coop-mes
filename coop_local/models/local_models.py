@@ -51,6 +51,12 @@ class Person(BasePerson):
 
     bdis_id = models.IntegerField(_(u'bdis identifiant'), blank=True, null=True)
 
+    def my_organization(self):
+        engagements = self.engagements.filter(org_admin=True)
+        if not engagements:
+            return None
+        return engagements[0].organization
+
 
 class LegalStatus(models.Model):
 

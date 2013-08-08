@@ -69,6 +69,10 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'leaflet',
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [
+    'coop_local.context_processors.my_organization',
+]
+
 # TODO: to be discuss this settings could be in default_project_setings.py
 # file. To be check I knew more on how to configure sympa
 SYMPA_SOAP = {

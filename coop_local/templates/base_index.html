@@ -92,7 +92,7 @@
                                     <b class="uppercase">Votre compte</b><br/>
                                     Bonjour,
                                     {% if request.user.is_active %}
-                                        <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
+                                        <b>{{ my_organization.label }}</b>
                                     {% else %}
                                         <b>Identifiez-vous</b>
                                     {% endif %}
