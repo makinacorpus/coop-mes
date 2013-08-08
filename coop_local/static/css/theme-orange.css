@@ -12,6 +12,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Melbourne";
+  src: url("fonts/Melbourne-Bold.woff") format("woff"), url("fonts/Melbourne-Bold.svg#Melbourne-Bold") format("svg"), url("fonts/Melbourne-Bold.eot"), url("fonts/Melbourne-Bold.eot?#iefix") format("embedded-opentype");
+  font-weight: bold;
+  font-style: normal;
+}
 [data-icon]:before {
   font-family: "icons-font";
   content: attr(data-icon);
@@ -274,6 +280,12 @@ img {
 .topsite-border .color3 {
   background-color: #fdd635;
 }
+.main-header {
+  background-color: #ffffff;
+}
+.main-header #layout-logo {
+  margin: 0;
+}
 .main-header nav:before,
 .main-header nav:after {
   content: " ";
@@ -285,6 +297,31 @@ img {
 }
 .main-header nav:after {
   clear: both;
+}
+.main-header .feedback {
+  margin-top: 10px;
+  color: #fdd635;
+  padding: 0 7px;
+  border: 1px solid #fdd635;
+  padding-left: 0;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: bottom;
+  overflow: hidden;
+  font-weight: bold;
+  line-height: 22px;
+}
+.main-header .feedback span {
+  background-color: #fdd635;
+  display: inline-block;
+  width: 42px;
+  height: 100%;
+  margin-right: 7px;
+  color: white;
+  text-align: center;
+}
+.main-header .feedback:hover {
+  color: #757475;
 }
 .main-header .second-nav {
   margin-top: 10px;
@@ -374,11 +411,25 @@ img {
   line-height: 1.25;
   text-align: left;
   min-width: 245px;
-  padding: 11px;
+  padding: 7px 11px;
   margin-top: 10px;
+}
+.main-header .login:before {
+  font-size: 32px;
+  display: block;
+  float: left;
+  border-right: 1px solid white;
+  padding-right: 5px;
+  margin-right: 12px;
+  line-height: 34px;
+  padding-top: 5px;
 }
 .main-header .login:hover {
   background-color: #d46408;
+}
+.main-header .login b.uppercase {
+  font-family: Melbourne;
+  font-size: 16px;
 }
 .main-header .login img {
   display: block;
@@ -394,7 +445,7 @@ img {
 }
 .main-header .search {
   float: left;
-  width: 55%;
+  width: 100%;
   margin-top: 10px;
 }
 .main-header .search .btn {
@@ -733,19 +784,21 @@ img {
   text-transform: uppercase;
   color: #757475;
   font-size: 19px;
+  font-family: Melbourne;
 }
 .section-title {
-  margin-top: 3px;
+  margin-top: 5px;
   text-transform: uppercase;
   color: #757475;
   font-size: 19px;
+  font-family: Melbourne;
   border-bottom: 1px dotted #d3d3d3;
 }
 .section-title:after {
   display: block;
   height: 1px;
   margin-bottom: 1px;
-  margin-top: 10px;
+  margin-top: 8px;
   content: "";
   border-top: 1px dotted #d3d3d3;
   border-bottom: 1px dotted #d3d3d3;
@@ -758,7 +811,7 @@ img {
   width: 30px;
   float: left;
   border-radius: 15px;
-  margin-top: -5px;
+  margin-top: -7px;
   margin-right: 15px;
   background-color: #54ae4e;
   color: white;
@@ -1184,7 +1237,8 @@ img {
     width: 140px;
   }
   .main-header .search {
-    margin-top: 35px;
+    margin-top: 31px;
+    width: 96%;
   }
 }
 /* Large desktops and up */
@@ -1255,4 +1309,7 @@ img {
   h3 {
     page-break-after: avoid;
   }
+}
+.main-header .search {
+  margin-top: 3px;
 }

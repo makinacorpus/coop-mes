@@ -116,12 +116,42 @@ img {
 
 
 .main-header {
-    .logo {
+    background-color: @header-bg;
 
+    #layout-logo {
+        margin: 0;
     }
 
     nav {
         .clearfix();
+    }
+
+    .feedback {
+        margin-top: 10px;
+        color: @color2;
+        padding: 0 7px;
+        border: 1px solid @color2;
+        padding-left: 0;
+        border-radius: 4px;
+        display: inline-block;
+        vertical-align: bottom;
+        overflow: hidden;
+        font-weight: bold;
+        line-height: 22px;
+
+        span {
+            background-color: @color2;
+            display: inline-block;
+            width: 42px;
+            height: 100%;
+            margin-right: 7px;
+            color: white;
+            text-align: center;
+        }
+
+        &:hover {
+            color: @grey;
+        }
     }
 
     .second-nav {
@@ -221,11 +251,27 @@ img {
         line-height: 1.25;
         text-align: left;
         min-width: 245px;
-        padding: 11px;
+        padding: 7px 11px;
         margin-top: 10px;
+
+        &:before {
+            font-size: 32px;
+            display: block;
+            float: left;
+            border-right: 1px solid white;
+            padding-right: 5px;
+            margin-right: 12px;
+            line-height: 34px;
+            padding-top: 5px;
+        }
 
         &:hover {
             background-color: darken(@loginbtn-bg, 5%);
+        }
+
+        b.uppercase {
+            font-family: Melbourne;
+            font-size: 16px;
         }
 
         img {
@@ -242,7 +288,7 @@ img {
 
     .search {
         float: left;
-        width: 55%;
+        width: 100%;
         margin-top: 10px;
 
         .btn {
@@ -657,10 +703,11 @@ img {
     text-transform: uppercase;
     color: @grey;
     font-size: 19px;
+    font-family: Melbourne;
 }
 
 .section-title {
-    margin-top: 3px;
+    margin-top: 5px;
 
     .title;
     border-bottom: 1px dotted @grey-divider;
@@ -669,7 +716,7 @@ img {
         display: block;
         height: 1px;
         margin-bottom: 1px;
-        margin-top: 10px;
+        margin-top: 8px;
         content: "";
         border-top: 1px dotted @grey-divider;
         border-bottom: 1px dotted @grey-divider;
@@ -684,7 +731,7 @@ img {
             width: 30px;
             float: left;
             border-radius: 15px;
-            margin-top: -5px;
+            margin-top: -7px;
             margin-right: 15px;
             background-color: @sectiontitle-bg;
             color: white;
@@ -1122,7 +1169,8 @@ img {
         }
 
         .search {
-            margin-top: 35px;
+            margin-top: 31px;
+            width: 96%;
         }
     }
 }

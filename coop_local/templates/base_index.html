@@ -72,29 +72,34 @@
                                 <li><a href="/espace-presse/">Espace Presse</a></li>
                             </ul>
                         </nav>
-                        {% block feedback %}
-                            <div id="feedback">
-                                <a href="/contact">Retour d'expérience d'utilisation</a>
+
+                        <div class="row">
+                            <div class="col-lg-7">
+                                {% block feedback %}
+                                    <a href="#" class="feedback"><span>►</span>Retour d’expérience d’utilisation</a>
+                                {% endblock %}
+                                <form class="search">
+                                    <div class="input-group">
+                                      <span class="input-group-btn">
+                                        <button class="btn" type="button">Rechercher</button>
+                                      </span>
+                                      <input type="search" class="form-control">
+                                    </div><!-- /input-group -->
+                                </form>
                             </div>
-                        {% endblock %}
-                        <form class="search">
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                <button class="btn" type="button">Rechercher</button>
-                                </span>
-                                <input type="search" class="form-control">
-                            </div><!-- /input-group -->
-                        </form>
-                        <a class="login btn" href="/mon-compte/">
-                            <img src="avatar.png" width="35" height="35" />
-                            <b class="uppercase">Votre compte</b><br/>
-                            Bonjour,
-                            {% if request.user.is_active %}
-                                <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
-                            {% else %}
-                                <b>Identifiez-vous</b>
-                            {% endif %}
-                        </a>
+                            <div class="col-lg-5">
+                                <a class="login btn" href="/mon-compte/">
+                                    <img src="avatar.png" width="35" height="35" />
+                                    <b class="uppercase">Votre compte</b><br/>
+                                    Bonjour,
+                                    {% if request.user.is_active %}
+                                        <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
+                                    {% else %}
+                                        <b>Identifiez-vous</b>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
