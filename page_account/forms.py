@@ -13,6 +13,11 @@ class PersonForm(forms.ModelForm):
                                     widget=forms.RadioSelect,
                                     initial=0)
 
+    def __init__(self, *args, **kwargs):
+        super(PersonForm, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+
     def clean_charte(self):
         if not self.cleaned_data['charte']:
             raise forms.ValidationError(u'Vous devez accepter la charte pour pouvoir vous inscrire.')
@@ -28,3 +33,8 @@ class AccountForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'username')
+
+    def __init__(self, *args, **kwargs):
+        super(AccountForm, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'

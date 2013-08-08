@@ -73,69 +73,6 @@ def detail_view(request, page_app, pk):
                        (),
                        context_instance=RequestContext(request))
 
-
-def add_view(request, page_app):
-
-    if request.method == "POST":
-        form1 = OrganizationForm1(request.POST)
-        form2 = EngagementForm(request.POST)
-        if form1.is_valid() and form2.is_valid():
-            org = form1.save()
-            eng = form2.save(commit=False)
-            eng.person = request.user.get_profile()
-            eng.organization = org
-            eng.org_admin = True
-            eng.save()
-            return HttpResponseRedirect('../modifier2/')
-    else:
-        form1 = OrganizationForm1()
-        form2 = EngagementForm()
-
-    return render_view('page_directory/edit.html',
-        {'form1': form1, 'form2': form2,
-         'title': u'Ajouter un acheteur / Fournisseur'},
-        (),
-        context_instance=RequestContext(request))
-
-
-def edit1_view(request, page_app, pk):
-
-    org = get_object_or_404(Organization, pk=pk,
-        engagement__person__user=request.user, engagement__org_admin=True)
-
-    if request.method == "POST":
-        form = OrganizationForm1(request.POST, instance=org)
-        if form.is_valid():
-            org = form.save()
-            return HttpResponseRedirect('../modifier2/')
-    else:
-        form = OrganizationForm1(instance=org)
-
-    return render_view('page_directory/edit.html',
-        {'form1': form, 'title': u'Modifier un acheteur / Fournisseur'},
-        (),
-        context_instance=RequestContext(request))
-
-
-def edit2_view(request, page_app, pk):
-
-    org = get_object_or_404(Organization, pk=pk,
-        engagement__person__user=request.user, engagement__org_admin=True)
-
-    if request.method == "POST":
-        form = OrganizationForm2(request.POST, instance=org)
-        if form.is_valid():
-            org = form.save()
-            return HttpResponseRedirect(org.get_absolute_url())
-    else:
-        form = OrganizationForm2(instance=org)
-
-    return render_view('page_directory/edit.html',
-        {'form1': form, 'title': u'Modifier un acheteur / Fournisseur'},
-        (),
-        context_instance=RequestContext(request))
-
-
 organization_forms = (
     OrganizationForm1,
     OrganizationForm2,
@@ -143,8 +80,10 @@ organization_forms = (
 
 class OrganizationView(SessionWizardView):
 
-    template_name = 'page_directory/edit.html'
     file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
+
+    def get_template_names(self):
+        return 'page_directory/edit%s.html' % self.steps.current
 
     def done(self, form_list, **kwargs):
         #do_something_with_the_form_data(form_list)

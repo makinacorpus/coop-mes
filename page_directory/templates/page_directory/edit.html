@@ -4,37 +4,32 @@
     <div class="container">
         <div class="content-box">
 
-            <h2>{{ title }}</h2>
+            <div class="section-head">
+                {{ title }}
+                <ul class="pagination"></ul>
+                <ul class="pager">
+                    <li><a href="#"><span>g</span></a></li>
+                    <li><a href="#">Étape {{ wizard.steps.step1 }} sur {{ wizard.steps.count }} <span>f</span></a></li>
+                </ul>
+            </div>
 
-            <p>Étape {{ wizard.steps.step1 }} sur {{ wizard.steps.count }}</p>
-
-            <form action="" method="post">{% csrf_token %}
+            <form action="" enctype="multipart/form-data" method="post">{% csrf_token %}
 
                 {{ wizard.management_form }}
 
-                {% if wizard.form.forms %}
-                    {{ wizard.form.management_form }}
-                    {% for form in wizard.form.forms %}
-                        <table>
-                            {{ form.as_table }}
-                        </table>
-                    {% endfor %}
-                {% else %}
-                    <table>
-                        {{ wizard.form.as_table }}
-                    </table>
-                {% endif %}
+                {% with wizard.form as f %}
+                    {% block fields %}{% endblock %}
+                {% endwith %}
 
                 <p class="text-center">
                     {% if wizard.steps.prev %}
                         <button class="btn btn-second" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">Début</button>
-                        <button class="btn btn-second" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Précédent</button>
+                        <button class="btn btn-second" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Étape précédente</button>
                     {% endif %}
-                    <button class="btn btn-default" type="submit">{% if wizard.steps.next %}Suivant{% else %}Soumettre{% endif %}</button>
+                    <button class="btn btn-default" type="submit">{% if wizard.steps.next %}Étape Suivante{% else %}Enregistrer{% endif %}</button>
                 </p>
 
             </form>
-
 
         </div>
     </div>
@@ -43,19 +38,5 @@
 <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
 
 <script type="text/javascript">
-
-$('#id_0-birth').datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'viewMode': 'years'});
-
-jQuery(document).ready(function() {
-    $('#id_0-is_customer').change(function() {
-        var fields = $('#id_0-customer_type, label[for="id_0-customer_type"]')
-        if ($(this).is(':checked')) {
-            fields.css('visibility', 'visible');
-        } else {
-            fields.css('visibility', 'hidden');
-        }
-    });
-    $('#id_0-is_customer').trigger('change');
-});
-
+    {% block scripts %}{% endblock %}
 </script>

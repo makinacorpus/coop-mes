@@ -51,3 +51,8 @@ ul.as-list li{
         padding: 2px;
 
 }
+
+/* Form errors */
+ul.errorlist {
+    color: #B94A48;
+}

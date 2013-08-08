@@ -55,6 +55,11 @@ class OrganizationForm1(forms.ModelForm):
                   'legal_status', 'web', 'siret', 'is_provider',
                   'is_customer', 'customer_type')
 
+    def __init__(self, *args, **kwargs):
+        super(OrganizationForm1, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+
     def clean(self):
         cleaned_data = super(OrganizationForm1, self).clean()
         if not cleaned_data['is_provider'] and not cleaned_data['is_customer']:
@@ -74,4 +79,8 @@ class OrganizationForm2(forms.ModelForm):
         model = Organization
         fields = ('brief_description', 'description', 'added_value', 'tags', 'transverse_themes')
 
-print OrganizationForm2().media
+    def __init__(self, *args, **kwargs):
+        super(OrganizationForm2, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+        self.fields['transverse_themes'].widget = forms.RadioSelect()

@@ -5,45 +5,86 @@
 {{ form1.non_field_errors }}
 {{ form2.non_field_errors }}
 
-<table>
-    <tr>
-        <th><label for="id_gender">Genre&nbsp;:</label></th>
-        <td>{{ form1.gender.errors }}{{ form1.gender }}</td>
-    </tr>
-    <tr>
-        <th><label for="id_first_name">Prénom&nbsp;:</label></th>
-        <td>{{ form1.first_name.errors }}{{ form1.first_name }}</td>
-    </tr>
-    <tr>
-        <th><label for="id_last_name">Nom&nbsp;:</label></th>
-        <td>{{ form1.last_name.errors }}{{ form1.last_name }}</td>
-    </tr>
-    <tr>
-        <th><label for="id_email">Adresse électronique&nbsp;:</label></th>
-        <td>{{ form2.email.errors }}{{ form2.email }}</td>
-    </tr>
-    <tr>
-        <th><label for="id_username">Nom d&#39;utilisateur&nbsp;:</label></th>
-        <td>{{ form2.username.errors }}{{ form2.username }}<br /><span class="helptext">Requis. 30 caractères maximum. Uniquement des lettres, nombres et les caractères « @ », « . », « + », « - » et « _ ».</span></td>
-    </tr>
-    <tr>
-        <th><label for="id_password1">Mot de passe&nbsp;:</label></th>
-        <td>{{ form2.password1.errors }}{{ form2.password1 }}</td>
-    </tr>
-    <tr>
-        <th><label for="id_password2">Confirmation du mot de passe&nbsp;:</label></th>
-        <td>{{ form2.password2.errors }}{{ form2.password2 }}<br /><span class="helptext">Saisissez le même mot de passe que précédemment, pour vérification.</span></td>
-    </tr>
-    <tr>
-        <th><label for="id_charte_0">J'accepte la <a href="#">charte de l'utilisateur</a>&nbsp;:</label></th>
-        <td>
+<div class="container">
+    {{ f.non_field_errors }}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group {% if form1.gender.errors %}has-error{% endif %}">
+                {{ form1.gender.label_tag }}
+                {{ form1.gender.errors }}
+                {{ form1.gender }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group {% if form1.first_name.errors %}has-error{% endif %}">
+                {{ form1.first_name.label_tag }}
+                {{ form1.first_name.errors }}
+                {{ form1.first_name }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group {% if form1.last_name.errors %}has-error{% endif %}">
+                {{ form1.last_name.label_tag }}
+                {{ form1.last_name.errors }}
+                {{ form1.last_name }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group {% if form2.email.errors %}has-error{% endif %}">
+                {{ form2.email.label_tag }}
+                {{ form2.email.errors }}
+                {{ form2.email }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group {% if form2.username.errors %}has-error{% endif %}">
+                {{ form2.username.label_tag }}
+                {{ form2.username.errors }}
+                {{ form2.username }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group {% if form2.password1.errors %}has-error{% endif %}">
+                {{ form2.password1.label_tag }}
+                {{ form2.password1.errors }}
+                {{ form2.password1 }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group {% if form2.password2.errors %}has-error{% endif %}">
+                {{ form2.password2.label_tag }}
+                {{ form2.password2.errors }}
+                {{ form2.password2 }}
+                <span class="help-block">Saisissez le même mot de passe que précédemment, pour vérification.</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <label>J'accepte la <a href="#">charte de l'utilisateur</a></label>
+            <div class="radio-inline {% if form1.charte.errors %}has-error{% endif %}">
+                <label class="radio-inline" for="id_charte_1">
+                    <input type="radio" id="id_charte_1" name="charte" value="1"> Oui
+                </label>
+                <label class="radio-inline" for="id_charte_0">
+                    <input checked="checked" type="radio" id="id_charte_0" name="charte" value="0"> Non
+                </label>
+            </div>
             {{ form1.charte.errors }}
-            <label for="id_charte_1"><input type="radio" id="id_charte_1" value="1" name="charte" /> Oui</label>
-            <label for="id_charte_0"><input checked="checked" type="radio" id="id_charte_0" value="0" name="charte" /> Non</label>
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 
-<input type="submit" value="{% trans "submit" %}"/>
+<p class="text-center">
+    <button class="btn btn-default" type="submit">Enregistrer</button>
+</p>
 
 </form>
