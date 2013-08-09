@@ -82,6 +82,11 @@ class OrganizationView(SessionWizardView):
 
     file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
 
+    def get_form_instance(self, step):
+        pk = self.kwargs.get('pk', None)
+        instance = get_object_or_404(Organization, pk=pk)
+        return instance
+
     def get_template_names(self):
         return 'page_directory/edit%s.html' % self.steps.current
 
@@ -97,3 +102,4 @@ class OrganizationView(SessionWizardView):
             context_instance=RequestContext(self.request))
 
 add_view = login_required(OrganizationView.as_view(organization_forms))
+change_view = login_required(OrganizationView.as_view(organization_forms))
