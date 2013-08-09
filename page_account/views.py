@@ -13,6 +13,7 @@ from django.utils.http import is_safe_url
 from django.http import HttpResponseRedirect
 from coop_local.models import Organization
 from django.contrib.auth.decorators import login_required
+from ionyweb.page.models import Page
 
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
@@ -87,6 +88,11 @@ def logout_view(request, page_app):
 
 def inscription_view(request, page_app):
 
+    try:
+        charte = Page.objects.get(title='Charte').app.text
+    except Page.DoesNotExist:
+        charte = u'<p>La page « Charte » n\'existe pas.</p>'
+
     if request.method == "POST":
         form1 = PersonForm(request.POST)
         form2 = AccountForm(request.POST)
@@ -104,7 +110,7 @@ def inscription_view(request, page_app):
         form2 = AccountForm()
 
     return render_view('page_account/inscription.html',
-        {'form1': form1, 'form2': form2},
+        {'form1': form1, 'form2': form2, 'charte': charte},
         MEDIAS,
         context_instance=RequestContext(request))
 
