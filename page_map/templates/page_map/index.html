@@ -119,7 +119,7 @@
                                     {% if l.location.point %}
                                         tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
                                         L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
-                                                .bindPopup("<div>{{ o.title|escapejs }}</div><div>{{ o.main_location.zipcode|escapejs }} {{ o.main_location.city|escapejs }}<br/>{{ o.offer_activities|escapejs }}<br/><br/>{{ o.brief_description|linebreaksbr|escapejs }}<p><a href=\"/annuaire/p/{{ o.pk }}/\">Fiche complète</a></p></div>");
+                                                .bindPopup('<div class="title">{{ o.title|escapejs }}</div><div>{{ o.main_location.zipcode|escapejs }} {{ o.main_location.city|escapejs }}<br/>{{ o.offer_activities|escapejs }}<br/><br/>{{ o.brief_description|linebreaksbr|escapejs }}<p class="link"><a href=\"/annuaire/p/{{ o.pk }}/\">Fiche complète</a></p></div>');
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
