@@ -6,7 +6,8 @@ from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
     Organization, Engagement)
 from django.conf import settings
-from tinymce.widgets import AdminTinyMCE
+from tinymce.widgets import TinyMCE
+from chosen import widgets as chosenwidgets
 
 
 class PageApp_DirectoryForm(ModuloModelForm):
@@ -73,14 +74,29 @@ class OrganizationForm1(forms.ModelForm):
 
 class OrganizationForm2(forms.ModelForm):
 
-    #description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 15}), required=False)
+    description = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False)
 
     class Meta:
         model = Organization
-        fields = ('brief_description', 'description', 'added_value', 'tags', 'transverse_themes')
+        fields = ('brief_description', 'description', 'added_value')
 
     def __init__(self, *args, **kwargs):
         super(OrganizationForm2, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'
-        self.fields['transverse_themes'].widget = forms.RadioSelect()
+
+
+class OrganizationForm3(forms.ModelForm):
+
+    class Meta:
+        model = Organization
+        fields = ('tags', 'activities', 'transverse_themes')
+        widgets = {
+            'activities': chosenwidgets.ChosenSelectMultiple(),
+            'transverse_themes': forms.CheckboxSelectMultiple(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationForm3, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'

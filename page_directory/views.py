@@ -2,7 +2,8 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch, OrganizationForm1, OrganizationForm2)
+from .forms import (OrgSearch, OrganizationForm1, OrganizationForm2,
+    OrganizationForm3)
 from coop_local.models import Organization, ActivityNomenclature
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -76,6 +77,7 @@ def detail_view(request, page_app, pk):
 organization_forms = (
     OrganizationForm1,
     OrganizationForm2,
+    OrganizationForm3,
 )
 
 class OrganizationView(SessionWizardView):
