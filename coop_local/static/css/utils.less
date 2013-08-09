@@ -200,7 +200,7 @@ i[class*="icon-"] {
 
 // generated with http://spritegen.website-performance.org/
 .icon-a-la-une{ background-position: 0 0;  } 
-.icon-back{ background-position: 0 -65px;  } 
+.icon-back, .icon-back:before{ background-position: 0 -65px;  } 
 .icon-book{ background-position: 0 -130px;  } 
 .icon-cancel-small{ background-position: 0 -239px;  } 
 .icon-cancel{ background-position: 0 -297px;  } 
@@ -221,4 +221,10 @@ i[class*="icon-"] {
 
 .uppercase {
     text-transform: uppercase;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -19,6 +19,8 @@
 @color1darker2:  #596b84;
 @color1darkest:  #444a5a;
 
+@color3lighter: #a5ca72;
+
 // Objects colors
 @body-bg:   #f5f5f5;
 @body-color: @grey;
@@ -36,9 +38,9 @@
 @mainnav-bg: darken(@color1, 10%);
 
 // Second navigation color
-@secondnav-bg: lighten(desaturate(@color3, 20%), 10%);
+@secondnav-bg: @color3lighter;
 @secondnav-selected: darken(@color3, 20%);
-@secondnav-selected-bg: lighten(desaturate(@color3, 20%), 10%);
+@secondnav-selected-bg: @color3lighter;
 
 // Homepage image
 @home-img: "bg-home.jpg";
