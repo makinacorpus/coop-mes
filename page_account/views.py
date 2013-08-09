@@ -3,12 +3,11 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from django.contrib.auth.views import login, logout
-from .forms import PersonForm, AccountForm
+from .forms import PersonForm, AccountForm, AuthenticationForm
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.models import get_current_site
 from django.utils.http import is_safe_url
 from django.http import HttpResponseRedirect

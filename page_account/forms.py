@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from coop_local.models import Person
+from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
 
 
 class PersonForm(forms.ModelForm):
@@ -36,5 +37,13 @@ class AccountForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class AuthenticationForm(BaseAuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AuthenticationForm, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'

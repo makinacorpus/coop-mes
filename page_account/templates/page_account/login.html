@@ -6,12 +6,39 @@
     {% csrf_token %}
 
     {% if form.errors %}
-        <p class="warn_errors">Votre identifiant et votre mot de passe ne correspondent pas.<br/>
+        <p class="errorlist">Votre identifiant et votre mot de passe ne correspondent pas.<br/>
             Vérifiez votre mot de passe SVP.</p>
     {% endif %}
 
-    {{ form.as_p }}
-    <p><label></label><input type="submit" value="Valider" /></p>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {{ form.username.errors }}
+                    {{ form.username }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="form-group">
+                    {{ form.password.label_tag }}
+                    {{ form.password.errors }}
+                    {{ form.password }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="text-center">
+        <button class="btn btn-default" type="submit">Connexion</button>
+    </p>
+
     <input type="hidden" name="next" value="{{ next }}" />
 
 </form>

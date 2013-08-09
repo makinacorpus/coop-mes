@@ -53,6 +53,6 @@ ul.as-list li{
 }
 
 /* Form errors */
-ul.errorlist {
+.errorlist {
     color: #B94A48;
 }
