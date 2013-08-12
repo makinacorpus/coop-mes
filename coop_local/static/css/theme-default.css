@@ -836,9 +836,6 @@ hr {
   margin-right: 0.9em;
   color: #82919f;
 }
-.section-head {
-  border-bottom: 1px dotted #d3d3d3;
-}
 .section-head:before,
 .section-head:after {
   content: " ";
@@ -1641,30 +1638,9 @@ form .validation.icon-cancel:before {
 .nav-tabs a {
   color: #699fd1;
 }
-.encart {
-  background: #fafafa;
-  border: solid 1px #eeeeee;
-  border-radius: 4px;
-  padding: 15px;
-  padding-top: 5px;
-  margin-top: 20px;
-}
-.encart h2 {
-  color: #7c8aa7;
-  margin-top: 10px;
-  padding-left: 20px;
-}
-.encart p {
-  padding-left: 20px;
-}
-.encart .statut {
-  background: url('../images/icon-info.png') no-repeat 0 2px;
-}
-.encart .theme {
-  background: url('../images/icon-theme.png') no-repeat 0 2px;
-}
-.encart .tags {
-  background: url('../images/icon-tag.png') no-repeat 0 2px;
+#tab6 .row {
+  padding: 10px 0;
+  border-bottom: 1px dotted #d3d3d3;
 }
 /* mobile devices */
 @media (max-width: 480px) {

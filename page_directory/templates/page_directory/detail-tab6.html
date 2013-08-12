@@ -1,0 +1,51 @@
+{% load thumbnail %}
+
+<div class="row">
+    <div class="col-lg-6">
+        {% thumbnail org.logo "55x48" upscale=0 as logo %}
+            <img class="fiche__logo" src="{{ logo.url }}" width="55" height="48" style="padding: {{ logo|margin:"55x48" }}" />
+        {% endthumbnail %}
+        <h2 class="fiche__title">{{ org.title }}{% if org.acronym %} ({{ org.acronym }}){% endif %}</h2>
+        <h6 class="activity">{{ org.offer_activities }}</h6>
+    </div>
+    <div class="col-lg-6">
+        <p><b>Description succinte</b></p>
+        <p>{{ org.brief_description }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <p><b>Adresse</b></p>
+        {% with org.pref_address as l %}
+            {{ l.adr1 }}<br/>
+            {% if l.adr2 %}<p>{{ l.adr2 }}<br/>{% endif %}
+            {{ l.zipcode }} {{ l.city }}<br/>
+        {% endwith %}
+        Tél&nbsp;: {{ org.pref_phone.content }}<br/>
+        Mail&nbsp;: <a href="mailto:{{ org.pref_email.content }}">{{ org.pref_email.content }}</a>
+    </div>
+    <div class="col-lg-6">
+        <p><b>Contact</b></p>
+        {% with org.engagement_set.all.0 as e %}
+            {{ e.person.last_name }} {{ e.person.first_name }}<br/>
+            {{ e.role|default:"" }}
+        {% endwith %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <p><b>Mots-clés</b></p>
+        {{ org.tags.all|join:", " }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <p><b>Description détaillée</b></p>
+        {{ org.description|safe }}
+    </div>
+</div>
+
+{# <p class="text-center"><a class="btn btn-default" href="modifier/">Modifier la fiche</a></p> #}

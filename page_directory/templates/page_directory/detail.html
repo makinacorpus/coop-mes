@@ -17,28 +17,44 @@
                             <h1 class="title ribbon__title">{{ org.label|ascii }}</h1>
                         </div>
                         <div class="col-lg-6 links">
-                            <a href="mailto:{{ org.pref_email }}" class="btn-icon iconf-email">Contacter la structure</a>
+                            <a href="mailto:{{ org.pref_email.content }}" class="btn-icon iconf-email">Contacter la structure</a>
                             {# <a href="#back" class="btn-icon iconf-print">Imprimer la fiche</a> #}
                         </div>
                     </div>
                     <div class="tabbable">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1" data-toggle="tab">Présentation</a></li>
-                            <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
-                            <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
+                            {% if org.is_provider %}
+                                <li class="active"><a href="#tab1" data-toggle="tab">Présentation{% if org.is_customer %} fournisseur{% endif %}</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
+                                <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
+                            {% endif %}
+                            {% if org.is_customer %}
+                                <li {% if not org.is_provider %}class="active"{% endif %}><a href="#tab6" data-toggle="tab">Présentation{% if org.is_provider %} acheteur{% endif %}</a></li>
+                                <li><a href="#tab7" data-toggle="tab">Appels d'offres déposés</a></li>
+                            {% endif %}
                             <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
                             <li><a href="#tab5" data-toggle="tab">Liens</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tab1">
-                                {% include "page_directory/detail-tab1.html" %}
-                            </div>
-                            <div class="tab-pane" id="tab2">
-                                {% include "page_directory/detail-tab2.html" %}
-                            </div>
-                            <div class="tab-pane" id="tab3">
-                                {% include "page_directory/detail-tab3.html" %}
-                            </div>
+                            {% if org.is_provider %}
+                                <div class="tab-pane active" id="tab1">
+                                    {% include "page_directory/detail-tab1.html" %}
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                    {% include "page_directory/detail-tab2.html" %}
+                                </div>
+                                <div class="tab-pane" id="tab3">
+                                    {% include "page_directory/detail-tab3.html" %}
+                                </div>
+                            {% endif %}
+                            {% if org.is_customer %}
+                                <div class="tab-pane {% if not org.is_provider %}active{% endif %}" id="tab6">
+                                    {% include "page_directory/detail-tab6.html" %}
+                                </div>
+                                <div class="tab-pane" id="tab7">
+                                    {% include "page_directory/detail-tab7.html" %}
+                                </div>
+                            {% endif %}
                             <div class="tab-pane" id="tab4">
                                 {% include "page_directory/detail-tab4.html" %}
                             </div>

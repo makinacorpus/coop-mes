@@ -11,7 +11,7 @@
     </div>
     <div class="col-lg-6">
     {% for l in org.located.all %}
-        <h3>{{ l.category }}</h3>
+        <h3>{{ l.category|default:"Contact" }}</h3>
         <p>{{ l.location.adr1 }}</p>
         {% if l.location.adr2 %}<p>{{ l.location.adr2 }}</p>{% endif %}
         <p>{{ l.location.zipcode }} {{ l.location.city }}</p>
