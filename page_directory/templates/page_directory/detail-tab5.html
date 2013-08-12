@@ -1,14 +1,14 @@
 <h3>Est membre de&nbsp;:</h3>
 <ul>{% for r in org.reseaux %}
-    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
+    <li><a href="{{ r.target.get_absolute_url }}">{{ r.target.label }}</a></li>
 {% endfor %}</ul>
 
 <h3>Partenariat technique avec&nbsp;:</h3>
 <ul>{% for r in org.part_tech %}
-    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
+    <li><a href="{{ r.target.get_absolute_url }}">{{ r.target.label }}</a></li>
 {% endfor %}</ul>
 
 <h3>Partenariat financier avec&nbsp;:</h3>
 <ul>{% for r in org.part_fin %}
-    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
+    <li><a href="{{ r.target.get_absolute_url }}">{{ r.target.label }}</a></li>
 {% endfor %}</ul>

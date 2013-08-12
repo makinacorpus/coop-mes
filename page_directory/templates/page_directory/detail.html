@@ -23,20 +23,20 @@
                     </div>
                     <div class="tabbable">
                         <ul class="nav nav-tabs">
-                            {% if org.is_provider %}
+                            {% if org.is_provider or org.is_network %}
                                 <li class="active"><a href="#tab1" data-toggle="tab">Présentation{% if org.is_customer %} fournisseur{% endif %}</a></li>
                                 <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
                                 <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
                             {% endif %}
                             {% if org.is_customer %}
-                                <li {% if not org.is_provider %}class="active"{% endif %}><a href="#tab6" data-toggle="tab">Présentation{% if org.is_provider %} acheteur{% endif %}</a></li>
+                                <li {% if not org.is_provider and not org.is_network %}class="active"{% endif %}><a href="#tab6" data-toggle="tab">Présentation{% if org.is_provider or org.is_network %} acheteur{% endif %}</a></li>
                                 <li><a href="#tab7" data-toggle="tab">Appels d'offres déposés</a></li>
                             {% endif %}
                             <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
                             <li><a href="#tab5" data-toggle="tab">Liens</a></li>
                         </ul>
                         <div class="tab-content">
-                            {% if org.is_provider %}
+                            {% if org.is_provider or org.is_network %}
                                 <div class="tab-pane active" id="tab1">
                                     {% include "page_directory/detail-tab1.html" %}
                                 </div>
@@ -48,7 +48,7 @@
                                 </div>
                             {% endif %}
                             {% if org.is_customer %}
-                                <div class="tab-pane {% if not org.is_provider %}active{% endif %}" id="tab6">
+                                <div class="tab-pane {% if not org.is_provider and not org.is_network %}active{% endif %}" id="tab6">
                                     {% include "page_directory/detail-tab6.html" %}
                                 </div>
                                 <div class="tab-pane" id="tab7">
