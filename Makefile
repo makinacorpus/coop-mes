@@ -19,3 +19,6 @@ clean:
 
 convert:
 	soffice --invisible --headless --accept="socket,host=localhost,port=2002;urp;" &
+
+lessc:
+	(cd coop_local/static/css/; lessc theme-default.less theme-default.css; lessc theme-orange.less theme-orange.css)

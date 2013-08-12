@@ -1,148 +1,57 @@
-{% load thumbnail  %}
+{% load ascii %}
 
 <div class="main-content">
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <div class="content-box">
-
-<a id="back" href="../../?{{ get_params }}">RETOUR A LA LISTE</a>
-
-<h1>{{ org.title }}</h1>
-
-<div class="tabbable">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab1" data-toggle="tab">Présentation</a></li>
-        <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
-        <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
-        <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
-        <li><a href="#tab5" data-toggle="tab">Liens</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="tab1">
-            <div id="left">
-                <h2>BIENS ET SERVICES</h2>
-                {% if org.offer_set %}
-                    {% for o in org.offer_set.all %}
-                        <h3>{{ o.activity }}</h3>
-                        <p>{{ o.description }}</p>
-                    {% endfor %}
-                {% endif %}
-                {% if org.guaranties.all %}
-                    <h2>GARANTIES</h2>
-                    {% for g in org.guaranties.all %}
-                    <div>
-                        {% thumbnail g.logo "55x50" upscale=0 as logo %}
-                            <img src="{{ logo.url }}" style="padding: {{ logo|margin:"55x50" }}" />
-                        {% endthumbnail %}
-                        <h3>{{ g.name }}</h3>
+                <div class="content-box detail">
+                    <div class="section-head">
+                        <a href="../../?{{ get_params }}" class="btn-icon icon-back detail">Retour a la liste</a>
+                        <ul class="pager detail">
+                            {# <li><a href="#prev" class="prev inactive"><span class="arrow">g</span> Previous</a></li> #}
+                            {# <li><a href="#next" class="next">Page suivante <span class="arrow">f</span></a></li> #}
+                        </ul>
                     </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <div id="right">
-                {% thumbnail org.logo "55x50" upscale=0 as logo %}
-                    <img class="logo" src="{{ logo.url }}" style="padding: {{ logo|margin:"55x50" }}" />
-                {% endthumbnail %}
-                <div>
-                    <h2>{{ org.title }}</h2>
-                    <p>Secteur d'activité&nbsp;: {{ org.offer_activities }}</p>
-                    <p>Dernière mise à jour&nbsp;: {{ org.modification|date:"d/m/Y" }}</p>
-                </div>
-                <div id="brief_desc">{{ org.brief_description }}</div>
-                <div id="encart">
-                    <h2 id="statut">Statut juridique&nbsp;:</h2>
-                    <p>{{ org.legal_status }}</p>
-                    {% if org.category_iae %}<p>{{ org.category_iae.all|join:", " }}</p>{% endif %}
-                    {% if org.category %}<p>{{ org.category.all|join:", " }}</p>{% endif %}
-                    <h2 id="theme">Thématiques&nbsp;:</h2>
-                    <p>{{ org.transverse_themes.all|join:", " }}</p>
-                    <h2 id="tags">Mots-clés&nbsp;:</h2>
-                    <p>{{ org.tags.all|join:", " }}</p>
-                </div>
-                <div id="desc">{{ org.description|safe }}</div>
-            </div>
-        </div>
-        <div class="tab-pane" id="tab2">
-            <div id="encart">
-                <h2>Chiffre d'affaire annuel&nbsp;:</h2>
-                <p>{{ org.annual_revenue|default_if_none:"-" }}</p>
-                <h2>Effectif total (ETP)&nbsp;:</h2>
-                <p>{{ org.workforce|default_if_none:"-" }}</p>
-                <h2>Effectif de production (ETP)&nbsp;:</h2>
-                <p>{{ org.production_workforce|default_if_none:"-" }}</p>
-                <h2>Effectif d'encadrement&nbsp;:</h2>
-                <p>{{ org.supervision_workforce|default_if_none:"-" }}</p>
-                <h2>Nombre de salariés en insertion (ETP)&nbsp;:</h2>
-                <p>{{ org.integration_workforce|default_if_none:"-" }}</p>
-                <h2>Nombre de personnes en insertion accompagnées par an&nbsp;:</h2>
-                <p>{{ org.annual_integration_number|default_if_none:"-" }}</p>
-                <h2>Références client</h2>
-                {% for r in org.references %}
-                    <p><a href="{{ r.source.web }}">{{ r.source }}</a> (de {{ r.from_year|default:"-" }} à {{ r.to_year|default:"-" }})&nbsp;: {{ r.services }}</p>
-                {% empty %}
-                    <p>-</p>
-                {% endfor %}
-                <p></p>
-            </div>
-        </div>
-        <div class="tab-pane" id="tab3">
-            <div id="left">
-                <h2>Membres</h2>
-                {% for e in org.engagement_set.all %}
-                    <p>{{ e.person.first_name }} {{ e.person.last_name }}<br/>
-                    {{ e.role }}<br/>
-                    {% for c in e.person.contacts.all %}
-                        {{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
-                    {% endfor %}
-                    </p>
-                {% endfor %}
-            </div>
-            <div id="right">
-            {% for l in org.located.all %}
-                <h2>{{ l.category }}</h2>
-                <p>{{ l.location.adr1 }}</p>
-                {% if l.location.adr2 %}<p>{{ l.location.adr2 }}</p>{% endif %}
-                <p>{{ l.location.zipcode }} {{ l.location.city }}</p>
-                {% for c in l.location.contact_set.all %}
-                    <p>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}</p>
-                {% endfor %}
-                <p>&nbsp;</p>
-            {% endfor %}
-            {% if org.other_contacts %}
-                <h2>Contacts</h2>
-                {% for c in org.other_contacts %}
-                    <p>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}</p>
-                {% endfor %}
-            {% endif %}
-            </div>
-        </div>
-        <div class="tab-pane" id="tab4">
-            <p>{{ org.testimony|default:"Pas de témoignage." }}</p>
-        </div>
-        <div class="tab-pane" id="tab5">
-            <div id="encart">
-                <h2>Est membre de&nbsp;:</h2>
-                <ul>{% for r in org.reseaux %}
-                    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
-                {% endfor %}</ul>
-                <h2>Partenariat technique avec&nbsp;:</h2>
-                <ul>{% for r in org.part_tech %}
-                    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
-                {% endfor %}</ul>
-                <h2>Partenariat financier avec&nbsp;:</h2>
-                <ul>{% for r in org.part_fin %}
-                    <li>{{ r.target.title }} (<a href="{{ r.target.web }}">{{ r.target.web }}</a>)</li>
-                {% endfor %}</ul>
-        </div>
-    </div>
-</div>
-<p class="text-center"><a class="btn btn-default" href="modifier/">Modifier la fiche</a></p>
+                    <div class="row ribbon ribbon--detail">
+                        <div class="col-lg-6">
+                            <h1 class="title ribbon__title">{{ org.label|ascii }}</h1>
+                        </div>
+                        <div class="col-lg-6 links">
+                            <a href="mailto:{{ org.pref_email }}" class="btn-icon iconf-email">Contacter la structure</a>
+                            {# <a href="#back" class="btn-icon iconf-print">Imprimer la fiche</a> #}
+                        </div>
+                    </div>
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Présentation</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Liens</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                {% include "page_directory/detail-tab1.html" %}
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                {% include "page_directory/detail-tab2.html" %}
+                            </div>
+                            <div class="tab-pane" id="tab3">
+                                {% include "page_directory/detail-tab3.html" %}
+                            </div>
+                            <div class="tab-pane" id="tab4">
+                                {% include "page_directory/detail-tab4.html" %}
+                            </div>
+                            <div class="tab-pane" id="tab5">
+                                {% include "page_directory/detail-tab5.html" %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-3 sidebar">
-            {% include "right-menu.html" %}
+            <div class="col-lg-3 sidebar">
+                {% include "right-menu.html" %}
+            </div>
         </div>
     </div>
 </div>

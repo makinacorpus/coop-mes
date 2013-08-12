@@ -414,6 +414,12 @@ class Organization(BaseOrganization):
     def offer_activities(self):
         return ", ".join(self.offer_set.values_list('activity__label', flat=True).distinct())
 
+    def offer_areas(self):
+        areas = set()
+        for offer in self.offer_set.all():
+            areas |= set([unicode(a) for a in offer.area.all()])
+        return ", ".join(areas)
+
     def get_absolute_url(self):
         return '/annuaire/p/%u/' % self.id
 

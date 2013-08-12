@@ -1,0 +1,80 @@
+{% load thumbnail %}
+
+<div class="row">
+    <div class="col-lg-4 sidebar">
+        <div class="content-box">
+            <h3 class="section-title">Biens et services</h3>
+            <ul class="list-group">
+                {% for o in org.offer_set.all %}
+                    <li class="list-group-item">
+                        <h3>{{ o.activity.label }}</h3>
+                        {# <h6 class="subtitle">{{ o.activity.label }}</h6> #}
+                        <p>{{ o.description }}</p>
+                        {% if o.targets.all %}
+                            <p><b>Cibles&nbsp;:</b><br/>
+                            {{ o.targets.all|join:", " }}</p>
+                        {% endif %}
+                        {% if o.technical_means %}
+                            <p><b>Moyens techniques disponibles&nbsp;:</b><br/>
+                            {{ o.technical_means }}</p>
+                        {% endif %}
+                        {% if o.workforce %}
+                            <p><b>Effectif total mobilisable&nbsp;:</b><br/>
+                            {{ o.workforce }}&nbsp;ETP</p>
+                        {% endif %}
+                        {% if o.practical_modalities %}
+                            <p><b>Modalité pratique&nbsp;:</b><br/>
+                            {{ o.practical_modalities }}</p>
+                        {% endif %}
+                        {% if o.area.all %}
+                            <p><b>Couverture géographique&nbsp;:</b><br/>
+                            {{ o.area.all|join:", " }}</p>
+                        {% endif %}
+                        {% if o.tags.all %}
+                            <p><b>Mots clés&nbsp;:</b><br/>
+                            {{ o.tags.all|join:", " }}</p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if org.guaranties.all %}
+                <h3 class="section-title">Garanties</h3>
+                <div class="garanties">
+                    {% for g in org.guaranties.all %}
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                {% thumbnail g.logo "55x48" upscale=0 as logo %}
+                                    <img class="media-object" src="{{ logo.url }}" width="55" height="48" style="padding: {{ logo|margin:"55x48" }}">
+                                {% endthumbnail %}
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ g.name }}</h4>
+                                {# <a href="">Lien</a> #}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-8 fiche">
+        {% thumbnail org.logo "55x48" upscale=0 as logo %}
+            <img class="fiche__logo" src="{{ logo.url }}" width="55" height="48" style="padding: {{ logo|margin:"55x48" }}" />
+        {% endthumbnail %}
+        <h2 class="fiche__title">{{ org.title }}</h2>
+        <h6 class="activity">Secteur d'activité&nbsp;: {{ org.offer_activities }}</h6>
+        <h6 class="activity">Territoire d'intervention&nbsp;: {{ org.offer_areas }}</h6>
+        <h6 class="activity">Dernière mise à jour&nbsp;: {{ org.modification|date:"d/m/Y" }}</h6>
+        <p>{{ org.brief_description }}</p>
+        <p><b>Statut juridique&nbsp;:</b></p>
+        <p>{{ org.legal_status }}</p>
+        {% if org.category_iae %}<p>{{ org.category_iae.all|join:", " }}</p>{% endif %}
+        {% if org.category %}<p>{{ org.category.all|join:", " }}</p>{% endif %}
+        <p><b>Thématiques&nbsp;:</b></p>
+        <p>{{ org.transverse_themes.all|join:", " }}</p>
+        <p><b>Mots-clés&nbsp;:</b></p>
+        <p>{{ org.tags.all|join:", " }}</p>
+        <div>{{ org.description|safe }}</div>
+    </div>
+</div>
+{# <p class="text-center"><a class="btn btn-default" href="modifier/">Modifier la fiche</a></p> #}

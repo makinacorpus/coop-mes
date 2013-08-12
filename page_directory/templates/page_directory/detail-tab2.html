@@ -1,0 +1,21 @@
+<div id="encart">
+    <h3>Chiffre d'affaire annuel&nbsp;:</h3>
+    <p>{{ org.annual_revenue|default_if_none:"-" }}</p>
+    <h3>Effectif total (ETP)&nbsp;:</h3>
+    <p>{{ org.workforce|default_if_none:"-" }}</p>
+    <h3>Effectif de production (ETP)&nbsp;:</h3>
+    <p>{{ org.production_workforce|default_if_none:"-" }}</p>
+    <h3>Effectif d'encadrement&nbsp;:</h3>
+    <p>{{ org.supervision_workforce|default_if_none:"-" }}</p>
+    <h3>Nombre de salariés en insertion (ETP)&nbsp;:</h3>
+    <p>{{ org.integration_workforce|default_if_none:"-" }}</p>
+    <h3>Nombre de personnes en insertion accompagnées par an&nbsp;:</h3>
+    <p>{{ org.annual_integration_number|default_if_none:"-" }}</p>
+    <h3>Références client&nbsp;:</h3>
+    {% for r in org.references %}
+        <p><a href="{{ r.source.web }}">{{ r.source }}</a> (de {{ r.from_year|default:"-" }} à {{ r.to_year|default:"-" }})&nbsp;: {{ r.services }}</p>
+    {% empty %}
+        <p>-</p>
+    {% endfor %}
+    <p></p>
+</div>
