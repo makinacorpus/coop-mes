@@ -1,18 +1,33 @@
-{% load thumbnail leaflet_tags %}
+{% load thumbnail ascii %}
 
 <div class="main-content">
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <div class="content-box">
-
-                    <div id="navigation">
-                        <a id="back" href="../../?{{ get_params }}">RETOUR A LA LISTE</a>
-                        {#<a id="next" href="#">Suivant</a>#}
-                        {#<a id="prev" href="#">Précédent</a>#}
+                <div class="content-box detail">
+                    <div class="section-head">
+                        <a href="../../?{{ get_params }}" class="btn-icon icon-back detail">Retour a la liste</a>
+                        <ul class="pager detail">
+                            {# <li><a href="#prev" class="prev inactive"><span class="arrow">g</span> Previous</a></li> #}
+                            {# <li><a href="#next" class="next">Page suivante <span class="arrow">f</span></a></li> #}
+                        </ul>
+                    </div>
+                    <div class="row ribbon ribbon--detail">
+                        <div class="col-lg-6">
+                            <h1 class="title ribbon__title">{{ call.title|ascii }}</h1>
+                        </div>
+                        <div class="col-lg-6 links">
+                            {# <a href="#back" class="btn-icon iconf-print">Imprimer la fiche</a> #}
+                        </div>
                     </div>
 
-                    <h1>{{ call.title }}</h1>
+                    <p>Marché {{ call.organization.get_customer_type_display }}</p>
+                    <p>Numéros des articles clausés&nbsp;: {{ call.clauses|join:", " }}</p>
+                    <p>Structure organisatrice&nbsp;: <a href="{{ call.organization.get_absolute_url }}">{{ call.organization }}</a></p>
+                    <p>Date et heure limite de réception&nbsp;: {{ call.deadline|date:"j F Y à g\hi" }}</p>
+                    <p>Secteur d'activité&nbsp;: {{ call.activity.label }}</p>
+                    <p>Lieu d'exécution&nbsp;: {{ call.area }}</p>
+                    <p>Numéros du ou des lots&nbsp;: {{ call.lot_numbers }}</p>
 
                 </div>
             </div>
