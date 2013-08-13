@@ -285,7 +285,8 @@ CUSTOMER_TYPES = Choices(
 
 class Engagement(BaseEngagement):
 
-    pass
+    tel = models.CharField(_(u'tél.'), max_length=100, blank=True, null=True)
+    email = models.EmailField(_(u'email'), max_length=100, blank=True, null=True)
 
 
 CLAUSE_CHOICES = (('14', '14'), ('15', '15'), ('30', '30'), ('53', '53'))

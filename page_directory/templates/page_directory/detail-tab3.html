@@ -2,28 +2,29 @@
     <div class="col-lg-6">
         <h3>Membres</h3>
         {% for e in org.engagement_set.all %}
-            <p>{{ e.person.first_name }} {{ e.person.last_name }}, {{ e.role|default:"" }}<br/>
-            {% for c in e.person.contacts.all %}
-                {{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
-            {% endfor %}
+            <p>
+                {{ e.person.first_name }} {{ e.person.last_name }}, {{ e.role|default:"" }}
+                {% if e.tel %}<br/>Tél.&nbsp;: {{ e.tel }}{% endif %}
+                {% if e.email %}<br/>Email&nbsp;: <a href="mailto:{{ e.email  }}">{{ e.email }}</a>{% endif %}
             </p>
         {% endfor %}
     </div>
     <div class="col-lg-6">
     {% for l in org.located.all %}
-        <h3>{{ l.category|default:"Contact" }}</h3>
-        <p>{{ l.location.adr1 }}</p>
-        {% if l.location.adr2 %}<p>{{ l.location.adr2 }}</p>{% endif %}
-        <p>{{ l.location.zipcode }} {{ l.location.city }}</p>
-        {% for c in l.location.contact_set.all %}
-            <p>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}</p>
-        {% endfor %}
-        <p>&nbsp;</p>
+        <h3>{{ l.category|default:"Adresse principale" }}</h3>
+        <p>
+            {{ l.location.adr1 }}
+            {% if l.location.adr2 %}<br/>{{ l.location.adr2 }}{% endif %}
+            <br/>{{ l.location.zipcode }} {{ l.location.city }}
+            {% for c in l.location.contact_set.all %}
+                <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
+            {% endfor %}
+        </p>
     {% endfor %}
     {% if org.other_contacts %}
-        <h3>Contacts</h3>
+        <h3>Contact{{ org.other_contacts|length|pluralize }}</h3>
         {% for c in org.other_contacts %}
-            <p>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}</p>
+            {{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
         {% endfor %}
     {% endif %}
     </div>

@@ -177,6 +177,7 @@ class ContactInline(BaseContactInline):
 
 
 class EngagementInline(BaseEngagementInline):
+    fields = ('person', 'role', 'role_detail', 'tel', 'email', 'org_admin', 'engagement_display')
     related_search_fields = {
         'person': ('last_name', 'first_name'),
         'role': ('label', )
