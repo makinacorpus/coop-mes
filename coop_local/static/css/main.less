@@ -909,6 +909,25 @@ hr {
     }
 }
 
+.nav-tabs {
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: bold;
+
+    a {
+        color: @color1lighter;
+    }
+
+    &.nav li a:before {
+        display: none;
+    }
+}
+
+#tab6 .row {
+    padding: 10px 0;
+    border-bottom: 1px dotted @grey-divider;
+}
+
 // CHECKBOXES OBJECTS
 .dropdown {
     position: relative;
@@ -960,11 +979,18 @@ hr {
         text-align: left;
     }
 
+    select option {
+        background-color: white;
+        color: @body-color;
+        border: none;
+    }
+
 }
 /* Firefox hack for select element */
 @-moz-document url-prefix() {
     .dropdown select {
         background: none;
+        padding-right: 12px;
     }
 }
 
@@ -1520,8 +1546,11 @@ hr {
 }
 
     // Bootstrap override
-input[type="radio"] {
-    margin-top: 1px;
+.radio input[type="radio"] {
+    margin-top: 0;
+    display: inline-block;
+    float: none;
+    margin-right: 8px;
 }
 
 input[type="checkbox"] {
@@ -1611,22 +1640,7 @@ form .validation {
 }
 
 
-// TABS
 
-.nav-tabs {
-    margin-bottom: 15px;
-    font-size: 14px;
-    font-weight: bold;
-
-    a {
-        color: @color1lighter;
-    }
-}
-
-#tab6 .row {
-    padding: 10px 0;
-    border-bottom: 1px dotted @grey-divider;
-}
 
 
 /* mobile devices */

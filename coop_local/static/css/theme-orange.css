@@ -976,6 +976,21 @@ hr {
 .nav li:first-child a:before {
   display: none;
 }
+.nav-tabs {
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.nav-tabs a {
+  color: #f78b32;
+}
+.nav-tabs.nav li a:before {
+  display: none;
+}
+#tab6 .row {
+  padding: 10px 0;
+  border-bottom: 1px dotted #d3d3d3;
+}
 .dropdown {
   position: relative;
 }
@@ -1032,10 +1047,16 @@ hr {
   border-color: #d6d6d6;
   text-align: left;
 }
+.dropdown select option {
+  background-color: white;
+  color: #757475;
+  border: none;
+}
 /* Firefox hack for select element */
 @-moz-document url-prefix() {
   .dropdown select {
     background: none;
+    padding-right: 12px;
   }
 }
 .btn {
@@ -1557,8 +1578,11 @@ hr {
 .form .form-control {
   max-width: 80%;
 }
-input[type="radio"] {
-  margin-top: 1px;
+.radio input[type="radio"] {
+  margin-top: 0;
+  display: inline-block;
+  float: none;
+  margin-right: 8px;
 }
 input[type="checkbox"] {
   margin-top: 2px;
@@ -1633,18 +1657,6 @@ form .validation.icon-cancel:before {
 .form-control {
   padding: 6px 12px;
   height: 34px;
-}
-.nav-tabs {
-  margin-bottom: 15px;
-  font-size: 14px;
-  font-weight: bold;
-}
-.nav-tabs a {
-  color: #f78b32;
-}
-#tab6 .row {
-  padding: 10px 0;
-  border-bottom: 1px dotted #d3d3d3;
 }
 /* mobile devices */
 @media (max-width: 480px) {
