@@ -8,6 +8,12 @@ from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
 from django.conf import settings
 from tinymce.widgets import TinyMCE
 from chosen import widgets as chosenwidgets
+from django.contrib.auth.forms import UserCreationForm
+from coop_local.models import Person
+from django.utils.translation import ugettext, ugettext_lazy as _
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, Submit, HTML, Field
+from crispy_forms.bootstrap import InlineRadios, FormActions
 
 
 class PageApp_DirectoryForm(ModuloModelForm):
@@ -44,11 +50,79 @@ class OrgSearch(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(OrgSearch, self).__init__(*args, **kwargs)
-        for field in self.fields.itervalues():
+        for name, field in self.fields.iteritems():
+            if name == 'interim':
+                continue
             field.widget.attrs['class'] = 'form-control'
 
 
+class OrganizationForm0(UserCreationForm):
+
+    charte = forms.TypedChoiceField(coerce=lambda x: bool(int(x)),
+        choices=((0, u'Non'), (1, u'Oui')), widget=forms.RadioSelect,
+        initial=0, required=False, label=u'J\'accepte la <a \
+        data-toggle="modal" href="#charte">charte de l\'utilisateur</a>')
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationForm0, self).__init__(*args, **kwargs)
+        #for field in self.fields.itervalues():
+            #field.widget.attrs['class'] = 'form-control'
+        self.helper = FormHelper()
+        self.helper.html5_required = True
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'email',
+                'username',
+                'password1',
+                'password2',
+                HTML('<hr>'),
+                InlineRadios('charte', css_class="large-label"),
+                HTML('<hr>'),
+                FormActions(
+                    Submit('submit', u'Étape suivante', css_class='btn btn-default')
+                ),
+            ),
+        )
+
+    def clean_charte(self):
+        if not self.cleaned_data['charte']:
+            raise forms.ValidationError(u'Vous devez accepter la charte pour pouvoir vous inscrire.')
+        return True
+
+
 class OrganizationForm1(forms.ModelForm):
+
+    gender = forms.ChoiceField(choices=(('M', u'M.'), ('W', u'Mme')),
+        widget=forms.RadioSelect, required=False, label='Genre')
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationForm1, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+        self.helper = FormHelper()
+        self.helper.html5_required = True
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                InlineRadios('gender'),
+                'last_name',
+                'first_name',
+                HTML('<hr>'),
+                FormActions(
+                    Submit('submit', u'Étape suivante', css_class='btn btn-default')
+                ),
+            ),
+        )
+
+    class Meta:
+        model = Person
+        fields = ('gender', 'first_name', 'last_name')
+
+
+class OrganizationForm2(forms.ModelForm):
 
     class Meta:
         model = Organization
@@ -57,9 +131,24 @@ class OrganizationForm1(forms.ModelForm):
                   'is_customer', 'customer_type')
 
     def __init__(self, *args, **kwargs):
-        super(OrganizationForm1, self).__init__(*args, **kwargs)
+        super(OrganizationForm2, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'
+        self.helper = FormHelper()
+        self.helper.html5_required = True
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'title', 'acronym', 'pref_label', 'logo', 'birth',
+                'legal_status', 'web', 'siret', 'is_provider',
+                'is_customer', 'customer_type',
+                HTML('<hr>'),
+                FormActions(
+                    Submit('submit', u'Étape suivante', css_class='btn btn-default')
+                ),
+            ),
+        )
 
     def clean(self):
         cleaned_data = super(OrganizationForm1, self).clean()
@@ -72,7 +161,7 @@ class OrganizationForm1(forms.ModelForm):
         return cleaned_data
 
 
-class OrganizationForm2(forms.ModelForm):
+class OrganizationForm3(forms.ModelForm):
 
     description = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False)
 
@@ -81,12 +170,12 @@ class OrganizationForm2(forms.ModelForm):
         fields = ('brief_description', 'description', 'added_value')
 
     def __init__(self, *args, **kwargs):
-        super(OrganizationForm2, self).__init__(*args, **kwargs)
+        super(OrganizationForm3, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'
 
 
-class OrganizationForm3(forms.ModelForm):
+class OrganizationForm4(forms.ModelForm):
 
     class Meta:
         model = Organization
@@ -97,6 +186,6 @@ class OrganizationForm3(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(OrganizationForm3, self).__init__(*args, **kwargs)
+        super(OrganizationForm4, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'

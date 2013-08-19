@@ -67,6 +67,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'page_account',
     'page_calls',
     'leaflet',
+    'crispy_forms',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [

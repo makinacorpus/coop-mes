@@ -132,3 +132,4 @@ BeautifulSoup
 django-filebrowser
 
 django-leaflet
+django-crispy-forms

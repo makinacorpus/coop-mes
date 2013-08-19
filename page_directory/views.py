@@ -2,8 +2,8 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch, OrganizationForm1, OrganizationForm2,
-    OrganizationForm3)
+from .forms import (OrgSearch,  OrganizationForm0, OrganizationForm1,
+    OrganizationForm2, OrganizationForm3, OrganizationForm4)
 from coop_local.models import Organization, ActivityNomenclature
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -14,6 +14,7 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from tempfile import gettempdir
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
+from ionyweb.page.models import Page
 
 
 def index_view(request, page_app):
@@ -75,9 +76,11 @@ def detail_view(request, page_app, pk):
                        context_instance=RequestContext(request))
 
 organization_forms = (
+    OrganizationForm0,
     OrganizationForm1,
     OrganizationForm2,
     OrganizationForm3,
+    OrganizationForm4,
 )
 
 class OrganizationView(SessionWizardView):
@@ -85,7 +88,9 @@ class OrganizationView(SessionWizardView):
     file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
 
     def get_form_instance(self, step):
-        pk = self.kwargs.get('pk', None)
+        if not 'pk' in self.kwargs:
+            return None
+        pk = self.kwargs['pk']
         instance = get_object_or_404(Organization, pk=pk)
         return instance
 
@@ -98,6 +103,11 @@ class OrganizationView(SessionWizardView):
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
+        if self.steps.current == '0':
+            try:
+                context['charte'] = Page.objects.get(title='Charte').app.text
+            except Page.DoesNotExist:
+                context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
         return render_view(self.get_template_names(),
             context,
             (CSSMedia('tagger/css/coop_tag.css', prefix_file=''), JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file='')),

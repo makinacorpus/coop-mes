@@ -53,6 +53,6 @@ ul.as-list li{
 }
 
 /* Form errors */
-.errorlist {
+.help-block strong {
     color: #B94A48;
 }

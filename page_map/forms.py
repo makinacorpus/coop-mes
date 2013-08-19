@@ -39,5 +39,7 @@ class OrgSearch(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(OrgSearch, self).__init__(*args, **kwargs)
-        for field in self.fields.itervalues():
+        for name, field in self.fields.iteritems():
+            if name == 'interim':
+                continue
             field.widget.attrs['class'] = 'form-control'

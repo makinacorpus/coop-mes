@@ -1,110 +1,94 @@
 {% extends "page_directory/edit.html" %}
 
-{% block fields %}
+{% comment %}
 
-<div class="container">
-    {{ f.non_field_errors }}
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="form-group {% if f.title.errors %}has-error{% endif %}">
-                {{ f.title.label_tag }}
-                {{ f.title.errors }}
-                {{ f.title }}
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group {% if f.acronym.errors %}has-error{% endif %}">
-                {{ f.acronym.label_tag }}
-                {{ f.acronym.errors }}
-                {{ f.acronym }}
-            </div>
-        </div>
+<div class="form-group">
+    {{ f.gender.errors }}
+    <label for="id_0-gender" class="col-lg-4 control-label">Genre</label>
+    <div class="col-lg-8">
+        {{ f.gender }}
+        {% if f.gender.errors %}<span class="validation icon-cancel"></span>{% endif %}
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="form-group {% if f.pref_label.errors %}has-error{% endif %}">
-                {{ f.pref_label.label_tag }}
-                {{ f.pref_label.errors }}
-                {{ f.pref_label }}
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group {% if f.logo.errors %}has-error{% endif %}">
-                {{ f.logo.label_tag }}
-                {{ f.logo.errors }}
-                {{ f.logo }}
-            </div>
-        </div>
+</div>
+<div class="form-group">
+    {{ f.last_name.errors }}
+    <label for="id_0-last_name" class="col-lg-4 control-label">Nom</label>
+    <div class="col-lg-8">
+        {{ f.last_name }}
+        {% if f.last_name.errors %}<span class="validation icon-cancel"></span>{% endif %}
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="form-group {% if f.legal_status.errors %}has-error{% endif %}">
-                {{ f.legal_status.label_tag }}
-                {{ f.legal_status.errors }}
-                {{ f.legal_status }}
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group {% if f.siret.errors %}has-error{% endif %}">
-                {{ f.siret.label_tag }}
-                {{ f.siret.errors }}
-                {{ f.siret }}
-            </div>
-        </div>
+</div>
+<div class="form-group">
+    {{ f.first_name.errors }}
+    <label for="id_0-first_name" class="col-lg-4 control-label">Prénom</label>
+    <div class="col-lg-8">
+        {{ f.first_name }}
+        {% if f.first_name.errors %}<span class="validation icon-cancel"></span>{% endif %}
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="form-group {% if f.birth.errors %}has-error{% endif %}">
-                {{ f.birth.label_tag }}
-                {{ f.birth.errors }}
-                {{ f.birth }}
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group {% if f.web.errors %}has-error{% endif %}">
-                {{ f.web.label_tag }}
-                {{ f.web.errors }}
-                {{ f.web }}
-            </div>
-        </div>
+</div>
+<div class="form-group">
+    {{ f.email.errors }}
+    <label for="id_0-email" class="col-lg-4 control-label">Email</label>
+    <div class="col-lg-8">
+        {{ f.email }}
+        {% if f.email.errors %}<span class="validation icon-cancel"></span>{% endif %}
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="checkbox-inline">
-                <label class="checkbox-inline">
-                    {{ f.is_provider }} Fournisseur
-                </label>
-                <label class="checkbox-inline">
-                    {{ f.is_customer }} Acheteur
-                </label>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group {% if f.customer_type.errors %}has-error{% endif %}">
-                {{ f.customer_type.label_tag }}
-                {{ f.customer_type.errors }}
-                {{ f.customer_type }}
-            </div>
-        </div>
+</div>
+<div class="form-group">
+    {{ f.username.errors }}
+    <label for="id_0-username" class="col-lg-4 control-label">Identifiant</label>
+    <div class="col-lg-8">
+        {{ f.username }}
+        {% if f.username.errors %}<span class="validation icon-cancel"></span>{% endif %}
+    </div>
+</div>
+<div class="form-group">
+    {{ f.password1.errors }}
+    <label for="id_0-password1" class="col-lg-4 control-label">Mot de passe</label>
+    <div class="col-lg-8">
+        {{ f.password1 }}
+        {% if f.password1.errors %}<span class="validation icon-cancel"></span>{% endif %}
+    </div>
+</div>
+<div class="form-group">
+    {{ f.password2.errors }}
+    <label for="id_0-password1" class="col-lg-4 control-label">Confirmation<br> du mot de passe</label>
+    <div class="col-lg-8">
+        {{ f.password2 }}
+        {% if f.password2.errors %}<span class="validation icon-cancel"></span>{% endif %}
+    </div>
+</div>
+<hr>
+<div class="form-group">
+    {{ f.charte.errors }}
+    <label for="id_0-charte" class="col-lg-8 control-label">J'accepte la <a data-toggle="modal" href="#charte">charte de l'utilisateur</a></label>
+    <div class="col-lg-4">
+        <label class="radio-inline" for="id_0-charte_1">
+            <input type="radio" id="id_0-charte_1" name="0-charte" value="1"> Oui
+        </label>
+        <label class="radio-inline" for="id_0-charte_0">
+            <input type="radio" id="id_0-charte_0" name="0-charte" value="0" checked="checked"> Non
+        </label>
+        {% if f.charte.errors %}<span class="validation icon-cancel"></span>{% endif %}
     </div>
 </div>
 
-{% endblock %}
+<!-- Modal -->
+<div class="modal fade" id="charte">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Charte de l'utilisateur</h4>
+            </div>
+            <div class="modal-body">
+                {{ charte|safe }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-{% block scripts %}
-
-$('#id_0-birth').datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'viewMode': 'years'});
-
-jQuery(document).ready(function() {
-    $('#id_0-is_customer').change(function() {
-        var fields = $('#id_0-customer_type, label[for="id_0-customer_type"]')
-        if ($(this).is(':checked')) {
-            fields.css('visibility', 'visible');
-        } else {
-            fields.css('visibility', 'hidden');
-        }
-    });
-    $('#id_0-is_customer').trigger('change');
-});
-
-{% endblock %}
+{% endcomment %}
