@@ -748,6 +748,7 @@ hr {
 }
 .leaflet-popup-content {
   margin: 0;
+  overflow: hidden;
 }
 .leaflet-popup-content .leaflet-popup__title {
   padding: 10px;
@@ -995,6 +996,9 @@ hr {
   background-image: url(../img/sprite.png);
   background-position: right -1009px;
   background-repeat: no-repeat;
+  padding-right: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .dropdown .dropdown-toggle:hover,
 .dropdown select:hover,
