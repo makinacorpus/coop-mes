@@ -1,0 +1,50 @@
+// MEDIA OBJECTS
+.media {
+    border-top: 1px solid @greylighter2;
+    padding-top: 15px;
+    position: relative;
+
+    &:first-child {
+        border: none;
+    }
+
+    > .pull-left {
+        margin-right: 20px;
+    }
+
+    .activity {
+        font-size: 10px;
+        font-style: italic;
+        color: @greylighter;
+        margin: 0;
+    }
+
+    .location {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        background: lighten(@color1lighter2, 15%);
+        font-size: 11px;
+        color: @color1;
+        border: 1px solid @color1lighter2;
+        padding: 4px 10px 4px 3px;
+        .border-radius(3px);
+        
+        &:before {
+            .iconf;
+            content: "s"; // .iconf-pins
+            font-size: 14px;
+            vertical-align: middle;
+            margin-right: 3px;
+        }
+    }
+
+    h4 {
+        font-size: 14px;
+        margin: 15px 0 10px 0;
+    }
+
+    .media-object {
+        margin-top: 5px;
+    }
+}

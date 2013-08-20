@@ -1,0 +1,68 @@
+// NAVIGATION MENU OBJECTS
+.nav li {
+    a:before {
+        position: absolute;
+        display: none;
+        content: "";
+        border-left: 1px solid white; 
+        width: 1px;
+        left: 1px;
+        top: 7px;
+        bottom: 7px;
+        z-index: 1;
+        
+        @media (min-width: @screen-desktop) {
+            display: block;
+        }
+    }
+
+
+    &:first-child a:before {
+        display: none;
+    }
+}
+
+.nav-tabs {
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: bold;
+
+    a {
+        color: @color1lighter;
+    }
+
+    &.nav li a:before {
+        display: none;
+    }
+}
+
+#tab6 .row {
+    padding: 10px 0;
+    border-bottom: 1px dotted @grey-divider;
+}
+
+
+
+// Fluid nav menu
+.nav-fluid {
+    width: 100%;
+    font-size: 0.1px;
+}
+
+.nav-fluid > li {
+    float: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.nav-fluid:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+//-- Fluid nav menu end
+
+.nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

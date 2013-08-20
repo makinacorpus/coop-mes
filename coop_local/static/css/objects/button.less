@@ -1,0 +1,123 @@
+// BUTTONS OBJECTS
+// Base class override Bootstrap
+.btn {
+    padding: 6px 12px;
+}
+
+// Default (extends btn)
+.btn-default {
+    padding: 8px 12px;
+    font-size: 12px;
+    text-shadow: 0 1px rgba(0,0,0,.32);
+    .border-radius(4px);
+    background-color: @btn-bg;
+    border: solid 1px @btn-border;
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,0.3), rgba(0,0,0,0.05));
+    background-image: -moz-linear-gradient(top, rgba(255,255,255,0.3), rgba(0,0,0,0.05));
+    background-image: -o-linear-gradient(top, rgba(255,255,255,0.3), rgba(0,0,0,0.05));
+    background-image: -ms-linear-gradient(top, rgba(255,255,255,0.3), rgba(0,0,0,0.05));
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(0,0,0,0.05));
+    .box-shadow(~"inset 0 2px rgba(255,255,255,.25), inset 0 0 5px rgba(255,255,255,.31)");
+    
+    &:hover, &:focus, &:active, &.active {
+        background-color: @btn-bg;
+        border: solid 1px darken(@btn-border, 10%);
+        background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+        background-image: -moz-linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+        background-image: -o-linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+        background-image: -ms-linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+        background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+    }
+
+    &:active, &.active {
+        .box-shadow(inset 0 3px 5px rgba(0, 0, 0, 0.125));
+    }
+}
+
+.btn-second {
+    color: white;
+    padding: 8px 12px;
+    font-size: 12px;
+    text-shadow: 0 1px rgba(0,0,0,.32);
+    .border-radius(4px);
+    background-color: @btn2-bg;
+    border: solid 1px @btn2-border;
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: -moz-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: -o-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: -ms-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: linear-gradient(to bottom, rgba(255,255,255,.34), rgba(255,255,255,0));
+    .box-shadow(~"inset 0 2px rgba(255,255,255,.25), inset 0 0 5px rgba(255,255,255,.31)");
+    
+    &:hover, &:focus, &:active, &.active {
+        background-color: @btn2-hover-bg;
+        background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0));
+    }
+
+    &:active, &.active {
+        .box-shadow(inset 0 3px 5px rgba(0, 0, 0, 0.125));
+    }
+}
+
+.btn-icon {
+    font-family: Melbourne;
+    text-transform: uppercase;
+    
+    &[class^="icon-"],
+    &[class*=" icon-"],
+    &[class*="iconf-"] {
+        display: inline-block;
+
+        &:before {
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            border-radius: 15px;
+            margin-top: -3px;
+            margin-right: 5px;
+            color: white;
+            font-size: 20px;
+            background-repeat: no-repeat;
+            text-align: center;
+            .box-sizing(border-box);
+            vertical-align: middle;
+        }
+    }
+
+    &[class*="iconf-"]:before {
+        padding-top: 6px;
+    }
+}
+
+.btn--form {
+    color: white;
+    padding: 8px 12px;
+    font-size: 12px;
+    text-shadow: 0 1px rgba(0,0,0,.32);
+    .border-radius(4px);
+    background-color: @color1;
+    border: solid 1px @color1darker;
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: -moz-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: -o-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: -ms-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
+    background-image: linear-gradient(to bottom, rgba(255,255,255,.34), rgba(255,255,255,0));
+    .box-shadow(~"inset 0 2px rgba(255,255,255,.25), inset 0 0 5px rgba(255,255,255,.31)");
+    
+    &:hover, &:focus, &:active, &.active {
+        background-color: @color1;
+        background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: -moz-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: -o-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: -ms-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0));
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0));
+    }
+
+    &:active, &.active {
+        .box-shadow(inset 0 3px 5px rgba(0, 0, 0, 0.125));
+    }
+}

@@ -1,0 +1,93 @@
+// ARTICLES OBJECTS
+.article-extract {
+    h3 {
+        margin-top: 0;
+    }
+}
+
+.article-extract__meta {
+    border-top: 1px solid @greylighter2;
+    border-bottom: 1px solid @greylighter2;
+    font-style: italic;
+    font-size: 12px;
+    color: @greylighter;
+    padding: 2px 0;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.article {
+    h1 {
+        text-transform: none;
+        font-size: 28px;
+    }
+
+    blockquote {
+        position: relative;
+        border: 1px solid @greylighter2;
+        .border-radius(3px);
+        color: @color1;
+        font-weight: bold;
+        padding-left: 15%;
+        margin: 20px 0 30px 0;
+
+        &:after, &:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            border-color: rgba(136, 183, 213, 0);
+            border-top-color: white;
+            border-top-width: 16px;
+            border-left-width: 0px;
+            border-bottom-width: 0px;
+            border-right-width: 30px;
+            left: 15%;
+            margin-left: -30px;
+        }
+
+        &:before {
+            border-color: rgba(194, 225, 245, 0);
+            border-top-color: @greylighter2;
+            border-top-width: 18px;
+            border-left-width: 0px;
+            border-bottom-width: 0px;
+            border-right-width: 33px;
+            left: 15%;
+            margin-left: -31px;
+        }
+    }
+}
+
+.article__meta {
+    margin-bottom: 10px;
+
+    .name {
+        color: @color2;
+
+        &:hover {
+            color: @body-link-color;
+        }
+    }
+
+    .date {
+        color: @color1;
+
+        &:before {
+            font-size: 12px;
+            vertical-align: middle;
+            margin-right: 3px;
+        }
+    }
+
+    hr {
+        margin: 5px 0 10px 0;
+        border-style: dotted;
+    }
+}

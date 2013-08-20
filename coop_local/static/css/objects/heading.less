@@ -1,0 +1,44 @@
+// TITLES OBJECTS
+.title {
+    text-transform: uppercase;
+    color: @grey;
+    font-size: 19px;
+    font-family: Melbourne;
+}
+
+.section-title {
+    margin-top: 5px;
+
+    .title;
+    border-bottom: 1px dotted @grey-divider;
+
+    &:after {
+        display: block;
+        height: 1px;
+        margin-bottom: 1px;
+        margin-top: 8px;
+        content: "";
+        border-top: 1px dotted @grey-divider;
+        border-bottom: 1px dotted @grey-divider;
+    }
+
+    &[class^="icon-"],
+    &[class*=" icon-"],
+    &[class^="iconf-"] {
+        &:before {
+            display: block;
+            height: 30px;
+            width: 30px;
+            float: left;
+            border-radius: 15px;
+            margin-top: -7px;
+            margin-right: 15px;
+            background-color: @sectiontitle-bg;
+            color: white;
+            font-size: 20px;
+            background-repeat: no-repeat;
+            text-align: center;
+            .box-sizing(border-box);
+        }
+    }
+}

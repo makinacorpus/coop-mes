@@ -1,0 +1,125 @@
+// FORM
+.form {
+    padding-top: 10px;
+
+    fieldset {
+        background-color: @greylighter4;
+        border: 1px solid @greylighter3;
+        padding: 10px;
+        margin: 0 auto;
+    }
+
+        @media (min-width: @screen-desktop) {
+            fieldset {
+                width: 80%;
+            }
+        }
+
+    label a {
+        text-decoration: underline;
+    }
+
+    @media (min-width: @screen-desktop) {
+        .form-control {
+            max-width: 60%;
+        }
+    }
+
+    .form-control {
+        max-width: 80%;
+    }
+}
+
+    // Bootstrap override
+.radio input[type="radio"] {
+    margin-top: 0;
+    display: inline-block;
+    float: none;
+    margin-right: 8px;
+}
+
+input[type="checkbox"] {
+    margin-top: 2px;
+}
+
+.radio-inline, .checkbox-inline {
+    margin-top: 7px!important;
+}
+
+.form-control {
+    display: inline-block;
+}
+
+form .validation {
+    position: relative;
+    display: inline-block;
+    content: "";
+    height: 33px;
+    width: 33px;
+    border-radius: 3px;
+    background-image: url('../img/sprite.png');
+    background-repeat: no-repeat;
+    border: 1px solid #81a352;
+    vertical-align: middle;
+    margin-left: 5px;
+
+    &.icon-check {
+        background-color: #a5ca72;
+        background-position: 6px -357px;
+
+        &:after {
+            border-color: rgba(129, 163, 82, 0);
+            border-right-color: #a5ca72;
+            border-width: 5px;
+            top: 50%;
+            margin-top: -5px;
+        }
+
+        &:before {
+            border-color: rgba(165, 202, 114, 0);
+            border-right-color: #81a352;
+            border-width: 6px;
+            top: 50%;
+            margin-top: -6px;
+        }
+    }
+
+    &:after, &:before {
+        right: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    
+
+    &.icon-cancel {
+        background-color: red;
+        background-position: 7px -290px;
+        border-color: #a61010;
+
+        &:after {
+            border-color: rgba(129, 163, 82, 0);
+            border-right-color: red;
+            border-width: 5px;
+            top: 50%;
+            margin-top: -5px;
+        }
+
+        &:before {
+            border-color: rgba(165, 202, 114, 0);
+            border-right-color: #a61010;
+            border-width: 6px;
+            top: 50%;
+            margin-top: -6px;
+        }
+    }
+}
+
+.form-control {
+    padding: 6px 12px;
+    height: 34px;
+}

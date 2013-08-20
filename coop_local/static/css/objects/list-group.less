@@ -1,0 +1,45 @@
+// LIST-ITEMS OBJECTS
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding-right: 0;
+    padding-left: 0;
+
+    a {
+        display: block;
+    }
+
+    a.active {
+        padding: 5px 10px 5px 15px;
+        background: @color1;
+        .border-radius(3px);
+        color: white;
+        margin-top: -5px;
+        margin-bottom: -5px;
+
+        &:before {
+            display: none;
+        }
+
+        &:after {
+            .iconf;
+            content: "f"; // .iconf-chevron-right
+            margin-left: 5px;
+            vertical-align: middle;
+            margin-top: 3px;
+            float: right;
+        }
+    }
+
+    a:before {
+        .iconf;
+        content: "f"; // .iconf-chevron-right
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+
+    &:first-child {
+        border-top: none;
+    }
+}
