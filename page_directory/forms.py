@@ -32,7 +32,7 @@ ORG_TYPE_CHOICES = (
 
 INTERIM_CHOICES = (
     ('1', u'Mise à disposition de personnel Travail temporaire'),
-    ('2', u'Production de  bien et de service'),
+    ('2', u'Production de biens et services'),
 )
 
 class AreaModelChoiceField(forms.ModelChoiceField):
