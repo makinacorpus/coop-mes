@@ -132,4 +132,4 @@ BeautifulSoup
 django-filebrowser
 
 django-leaflet
-django-crispy-forms
+git+git://github.com/maraujop/django-crispy-forms.git

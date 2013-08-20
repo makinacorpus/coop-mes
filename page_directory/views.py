@@ -4,7 +4,8 @@ from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from .forms import (OrgSearch,  OrganizationForm0, OrganizationForm1,
     OrganizationForm2, OrganizationForm3, OrganizationForm4)
-from coop_local.models import Organization, ActivityNomenclature
+from coop_local.models import (Organization, ActivityNomenclature, Engagement,
+    Person)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
@@ -15,6 +16,7 @@ from django.core.files.storage import FileSystemStorage
 from tempfile import gettempdir
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from ionyweb.page.models import Page
+from django.contrib.auth import login, authenticate
 
 
 def index_view(request, page_app):
@@ -75,7 +77,7 @@ def detail_view(request, page_app, pk):
                        (),
                        context_instance=RequestContext(request))
 
-organization_forms = (
+organization_create_forms = (
     OrganizationForm0,
     OrganizationForm1,
     OrganizationForm2,
@@ -83,26 +85,50 @@ organization_forms = (
     OrganizationForm4,
 )
 
-class OrganizationView(SessionWizardView):
+class OrganizationCreateView(SessionWizardView):
 
     file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
+    template_name = 'page_directory/edit.html'
 
-    def get_form_instance(self, step):
-        if not 'pk' in self.kwargs:
-            return None
-        pk = self.kwargs['pk']
-        instance = get_object_or_404(Organization, pk=pk)
-        return instance
+    def get_form_kwargs(self, step):
+        return {'step': step}
 
-    def get_template_names(self):
-        return 'page_directory/edit%s.html' % self.steps.current
-
-    def done(self, form_list, **kwargs):
-        #do_something_with_the_form_data(form_list)
-        return HttpResponseRedirect('/')
+    def done(self, forms, **kwargs):
+        # User
+        user = forms[0].save()
+        user = authenticate(username=user.username, password=forms[0].cleaned_data['password1'])
+        login(self.request, user)
+        # Person
+        person = forms[1].save(commit=False)
+        person.user = user
+        person.username = user.username
+        person.save()
+        # Organization
+        organization = forms[2].save()
+        for form in forms[3:]:
+            for field, value in form.cleaned_data.iteritems():
+                setattr(organization, field, value)
+        organization.save()
+        # Engagement
+        engagement = Engagement()
+        engagement.person = person
+        engagement.organization = organization
+        engagement.org_admin = True
+        engagement.tel = forms[1].cleaned_data['tel']
+        engagement.email = forms[1].cleaned_data['email']
+        engagement.role = forms[1].cleaned_data['role']
+        engagement.save()
+        return HttpResponseRedirect('/mon-compte/')
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
+        context['titles'] = (
+            u'Codes d\'accès',
+            u'Données personelles',
+            u'Type d\'organisation',
+            u'Description',
+            u'Catégories',
+        )
         if self.steps.current == '0':
             try:
                 context['charte'] = Page.objects.get(title='Charte').app.text
@@ -110,8 +136,72 @@ class OrganizationView(SessionWizardView):
                 context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
         return render_view(self.get_template_names(),
             context,
-            (CSSMedia('tagger/css/coop_tag.css', prefix_file=''), JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file='')),
+            (CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
+            JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
+            CSSMedia('select2/select2.css', prefix_file=''),
+            JSMedia('select2/select2.min.js', prefix_file='')),
             context_instance=RequestContext(self.request))
 
-add_view = login_required(OrganizationView.as_view(organization_forms))
-change_view = login_required(OrganizationView.as_view(organization_forms))
+add_view = OrganizationCreateView.as_view(organization_create_forms)
+
+
+organization_change_forms = (
+    OrganizationForm1,
+    OrganizationForm2,
+    OrganizationForm3,
+    OrganizationForm4,
+)
+
+class OrganizationChangeView(SessionWizardView):
+
+    file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
+    template_name = 'page_directory/edit.html'
+
+    def get_form_instance(self, step):
+        if step == '0':
+            return self.person
+        else:
+            return self.organization
+
+    def get_form_kwargs(self, step):
+        return {'step': step}
+
+    def get_form_initial(self, step):
+        pk = self.kwargs['pk']
+        self.organization = get_object_or_404(Organization, pk=pk)
+        self.person = Person.objects.get(user=self.request.user)
+        self.engagement = Engagement.objects.get(person=self.person, organization=self.organization)
+        if step == '0':
+            return {'tel': self.engagement.tel, 'role': self.engagement.role}
+        return {}
+
+    def done(self, forms, **kwargs):
+        # Person
+        forms[0].save()
+        # Organization
+        for form in forms[1:]:
+            form.save()
+        # Engagement
+        self.engagement.tel = forms[0].cleaned_data['tel']
+        self.engagement.email = forms[0].cleaned_data['email']
+        self.engagement.role = forms[0].cleaned_data['role']
+        self.engagement.save()
+        return HttpResponseRedirect('/mon-compte/')
+
+    def render_to_response(self, context, **response_kwargs):
+        assert response_kwargs == {}
+        context['titles'] = (
+            u'Données personelles',
+            u'Type d\'organisation',
+            u'Description',
+            u'Catégories',
+        )
+        return render_view(self.get_template_names(),
+            context,
+            (CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
+            JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
+            CSSMedia('select2/select2.css', prefix_file=''),
+            JSMedia('select2/select2.min.js', prefix_file='')),
+            context_instance=RequestContext(self.request))
+
+change_view = login_required(OrganizationChangeView.as_view(organization_change_forms))

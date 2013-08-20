@@ -118,3 +118,5 @@ LEAFLET_CONFIG = {
 }
 
 LOGIN_URL = '/mon-compte/p/connexion/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
