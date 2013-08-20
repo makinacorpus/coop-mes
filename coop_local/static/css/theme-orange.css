@@ -994,10 +994,7 @@ hr {
   max-width: 80%;
 }
 .radio input[type="radio"] {
-  margin-top: 0;
-  display: inline-block;
-  float: none;
-  margin-right: 8px;
+  margin-top: 1px;
 }
 input[type="checkbox"] {
   margin-top: 2px;
@@ -1256,6 +1253,32 @@ form .validation.icon-cancel:before {
 }
 .pager li > a.inactive.next .arrow {
   right: 86%;
+}
+.links-list {
+  margin-left: -10px;
+}
+.links-list-item {
+  margin-bottom: 20px;
+  color: #999999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.links-list-item .user {
+  margin-bottom: 5px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.links-list-item .value {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.links-list-item__link {
+  color: #ee8908;
+  text-decoration: underline;
 }
 .topsite-border div {
   height: 5px;
@@ -1680,7 +1703,7 @@ form .validation.icon-cancel:before {
 .home .main-content .vignette {
   margin: 50px auto 0 auto;
 }
-.mycustomform .btn {
+#annuaires-search .btn {
   min-width: 140px;
 }
 .btn-second[class*="iconf-"] {
