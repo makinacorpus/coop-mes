@@ -17,6 +17,7 @@ from tempfile import gettempdir
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from ionyweb.page.models import Page
 from django.contrib.auth import login, authenticate
+from django.db.models import Q
 
 
 def index_view(request, page_app):
@@ -28,7 +29,12 @@ def index_view(request, page_app):
     form = OrgSearch(qd)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
-        orgs = orgs.filter(title__icontains=form.cleaned_data['q'])
+        orgs = orgs.filter(
+            Q(title__icontains=form.cleaned_data['q']) |
+            Q(tagged_items__tag__name__icontains=form.cleaned_data['q']) |
+            Q(located__location__city__icontains=form.cleaned_data['q']) |
+            Q(activities__path__icontains=form.cleaned_data['q']) |
+            Q(offer__activity__path__icontains=form.cleaned_data['q']))
         if form.cleaned_data['org_type'] == 'fournisseur':
             orgs = orgs.filter(is_provider=True)
             if form.cleaned_data['prov_type']:
