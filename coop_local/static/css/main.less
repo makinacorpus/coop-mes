@@ -94,6 +94,7 @@ hr {
 @import "objects/ribon.less";
 @import "objects/pagination.less";
 @import "objects/links-list.less";
+@import "objects/description-list.less";
 
 
 
@@ -319,7 +320,7 @@ hr {
         margin-top: 10px;
 
         @media (min-width: @screen-desktop) {
-            margin-top: 37px;
+            margin-top: 31px;
             width: 96%;
         }
 
@@ -422,6 +423,14 @@ hr {
 
     .nav-pills > li + li {
         margin-left: 0;
+    }
+
+    .nav-pills a {
+        color: desaturate(@vignette-bg, 10%);
+
+        &:before {
+            border-color: @greydark-divider;
+        }
     }
 }
 
@@ -538,7 +547,7 @@ hr {
             .nav > li > a {
                 padding-top: 12px;
                 padding-bottom: 12px;
-                padding-left: 22px;
+                padding-left: 26px;
                 color: @tab-text;
                 font-weight: 500;
 
@@ -554,7 +563,7 @@ hr {
                     top: 4px;
                     bottom: 4px;
                     left: 0;
-                    padding-left: 5px;
+                    padding-left: 10px;
                     padding-top: 13px;
                     border-left-color: @greylighter2;
                 }
@@ -566,13 +575,13 @@ hr {
 
             li.active {
                 a {
-                    color: darken(@tab-text, 20%);
+                    color: @color1;
+                    text-shadow: 0 -1px lighten(@color1,30%);
                 }
 
                 a:before {
                     content: "i";
                     border: none;
-                    color: white;
                 }
             }
 
@@ -691,8 +700,99 @@ hr {
 
 
 
+.request-proposal-detail {
+    h1 {
+        text-transform: none;
+        font-size: 28px;
+        float: left;
+    }
+
+    .utils-links {
+        float: right;
+        margin-top: 22px;
+        .hide-text();
+
+        a {
+            margin: 0 6px;
+
+            &:before {
+                color: @color3lighter;
+                font-size: 26px;
+            }
+        }
+    }
+
+    .market-type {
+        padding: 5px 65px 5px 10px;
+        margin: 3px 0;
+        border-right: 1px dotted @greylighter2;
+        color: @color1;
+        font-size: 18px;
+        line-height: 0.9;
+
+        .market {
+            font-size: 10px;
+            vertical-align: top;
+        }
+    }
+
+    .numbers {
+        padding: 15px 0 15px 30px;
+    }
+
+    dl {
+        margin-left: 10px;
+    }
 
 
+}
+
+.request-proposal-detail__head {
+    margin-bottom: 20px;
+
+    .title {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    img {
+        margin-top: 10px;
+    }
+
+    hr {
+        clear: both;
+        margin: 0 10px;
+    }
+
+    .col-lg-9 {
+        width: 80%;
+    }
+
+    .col-lg-3 {
+        width: 20%;
+    }
+}
+
+.garanties {
+    .media {
+        border: none;
+        padding-top: 0;
+        margin-top: 10px;
+    }
+
+    .media-body a {
+        color: @color3;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    .media-heading {
+        margin-top: 13px;
+        margin-bottom: 2px;
+    }
+}
 
 
 

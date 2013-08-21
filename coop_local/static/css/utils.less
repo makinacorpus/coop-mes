@@ -186,6 +186,10 @@
   content: "A";
 }
 
+.iconf-bag:before {
+  content: "B";
+}
+
 
 /* ==========================================================================
     Sprites
@@ -196,6 +200,13 @@ i[class*="icon-"] {
     display: block;
     content: "";
     background-image: url(../img/sprite.png);
+}
+
+i[class*="icon-"] {
+  display: inline-block;
+  width: 20px;
+  height: 26px;
+  vertical-align: middle;
 }
 
 // generated with http://spritegen.website-performance.org/
@@ -231,4 +242,14 @@ i[class*="icon-"] {
 
 .small {
   font-size: 11px;
+}
+
+.dotted {
+  border-bottom: 1px dotted @greylighter2;
+}
+
+hr.dotted {
+  border-bottom: 0;
+  border-top-style: dotted;
+  border-color: @greylighter2;
 }

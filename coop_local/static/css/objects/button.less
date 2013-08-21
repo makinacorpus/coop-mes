@@ -93,6 +93,35 @@
     }
 }
 
+.btn-icon.detail {
+    color: @secondnav-bg;
+
+    &:hover {
+        color: black;
+    }
+
+    &:before {
+        background-color: @secondnav-bg;
+    }
+}
+
+.btn-icon--request-proposal-detail {
+    color: @color1;
+
+    &:hover {
+        color: black;
+    }
+    
+    &:before {
+        background-color: @color1;
+    }
+}
+
+.btn-icon--request-proposal-detail.icon-back:before,
+.btn-icon.detail.icon-back:before {
+    background-position: 7px -57px;
+}
+
 .btn--form {
     color: white;
     padding: 8px 12px;

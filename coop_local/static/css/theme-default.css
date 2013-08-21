@@ -140,6 +140,9 @@
 .iconf-chevron-up:before {
   content: "A";
 }
+.iconf-bag:before {
+  content: "B";
+}
 /* ==========================================================================
     Sprites
     ========================================================================== */
@@ -149,6 +152,12 @@ i[class*="icon-"] {
   display: block;
   content: "";
   background-image: url(../img/sprite.png);
+}
+i[class*="icon-"] {
+  display: inline-block;
+  width: 20px;
+  height: 26px;
+  vertical-align: middle;
 }
 .icon-a-la-une {
   background-position: 0 0;
@@ -206,6 +215,14 @@ i[class*="icon-"] {
 }
 .small {
   font-size: 11px;
+}
+.dotted {
+  border-bottom: 1px dotted #d6d6d6;
+}
+hr.dotted {
+  border-bottom: 0;
+  border-top-style: dotted;
+  border-color: #d6d6d6;
 }
 /*
  * HTML5 Boilerplate
@@ -309,6 +326,15 @@ hr {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.separator-title:after {
+  display: block;
+  height: 1px;
+  margin-bottom: 1px;
+  margin-top: 8px;
+  content: "";
+  border-top: 1px dotted #d3d3d3;
+  border-bottom: 1px dotted #d3d3d3;
 }
 .nav li a:before {
   position: absolute;
@@ -487,7 +513,8 @@ hr {
 }
 .media {
   border-top: 1px solid #d6d6d6;
-  padding-top: 15px;
+  padding-top: 8px;
+  margin-top: 10px;
   position: relative;
 }
 .media:first-child {
@@ -532,9 +559,9 @@ hr {
   vertical-align: middle;
   margin-right: 3px;
 }
-.media h4 {
+.media .media-heading {
   font-size: 14px;
-  margin: 15px 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 .media .media-object {
   margin-top: 5px;
@@ -733,6 +760,28 @@ hr {
 .btn-icon[class*="iconf-"]:before {
   padding-top: 6px;
 }
+.btn-icon.detail {
+  color: #a5ca72;
+}
+.btn-icon.detail:hover {
+  color: black;
+}
+.btn-icon.detail:before {
+  background-color: #a5ca72;
+}
+.btn-icon--request-proposal-detail {
+  color: #82919f;
+}
+.btn-icon--request-proposal-detail:hover {
+  color: black;
+}
+.btn-icon--request-proposal-detail:before {
+  background-color: #82919f;
+}
+.btn-icon--request-proposal-detail.icon-back:before,
+.btn-icon.detail.icon-back:before {
+  background-position: 7px -57px;
+}
 .btn--form {
   color: white;
   padding: 8px 12px;
@@ -878,18 +927,6 @@ hr {
 }
 .content-box.detail > .section-head:after {
   border: none;
-}
-.content-box.detail > .section-head .btn-icon {
-  color: #a5ca72;
-}
-.content-box.detail > .section-head .btn-icon:hover {
-  color: black;
-}
-.content-box.detail > .section-head .btn-icon:before {
-  background-color: #a5ca72;
-}
-.content-box.detail > .section-head .btn-icon.icon-back:before {
-  background-position: 7px -57px;
 }
 .content-box.detail .content-box {
   border-color: #a5ca72;
@@ -1257,6 +1294,12 @@ form .validation.icon-cancel:before {
 .pager li > a.inactive.next .arrow {
   right: 86%;
 }
+.pager--request-proposal-detail li > a {
+  color: #82919f;
+}
+.pager--request-proposal-detail li > a .arrow {
+  color: #82919f;
+}
 .links-list {
   margin-left: -10px;
 }
@@ -1282,6 +1325,30 @@ form .validation.icon-cancel:before {
 .links-list-item__link {
   color: #ee8908;
   text-decoration: underline;
+}
+dl {
+  padding: 10px;
+  padding-left: 43px;
+  padding-bottom: 15px;
+  background: #fafafa;
+  border: 1px solid #e8ebef;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin-top: 0;
+}
+dt {
+  color: #82919f;
+  font-weight: normal;
+  margin-top: 10px;
+  position: relative;
+}
+dt:before {
+  font-size: 18px;
+  margin-right: 10px;
+  vertical-align: middle;
+  position: absolute;
+  left: -30px;
 }
 .topsite-border div {
   height: 5px;
@@ -1490,7 +1557,7 @@ form .validation.icon-cancel:before {
 }
 @media (min-width: 992px) {
   .main-header .search {
-    margin-top: 37px;
+    margin-top: 31px;
     width: 96%;
   }
 }
@@ -1559,6 +1626,12 @@ form .validation.icon-cancel:before {
 }
 .main-footer .nav-pills > li + li {
   margin-left: 0;
+}
+.main-footer .nav-pills a {
+  color: #739fc7;
+}
+.main-footer .nav-pills a:before {
+  border-color: #6f625a;
 }
 /* ==========================================================================
    Page specifics styles
@@ -1655,7 +1728,7 @@ form .validation.icon-cancel:before {
 .home .main-content .navbar .nav > li > a {
   padding-top: 12px;
   padding-bottom: 12px;
-  padding-left: 22px;
+  padding-left: 26px;
   color: #82919f;
   font-weight: 500;
 }
@@ -1680,7 +1753,7 @@ form .validation.icon-cancel:before {
   top: 4px;
   bottom: 4px;
   left: 0;
-  padding-left: 5px;
+  padding-left: 10px;
   padding-top: 13px;
   border-left-color: #d6d6d6;
 }
@@ -1688,12 +1761,12 @@ form .validation.icon-cancel:before {
   border-left-color: transparent;
 }
 .home .main-content .navbar li.active a {
-  color: #515e69;
+  color: #82919f;
+  text-shadow: 0 -1px #d8dde1;
 }
 .home .main-content .navbar li.active a:before {
   content: "i";
   border: none;
-  color: white;
 }
 .home .main-content .navbar .navbar-nav {
   float: right;
@@ -1801,6 +1874,80 @@ form .validation.icon-cancel:before {
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.3);
   width: auto;
   height: auto;
+}
+.request-proposal-detail h1 {
+  text-transform: none;
+  font-size: 28px;
+  float: left;
+}
+.request-proposal-detail .utils-links {
+  float: right;
+  margin-top: 22px;
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.request-proposal-detail .utils-links a {
+  margin: 0 6px;
+}
+.request-proposal-detail .utils-links a:before {
+  color: #a5ca72;
+  font-size: 26px;
+}
+.request-proposal-detail .market-type {
+  padding: 5px 65px 5px 10px;
+  margin: 3px 0;
+  border-right: 1px dotted #d6d6d6;
+  color: #82919f;
+  font-size: 18px;
+  line-height: 0.9;
+}
+.request-proposal-detail .market-type .market {
+  font-size: 10px;
+  vertical-align: top;
+}
+.request-proposal-detail .numbers {
+  padding: 15px 0 15px 30px;
+}
+.request-proposal-detail dl {
+  margin-left: 10px;
+}
+.request-proposal-detail__head {
+  margin-bottom: 20px;
+}
+.request-proposal-detail__head .title {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.request-proposal-detail__head img {
+  margin-top: 10px;
+}
+.request-proposal-detail__head hr {
+  clear: both;
+  margin: 0 10px;
+}
+.request-proposal-detail__head .col-lg-9 {
+  width: 80%;
+}
+.request-proposal-detail__head .col-lg-3 {
+  width: 20%;
+}
+.garanties .media {
+  border: none;
+  padding-top: 0;
+  margin-top: 10px;
+}
+.garanties .media-body a {
+  color: #98be2c;
+}
+.garanties .media-body a:hover {
+  color: black;
+}
+.garanties .media-heading {
+  margin-top: 13px;
+  margin-bottom: 2px;
 }
 /* ==========================================================================
    Screen size specifics styles
