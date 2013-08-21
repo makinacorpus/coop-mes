@@ -64,6 +64,12 @@
                     </form>
 
                     <script type="text/javascript">
+                        // Default button is RECHERCHER
+                        $('#annuaires-search').keypress(function(e) {
+                            if(e.keyCode == 13) {
+                                $('#annuaires-search').submit();
+                            }
+                        });
                         // Show org_type search field only if "Fournisseurs" is selected
                         function org_type_change() {
                             var cell = document.getElementById('prov-type');
