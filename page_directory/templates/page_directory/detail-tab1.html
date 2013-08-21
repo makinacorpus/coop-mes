@@ -57,16 +57,21 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-lg-8 fiche">
-        {% thumbnail org.logo "55x48" upscale=0 as logo %}
-            <img class="fiche__logo" src="{{ logo.url }}" width="55" height="48" style="padding: {{ logo|margin:"55x48" }}" />
-        {% endthumbnail %}
-        <div>
-            <h2 class="fiche__title">{{ org.title }}</h2>
-            <h6 class="activity">{{ org.offer_activities }}</h6>
-            <h6 class="activity">{{ org.offer_areas }}</h6>
+    <div class="col-lg-8">
+        <div class="fiche clearfix">
+            {% thumbnail org.logo "130x60" upscale=0 as logo %}
+                <img class="fiche__logo" src="{{ logo.url }}" width="130" height="60" style="padding: {{ logo|margin:"130x60" }}" />
+            {% endthumbnail %}
+            <div>
+                <h2 class="fiche__title">{{ org.title }}</h2>
+                <h6 class="activity">{{ org.offer_activities }}</h6>
+                <h6 class="activity">{{ org.offer_areas }}</h6>
+            </div>
+            <div class="fiche__date">
+                Dernière Mise à jour<br/>
+                <span class="date">{{ org.modification|date:"d/m/Y" }}</span>
+            </div>
         </div>
-        <div class="fiche__date">{{ org.modification|date:"d/m/Y" }}</div>
         <p>{{ org.brief_description }}</p>
         <dl>
             <dt class="iconf-info-circled">Statut juridique :</dt>
