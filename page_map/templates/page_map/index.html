@@ -37,8 +37,13 @@
                         <div class="col-lg-3">
                             <div class="item">
                                 <h3>Territoire</h3>
-                                <div class="dropdown">
+                                <div>
                                     {{ form.area }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="dropdown input-group">
+                                    {{ form.radius }}<span class="input-group-addon">km</a>
                                 </div>
                             </div>
                             <div class="item">
@@ -131,8 +136,8 @@
                             {% endif %}
                         {% endfor %}
 
-                        var southWest = new L.LatLng({{ bounds.0 }}, {{ bounds.1 }});
-                        var northEast = new L.LatLng({{ bounds.2 }}, {{ bounds.3 }});
+                        var southWest = new L.LatLng({{ bounds.1 }}, {{ bounds.0 }});
+                        var northEast = new L.LatLng({{ bounds.3 }}, {{ bounds.2 }});
                         var bounds = new L.LatLngBounds(southWest, northEast);
                         map.fitBounds(bounds);
 

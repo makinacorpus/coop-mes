@@ -9,6 +9,15 @@ select {
 }
 
 
+/* Autocomplete */
+
+.ui-autocomplete {
+    background: #ffffff;
+    width: 400px;
+    border: solid #333333 1px;
+}
+
+
 /* Autosuggest  */
 
 ul.as-selections{

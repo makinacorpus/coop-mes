@@ -5,7 +5,7 @@ from ionyweb.website.rendering.utils import render_view
 from .forms import (OrgSearch,  OrganizationForm0, OrganizationForm1,
     OrganizationForm2, OrganizationForm3, OrganizationForm4)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
-    Person)
+    Person, Location)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
@@ -19,6 +19,7 @@ from ionyweb.page.models import Page
 from django.contrib.auth import login, authenticate
 from django.db.models import Q
 from django.utils.timezone import now
+from django.contrib.gis.measure import Distance
 
 
 def index_view(request, page_app):
@@ -27,6 +28,8 @@ def index_view(request, page_app):
     qd = request.GET.copy()
     if 'interim' not in qd:
         qd['interim'] = '2'
+    if not qd.get('area_0') and 'area_1' in qd:
+        del qd['area_1']
     form = OrgSearch(qd)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
@@ -53,7 +56,11 @@ def index_view(request, page_app):
         if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
         if form.cleaned_data['area']:
-            orgs = orgs.filter(pref_address__point__contained=form.cleaned_data['area'].polygon)
+            try:
+                radius = int(form.cleaned_data.get('radius'))
+            except:
+                radius = 0
+            orgs = orgs.filter(pref_address__point__distance_lte=(form.cleaned_data['area'].polygon, Distance(km=radius)))
         orgs = orgs.distinct()
     else:
         orgs = Organization.objects.none()
@@ -71,7 +78,8 @@ def index_view(request, page_app):
     return render_view('page_directory/index.html',
                        {'object': page_app, 'form': form, 'orgs': orgs_page,
                         'get_params': get_params.urlencode()},
-                       (),
+                       (CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
+                        JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file='')),
                        context_instance=RequestContext(request))
 
 
