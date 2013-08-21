@@ -18,6 +18,7 @@ from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from ionyweb.page.models import Page
 from django.contrib.auth import login, authenticate
 from django.db.models import Q
+from django.utils.timezone import now
 
 
 def index_view(request, page_app):
@@ -76,9 +77,10 @@ def index_view(request, page_app):
 
 def detail_view(request, page_app, pk):
     org = get_object_or_404(Organization, pk=pk)
+    calls = org.callfortenders_set.filter(deadline__gte=now()).order_by('deadline')
     get_params = request.GET.copy()
     return render_view('page_directory/detail.html',
-                       {'object': page_app, 'org': org,
+                       {'object': page_app, 'org': org, 'calls': calls,
                         'get_params': get_params.urlencode()},
                        (),
                        context_instance=RequestContext(request))

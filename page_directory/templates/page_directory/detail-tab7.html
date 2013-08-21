@@ -1,1 +1,45 @@
-<p>{{ org.testimony|default:"Pas de témoignage." }}</p>
+<div class="section-head">
+    page :
+    <ul class="pagination">
+        <li class="active"><a href="javascript: void();">1</a></li>
+    </ul>
+    <ul class="pager">
+        <li><a href="#prev" class="prev inactive"><span class="arrow">g</span> Page précédente/a></li>
+        <li><a href="#next" class="next inactive">Page suivante <span class="arrow">f</span></a></li>
+    </ul>
+</div>
+<div>
+    {% for call in calls %}
+        <div class="media">
+            <div class="media-body">
+                <p class="activity">{{ call.activity.label }}</p>
+                <span class="location">{{ call.area }}</span>
+                <h4 class="media-heading">{{ call.title }}</h4>
+                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. </p>
+            </div>
+            <div class="row media-meta">
+                <div class="col-lg-6">
+                    <div class="media-data">
+                        Numéro du ou des lots : {{ call.lot_numbers }}<br/>
+                        Numéros des articles clausés : {{ call.clauses|join:", " }}
+                    </div>
+                </div>
+                <div class="col-lg-4 limit-date iconf-calendar">
+                    Date limite de réception<br/>
+                    <span class="date">{{ call.deadline|date:"j F Y à g\hi" }}</span>
+                </div>
+                <div class="col-lg-2 text-right"><a href="{{ call.url }}" class="website">{{ call.url }}</a></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="section-foot">
+    page :
+    <ul class="pagination">
+        <li class="active"><a href="javascript: void();">1</a></li>
+    </ul>
+    <ul class="pager">
+        <li><a href="#prev" class="prev inactive"><span class="arrow">g</span> Page précédente</a></li>
+        <li><a href="#next" class="next inactive">Page suivante <span class="arrow">f</span></a></li>
+    </ul>
+</div>

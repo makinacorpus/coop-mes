@@ -340,10 +340,6 @@ hr {
 .nav-tabs.nav li a:before {
   display: none;
 }
-#tab6 .row {
-  padding: 10px 0;
-  border-bottom: 1px dotted #d3d3d3;
-}
 .nav-fluid {
   width: 100%;
   font-size: 0.1px;
@@ -569,6 +565,12 @@ hr {
   font-size: 15px;
   color: #757475;
   font-weight: bold;
+}
+.media .website {
+  text-decoration: underline;
+}
+.media .website:hover {
+  text-decoration: none;
 }
 .list-group-item {
   border-left: none;

@@ -1,14 +1,25 @@
-<h3>Est membre de&nbsp;:</h3>
-<ul>{% for r in org.reseaux %}
-    <li><a href="{{ r.target.get_absolute_url }}">{{ r.target.label }}</a></li>
-{% endfor %}</ul>
-
-<h3>Partenariat technique avec&nbsp;:</h3>
-<ul>{% for r in org.part_tech %}
-    <li><a href="{{ r.target.get_absolute_url }}">{{ r.target.label }}</a></li>
-{% endfor %}</ul>
-
-<h3>Partenariat financier avec&nbsp;:</h3>
-<ul>{% for r in org.part_fin %}
-    <li><a href="{{ r.target.get_absolute_url }}">{{ r.target.label }}</a></li>
-{% endfor %}</ul>
+<h3>Liens avec des adhérents</h3>
+<hr>
+<div class="links-list clearfix">
+    {% for r in org.source_relations %}
+        <div class="col-lg-4 links-list-item">
+            <span class="user">{{ org.label }}</span>
+            <i>{{ r.relation_type.label }}</i><br>
+            <span class="value">{{ r.target.label }}</span><br>
+            <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
+        </div>
+    {% endfor %}
+    {% for r in org.target_relations %}
+        <div class="col-lg-4 links-list-item">
+            <span class="user">{{ r.source.label }}</span>
+            <i>{{ r.relation_type.label }}</i><br>
+            <span class="value">{{ org.label }}</span><br>
+            <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
+        </div>
+    {% endfor %}
+</div>
+<hr>
+<h3>Autres liens</h3>
+<hr>
+<div class="links-list">
+</div>

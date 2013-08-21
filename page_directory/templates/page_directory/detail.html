@@ -32,7 +32,9 @@
                                 <li {% if not org.is_provider and not org.is_network %}class="active"{% endif %}><a href="#tab6" data-toggle="tab">Présentation{% if org.is_provider or org.is_network %} acheteur{% endif %}</a></li>
                                 <li><a href="#tab7" data-toggle="tab">Appels d'offres déposés</a></li>
                             {% endif %}
-                            <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
+                            {% if org.testimony %}
+                                <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
+                            {% endif %}
                             <li><a href="#tab5" data-toggle="tab">Liens</a></li>
                         </ul>
                         <div class="tab-content">
@@ -55,9 +57,11 @@
                                     {% include "page_directory/detail-tab7.html" %}
                                 </div>
                             {% endif %}
-                            <div class="tab-pane" id="tab4">
-                                {% include "page_directory/detail-tab4.html" %}
-                            </div>
+                            {% if org.testimony %}
+                                <div class="tab-pane" id="tab4">
+                                    {% include "page_directory/detail-tab4.html" %}
+                                </div>
+                            {% endif %}
                             <div class="tab-pane" id="tab5">
                                 {% include "page_directory/detail-tab5.html" %}
                             </div>
