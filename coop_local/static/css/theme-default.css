@@ -1645,16 +1645,16 @@ dt:before {
   font-size: 30px;
   font-weight: bold;
 }
-.app-container ul {
+.cms-content ul {
   overflow: hidden;
 }
-.app-container img {
+.cms-content img {
   margin-bottom: 10px;
 }
-.app-container h2.Standard {
+.cms-content h2.Standard {
   font-size: 26px;
 }
-.app-container h2.Standard:after {
+.cms-content h2.Standard:after {
   display: block;
   height: 1px;
   margin-bottom: 1px;

@@ -51,7 +51,7 @@
             <div class="article-extract">
                 <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
                 <div class="article-meta">{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</div>
-                {{ actu.body|safe }}
+                <div class="cms-content">{{ actu.body|safe }}</div>
             </div>
         {% endfor %}
     </div>
