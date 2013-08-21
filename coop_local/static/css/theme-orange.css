@@ -488,12 +488,22 @@ hr {
   background: white;
   margin: 5px auto;
 }
+.fiche {
+  margin-bottom: 15px;
+}
 .fiche .short-desc {
   margin-top: 0;
 }
 .fiche .status,
 .fiche .activity {
   font-style: italic;
+}
+.fiche .activity-container {
+  max-width: 40%;
+}
+.fiche .activity {
+  margin-bottom: 5px;
+  margin-top: 0;
 }
 .fiche .contact-details ul {
   padding-left: 0;
@@ -510,6 +520,13 @@ hr {
   font-size: 15px;
   margin-top: 0;
   color: #575657;
+}
+.fiche__date {
+  text-align: right;
+  float: right;
+}
+.fiche__date .date {
+  color: #98be2c;
 }
 .media {
   border-top: 1px solid #d6d6d6;
@@ -658,6 +675,24 @@ hr {
 }
 .list-group-item:first-child {
   border-top: none;
+}
+.list-group-item--infos {
+  border: none;
+  margin-left: 40px;
+}
+.list-group-item--infos:before {
+  font-size: 22px;
+  vertical-align: middle;
+  position: absolute;
+  left: -35px;
+  color: #ee8908;
+  margin-top: -3px;
+}
+.list-group-item--infos.iconf-pins:before {
+  margin-top: 3px;
+}
+.list-group-item--infos.iconf-emails:before {
+  font-size: 26px;
 }
 .btn {
   padding: 6px 12px;
@@ -901,6 +936,13 @@ hr {
 }
 .content-box.profile .section-title:before {
   background-color: #82919f;
+}
+.content-box.profile .more {
+  background-color: #82919f;
+  margin-left: -10px;
+  margin-right: -10px;
+  color: white;
+  padding: 10px 5px 5px 5px;
 }
 .content-box .content-box {
   margin-top: 0;
@@ -1603,6 +1645,24 @@ dt:before {
   font-size: 30px;
   font-weight: bold;
 }
+.app-container ul {
+  overflow: hidden;
+}
+.app-container img {
+  margin-bottom: 10px;
+}
+.app-container h2.Standard {
+  font-size: 26px;
+}
+.app-container h2.Standard:after {
+  display: block;
+  height: 1px;
+  margin-bottom: 1px;
+  margin-top: 8px;
+  content: "";
+  border-top: 1px dotted #d3d3d3;
+  border-bottom: 1px dotted #d3d3d3;
+}
 .main-footer {
   background: #3b444d;
   margin-left: -10px;
@@ -1774,7 +1834,7 @@ dt:before {
 .home .main-content .navbar-nav > .active > a,
 .home .main-content .navbar-nav > .active > a:hover,
 .home .main-content .navbar-nav > .active > a:focus {
-  background-color: #bbc4cb;
+  background-color: #cad0d6;
 }
 .home .main-content .vignette {
   margin: 50px auto 0 auto;

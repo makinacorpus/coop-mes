@@ -4,35 +4,99 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <div class="content-box detail">
+                <div class="content-box request-proposal-detail">
                     <div class="section-head">
-                        <a href="../../?{{ get_params }}" class="btn-icon icon-back detail">Retour a la liste</a>
-                        <ul class="pager detail">
-                            {# <li><a href="#prev" class="prev inactive"><span class="arrow">g</span> Previous</a></li> #}
-                            {# <li><a href="#next" class="next">Page suivante <span class="arrow">f</span></a></li> #}
+                        <a href="../../?{{ get_params }}" class="btn-icon icon-back btn-icon--request-proposal-detail">Retour a la liste</a>
+                        <ul class="pager pager--request-proposal-detail">
+                            {#<li><a href="#prev" class="prev"><span class="arrow">g</span> Titre de l'appel d'offre précédent</a></li>#}
+                            {#<li><a href="#next" class="next">Titre de l'appel d'offre suivant <span class="arrow">f</span></a></li>#}
                         </ul>
                     </div>
-                    <div class="row ribbon ribbon--detail">
-                        <div class="col-lg-6">
-                            <h1 class="title ribbon__title">{{ call.title|ascii }}</h1>
+                    <div class="row clearfix request-proposal-detail__head">
+                        <div class="col-lg-9">
+                            <div class="clearfix dotted">
+                                <h1 class="title">{{ call.title|ascii }}</h1>
+                                <div class="utils-links">
+                                    <a href="" class="iconf-facebook-circled">Facebook</a>
+                                    <a href="" class="iconf-twitter-circled">Twitter</a>
+                                    <a href="" class="iconf-gplus-circled">Google+</a>
+                                    <a href="" class="iconf-circled">??</a>
+                                    <a href="" class="iconf-social-email">Email</a>
+                                    <a href="" class="iconf-share-circled">Partager</a>
+                                    <a href="" class="iconf-print-circled">Imprimer</a>
+                                </div>
+                            </div>
+                            <div class="market-type pull-left">
+                                <i class="uppercase market">Marché</i><br/>
+                                <span class="uppercase">{{ call.organization.get_customer_type_display }}</span>
+                            </div>
+                            <div class="pull-left numbers">Numéros des articles clausés : {{ call.clauses|join:", " }}</div>
                         </div>
-                        <div class="col-lg-6 links">
-                            {# <a href="#back" class="btn-icon iconf-print">Imprimer la fiche</a> #}
+                        <div class="col-lg-3">
+                            <img class="pull-right" src="" width="130" height="90" />
                         </div>
+                        <hr class="dotted">
                     </div>
 
-                    <p>Marché {{ call.organization.get_customer_type_display }}</p>
-                    <p>Numéros des articles clausés&nbsp;: {{ call.clauses|join:", " }}</p>
-                    <p>Structure organisatrice&nbsp;: <a href="{{ call.organization.get_absolute_url }}">{{ call.organization }}</a></p>
-                    <p>Date et heure limite de réception&nbsp;: {{ call.deadline|date:"j F Y à g\hi" }}</p>
-                    <p>Secteur d'activité&nbsp;: {{ call.activity.label }}</p>
-                    <p>Lieu d'exécution&nbsp;: {{ call.area }}</p>
-                    <p>Numéros du ou des lots&nbsp;: {{ call.lot_numbers }}</p>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <dl>
+                                <dt class="iconf-user">Structure organisatrice :</dt>
+                                <dd><a href="{{ call.organization.get_absolute_url }}">{{ call.organization }}</a></dd>
 
+                                <dt class="iconf-calendar">Data et heure limite de réception :</dt>
+                                <dd>{{ call.deadline|date:"j F Y à g\hi" }}</dd>
+
+                                <dt class="iconf-info-circled">Secteur{{ call.activity.count|pluralize }} d'activité :</dt>
+                                {% for activity in call.activity.all %}
+                                    <dd>{{ activity.label }}</dd>
+                                {% endfor %}
+
+                                <dt class="iconf-pins">Lieu d'exécution :</dt>
+                                <dd>{{ call.area }}</dd>
+
+                                <dt class="iconf-bag">Numéros du ou des lots :</dt>
+                                <dd>{{ call.lot_numbers }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-7">
+                            <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.  This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.
+                            This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+                            <hr class="dotted">
+                            <h5>Documents associés :</h5>
+                            <ul class="list-unstyled text-center">
+                                {#<li><a href="fd"><i class="icon-export-doc"></i>Lorem ipsum <span class="file-size">- 14mo</span></a></li>#}
+                            </ul>
+                        </div>
+                    </div>
+                    <h4 class="separator-title">Offres similaires</h4>
+                    <div>
+                        {% for call in similar %}
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="..." width="220" height="140">
+                                </a>
+                                <div class="media-body">
+                                <p class="activity">{{ call.activity.all|join:", " }}</p>
+                                <span class="location">{{ call.area }}</span>
+                                <h4 class="media-heading">{{ call.title }}</h4>
+                                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. </p>
+                                <a href="{{ call.get_absolute_url }}" class="btn btn-default">En savoir +</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="section-foot">
+                        <ul class="pager pager--request-proposal-detail">
+                            {#<li><a href="#prev" class="prev"><span class="arrow">g</span> Titre de l'appel d'offre précédent</a></li>#}
+                            {#<li><a href="#next" class="next">Titre de l'appel d'offre suivant <span class="arrow">f</span></a></li>#}
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 sidebar">
+            <div class="col-lg-3 sidebar--right">
                 {% include "right-menu.html" %}
             </div>
         </div>

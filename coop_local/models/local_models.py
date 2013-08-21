@@ -311,6 +311,9 @@ class CallForTenders(models.Model):
 
         return self.title
 
+    def get_absolute_url(self):
+        return '/appels-doffres/p/%u/' % self.id
+
     def activities(self):
         return ", ".join(self.activity.values_list('label', flat=True))
 

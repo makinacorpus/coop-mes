@@ -43,3 +43,25 @@
         border-top: none;
     }
 }
+
+.list-group-item--infos {
+    border: none;
+    margin-left: 40px;
+
+    &:before {
+        font-size: 22px;
+        vertical-align: middle;
+        position: absolute;
+        left: -35px;
+        color: @color2;
+        margin-top: -3px;
+    }
+
+    &.iconf-pins:before {
+        margin-top: 3px;
+    }
+
+    &.iconf-emails:before {
+        font-size: 26px;
+    }
+}

@@ -86,7 +86,7 @@
                             <div class="media-body">
                                 <h4 class="media-heading">{{ call.activities }}</h4>
                                 <p>Date limite de remise des offres&nbsp;: {{ call.deadline }}</p>
-                                <a href="{{ object.page.get.get_absolute_url }}p/{{ call.pk }}/?{{ get_params }}&page={{ calls.number }}" class="btn btn-default">Détails de l'offre</a>
+                                <a href="{{ call.get_absolute_url }}?{{ get_params }}&page={{ calls.number }}" class="btn btn-default">Détails de l'offre</a>
                             </div>
                         </div>
 {% endfor %}
@@ -99,7 +99,7 @@
 {% endif %}
                 </div>
             </div>
-            <div class="col-lg-3 sidebar">
+            <div class="col-lg-3 sidebar--right">
                 {% include "right-menu.html" %}
             </div>
         </div>

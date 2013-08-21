@@ -1,5 +1,6 @@
 // FICHE OBJECT
 .fiche {
+    margin-bottom: 15px;
     // padding: 10px 0;
 
     .short-desc {
@@ -8,6 +9,15 @@
 
     .status, .activity {
         font-style: italic;
+    }
+
+    .activity-container {
+        max-width: 40%;
+    }
+
+    .activity {
+        margin-bottom: 5px;
+        margin-top: 0;
     }
 
     .contact-details {
@@ -31,4 +41,13 @@
         font-size: 15px;
         margin-top: 0;
         color: @greydarker;
+    }
+
+    .fiche__date {
+        text-align: right;
+        float: right;
+
+        .date {
+            color: @color3;
+        }
     }

@@ -14,7 +14,7 @@ from datetime import timedelta
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
     # App CSS
-    CSSMedia('page_calls/bootstrap.min.css'),
+    #CSSMedia('page_calls/bootstrap.min.css'),
     # App JS
     # Actions JSAdmin
     # JSAdminMedia('page_calls_actions.js'),
