@@ -27,6 +27,7 @@ from selectable.forms import AutoCompleteSelectMultipleWidget
 from mptt.admin import MPTTModelAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 from djappypod.response import OdtTemplateResponse
+from tinymce.widgets import AdminTinyMCE
 import csv
 
 from coop.org.admin import (
@@ -252,6 +253,8 @@ class OfferInline(admin.StackedInline):
         return forms.models.inlineformset_factory(Organization, Offer, form=make_offer_form(self.admin_site, request), extra=1)
 
 class OrganizationAdminForm(BaseOrganizationAdminForm):
+
+    testimony = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
 
     class Meta:
         model = get_model('coop_local', 'Organization')
