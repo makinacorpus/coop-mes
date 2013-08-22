@@ -152,19 +152,29 @@ class DocumentType(models.Model):
         app_label = 'coop_local'
 
 
-class Document(models.Model):
+class AbstractDocument(models.Model):
 
     name = models.CharField(_(u'name'), blank=True, max_length=100)
     description = models.TextField(_(u'description'), blank=True)
     attachment = models.FileField(_(u'attachment'), upload_to='docs', max_length=255)
-    organization = models.ForeignKey('Organization')
     type = models.ForeignKey('DocumentType', verbose_name=_(u'type'), blank=True, null=True)
 
     class Meta:
+        abstract = True
         verbose_name = _(u'associated document')
         verbose_name_plural = _(u'associated documents')
         ordering = ['name']
         app_label = 'coop_local'
+
+
+class Document(AbstractDocument):
+
+    organization = models.ForeignKey('Organization')
+
+
+class OfferDocument(AbstractDocument):
+
+    offer = models.ForeignKey('Offer')
 
 
 class OrganizationCategory(BaseOrganizationCategory):
@@ -459,6 +469,9 @@ class Offer(models.Model):
     def __unicode__(self):
 
         return unicode(self.activity)
+
+    def get_absolute_url(self):
+        return '/annuaire/p/offre/%u/' % self.id
 
     def unchecked_targets(self):
         return ClientTarget.objects.exclude(id__in=self.targets.all().values_list('id', flat=True))

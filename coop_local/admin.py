@@ -517,6 +517,23 @@ class CallForTendersAdmin(FkAutocompleteAdmin):
     exclude = ('activity',)
 
 
+class OfferDocumentInline(DocumentInline):
+
+    model = OfferDocument
+
+
+class OfferAdmin(FkAutocompleteAdmin):
+
+    list_display = ('provider', 'activity')
+    search_fields = ('activity__label', 'provider__title', 'provider__acronym')
+    related_search_fields = {
+        'activity': ('path', ),
+        'provider': ('title', 'acronym', ),
+        'area': ('label', ),
+    }
+    inlines = [OfferDocumentInline]
+
+
 admin.site.unregister(Organization)
 register(Guaranty, GuarantyAdmin)
 register(Organization, OrganizationAdmin)
@@ -530,3 +547,4 @@ register(ContactMedium)
 admin.site.unregister(Person)
 register(Person, PersonAdmin)
 register(CallForTenders, CallForTendersAdmin)
+register(Offer, OfferAdmin)

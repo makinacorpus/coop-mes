@@ -7,32 +7,28 @@
             <ul class="list-group">
                 {% for o in org.offer_set.all %}
                     <li class="list-group-item">
-                        <h3>{{ o.activity.label }}</h3>
-                        {# <h6 class="subtitle">{{ o.activity.label }}</h6> #}
-                        <p>{{ o.description }}</p>
-                        {% if o.targets.all %}
-                            <p><b>Cibles&nbsp;:</b><br/>
-                            {{ o.targets.all|join:", " }}</p>
-                        {% endif %}
-                        {% if o.technical_means %}
-                            <p><b>Moyens techniques disponibles&nbsp;:</b><br/>
-                            {{ o.technical_means }}</p>
-                        {% endif %}
-                        {% if o.workforce %}
-                            <p><b>Effectif total mobilisable&nbsp;:</b><br/>
-                            {{ o.workforce }}&nbsp;ETP</p>
-                        {% endif %}
-                        {% if o.practical_modalities %}
-                            <p><b>Modalité pratique&nbsp;:</b><br/>
-                            {{ o.practical_modalities }}</p>
-                        {% endif %}
-                        {% if o.area.all %}
-                            <p><b>Couverture géographique&nbsp;:</b><br/>
-                            {{ o.area.all|join:", " }}</p>
-                        {% endif %}
-                        {% if o.tags.all %}
-                            <p><b>Mots clés&nbsp;:</b><br/>
-                            {{ o.tags.all|join:", " }}</p>
+                        {% if org.offer_set.all|length == 1 %}
+                            {% include "page_directory/detail-offer.html" %}
+                        {% else %}
+                            <h3>{{ o.activity.label }}</h3>
+                            <p>{{ o.description|truncatewords_html:"30"|linebreaks }}</p>
+                            <a data-toggle="modal" href="#offer-{{ o.pk }}">Voir les détails</a>
+                            <div class="modal fade" id="offer-{{ o.pk }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">Offre</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            {% include "page_directory/detail-offer.html" %}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
                         {% endif %}
                     </li>
                 {% endfor %}

@@ -1,0 +1,34 @@
+<h3>{{ o.activity.label }}</h3>
+{# <h6 class="subtitle">{{ o.activity.label }}</h6> #}
+<p>{{ o.description|linebreaks }}</p>
+{% if o.targets.all %}
+    <p><b>Cibles&nbsp;:</b><br/>
+    {{ o.targets.all|join:", " }}</p>
+{% endif %}
+{% if o.technical_means %}
+    <p><b>Moyens techniques disponibles&nbsp;:</b><br/>
+    {{ o.technical_means|linebreaks }}</p>
+{% endif %}
+{% if o.workforce %}
+    <p><b>Effectif total mobilisable&nbsp;:</b><br/>
+    {{ o.workforce }}&nbsp;ETP</p>
+{% endif %}
+{% if o.practical_modalities %}
+    <p><b>Modalité pratique&nbsp;:</b><br/>
+    {{ o.practical_modalities|linebreaks }}</p>
+{% endif %}
+{% if o.area.all %}
+    <p><b>Couverture géographique&nbsp;:</b><br/>
+    {{ o.area.all|join:", " }}</p>
+{% endif %}
+{% if o.tags.all %}
+    <p><b>Mots clés&nbsp;:</b><br/>
+    {{ o.tags.all|join:", " }}</p>
+{% endif %}
+{% if o.offerdocument_set.all %}
+    <p><b>Documents&nbsp;:</b><ul>
+    {% for d in o.offerdocument_set.all %}
+        <li><a href="{{ d.attachment.url }}">{{ d.name }}</a></li>
+    {% endfor %}
+    </ul></p>
+{% endif %}

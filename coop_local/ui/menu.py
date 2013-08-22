@@ -56,6 +56,7 @@ class CustomMenu(Menu):
             items.MenuItem(_('Network'), '#', icon='icon-coop icon-group icon-white', children=[
                 items.MenuItem(_('Directory'), '#', icon='icon-home', children=[
                     items.MenuItem(_('Organizations'), '/admin/coop_local/organization/'),
+                    items.MenuItem(_('Offers'), '/admin/coop_local/offer/'),
                     items.MenuItem(_('Calls for tenders'), '/admin/coop_local/callfortenders/'),
                     items.MenuItem(_('Persons'), '/admin/coop_local/person/'),
                 ]),
