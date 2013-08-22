@@ -61,7 +61,10 @@ def index_view(request, page_app):
                 radius = int(form.cleaned_data.get('radius'))
             except:
                 radius = 0
-            orgs = orgs.filter(pref_address__point__distance_lte=(area.polygon, Distance(km=radius)))
+            if radius != 0:
+                orgs = orgs.filter(pref_address__point__distance_lte=(area.polygon, Distance(km=radius)))
+            else:
+                orgs = orgs.filter(pref_address__point__contained=area.polygon)
         orgs = orgs.distinct()
     else:
         area = None
