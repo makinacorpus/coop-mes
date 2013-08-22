@@ -16,6 +16,7 @@
                         <div class="col-lg-9">
                             <div class="clearfix dotted">
                                 <h1 class="title">{{ call.title|ascii }}</h1>
+{% comment %}
                                 <div class="utils-links">
                                     <a href="" class="iconf-facebook-circled">Facebook</a>
                                     <a href="" class="iconf-twitter-circled">Twitter</a>
@@ -25,6 +26,7 @@
                                     <a href="" class="iconf-share-circled">Partager</a>
                                     <a href="" class="iconf-print-circled">Imprimer</a>
                                 </div>
+{% endcomment %}
                             </div>
                             <div class="market-type pull-left">
                                 <i class="uppercase market">Marché</i><br/>
@@ -62,13 +64,16 @@
                         <div class="col-lg-7">
                             <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.  This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.
                             This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+{% comment %}
                             <hr class="dotted">
                             <h5>Documents associés :</h5>
                             <ul class="list-unstyled text-center">
-                                {#<li><a href="fd"><i class="icon-export-doc"></i>Lorem ipsum <span class="file-size">- 14mo</span></a></li>#}
+                                <li><a href="fd"><i class="icon-export-doc"></i>Lorem ipsum <span class="file-size">- 14mo</span></a></li>
                             </ul>
+{% endcomment %}
                         </div>
                     </div>
+{% comment %}
                     <h4 class="separator-title">Offres similaires</h4>
                     <div>
                         {% for call in similar %}
@@ -86,7 +91,7 @@
                             </div>
                         {% endfor %}
                     </div>
-
+{% endcomment %}
                     <div class="section-foot">
                         <ul class="pager pager--request-proposal-detail">
                             {#<li><a href="#prev" class="prev"><span class="arrow">g</span> Titre de l'appel d'offre précédent</a></li>#}
