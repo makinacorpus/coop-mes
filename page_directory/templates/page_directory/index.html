@@ -120,7 +120,7 @@
                     <div class="results">
                         {% for org in orgs %}
                             <div class="media">
-                                <a class="pull-left" href="#">
+                                <a class="pull-left" href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">
                                     {% if org.logo %}
                                         {% thumbnail org.logo "220x140" upscale=0 as logo %}
                                             <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
