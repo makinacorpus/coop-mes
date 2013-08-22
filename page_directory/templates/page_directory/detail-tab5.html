@@ -1,19 +1,11 @@
 <h3>Liens avec des adhérents</h3>
 <hr>
 <div class="links-list clearfix">
-    {% for r in org.source_relations %}
+    {% for r in org.reseaux %}
         <div class="col-lg-4 links-list-item">
             <span class="user">{{ org.label }}</span>
             <i>{{ r.relation_type.label }}</i><br>
             <span class="value">{{ r.target.label }}</span><br>
-            <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
-        </div>
-    {% endfor %}
-    {% for r in org.target_relations %}
-        <div class="col-lg-4 links-list-item">
-            <span class="user">{{ r.source.label }}</span>
-            <i>{{ r.relation_type.label }}</i><br>
-            <span class="value">{{ org.label }}</span><br>
             <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
         </div>
     {% endfor %}
@@ -22,4 +14,12 @@
 <h3>Autres liens</h3>
 <hr>
 <div class="links-list">
+    {% for r in org.non_reseaux %}
+        <div class="col-lg-4 links-list-item">
+            <span class="user">{{ org.label }}</span>
+            <i>{{ r.relation_type.label }}</i><br>
+            <span class="value">{{ r.target.label }}</span><br>
+            <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
+        </div>
+    {% endfor %}
 </div>
