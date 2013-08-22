@@ -1953,7 +1953,7 @@ dt:before {
   margin: 0 6px;
 }
 .request-proposal-detail .utils-links a:before {
-  color: #54ae4e;
+  color: #7fd179;
   font-size: 26px;
 }
 .request-proposal-detail .market-type {
@@ -2100,4 +2100,11 @@ dt:before {
 }
 .main-header .search {
   margin-top: 3px;
+}
+.main-header .search .form-control {
+  height: 26px;
+  background-position: 178px -714px;
+}
+.main-header .search button {
+  padding: 2px 12px;
 }
