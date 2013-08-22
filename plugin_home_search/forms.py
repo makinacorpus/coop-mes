@@ -27,7 +27,7 @@ class OrgSearch(forms.Form):
     areas = Area.objects.filter(parent_rels__parent__label=settings.REGION_LABEL).order_by('reference')
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Secteur d\'activité', required=False)
-    area  = AreaModelChoiceField(queryset=areas, empty_label=u'Territoire', required=False)
+    area_1  = AreaModelChoiceField(queryset=areas, empty_label=u'Territoire', required=False)
 
     def __init__(self, *args, **kwargs):
         super(OrgSearch, self).__init__(*args, **kwargs)
