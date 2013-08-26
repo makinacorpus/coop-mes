@@ -72,7 +72,6 @@ jQuery(document).ready(function() {
         }
     });
 
-
     $('#id_1-acronym, #id_2-acronym').keyup(function() {
         var fields = $('#div_id_1-pref_label, #div_id_2-pref_label');
         if ($(this).val() != '') {
@@ -86,6 +85,13 @@ jQuery(document).ready(function() {
     $('#id_1-acronym, #id_2-acronym').trigger('keyup');
 
     $('#id_3-activities, #id_4-activities').select2();
+    $('#id_3-transverse_themes, #id_4-transverse_themes').select2();
+    $('#id_3-category, #id_4-category').select2();
+    $('#id_3-category_iae, #id_4-category_iae').select2();
+    $('#id_3-agreement_iae, #id_4-agreement_iae').select2();
+
+    $('.as-selections').addClass('form-control');
+    $('.as-input').removeClass('form-control');
 });
 
 </script>

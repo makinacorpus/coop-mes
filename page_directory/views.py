@@ -96,6 +96,24 @@ def detail_view(request, page_app, pk):
                        (),
                        context_instance=RequestContext(request))
 
+
+class OrganizationEditView(SessionWizardView):
+
+    file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
+    template_name = 'page_directory/edit.html'
+
+    def get_form_kwargs(self, step):
+        cleaned_data1 = self.storage.get_step_data('1') or {}
+        cleaned_data2 = self.storage.get_step_data('2') or {}
+        is_customer = '1-is_customer' in cleaned_data1 or '2-is_customer' in cleaned_data2
+        is_provider = '1-is_provider' in cleaned_data1 or '2-is_provider' in cleaned_data2
+        return {
+            'step': step,
+            'is_customer': is_customer,
+            'is_provider': is_provider,
+        }
+
+
 organization_create_forms = (
     OrganizationForm0,
     OrganizationForm1,
@@ -104,13 +122,7 @@ organization_create_forms = (
     OrganizationForm4,
 )
 
-class OrganizationCreateView(SessionWizardView):
-
-    file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
-    template_name = 'page_directory/edit.html'
-
-    def get_form_kwargs(self, step):
-        return {'step': step}
+class OrganizationCreateView(OrganizationEditView):
 
     def done(self, forms, **kwargs):
         # User
@@ -171,19 +183,13 @@ organization_change_forms = (
     OrganizationForm4,
 )
 
-class OrganizationChangeView(SessionWizardView):
-
-    file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
-    template_name = 'page_directory/edit.html'
+class OrganizationChangeView(OrganizationEditView):
 
     def get_form_instance(self, step):
         if step == '0':
             return self.person
         else:
             return self.organization
-
-    def get_form_kwargs(self, step):
-        return {'step': step}
 
     def get_form_initial(self, step):
         pk = self.kwargs['pk']

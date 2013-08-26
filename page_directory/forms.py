@@ -101,7 +101,7 @@ class OrganizationForm0(OrganizationMixin, UserCreationForm):
         initial=0, required=False, label=u'J\'accepte la <a \
         data-toggle="modal" href="#charte">charte de l\'utilisateur</a>')
 
-    def __init__(self, step, *args, **kwargs):
+    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
         super(OrganizationForm0, self).__init__(*args, **kwargs)
         self.set_helper(step, (
             'username',
@@ -123,7 +123,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
     tel = forms.CharField(required=False, label=u'Téléphone')
     role = forms.ModelChoiceField(queryset=Role.objects, required=False, label=u'Rôle')
 
-    def __init__(self, step, *args, **kwargs):
+    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
         super(OrganizationForm1, self).__init__(*args, **kwargs)
         self.set_helper(step, (
             InlineRadios('gender'),
@@ -146,7 +146,7 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
                   'legal_status', 'web', 'siret', 'is_provider',
                   'is_customer', 'customer_type')
 
-    def __init__(self, step, *args, **kwargs):
+    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
         super(OrganizationForm2, self).__init__(*args, **kwargs)
         self.set_helper(step, (
             'title', 'acronym', 'pref_label', 'logo', 'birth',
@@ -178,7 +178,7 @@ class OrganizationForm3(OrganizationMixin, forms.ModelForm):
         model = Organization
         fields = ('brief_description', 'description', 'added_value')
 
-    def __init__(self, step, *args, **kwargs):
+    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
         super(OrganizationForm3, self).__init__(*args, **kwargs)
         self.set_helper(step, ('brief_description', 'description', 'added_value',))
 
@@ -187,11 +187,27 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
 
     class Meta:
         model = Organization
-        fields = ('tags', 'activities', 'transverse_themes')
-        widgets = {
-            'transverse_themes': forms.CheckboxSelectMultiple(),
-        }
+        fields = (
+            'category',
+            'category_iae',
+            'agreement_iae',
+            'tags',
+            'activities',
+            'transverse_themes',
+        )
 
-    def __init__(self, step, *args, **kwargs):
+    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
-        self.set_helper(step, ('tags', 'activities', 'transverse_themes'))
+        if not is_customer:
+            del self.fields['activities']
+        if not is_provider:
+            del self.fields['category']
+            del self.fields['category_iae']
+            del self.fields['agreement_iae']
+            del self.fields['transverse_themes']
+        self.set_helper(step, self.fields.keys())
+        for name, field in self.fields.iteritems():
+            if name == 'tags':
+                field.help_text = u'Entrez des mots-clés séparés par une virgule.'
+            else:
+                field.help_text = u''

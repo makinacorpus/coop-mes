@@ -13,52 +13,39 @@ select {
 
 .ui-autocomplete {
     background: #ffffff;
-    width: 400px;
+/*     width: 400px; */
     border: solid #333333 1px;
 }
 
 
 /* Autosuggest  */
 
-ul.as-selections{
-width: 608px;
+/*ul.as-selections li {
+    list-style-type: none;
+    font-weight: bold;
+}*/
 
-  background: #fff;
-  border: 1px solid #ccc;
-  font-family: sans-serif;
-        padding: 4px;
+input.as-input {
+    border-style: none;
+    float: left;
+    width: 150px;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-moz-shadow:none;
+    margin-top: 4px;
 }
 
-ul.as-selections li{
-        list-style-type: none;
-        font-size: 1.1em;
-        font-weight: bold;
+div.as-results {
+    padding-left: 0;
 }
 
-input.as-input{
-        border-style: none;
-        float: left;
-        width: 150px;
-        box-shadow: none;
-        -moz-box-shadow: none;
-        -webkit-moz-shadow:none;
-        margin-top: 4px;
-        font-size: 17px;
+ul.as-list {
+    padding: 0;
 }
 
-div.as-results{
-        padding-left: 0;
-}
-
-ul.as-list{
-        padding: 0;
-}
-
-ul.as-list li{
-        list-style-type: none;
-        font-size: 16px;
-        padding: 2px;
-
+ul.as-list li {
+    list-style-type: none;
+    padding: 2px;
 }
 
 /* Form errors */
