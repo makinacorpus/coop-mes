@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles thumbnail %}
 
 <h1 class="icon-a-la-une section-title">{{ object.title }}</h1>
 {% comment %}
@@ -8,7 +8,11 @@
 </ul>
 {% endcomment %}
 <div class="row">
-    <div class="col-lg-6"><img src="{% static 'img/avatar.png' %}" width="410" height="280" /></div>
+    <div class="col-lg-6">
+        {% thumbnail entry.image "410x280" upscale=0 as image %}
+            <img src="{{ image.url }}" width="410" height="280" style="padding: {{ image|margin:"410x280" }}">
+        {% endthumbnail %}
+    </div>
     <div class="col-lg-6">
     <div class="article-extract">
         <h3><a href="">{{ entry.title }}</a></h3>
