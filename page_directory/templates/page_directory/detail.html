@@ -35,7 +35,9 @@
                             {% if org.testimony %}
                                 <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
                             {% endif %}
-                            <li><a href="#tab5" data-toggle="tab">Liens</a></li>
+                            {% if org.source_relations.exists %}
+                                <li><a href="#tab5" data-toggle="tab">Partenariats</a></li>
+                            {% endif %}
                         </ul>
                         <div class="tab-content">
                             {% if org.is_provider or org.is_network %}
@@ -62,9 +64,11 @@
                                     {% include "page_directory/detail-tab4.html" %}
                                 </div>
                             {% endif %}
-                            <div class="tab-pane" id="tab5">
-                                {% include "page_directory/detail-tab5.html" %}
-                            </div>
+                            {% if org.source_relations.exists %}
+                                <div class="tab-pane" id="tab5">
+                                    {% include "page_directory/detail-tab5.html" %}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
