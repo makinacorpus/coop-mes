@@ -70,6 +70,8 @@
         <dl>
             <dt class="iconf-info-circled">Statut juridique :</dt>
             <dd>{{ org.legal_status }}</dd>
+
+            <dt class="iconf-bag">Spécificités :</dt>
             {% if org.category_iae %}<dd>{{ org.category_iae.all|join:", " }}</dd>{% endif %}
             {% if org.category %}<dd>{{ org.category.all|join:", " }}</dd>{% endif %}
 
