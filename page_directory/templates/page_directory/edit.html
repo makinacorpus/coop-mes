@@ -110,7 +110,7 @@ jQuery(document).ready(function() {
 
     /* Select2 */
 
-    $('select').select2();
+    $('select').not($('.formset-form:last select')).select2();
 
     /* Formset */
 
@@ -118,15 +118,17 @@ jQuery(document).ready(function() {
 
     $('.add-link').click(function() {
         var newElement = $('.formset-form:last').clone(true);
-        var total = $('#id_{{ wizard.steps.current }}_TOTAL_FORMS').val();
-        newElement.find(':input').each(function() {
+        var total = $('#id_{{ wizard.steps.current }}-TOTAL_FORMS').val();
+        newElement.find('[id^="id_"]:input').each(function() {
             var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
             var id = 'id_' + name;
+            $(this).attr({'name': name, 'id': id});
         });
         newElement.find('label').each(function() {
             var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
             $(this).attr('for', newFor);
         });
+        newElement.find('select').select2();
         total++;
         $('#id_{{ wizard.steps.current }}-TOTAL_FORMS').val(total);
         $('.formset-form:last').before(newElement);
