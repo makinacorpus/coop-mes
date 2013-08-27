@@ -66,7 +66,7 @@
                 <span class="date">{{ org.modification|date:"d/m/Y" }}</span>
             </div>
         </div>
-        <p>{{ org.brief_description }}</p>
+        <p>{{ org.brief_description|linebreaks }}</p>
         <dl>
             <dt class="iconf-info-circled">Statut juridique :</dt>
             <dd>{{ org.legal_status }}</dd>

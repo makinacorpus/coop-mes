@@ -135,7 +135,7 @@
                                         <span class="location">{{ org.main_location.zipcode }} {{ city }}</span>
                                     {% endif %}{% endwith %}
                                     <h4 class="media-heading">{{ org.title }}</h4>
-                                    <p>{{ org.brief_description }}</p>
+                                    <p>{{ org.brief_description|linebreaks }}</p>
                                     <a href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" class="btn btn-default">Fiche personnelle</a>
                                 </div>
                             </div>
