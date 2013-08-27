@@ -19,6 +19,7 @@ from tempfile import gettempdir
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from ionyweb.page.models import Page
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.utils.timezone import now
 from django.contrib.gis.measure import Distance
@@ -144,30 +145,43 @@ organization_create_forms = (
 
 class OrganizationCreateView(OrganizationEditView):
 
+    def __init__(self, *args, **kwargs):
+        super(OrganizationCreateView, self).__init__(*args, **kwargs)
+        self.user = User()
+        self.person = Person()
+        self.organization = Organization()
+
+    def get_form_instance(self, step):
+        if step == '0':
+            return self.user
+        elif step == '1':
+            return self.person
+        else:
+            return self.organization
+
     @transaction.commit_on_success
     def done(self, forms, **kwargs):
         # User
-        user = forms[0].save()
-        user = authenticate(username=user.username, password=forms[0].cleaned_data['password1'])
-        login(self.request, user)
+        forms[0].save()
+        self.user = authenticate(username=self.user.username, password=forms[0].cleaned_data['password1'])
+        login(self.request, self.user)
         # Person
-        person = forms[1].save(commit=False)
-        person.user = user
-        person.username = user.username
-        person.save()
+        self.person.user = self.user
+        self.person.username = self.user.username
+        forms[1].save()
         # Organization
-        organization = forms[2].save()
+        self.organization = forms[2].save()
         for form in forms[3:7]:
             for field, value in form.cleaned_data.iteritems():
-                setattr(organization, field, value)
-        organization.save()
+                setattr(self.organization, field, value)
+        self.organization.save()
         # Inline formsets
         for form in forms[7:9]:
             form.save()
         # Engagement
         engagement = Engagement()
-        engagement.person = person
-        engagement.organization = organization
+        engagement.person = self.person
+        engagement.organization = self.organization
         engagement.org_admin = True
         engagement.tel = forms[1].cleaned_data['tel']
         engagement.email = forms[1].cleaned_data['email']
@@ -230,8 +244,13 @@ class OrganizationChangeView(OrganizationEditView):
         # Person
         forms[0].save()
         # Organization
-        for form in forms[1:]:
-            form.save()
+        for form in forms[1:6]:
+            for field, value in form.cleaned_data.iteritems():
+                setattr(self.organization, field, value)
+        self.organization.save()
+        # Inline formsets
+        for form in forms[6:8]:
+             form.save()
         # Engagement
         self.engagement.tel = forms[0].cleaned_data['tel']
         self.engagement.email = forms[0].cleaned_data['email']
