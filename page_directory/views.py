@@ -143,6 +143,15 @@ organization_create_forms = (
     OrganizationForm8,
 )
 
+ORGANIZATION_MEDIA = (
+    CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
+    JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
+    CSSMedia('select2/select2.css', prefix_file=''),
+    CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
+    JSMedia('select2/select2.min.js', prefix_file=''),
+    JSMedia('../_tinymce/compressor/', prefix_file=''),
+)
+
 class OrganizationCreateView(OrganizationEditView):
 
     def __init__(self, *args, **kwargs):
@@ -210,11 +219,7 @@ class OrganizationCreateView(OrganizationEditView):
                 context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
         return render_view(self.get_template_names(),
             context,
-            (CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
-            JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
-            CSSMedia('select2/select2.css', prefix_file=''),
-            CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
-            JSMedia('select2/select2.min.js', prefix_file='')),
+            ORGANIZATION_MEDIA,
             context_instance=RequestContext(self.request))
 
 add_view = OrganizationCreateView.as_view(organization_create_forms)
@@ -273,11 +278,7 @@ class OrganizationChangeView(OrganizationEditView):
         context['title'] = context['titles'][int(self.steps.current)]
         return render_view(self.get_template_names(),
             context,
-            (CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
-            JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
-            CSSMedia('select2/select2.css', prefix_file=''),
-            CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
-            JSMedia('select2/select2.min.js', prefix_file='')),
+            ORGANIZATION_MEDIA,
             context_instance=RequestContext(self.request))
 
 change_view = login_required(OrganizationChangeView.as_view(organization_change_forms))

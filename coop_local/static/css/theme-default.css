@@ -1079,15 +1079,20 @@ hr {
   text-decoration: underline;
 }
 .form .form-control {
-  max-width: 80%;
+  max-width: 90%;
 }
 @media (min-width: 992px) {
   .form .form-control {
     max-width: 60%;
   }
 }
+@media (min-width: 992px) {
+  .form textarea.form-control {
+    max-width: 80%;
+  }
+}
 .form .input-group {
-  max-width: 80%;
+  max-width: 90%;
 }
 @media (min-width: 992px) {
   .form .input-group {
@@ -1111,7 +1116,7 @@ input[type="checkbox"] {
   display: inline-block;
 }
 form .validation {
-  position: relative;
+  position: absolute;
   display: inline-block;
   content: "";
   height: 33px;
@@ -1174,6 +1179,10 @@ form .validation.icon-cancel:before {
 .input-group-addon {
   padding: 6px 12px;
   height: 34px;
+}
+textarea.form-control {
+  resize: vertical;
+  max-width: 100%;
 }
 .ribbon {
   position: relative;

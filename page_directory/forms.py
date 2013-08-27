@@ -233,6 +233,8 @@ class OrganizationForm5(OrganizationMixin, forms.ModelForm):
 
 class OrganizationForm6(OrganizationMixin, forms.ModelForm):
 
+    testimony = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False)
+
     class Meta:
         model = Organization
         fields = ('testimony', )

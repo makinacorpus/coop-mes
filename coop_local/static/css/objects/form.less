@@ -20,16 +20,20 @@
     }
 
     .form-control {
-        max-width: 80%;
+        max-width: 90%;
 
         @media (min-width: @screen-desktop) {
             max-width: 60%;
         }
     }
-
+    @media (min-width: @screen-desktop) {
+        textarea.form-control {
+            max-width: 80%;
+        }
+    }
 
     .input-group {
-        max-width: 80%;
+        max-width: 90%;
 
         @media (min-width: @screen-desktop) {
             max-width: 60%;
@@ -38,7 +42,6 @@
         .form-control {
             max-width: 100%;
         }
-        
     }
 }
 
@@ -60,7 +63,7 @@ input[type="checkbox"] {
 }
 
 form .validation {
-    position: relative;
+    position: absolute;
     display: inline-block;
     content: "";
     height: 33px;
@@ -131,4 +134,9 @@ form .validation {
 .form-control, .input-group-addon {
     padding: 6px 12px;
     height: 34px;
+}
+
+textarea.form-control {
+    resize: vertical;
+    max-width: 100%;
 }
