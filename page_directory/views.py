@@ -22,6 +22,7 @@ from django.contrib.auth import login, authenticate
 from django.db.models import Q
 from django.utils.timezone import now
 from django.contrib.gis.measure import Distance
+from django.db import transaction
 
 
 def index_view(request, page_app):
@@ -143,6 +144,7 @@ organization_create_forms = (
 
 class OrganizationCreateView(OrganizationEditView):
 
+    @transaction.commit_on_success
     def done(self, forms, **kwargs):
         # User
         user = forms[0].save()
@@ -155,10 +157,13 @@ class OrganizationCreateView(OrganizationEditView):
         person.save()
         # Organization
         organization = forms[2].save()
-        for form in forms[3:]:
+        for form in forms[3:7]:
             for field, value in form.cleaned_data.iteritems():
                 setattr(organization, field, value)
         organization.save()
+        # Inline formsets
+        for form in forms[7:9]:
+            form.save()
         # Engagement
         engagement = Engagement()
         engagement.person = person
@@ -220,6 +225,7 @@ class OrganizationChangeView(OrganizationEditView):
             return {'tel': self.engagement.tel, 'role': self.engagement.role}
         return {}
 
+    @transaction.commit_on_success
     def done(self, forms, **kwargs):
         # Person
         forms[0].save()
