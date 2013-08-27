@@ -115,6 +115,19 @@ class OrganizationEditView(SessionWizardView):
             'is_provider': is_provider,
         }
 
+    def get_form(self, step=None, data=None, files=None):
+        if step is None:
+            step = self.steps.current
+        kwargs = self.get_form_kwargs(step)
+        kwargs.update({
+            'data': data,
+            'files': files,
+            'prefix': self.get_form_prefix(step, self.form_list[step]),
+            'initial': self.get_form_initial(step),
+        })
+        kwargs.setdefault('instance', self.get_form_instance(step))
+        return self.form_list[step](**kwargs)
+
 
 organization_create_forms = (
     OrganizationForm0,
