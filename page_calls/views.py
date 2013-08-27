@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.utils.timezone import now
 from datetime import timedelta
+from django.db.models import Q
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -25,6 +26,12 @@ def index_view(request, page_app):
     form = CallSearch(qd)
     if form.is_valid():
         calls = CallForTenders.geo_objects.filter(organization__status=ORGANIZATION_STATUSES.VALIDATED)
+        calls = calls.filter(
+            Q(title__icontains=form.cleaned_data['q']) |
+            Q(area__label__icontains=form.cleaned_data['q']) |
+            Q(activity__path__icontains=form.cleaned_data['q']) |
+            Q(organization__title__icontains=form.cleaned_data['q']) |
+            Q(organization__acronym__icontains=form.cleaned_data['q']))
         if form.cleaned_data['org_type'] == 'public':
             calls = calls.filter(organization__is_customer=True, organization__customer_type=1)
         if form.cleaned_data['org_type'] == 'prive':
@@ -38,14 +45,10 @@ def index_view(request, page_app):
         if descendants:
             calls = calls.filter(activity__in=descendants)
         calls = calls.distinct()
-        if form.cleaned_data['period2'] == 'archive':
+        if form.cleaned_data['period'] == 'archive':
             calls = calls.filter(deadline__lt=now())
-            if form.cleaned_data['period']:
-                calls = calls.filter(deadline__gte=now()-timedelta(days=int(form.cleaned_data['period'])))
-        elif form.cleaned_data['period2'] != 'tout':
+        elif form.cleaned_data['period'] != 'tout':
             calls = calls.filter(deadline__gte=now())
-            if form.cleaned_data['period']:
-                calls = calls.filter(deadline__lt=now()+timedelta(days=int(form.cleaned_data['period'])))
     else:
         calls = Organization.objects.none()
     paginator = Paginator(calls, 20)

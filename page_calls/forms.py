@@ -14,18 +14,10 @@ ORG_TYPE_CHOICES = (
     ('public', u'Public'),
 )
 
-PERIOD2_CHOICES = (
+PERIOD_CHOICES = (
     ('current', u'En cours'),
     ('archive', u'Archivé'),
     ('tout', u'Tout voir'),
-)
-
-PERIOD_CHOICES = (
-    ('', u'Tout voir'),
-    ('15', u'15 jours'),
-    ('30', u'1 mois'),
-    ('90', u'3 mois'),
-    ('365', u'1 an'),
 )
 
 class CallSearch(forms.Form):
@@ -34,7 +26,7 @@ class CallSearch(forms.Form):
     organization = forms.ModelChoiceField(queryset=Organization.objects.filter(status=ORGANIZATION_STATUSES.VALIDATED), required=False, empty_label=u'Toutes')
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
     period = forms.ChoiceField(choices=PERIOD_CHOICES, required=False)
-    period2 = forms.ChoiceField(choices=PERIOD2_CHOICES, required=False)
+    q = forms.CharField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(CallSearch, self).__init__(*args, **kwargs)
