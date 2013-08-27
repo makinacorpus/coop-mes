@@ -19,6 +19,7 @@
 <hr/>
 <div class="row fiche">
     <div class="col-lg-6 contact-details">
+    <h5>Adresse</h5>
     <ul>
         {% with org.pref_address as l %}
             <li class="address">{{ l.adr1 }}<br/>{% if l.adr2 %}{{ l.adr2 }}<br/>{% endif %}{{ l.zipcode }} {{ l.city }}</li>
@@ -29,6 +30,7 @@
     </ul>
     </div>
     <div class="col-lg-6 contact-details">
+    <h5>Interlocuteur</h5>
     <ul>
         {% with org.engagement_set.all.0 as e %}
             <li class="name"><span class="name__name">{{ e.person.last_name }}</span> <span class="name__surname">{{ e.person.first_name }}</span></li>
