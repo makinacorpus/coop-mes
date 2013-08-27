@@ -3,9 +3,11 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from .forms import (OrgSearch,  OrganizationForm0, OrganizationForm1,
-    OrganizationForm2, OrganizationForm3, OrganizationForm4)
+    OrganizationForm2, OrganizationForm3, OrganizationForm4,
+    OrganizationForm5, OrganizationForm6, OrganizationForm7,
+    OrganizationForm8)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
-    Person, Location)
+    Person, Location, Relation)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
@@ -120,6 +122,10 @@ organization_create_forms = (
     OrganizationForm2,
     OrganizationForm3,
     OrganizationForm4,
+    OrganizationForm5,
+    OrganizationForm6,
+    OrganizationForm7,
+    OrganizationForm8,
 )
 
 class OrganizationCreateView(OrganizationEditView):
@@ -155,11 +161,16 @@ class OrganizationCreateView(OrganizationEditView):
         assert response_kwargs == {}
         context['titles'] = (
             u'Codes d\'accès',
-            u'Données personelles',
+            u'Données personnelles',
             u'Type d\'organisation',
             u'Description',
             u'Catégories',
+            u'Données économiques',
+            u'Témoignage',
+            u'Documents',
+            u'Relations',
         )
+        context['title'] = context['titles'][int(self.steps.current)]
         if self.steps.current == '0':
             try:
                 context['charte'] = Page.objects.get(title='Charte').app.text
@@ -170,18 +181,14 @@ class OrganizationCreateView(OrganizationEditView):
             (CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
             JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
             CSSMedia('select2/select2.css', prefix_file=''),
+            CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
             JSMedia('select2/select2.min.js', prefix_file='')),
             context_instance=RequestContext(self.request))
 
 add_view = OrganizationCreateView.as_view(organization_create_forms)
 
 
-organization_change_forms = (
-    OrganizationForm1,
-    OrganizationForm2,
-    OrganizationForm3,
-    OrganizationForm4,
-)
+organization_change_forms = organization_create_forms[1:]
 
 class OrganizationChangeView(OrganizationEditView):
 
@@ -216,16 +223,22 @@ class OrganizationChangeView(OrganizationEditView):
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
         context['titles'] = (
-            u'Données personelles',
+            u'Données personnelles',
             u'Type d\'organisation',
             u'Description',
             u'Catégories',
+            u'Données économiques',
+            u'Témoignage',
+            u'Documents',
+            u'Relations',
         )
+        context['title'] = context['titles'][int(self.steps.current)]
         return render_view(self.get_template_names(),
             context,
             (CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
             JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
             CSSMedia('select2/select2.css', prefix_file=''),
+            CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
             JSMedia('select2/select2.min.js', prefix_file='')),
             context_instance=RequestContext(self.request))
 

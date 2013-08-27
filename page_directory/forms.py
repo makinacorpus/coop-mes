@@ -4,7 +4,7 @@ from django import forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
-    Organization, Engagement, Role)
+    Organization, Engagement, Role, Document, Relation)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -14,7 +14,7 @@ from coop_local.models import Person
 from django.utils.translation import ugettext, ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, HTML, Field
-from crispy_forms.bootstrap import InlineRadios, FormActions, StrictButton
+from crispy_forms.bootstrap import InlineRadios, FormActions, StrictButton, AppendedText
 from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
@@ -79,19 +79,8 @@ class OrganizationMixin(object):
     def set_helper(self, step, fields):
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.layout = Layout(Fieldset(''))
-        self.helper.layout[0].extend(fields)
-        self.helper.layout[0].append(HTML('<hr>'))
-        if step == '0':
-            self.helper.layout[0].append(FormActions(
-                StrictButton(u'Étape suivante', type='submit', css_class='btn-default'),
-            ))
-        else:
-            prev = str(int(step) - 1)
-            self.helper.layout[0].append(FormActions(
-                    StrictButton(u'Étape précédente', type='submit', name='wizard_goto_step', value=prev, css_class='btn--form'),
-                    StrictButton(u'Étape suivante', type='submit', css_class='btn-default'),
-            ))
+        self.helper.layout = Layout()
+        self.helper.layout.extend(fields)
 
 
 class OrganizationForm0(OrganizationMixin, UserCreationForm):
@@ -194,6 +183,7 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             'tags',
             'activities',
             'transverse_themes',
+            'guaranties',
         )
 
     def __init__(self, step, is_customer, is_provider, *args, **kwargs):
@@ -205,9 +195,93 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             del self.fields['category_iae']
             del self.fields['agreement_iae']
             del self.fields['transverse_themes']
+            del self.fields['guaranties']
         self.set_helper(step, self.fields.keys())
         for name, field in self.fields.iteritems():
             if name == 'tags':
                 field.help_text = u'Entrez des mots-clés séparés par une virgule.'
             else:
                 field.help_text = u''
+
+
+class OrganizationForm5(OrganizationMixin, forms.ModelForm):
+
+    class Meta:
+        model = Organization
+        fields = (
+            'annual_revenue',
+            'workforce',
+            'production_workforce',
+            'supervision_workforce',
+            'integration_workforce',
+            'annual_integration_number',
+        )
+
+    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
+        super(OrganizationForm5, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.label = field.label.replace(' (ETP)', '')
+        self.set_helper(step, (
+            AppendedText('annual_revenue', u'€'),
+            AppendedText('workforce', u'ETP'),
+            AppendedText('production_workforce', u'ETP'),
+            AppendedText('supervision_workforce', u'ETP'),
+            AppendedText('integration_workforce', u'ETP'),
+            'annual_integration_number',
+        ))
+
+
+class OrganizationForm6(OrganizationMixin, forms.ModelForm):
+
+    class Meta:
+        model = Organization
+        fields = ('testimony', )
+
+    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
+        super(OrganizationForm6, self).__init__(*args, **kwargs)
+        self.set_helper(step, ('testimony', ))
+
+
+class DocumentForm(OrganizationMixin, forms.ModelForm):
+
+    class Meta:
+        model = Document
+        fields = ('name', 'attachment', 'type', )
+
+    def __init__(self, *args, **kwargs):
+        super(DocumentForm, self).__init__(*args, **kwargs)
+        self.set_helper('7', (
+            HTML('<fieldset class="formset-form">'),
+            'name',
+            'attachment',
+            'type',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        ))
+
+
+OrganizationForm7 = forms.models.inlineformset_factory(Organization, Document, form=DocumentForm, extra=2)
+OrganizationForm7.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm7.add_label = u'Ajouter un document'
+
+
+class RelationForm(OrganizationMixin, forms.ModelForm):
+
+    class Meta:
+        model = Relation
+        fields = ('relation_type', 'target')
+
+    def __init__(self, *args, **kwargs):
+        super(RelationForm, self).__init__(*args, **kwargs)
+        self.set_helper('8', (
+            HTML('<fieldset class="formset-form">'),
+            'relation_type',
+            'target',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        ))
+
+
+OrganizationForm8 = forms.models.inlineformset_factory(Organization, Relation, form=RelationForm, fk_name='source', extra=2)
+OrganizationForm8.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm8.add_label = u'Ajouter une relation'

@@ -1,4 +1,4 @@
-{% load i18n staticfiles crispy_forms_tags %}
+{% load i18n staticfiles crispy_forms_tags ascii %}
 
 <div class="main-content">
     <div class="container">
@@ -16,7 +16,7 @@
             <div class="col-lg-9">
                 <div class="content-box">
                     <div class="section-head">
-                        <h1 class="title">Mon profil</h1>
+                        <h1 class="title">{{ title|ascii }}</h1>
                         <ul class="pager">
                             <li><a href="javascript: void();" class="prev inactive"><span class="arrow">g</span> Previous</a></li>
                             <li><a href="javascript: void();" class="next">Étape <span class="step-current">{{ wizard.steps.step1 }}</span>/<span class="step-total">{{ wizard.steps.count }}</span> <span class="arrow">f</span></a></li>
@@ -26,7 +26,27 @@
                         {#<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris</p>#}
                         <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
                             {{ wizard.management_form }}
-                            {% crispy wizard.form %}
+                                {% if wizard.form.form %}
+                                    {% crispy wizard.form wizard.form.form.helper %}
+                                {% else %}
+                                    <fieldset>
+                                        {% crispy wizard.form %}
+                                    </fieldset>
+                                {% endif %}
+                                <fieldset class="text-center">
+                                    {% if wizard.form.form %}
+                                        <button class="add-link btn btn--form">{{ wizard.form.add_label }}</button>
+                                    {% endif %}
+                                    {% if wizard.steps.prev %}
+                                        <button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}" class="btn btn--form">Étape précédente</button>
+                                    {% endif %}
+                                    {% if wizard.steps.next %}
+                                        <button type="submit" class="btn btn-default">Étape suivante</button>
+                                    {% else %}
+                                        <button type="submit" class="btn btn-default">Enregistrer</button>
+                                    {% endif %}
+                                </fieldset>
+                            </fieldset>
                         </form>
                     </div>
                 </div>
@@ -63,6 +83,7 @@
 $('#id_1-birth, #id_2-birth').datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'viewMode': 'years'});
 
 jQuery(document).ready(function() {
+
     $('#id_1-is_customer, #id_2-is_customer').change(function() {
         var fields = $('#div_id_1-customer_type, #div_id_2-customer_type');
         if ($(this).is(':checked')) {
@@ -84,14 +105,41 @@ jQuery(document).ready(function() {
     $('#id_1-is_customer, #id_2-is_customer').trigger('change');
     $('#id_1-acronym, #id_2-acronym').trigger('keyup');
 
-    $('#id_3-activities, #id_4-activities').select2();
-    $('#id_3-transverse_themes, #id_4-transverse_themes').select2();
-    $('#id_3-category, #id_4-category').select2();
-    $('#id_3-category_iae, #id_4-category_iae').select2();
-    $('#id_3-agreement_iae, #id_4-agreement_iae').select2();
-
     $('.as-selections').addClass('form-control');
     $('.as-input').removeClass('form-control');
+
+    /* Select2 */
+
+    $('select').select2();
+
+    /* Formset */
+
+    $('.formset-form:last').hide();
+
+    $('.add-link').click(function() {
+        var newElement = $('.formset-form:last').clone(true);
+        var total = $('#id_{{ wizard.steps.current }}_TOTAL_FORMS').val();
+        newElement.find(':input').each(function() {
+            var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+            var id = 'id_' + name;
+        });
+        newElement.find('label').each(function() {
+            var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+            $(this).attr('for', newFor);
+        });
+        total++;
+        $('#id_{{ wizard.steps.current }}-TOTAL_FORMS').val(total);
+        $('.formset-form:last').before(newElement);
+        newElement.show();
+        return false;
+    });
+
+    $('.delete-link').click(function() {
+        $(this).parent().find("input").prop('checked', true);
+        $(this).parents("fieldset").addClass("hidden");
+        return false;
+    });
+
 });
 
 </script>

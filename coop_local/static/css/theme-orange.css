@@ -1066,13 +1066,24 @@ hr {
 .form label a {
   text-decoration: underline;
 }
+.form .form-control {
+  max-width: 80%;
+}
 @media (min-width: 992px) {
   .form .form-control {
     max-width: 60%;
   }
 }
-.form .form-control {
+.form .input-group {
   max-width: 80%;
+}
+@media (min-width: 992px) {
+  .form .input-group {
+    max-width: 60%;
+  }
+}
+.form .input-group .form-control {
+  max-width: 100%;
 }
 .radio input[type="radio"] {
   margin-top: 1px;
