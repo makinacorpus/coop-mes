@@ -2,56 +2,55 @@
 
 <div class="main-content">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 sidebar sidebar--left">
-                <div class="content-box profile">
-                    <h2 class="iconf-user section-title">Mon profil</h2>
-                    <ul class="list-group">
-                        {% for title in titles %}
-                            <li class="list-group-item"><a href="javascript: void();" {% if wizard.steps.current == forloop.counter0|stringformat:"u" %}class="active"{% endif %}>{{ title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="content-box">
-                    <div class="section-head">
-                        <h1 class="title">{{ title|ascii }}</h1>
-                        <ul class="pager">
-                            <li><a href="javascript: void();" class="prev inactive"><span class="arrow">g</span> Previous</a></li>
-                            <li><a href="javascript: void();" class="next">Étape <span class="step-current">{{ wizard.steps.step1 }}</span>/<span class="step-total">{{ wizard.steps.count }}</span> <span class="arrow">f</span></a></li>
+        <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
+            <div class="row">
+                <div class="col-lg-3 sidebar sidebar--left">
+                    <div class="content-box profile">
+                        <h2 class="iconf-user section-title">Mon profil</h2>
+                        <ul class="list-group">
+                            {% for title in titles %}
+                                <li class="list-group-item"><a href="javascript: void();" {% if wizard.steps.current == forloop.counter0|stringformat:"u" %}class="active"{% endif %}>{{ title }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
-                    <div class="form">
-                        {#<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris</p>#}
-                        <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
+                </div>
+                <div class="col-lg-9">
+                    <div class="content-box">
+                        <div class="section-head">
+                            <h1 class="title">{{ title|ascii }}</h1>
+                            <ul class="pager">
+                                <li><a href="javascript: void();" class="prev {% if not wizard.steps.prev %}inactive{% endif %}"><span class="arrow">g</span> Précédent</a></li>
+                                <li><a href="javascript: void();" class="next {% if not wizard.steps.next %}inactive{% endif %}">Étape <span class="step-current">{{ wizard.steps.step1 }}</span>/<span class="step-total">{{ wizard.steps.count }}</span> <span class="arrow">f</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="form">
+                            {#<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris</p>#}
                             {{ wizard.management_form }}
-                                {% if wizard.form.form %}
-                                    {% crispy wizard.form wizard.form.form.helper %}
-                                {% else %}
-                                    <fieldset>
-                                        {% crispy wizard.form %}
-                                    </fieldset>
-                                {% endif %}
-                                <fieldset class="text-center">
-                                    {% if wizard.form.form %}
-                                        <button class="add-link btn btn--form">{{ wizard.form.add_label }}</button>
-                                    {% endif %}
-                                    {% if wizard.steps.prev %}
-                                        <button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}" class="btn btn--form">Étape précédente</button>
-                                    {% endif %}
-                                    {% if wizard.steps.next %}
-                                        <button type="submit" class="btn btn-default">Étape suivante</button>
-                                    {% else %}
-                                        <button type="submit" class="btn btn-default">Enregistrer</button>
-                                    {% endif %}
+                            {% if wizard.form.form %}
+                                {% crispy wizard.form wizard.form.form.helper %}
+                            {% else %}
+                                <fieldset>
+                                    {% crispy wizard.form %}
                                 </fieldset>
+                            {% endif %}
+                            <fieldset class="text-center">
+                                {% if wizard.form.form %}
+                                    <button class="add-link btn btn--form">{{ wizard.form.add_label }}</button>
+                                {% endif %}
+                                {% if wizard.steps.prev %}
+                                    <button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}" class="btn btn--form">Étape précédente</button>
+                                {% endif %}
+                                {% if wizard.steps.next %}
+                                    <button type="submit" class="btn btn-default">Étape suivante</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-default">Enregistrer</button>
+                                {% endif %}
                             </fieldset>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -63,13 +62,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Charte de l'utilisateur</h4>
+                    <div class="modal-title__bg"></div>
+                    <h4 class="modal-title title">Charte de l'utilisateur</h4>
                 </div>
                 <div class="modal-body">
                     {{ charte|safe }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

@@ -8,6 +8,7 @@
 @import "bootstrap/mixins.less";
 
 @import "utils.less";
+@import "variables-default.less";
 
 /* ==========================================================================
    Base styles
@@ -59,6 +60,7 @@ h3 {
 
 a {
     color: @body-color;
+    .transition(all 150ms);
 }
 
 a:hover, a:focus {
@@ -94,6 +96,7 @@ hr {
 @import "objects/pagination.less";
 @import "objects/links-list.less";
 @import "objects/description-list.less";
+@import "objects/modal.less";
 
 
 
@@ -233,6 +236,7 @@ hr {
                 .border-radius(10px);
                 margin: 5px 10px;
                 padding: 15px;
+                .transition(none);
 
                 @media (min-width: @screen-desktop) {
                     background: none;
@@ -390,24 +394,6 @@ hr {
                 }
             }
         }
-    }
-}
-
-
-
-
-.cms-content {
-    ul {
-        overflow: hidden; // bug fix for floating img
-    }
-
-    img {
-        margin-bottom: 10px;
-    }
-
-    h2.Standard {
-        font-size: 26px;
-        .separator-title;
     }
 }
 
@@ -651,6 +637,21 @@ hr {
     }
 }
 
+.cms-content {
+    ul {
+        overflow: hidden; // bug fix for floating img
+    }
+
+    img {
+        margin-bottom: 10px;
+    }
+
+    h2.Standard {
+        font-size: 26px;
+        .separator-title;
+    }
+}
+
 // SIDEBAR PAGES
 .sidebar {
     .content-box {
@@ -716,7 +717,7 @@ hr {
 
 
 
-
+// APPEL D'OFFRES DETAIL
 .request-proposal-detail {
     h1 {
         text-transform: none;
@@ -735,6 +736,10 @@ hr {
             &:before {
                 color: @color3lighter;
                 font-size: 26px;
+            }
+
+            &:hover:before {
+                color: @color3;
             }
         }
     }
@@ -813,7 +818,10 @@ hr {
 
 
 
-
+.results .activity {
+    max-width: 65%;
+    height: 25px;
+}
 
 
 
