@@ -1,21 +1,96 @@
-<div id="encart">
-    <h3>Chiffre d'affaire annuel&nbsp;:</h3>
-    <p>{{ org.annual_revenue|default_if_none:"-" }}</p>
-    <h3>Effectif total (ETP)&nbsp;:</h3>
-    <p>{{ org.workforce|default_if_none:"-" }}</p>
-    <h3>Effectif de production (ETP)&nbsp;:</h3>
-    <p>{{ org.production_workforce|default_if_none:"-" }}</p>
-    <h3>Effectif d'encadrement&nbsp;:</h3>
-    <p>{{ org.supervision_workforce|default_if_none:"-" }}</p>
-    <h3>Nombre de salariés en insertion (ETP)&nbsp;:</h3>
-    <p>{{ org.integration_workforce|default_if_none:"-" }}</p>
-    <h3>Nombre de personnes en insertion accompagnées par an&nbsp;:</h3>
-    <p>{{ org.annual_integration_number|default_if_none:"-" }}</p>
-    <h3>Références client&nbsp;:</h3>
-    {% for r in org.references %}
-        <p><a href="{{ r.source.web }}">{{ r.source }}</a> (de {{ r.from_year|default:"-" }} à {{ r.to_year|default:"-" }})&nbsp;: {{ r.services }}</p>
-    {% empty %}
-        <p>-</p>
-    {% endfor %}
-    <p></p>
-</div>
+{% if org.annual_revenue %}
+    <div class="row">
+        <div class="col-lg-4">
+            Chiffre d'affaire annuel&nbsp;:
+        </div>
+        <div class="col-lg-8">
+            {{ org.annual_revenue }}&nbsp;€
+        </div>
+    </div>
+{% endif %}
+
+{% if org.workforce %}
+    <div class="row">
+        <div class="col-lg-4">
+            Effectif total&nbsp;:
+        </div>
+        <div class="col-lg-8">
+            {{ org.workforce }} ETP
+        </div>
+    </div>
+{% endif %}
+
+{% if org.production_workforce %}
+    <div class="row">
+        <div class="col-lg-4">
+            Effectif de production&nbsp;:
+        </div>
+        <div class="col-lg-8">
+            {{ org.production_workforce }} ETP
+        </div>
+    </div>
+{% endif %}
+
+{% if org.supervision_workforce %}
+    <div class="row">
+        <div class="col-lg-4">
+            Effectif d'encadrement&nbsp;:
+        </div>
+        <div class="col-lg-8">
+            {{ org.supervision_workforce }} ETP
+        </div>
+    </div>
+{% endif %}
+
+{% if org.integration_workforce %}
+    <div class="row">
+        <div class="col-lg-4">
+            Nombre de salariés en insertion&nbsp;:
+        </div>
+        <div class="col-lg-8">
+            {{ org.integration_workforce }} ETP
+        </div>
+    </div>
+{% endif %}
+
+{% if org.annual_integration_number %}
+    <div class="row">
+        <div class="col-lg-4">
+            Nombre de personnes en insertion accompagnées par an&nbsp;:
+        </div>
+        <div class="col-lg-8">
+            {{ org.annual_integration_number }}
+        </div>
+    </div>
+{% endif %}
+
+{% if org.references %}
+    <div class="row">
+        <div class="col-lg-4">
+            Références client&nbsp;:
+        </div>
+        <div class="col-lg-8">
+            <ul>
+                {% for r in org.references %}
+                    <li>
+                        <a href="{{ r.source.web }}">{{ r.source }}</a>
+                        {% if r.from_year %}
+                            {% if r.to_year %}
+                                (de {{ r.from_year }} à {{ r.to_year }})&nbsp;:<br/>
+                            {% else %}
+                                (à partir de {{ r.from_year }})&nbsp;:<br/>
+                            {% endif %}
+                        {% else %}
+                            {% if r.to_year %}
+                                (jusqu'à {{ r.to_year }})&nbsp;:<br/>
+                            {% else %}
+                                &nbsp;:<br/>
+                            {% endif %}
+                        {% endif %}
+                        {{ r.services }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
