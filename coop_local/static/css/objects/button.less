@@ -1,4 +1,9 @@
 // BUTTONS OBJECTS
+
+button {
+    .transition(all 200ms);
+}
+
 // Base class override Bootstrap
 .btn {
     padding: 6px 12px;
@@ -137,7 +142,7 @@
     text-shadow: 0 1px rgba(0,0,0,.32);
     .border-radius(4px);
     background-color: @color1;
-    border: solid 1px @color1darker;
+    border: solid 1px darken(@color1, 10%);
     background-image: -webkit-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
     background-image: -moz-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));
     background-image: -o-linear-gradient(top, rgba(255,255,255,.34), rgba(255,255,255,0));

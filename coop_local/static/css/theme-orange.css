@@ -506,6 +506,7 @@ hr {
 }
 .fiche .activity-container {
   max-width: 40%;
+  margin-top: 2px;
 }
 .fiche .activity {
   margin-bottom: 5px;
@@ -700,6 +701,10 @@ hr {
 .list-group-item--infos.iconf-emails:before {
   font-size: 26px;
 }
+button {
+  -webkit-transition: all 200ms;
+  transition: all 200ms;
+}
 .btn {
   padding: 6px 12px;
 }
@@ -838,7 +843,7 @@ hr {
   -moz-border-radius: 4px;
   border-radius: 4px;
   background-color: #ed7009;
-  border: solid 1px #54ae4e;
+  border: solid 1px #bc5907;
   background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
   background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
   background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
@@ -1427,8 +1432,14 @@ dt:before {
   position: absolute;
   left: -30px;
 }
+body.modal-open {
+  overflow: auto;
+}
 .modal {
   overflow: hidden;
+}
+.modal.shown {
+  overflow-y: scroll;
 }
 .modal-dialog {
   bottom: 0;
@@ -1504,12 +1515,16 @@ dt:before {
 }
 .modal-header .close:hover {
   opacity: 0.8;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 .modal-body {
   position: absolute;
   overflow: auto;
   top: 52px;
   bottom: 0;
+  left: 0;
+  right: 0;
   margin: 10px;
   border: 1px solid #d3d3d3;
 }

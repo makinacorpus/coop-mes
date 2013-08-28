@@ -1,5 +1,13 @@
+body.modal-open {
+	overflow: auto;
+}
+
 .modal {
 	overflow: hidden;
+
+	&.shown {
+		overflow-y: scroll;
+	}
 }
 
 .modal-dialog {
@@ -77,6 +85,7 @@
 
 		&:hover {
 			opacity: 0.8;
+			.box-shadow(none);
 		}
 	}
 }
@@ -86,6 +95,8 @@
 	overflow: auto;
 	top: 52px;
 	bottom: 0;
+	left: 0;
+	right: 0;
 	margin: 10px;
 	border: 1px solid @grey-divider;
 
