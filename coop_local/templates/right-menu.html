@@ -32,9 +32,13 @@
 <div class="content-box profile">
     <h1 class="iconf-user section-title">Mon profil</h1>
     <ul class="list-group">
-        <li class="list-group-item"><a href="#">Mes appels d'offres</a></li>
-        <li class="list-group-item"><a href="/mon-compte/p/mes-organisations/">Mes clients et fournisseurs</a></li>
-        <li class="list-group-item"><a href="#">Mes évènements</a></li>
-        <li class="list-group-item"><a href="/mon-compte/">Mes informations</a></li>
+        {% if request.user.is_authenticated %}
+            <li class="list-group-item"><a href="#">Mes appels d'offres</a></li>
+            <li class="list-group-item"><a href="/mon-compte/p/mes-organisations/">Mes clients et fournisseurs</a></li>
+            <li class="list-group-item"><a href="#">Mes évènements</a></li>
+            <li class="list-group-item"><a href="/mon-compte/">Mes informations</a></li>
+        {% else %}
+            <li class="list-group-item"><a href="/mon-compte/">Connexion</a></li>
+        {% endif %}
     </ul>
 </div>
