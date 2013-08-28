@@ -4,7 +4,8 @@ from django import forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
-    Organization, Engagement, Role, Document, Relation, Located, Location)
+    Organization, Engagement, Role, Document, Relation, Located, Location,
+    Contact)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -316,7 +317,7 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
             kwargs['initial'] = dict([(field, getattr(instance.location, field))
                 for field in ('adr1', 'adr2', 'zipcode', 'city')])
         super(LocatedForm, self).__init__(*args, **kwargs)
-        self.set_helper('8', (
+        self.set_helper('9', (
             HTML('<fieldset class="formset-form">'),
             'main_location',
             'category',
@@ -347,3 +348,54 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
 OrganizationForm9 = generic_inlineformset_factory(Located, form=LocatedForm, formset=LocatedInlineFormSet, extra=2)
 OrganizationForm9.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: LocatedInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm9.add_label = u'Ajouter un lieu'
+
+
+class ContactInlineFormSet(BaseGenericInlineFormSet):
+
+    def _construct_form(self, i, **kwargs):
+        kwargs['organization'] = self.instance
+        return super(ContactInlineFormSet, self)._construct_form(i, **kwargs)
+
+
+class ContactForm(OrganizationMixin, forms.ModelForm):
+
+    class Meta:
+        model = Contact
+        fields = ('contact_medium', 'content', 'location')
+
+    def __init__(self, *args, **kwargs):
+        organization = kwargs.pop('organization', None)
+        super(ContactForm, self).__init__(*args, **kwargs)
+        if organization:
+            queryset = Location.objects.filter(located__organization=organization)
+            self.fields['location'].queryset = queryset
+        else:
+            queryset = Location.objects.none()
+        self.set_helper('10', (
+            HTML('<fieldset class="formset-form">'),
+            'contact_medium',
+            'content',
+            'location',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        ))
+
+
+OrganizationForm10 = generic_inlineformset_factory(Contact, form=ContactForm, formset=ContactInlineFormSet, extra=2)
+OrganizationForm10.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: ContactInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm10.add_label = u'Ajouter un contact'
+
+
+ORGANIZATION_FORMS = (
+    OrganizationForm0,
+    OrganizationForm1,
+    OrganizationForm2,
+    OrganizationForm3,
+    OrganizationForm4,
+    OrganizationForm5,
+    OrganizationForm6,
+    OrganizationForm7,
+    OrganizationForm8,
+    OrganizationForm9,
+    OrganizationForm10,
+)

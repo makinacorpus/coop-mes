@@ -2,10 +2,7 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch,  OrganizationForm0, OrganizationForm1,
-    OrganizationForm2, OrganizationForm3, OrganizationForm4,
-    OrganizationForm5, OrganizationForm6, OrganizationForm7,
-    OrganizationForm8, OrganizationForm9)
+from .forms import (OrgSearch,ORGANIZATION_FORMS)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
     Person, Location, Relation)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
@@ -134,17 +131,18 @@ class OrganizationEditView(SessionWizardView):
         return self.form_list[step](**kwargs)
 
 
-organization_create_forms = (
-    OrganizationForm0,
-    OrganizationForm1,
-    OrganizationForm2,
-    OrganizationForm3,
-    OrganizationForm4,
-    OrganizationForm5,
-    OrganizationForm6,
-    OrganizationForm7,
-    OrganizationForm8,
-    OrganizationForm9,
+ORGANIZATION_TITLES = (
+    u'Codes d\'accès',
+    u'Données personnelles',
+    u'Type d\'organisation',
+    u'Description',
+    u'Catégories',
+    u'Données économiques',
+    u'Témoignage',
+    u'Documents',
+    u'Relations',
+    u'Lieux',
+    u'Contacts',
 )
 
 ORGANIZATION_MEDIA = (
@@ -189,7 +187,7 @@ class OrganizationCreateView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[7:10]:
+        for form in forms[7:11]:
             form.save()
         # Engagement
         engagement = Engagement()
@@ -204,18 +202,7 @@ class OrganizationCreateView(OrganizationEditView):
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
-        context['titles'] = (
-            u'Codes d\'accès',
-            u'Données personnelles',
-            u'Type d\'organisation',
-            u'Description',
-            u'Catégories',
-            u'Données économiques',
-            u'Témoignage',
-            u'Documents',
-            u'Relations',
-            u'Lieux',
-        )
+        context['titles'] = ORGANIZATION_TITLES
         context['title'] = context['titles'][int(self.steps.current)]
         if self.steps.current == '0':
             try:
@@ -227,10 +214,8 @@ class OrganizationCreateView(OrganizationEditView):
             ORGANIZATION_MEDIA,
             context_instance=RequestContext(self.request))
 
-add_view = OrganizationCreateView.as_view(organization_create_forms)
+add_view = OrganizationCreateView.as_view(ORGANIZATION_FORMS)
 
-
-organization_change_forms = organization_create_forms[1:]
 
 class OrganizationChangeView(OrganizationEditView):
 
@@ -259,8 +244,8 @@ class OrganizationChangeView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[6:9]:
-             form.save()
+        for form in forms[6:10]:
+            form.save()
         # Engagement
         self.engagement.tel = forms[0].cleaned_data['tel']
         self.engagement.email = forms[0].cleaned_data['email']
@@ -270,21 +255,11 @@ class OrganizationChangeView(OrganizationEditView):
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
-        context['titles'] = (
-            u'Données personnelles',
-            u'Type d\'organisation',
-            u'Description',
-            u'Catégories',
-            u'Données économiques',
-            u'Témoignage',
-            u'Documents',
-            u'Relations',
-            u'Lieux',
-        )
+        context['titles'] = ORGANIZATION_TITLES[1:]
         context['title'] = context['titles'][int(self.steps.current)]
         return render_view(self.get_template_names(),
             context,
             ORGANIZATION_MEDIA,
             context_instance=RequestContext(self.request))
 
-change_view = login_required(OrganizationChangeView.as_view(organization_change_forms))
+change_view = login_required(OrganizationChangeView.as_view(ORGANIZATION_FORMS[1:]))

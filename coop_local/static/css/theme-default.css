@@ -1073,7 +1073,7 @@ button {
   background-color: #fafafa;
   border: 1px solid #e8ebef;
   padding: 10px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 @media (min-width: 992px) {
   .form fieldset {
