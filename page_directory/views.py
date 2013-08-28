@@ -5,7 +5,7 @@ from ionyweb.website.rendering.utils import render_view
 from .forms import (OrgSearch,  OrganizationForm0, OrganizationForm1,
     OrganizationForm2, OrganizationForm3, OrganizationForm4,
     OrganizationForm5, OrganizationForm6, OrganizationForm7,
-    OrganizationForm8)
+    OrganizationForm8, OrganizationForm9)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
     Person, Location, Relation)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
@@ -24,6 +24,7 @@ from django.db.models import Q
 from django.utils.timezone import now
 from django.contrib.gis.measure import Distance
 from django.db import transaction
+from django.contrib.contenttypes.generic import BaseGenericInlineFormSet
 
 
 def index_view(request, page_app):
@@ -125,8 +126,10 @@ class OrganizationEditView(SessionWizardView):
             'data': data,
             'files': files,
             'prefix': self.get_form_prefix(step, self.form_list[step]),
-            'initial': self.get_form_initial(step),
         })
+        initial = self.get_form_initial(step)
+        if initial:
+            kwargs['initial'] = initial
         kwargs.setdefault('instance', self.get_form_instance(step))
         return self.form_list[step](**kwargs)
 
@@ -141,6 +144,7 @@ organization_create_forms = (
     OrganizationForm6,
     OrganizationForm7,
     OrganizationForm8,
+    OrganizationForm9,
 )
 
 ORGANIZATION_MEDIA = (
@@ -185,7 +189,7 @@ class OrganizationCreateView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[7:9]:
+        for form in forms[7:10]:
             form.save()
         # Engagement
         engagement = Engagement()
@@ -210,6 +214,7 @@ class OrganizationCreateView(OrganizationEditView):
             u'Témoignage',
             u'Documents',
             u'Relations',
+            u'Lieux',
         )
         context['title'] = context['titles'][int(self.steps.current)]
         if self.steps.current == '0':
@@ -254,7 +259,7 @@ class OrganizationChangeView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[6:8]:
+        for form in forms[6:9]:
              form.save()
         # Engagement
         self.engagement.tel = forms[0].cleaned_data['tel']
@@ -274,6 +279,7 @@ class OrganizationChangeView(OrganizationEditView):
             u'Témoignage',
             u'Documents',
             u'Relations',
+            u'Lieux',
         )
         context['title'] = context['titles'][int(self.steps.current)]
         return render_view(self.get_template_names(),

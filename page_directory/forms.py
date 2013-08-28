@@ -4,7 +4,7 @@ from django import forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
-    Organization, Engagement, Role, Document, Relation)
+    Organization, Engagement, Role, Document, Relation, Located, Location)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -19,6 +19,9 @@ from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
 from django.db.models import Q
+from django.contrib.contenttypes.generic import (
+    generic_inlineformset_factory, BaseGenericInlineFormSet)
+from django.contrib.contenttypes.models import ContentType
 
 
 class PageApp_DirectoryForm(ModuloModelForm):
@@ -287,3 +290,60 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
 OrganizationForm8 = forms.models.inlineformset_factory(Organization, Relation, form=RelationForm, fk_name='source', extra=2)
 OrganizationForm8.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm8.add_label = u'Ajouter une relation'
+
+
+class LocatedInlineFormSet(BaseGenericInlineFormSet):
+
+    def save_new(self, form, commit=True):
+        """ Default save_new does not call our form.save() method. """
+        return form.save(commit, self.instance)
+
+
+class LocatedForm(OrganizationMixin, forms.ModelForm):
+
+    adr1 = forms.CharField(label=_(u"address"), max_length=100)
+    adr2 = forms.CharField(label=_(u"address (extra)"), required=False, max_length=100)
+    zipcode = forms.CharField(label=_(u"zipcode"), required=False, max_length=5)
+    city = forms.CharField(label=_(u"city"), required=False, max_length=100)
+
+    class Meta:
+        model = Located
+        fields = ('main_location', 'category', 'opening')
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        if instance and instance.location:
+            kwargs['initial'] = dict([(field, getattr(instance.location, field))
+                for field in ('adr1', 'adr2', 'zipcode', 'city')])
+        super(LocatedForm, self).__init__(*args, **kwargs)
+        self.set_helper('8', (
+            HTML('<fieldset class="formset-form">'),
+            'main_location',
+            'category',
+            'adr1', 'adr2', 'zipcode', 'city',
+            'opening',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        ))
+
+    def save(self, commit=True, rel_instance=None):
+        located = super(LocatedForm, self).save(commit=False)
+        if rel_instance:
+            located.content_type = ContentType.objects.get_for_model(rel_instance)
+            located.object_id = rel_instance.pk
+        location = located.location
+        if location is None:
+            location = Location()
+        for field in ('adr1', 'adr2', 'zipcode', 'city'):
+            setattr(location, field, self.cleaned_data[field])
+        if commit:
+            location.save()
+        located.location = location
+        if commit:
+            located.save()
+        return located
+
+
+OrganizationForm9 = generic_inlineformset_factory(Located, form=LocatedForm, formset=LocatedInlineFormSet, extra=2)
+OrganizationForm9.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: LocatedInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm9.add_label = u'Ajouter un lieu'
