@@ -431,6 +431,9 @@ class Organization(BaseOrganization):
     def offer_activities(self):
         return ", ".join(self.offer_set.values_list('activity__label', flat=True).distinct())
 
+    def category_iae_desc(self):
+        return ", ".join([cat.description or cat.label for cat in self.category_iae.all()])
+
     def offer_areas(self):
         areas = set()
         for offer in self.offer_set.all():

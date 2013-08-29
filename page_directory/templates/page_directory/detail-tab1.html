@@ -71,9 +71,17 @@
             <dt class="iconf-info-circled">Statut juridique :</dt>
             <dd>{{ org.legal_status }}</dd>
 
-            <dt class="iconf-bag">Spécificités :</dt>
-            {% if org.category_iae %}<dd>{{ org.category_iae.all|join:", " }}</dd>{% endif %}
-            {% if org.category %}<dd>{{ org.category.all|join:", " }}</dd>{% endif %}
+            {% if org.category.all or org.agreement_iae.all %}
+                <dt class="iconf-bag">Spécificités :</dt>
+                {% if org.category.all %}<dd>{{ org.category.all|join:", " }}</dd>{% endif %}
+                {% for agreement in org.agreement_iae.all %}
+                    {% if agreement.label == "Conventionnement IAE" %}
+                        <dd>Conventionnement IAE {{ org.category_iae_desc }}</dd>
+                    {% else %}
+                        <dd>Agrément {{ agreement.label }}</dd>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
 
             <dt class="iconf-rubon">Thématique{{ org.transverse_themes.count|pluralize }} :</dt>
             {% for theme in org.transverse_themes.all %}
