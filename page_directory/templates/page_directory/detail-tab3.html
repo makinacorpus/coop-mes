@@ -3,15 +3,22 @@
         <h3>Interlocuteur{{ org.engagement_set.all|length|pluralize }}</h3>
         {% for e in org.engagement_set.all %}
             <p>
-                {{ e.person.first_name }} {{ e.person.last_name }}, {{ e.role|default:"" }}
+                {{ e.person.get_gender_display }} {{ e.person.first_name }} {{ e.person.last_name }}
+                {% if e.role %}<br />{{ e.role }}{% endif %}
                 {% if e.tel %}<br/>Tél.&nbsp;: {{ e.tel }}{% endif %}
                 {% if e.email %}<br/>Email&nbsp;: <a href="mailto:{{ e.email  }}">{{ e.email }}</a>{% endif %}
             </p>
         {% endfor %}
     </div>
     <div class="col-lg-6">
+        {% if org.other_contacts %}
+            <h3>Coordonnées</h3>
+            {% for c in org.other_contacts %}
+                {% if c.contact_medium %}{{ c.contact_medium }}&nbsp;: {% endif %}{% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
+            {% endfor %}
+        {% endif %}
         {% for l in org.located.all %}
-            <h3>{{ l.category|default:"Adresse principale" }}</h3>
+            <h3>{{ l.category|default:"Localisation" }}</h3>
             <p>
                 {{ l.location.adr1 }}
                 {% if l.location.adr2 %}<br/>{{ l.location.adr2 }}{% endif %}
@@ -19,13 +26,8 @@
                 {% for c in l.location.contact_set.all %}
                     <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
                 {% endfor %}
+                {% if l.opening %}<br />Ouverture&nbsp;: {{ l.opening }}{% endif %}
             </p>
         {% endfor %}
-        {% if 0 and org.other_contacts %}
-            <h3>Contact{{ org.other_contacts|length|pluralize }}</h3>
-            {% for c in org.other_contacts %}
-                {{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
-            {% endfor %}
-        {% endif %}
     </div>
 </div>
