@@ -143,6 +143,7 @@ ORGANIZATION_TITLES = (
     u'Relations',
     u'Lieux',
     u'Contacts',
+    u'Membres',
 )
 
 ORGANIZATION_MEDIA = (
@@ -187,7 +188,7 @@ class OrganizationCreateView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[7:11]:
+        for form in forms[7:12]:
             form.save()
         # Engagement
         engagement = Engagement()
@@ -244,7 +245,7 @@ class OrganizationChangeView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[6:10]:
+        for form in forms[6:11]:
             form.save()
         # Engagement
         self.engagement.tel = forms[0].cleaned_data['tel']

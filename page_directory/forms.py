@@ -5,13 +5,12 @@ from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
     Organization, Engagement, Role, Document, Relation, Located, Location,
-    Contact)
+    Contact, Person)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
 from chosen import widgets as chosenwidgets
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from coop_local.models import Person
 from django.utils.translation import ugettext, ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, HTML, Field
@@ -293,7 +292,7 @@ OrganizationForm8.__init__ = lambda self, step, is_customer, is_provider, *args,
 OrganizationForm8.add_label = u'Ajouter une relation'
 
 
-class LocatedInlineFormSet(BaseGenericInlineFormSet):
+class SaveGenericInlineFormset(BaseGenericInlineFormSet):
 
     def save_new(self, form, commit=True):
         """ Default save_new does not call our form.save() method. """
@@ -345,8 +344,8 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
         return located
 
 
-OrganizationForm9 = generic_inlineformset_factory(Located, form=LocatedForm, formset=LocatedInlineFormSet, extra=2)
-OrganizationForm9.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: LocatedInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm9 = generic_inlineformset_factory(Located, form=LocatedForm, formset=SaveGenericInlineFormset, extra=2)
+OrganizationForm9.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: SaveGenericInlineFormset.__init__(self, *args, **kwargs)
 OrganizationForm9.add_label = u'Ajouter un lieu'
 
 
@@ -386,6 +385,57 @@ OrganizationForm10.__init__ = lambda self, step, is_customer, is_provider, *args
 OrganizationForm10.add_label = u'Ajouter un contact'
 
 
+class EngagementForm(OrganizationMixin, forms.ModelForm):
+
+    gender = forms.ChoiceField(choices=(('', u'---'), ('M',  _(u'Mr')), ('W',  _(u'Mrs'))), label=_(u'gender'), required=False)
+    last_name = forms.CharField(label=_(u'last name'), max_length=100)
+    first_name = forms.CharField(label=_(u'first name'), max_length=100, required=False)
+
+    class Meta:
+        model = Engagement
+        fields = ('role', 'tel', 'email')
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        if instance and instance.person:
+            kwargs['initial'] = dict([(field, getattr(instance.person, field))
+                for field in ('gender', 'last_name', 'first_name')])
+        super(EngagementForm, self).__init__(*args, **kwargs)
+        self.set_helper('11', (
+            HTML('<fieldset class="formset-form">'),
+            'gender',
+            'first_name',
+            'last_name',
+            'role',
+            'tel',
+            'email',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        ))
+
+    def save(self, commit=True, rel_instance=None):
+        engagement = super(EngagementForm, self).save(commit=False)
+        if rel_instance:
+            engagement.content_type = ContentType.objects.get_for_model(rel_instance)
+            engagement.object_id = rel_instance.pk
+        try:
+            person = engagement.person
+        except Person.DoesNotExist:
+            person = Person()
+        for field in ('gender', 'first_name', 'last_name'):
+            setattr(person, field, self.cleaned_data[field])
+        person.save()
+        engagement.person = person
+        if commit:
+            engagement.save()
+        return engagement
+
+
+OrganizationForm11 = forms.models.inlineformset_factory(Organization, Engagement, form=EngagementForm, extra=2)
+OrganizationForm11.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm11.add_label = u'Ajouter un membre'
+
+
 ORGANIZATION_FORMS = (
     OrganizationForm0,
     OrganizationForm1,
@@ -398,4 +448,5 @@ ORGANIZATION_FORMS = (
     OrganizationForm8,
     OrganizationForm9,
     OrganizationForm10,
+    OrganizationForm11,
 )
