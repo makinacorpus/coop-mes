@@ -97,7 +97,7 @@ git+git://github.com/makinacorpus/django-selectable.git@master
 git+git://github.com/credis/geo-django-fla.git
 
 # Ionyweb
-git+git://github.com/makinacorpus/ionyweb.git
+git+git://github.com/makinacorpus/ionyweb.git@pasr
 Jinja2
 PIL
 PyYAML
