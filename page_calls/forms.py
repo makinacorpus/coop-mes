@@ -6,6 +6,9 @@ from .models import PageApp_Calls
 from coop_local.models import CallForTenders, ActivityNomenclature, Organization
 from coop_local.models.local_models import CLAUSE_CHOICES, ORGANIZATION_STATUSES
 from django.conf import settings
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, HTML, Field
+from crispy_forms.bootstrap import InlineCheckboxes, FormActions, StrictButton, AppendedText
 
 
 ORG_TYPE_CHOICES = (
@@ -32,3 +35,35 @@ class CallSearch(forms.Form):
         super(CallSearch, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'
+
+
+class CallForm(forms.ModelForm):
+
+    class Meta:
+        model = CallForTenders
+        fields = (
+            'title',
+            'activity',
+            'area',
+            'allotment',
+            'lot_numbers',
+            'clauses',
+            'deadline',
+            'url',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(CallForm, self).__init__(*args, **kwargs)
+        self.fields['activity'].help_text = u''
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'title',
+            'activity',
+            'area',
+            'allotment',
+            'lot_numbers',
+            InlineCheckboxes('clauses'),
+            'deadline',
+            'url',
+        )

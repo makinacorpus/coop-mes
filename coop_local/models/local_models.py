@@ -440,6 +440,19 @@ class Organization(BaseOrganization):
             areas |= set([unicode(a) for a in offer.area.all()])
         return ", ".join(areas)
 
+    def future_calls(self):
+        return self.callfortenders_set.order_by('deadline')
+
+    @classmethod
+    def mine(klass, request):
+        if not request.user:
+            return None
+        try:
+            person = request.user.get_profile()
+        except:
+            return None
+        return person.my_organization()
+
     def get_absolute_url(self):
         return '/annuaire/p/%u/' % self.id
 

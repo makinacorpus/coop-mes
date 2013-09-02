@@ -2,24 +2,26 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import CallSearch
+from .forms import CallSearch, CallForm
 from coop_local.models import CallForTenders, Organization
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.utils.timezone import now
 from datetime import timedelta
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
-    # App CSS
-    #CSSMedia('page_calls/bootstrap.min.css'),
-    # App JS
-    # Actions JSAdmin
-    # JSAdminMedia('page_calls_actions.js'),
-    )
+    CSSMedia('select2/select2.css', prefix_file=''),
+    CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
+    JSMedia('select2/select2.min.js', prefix_file=''),
+    CSSMedia('datetimepicker/css/datetimepicker.css', prefix_file=''),
+    JSMedia('datetimepicker/js/bootstrap-datetimepicker.min.js', prefix_file=''),
+    JSMedia('datetimepicker/js/locales/bootstrap-datetimepicker.fr.js', prefix_file=''),
+)
 
 def index_view(request, page_app):
     qd = request.GET.copy()
@@ -65,7 +67,7 @@ def index_view(request, page_app):
     return render_view('page_calls/index.html',
                        {'object': page_app, 'form': form, 'calls': calls_page,
                         'get_params': get_params.urlencode()},
-                       MEDIAS,
+                       (),
                        context_instance=RequestContext(request))
 
 
@@ -75,5 +77,46 @@ def detail_view(request, page_app, pk):
     return render_view('page_calls/detail.html',
                        {'object': page_app, 'call': call,
                         'get_params': get_params.urlencode()},
+                       (),
+                       context_instance=RequestContext(request))
+
+
+@login_required
+def delete_view(request, page_app, pk):
+    call = get_object_or_404(CallForTenders, pk=pk)
+    if not call.organization.engagement_set.filter(org_admin=True, person__user=request.user).exists():
+        return HttpResponseForbidden('Opération interdite')
+    call.delete()
+    return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
+
+
+@login_required
+def update_view(request, page_app, pk):
+    call = get_object_or_404(CallForTenders, pk=pk)
+    if not call.organization.engagement_set.filter(org_admin=True, person__user=request.user).exists():
+        return HttpResponseForbidden('Opération interdite')
+    form = CallForm(request.POST or None, instance=call)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
+    return render_view('page_calls/edit.html',
+                       {'object': page_app, 'form': form},
+                       MEDIAS,
+                       context_instance=RequestContext(request))
+
+
+@login_required
+def add_view(request, page_app):
+    org = Organization.mine(request)
+    if org is None:
+        return HttpResponseForbidden('Opération interdite')
+    form = CallForm(request.POST or None)
+    if form.is_valid():
+        call = form.save(commit=False)
+        call.organization = org
+        call.save()
+        return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
+    return render_view('page_calls/edit.html',
+                       {'object': page_app, 'form': form},
                        MEDIAS,
                        context_instance=RequestContext(request))

@@ -126,3 +126,11 @@ def organizations_view(request, page_app):
         {'organizations': organizations},
         MEDIAS,
         context_instance=RequestContext(request))
+
+
+@login_required
+def my_calls_view(request, page_app):
+    return render_view('page_account/my_calls.html',
+                       {'object': page_app},
+                       MEDIAS,
+                       context_instance=RequestContext(request))
