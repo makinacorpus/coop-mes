@@ -37,6 +37,7 @@ def index_view(request, page_app):
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
         orgs = orgs.filter(
             Q(title__icontains=form.cleaned_data['q']) |
+            Q(acronym__icontains=form.cleaned_data['q']) |
             Q(tagged_items__tag__name__icontains=form.cleaned_data['q']) |
             Q(located__location__city__icontains=form.cleaned_data['q']) |
             Q(activities__path__icontains=form.cleaned_data['q']) |
