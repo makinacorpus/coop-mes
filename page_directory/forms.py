@@ -75,7 +75,9 @@ class OrgSearch(forms.Form):
                 continue
             field.widget.attrs['class'] = 'form-control'
         self.fields['area'].widget.attrs['placeholder'] = u'Tout voir'
+        self.fields['area'].widget.attrs['class'] = u'form-control form-control-small'
         self.fields['radius'].widget.attrs['placeholder'] = u'Dans un rayon de'
+        self.fields['radius'].widget.attrs['class'] = u'form-control form-control-small'
 
 
 class OrganizationMixin(object):
