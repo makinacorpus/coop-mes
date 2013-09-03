@@ -68,8 +68,10 @@
         </div>
         <p>{{ org.brief_description|linebreaks }}</p>
         <dl>
-            <dt class="iconf-info-circled">Statut juridique :</dt>
-            <dd>{{ org.legal_status }}</dd>
+            {% if org.legal_status %}
+                <dt class="iconf-info-circled">Statut juridique :</dt>
+                <dd>{{ org.legal_status }}</dd>
+            {% endif %}
 
             {% if org.category.all or org.agreement_iae.all %}
                 <dt class="iconf-bag">Spécificités :</dt>
@@ -83,13 +85,17 @@
                 {% endfor %}
             {% endif %}
 
-            <dt class="iconf-rubon">Thématique{{ org.transverse_themes.count|pluralize }} :</dt>
-            {% for theme in org.transverse_themes.all %}
-                <dd>{{ theme }}</dd>
-            {% endfor %}
+            {% if org.transverse_themes.count %}
+                <dt class="iconf-rubon">Thématique{{ org.transverse_themes.count|pluralize }} :</dt>
+                {% for theme in org.transverse_themes.all %}
+                    <dd>{{ theme }}</dd>
+                {% endfor %}
+            {% endif %}
 
-            <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
-            <dd>{{ org.tags.all|join:", " }}</dd>
+            {% if org.tags.all %}
+                <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
+                <dd>{{ org.tags.all|join:", " }}</dd>
+            {% endif %}
         </dl>
         <div class="cms-content">{{ org.description|safe }}</div>
     </div>

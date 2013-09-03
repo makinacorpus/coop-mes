@@ -352,7 +352,7 @@ class Organization(BaseOrganization):
     category_iae = models.ManyToManyField('CategoryIAE', blank=True, null=True,
         verbose_name=_(u'category IAE'))
     agreement_iae = models.ManyToManyField('AgreementIAE', blank=True, null=True,
-        verbose_name=_(u'agreement IAE'))
+        verbose_name=_(u'specifics'))
     bdis_id = models.IntegerField(_(u'bdis identifiant'), blank=True, null=True)
 
     # PROVIDER Description

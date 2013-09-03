@@ -5,7 +5,7 @@ from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
     Organization, Engagement, Role, Document, Relation, Located, Location,
-    Contact, Person, Offer)
+    Contact, Person, Offer, Reference, OrgRelationType)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -143,6 +143,9 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, step, is_customer, is_provider, *args, **kwargs):
         super(OrganizationForm2, self).__init__(*args, **kwargs)
+        self.fields['is_provider'].label += '*'
+        self.fields['is_customer'].label += '*'
+        self.fields['customer_type'].label += '*'
         self.set_helper(step, (
             'title', 'acronym', 'pref_label', 'logo', 'birth',
             'legal_status', 'web', 'siret', 'is_provider',
@@ -184,8 +187,8 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
         model = Organization
         fields = (
             'category',
-            'category_iae',
             'agreement_iae',
+            'category_iae',
             'tags',
             'activities',
             'transverse_themes',
@@ -198,8 +201,8 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             del self.fields['activities']
         if not is_provider:
             del self.fields['category']
-            del self.fields['category_iae']
             del self.fields['agreement_iae']
+            del self.fields['category_iae']
             del self.fields['transverse_themes']
             del self.fields['guaranties']
         self.set_helper(step, self.fields.keys())
@@ -227,6 +230,7 @@ class OrganizationForm5(OrganizationMixin, forms.ModelForm):
         super(OrganizationForm5, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.label = field.label.replace(' (ETP)', '')
+            field.localize = True
         self.set_helper(step, (
             AppendedText('annual_revenue', u'€'),
             AppendedText('workforce', u'ETP'),
@@ -440,6 +444,37 @@ OrganizationForm11.__init__ = lambda self, step, is_customer, is_provider, *args
 OrganizationForm11.add_label = u'Ajouter un membre'
 
 
+class ReferenceForm(OrganizationMixin, forms.ModelForm):
+
+    class Meta:
+        model = Reference
+        fields = ('source', 'from_year', 'to_year', 'services')
+
+    def __init__(self, *args, **kwargs):
+        super(ReferenceForm, self).__init__(*args, **kwargs)
+        self.set_helper('12', (
+            HTML('<fieldset class="formset-form">'),
+            'source',
+            'from_year',
+            'to_year',
+            'services',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        ))
+
+    def save(self, commit=True):
+        ref = super(ReferenceForm, self).save(commit=False)
+        ref.relation_type = OrgRelationType.objects.get(id=2)
+        if commit:
+            ref.save()
+        return ref
+
+
+OrganizationForm12 = forms.models.inlineformset_factory(Organization, Reference, form=ReferenceForm, fk_name='target', extra=2)
+OrganizationForm12.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm12.add_label = u'Ajouter une référence'
+
+
 ORGANIZATION_FORMS = (
     OrganizationForm0,
     OrganizationForm1,
@@ -453,6 +488,7 @@ ORGANIZATION_FORMS = (
     OrganizationForm9,
     OrganizationForm10,
     OrganizationForm11,
+    OrganizationForm12,
 )
 
 

@@ -23,6 +23,7 @@ from django.contrib.gis.measure import Distance
 from django.db import transaction
 from django.contrib.contenttypes.generic import BaseGenericInlineFormSet
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 
 def index_view(request, page_app):
@@ -138,14 +139,15 @@ ORGANIZATION_TITLES = (
     u'Données personnelles',
     u'Type d\'organisation',
     u'Description',
-    u'Catégories',
+    u'Classification',
     u'Données économiques',
     u'Témoignage',
     u'Documents',
-    u'Relations',
-    u'Lieux',
+    u'Partenaires',
+    u'Localisation',
     u'Contacts',
     u'Membres',
+    u'Références',
 )
 
 ORGANIZATION_MEDIA = (
@@ -196,7 +198,7 @@ class OrganizationCreateView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[7:12]:
+        for form in forms[7:13]:
             form.save()
         # Engagement
         engagement = Engagement()
@@ -237,8 +239,14 @@ class OrganizationChangeView(OrganizationEditView):
     def get_form_initial(self, step):
         pk = self.kwargs['pk']
         self.organization = get_object_or_404(Organization, pk=pk)
-        self.person = Person.objects.get(user=self.request.user)
-        self.engagement = Engagement.objects.get(person=self.person, organization=self.organization)
+        try:
+            self.person = Person.objects.get(user=self.request.user)
+        except Person.DoesNotExist:
+            raise PermissionDenied
+        try:
+            self.engagement = Engagement.objects.get(person=self.person, organization=self.organization)
+        except Engagement.DoesNotExist:
+            raise PermissionDenied
         if step == '0':
             return {'tel': self.engagement.tel, 'role': self.engagement.role}
         return {}
@@ -253,7 +261,7 @@ class OrganizationChangeView(OrganizationEditView):
                 setattr(self.organization, field, value)
         self.organization.save()
         # Inline formsets
-        for form in forms[6:11]:
+        for form in forms[6:12]:
             form.save()
         # Engagement
         self.engagement.tel = forms[0].cleaned_data['tel']
