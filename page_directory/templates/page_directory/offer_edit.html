@@ -1,0 +1,38 @@
+{% load thumbnail crispy_forms_tags staticfiles %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+                    <form class="form form-horizontal" action="" enctype="multipart/form-data" method="post">
+                        <fieldset>
+                            {% crispy form %}
+                        </fieldset>
+                        <fieldset class="text-center">
+                            <button type="submit" class="btn btn-default">Enregistrer</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+    $('.as-selections').addClass('form-control');
+    $('.as-input').removeClass('form-control');
+
+    /* Select2 */
+
+    $('select').select2();
+
+});
+
+</script>

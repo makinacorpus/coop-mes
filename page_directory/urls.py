@@ -6,6 +6,9 @@ from .views import (
     detail_view,
     add_view,
     change_view,
+    offer_update_view,
+    offer_delete_view,
+    offer_add_view,
 )
 
 urlpatterns = patterns('',
@@ -13,4 +16,7 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/$', detail_view),
     url(r'^ajouter/$', add_view),
     url(r'^(?P<pk>\d+)/modifier/$', change_view),
+    url(r'^offre/(?P<pk>\d+)/modifier/$', offer_update_view),
+    url(r'^offre/(?P<pk>\d+)/supprimer/$', offer_delete_view),
+    url(r'^offre/ajouter/$', offer_add_view),
 )

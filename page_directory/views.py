@@ -2,9 +2,9 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch,ORGANIZATION_FORMS)
+from .forms import (OrgSearch, ORGANIZATION_FORMS, OfferForm)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
-    Person, Location, Relation)
+    Person, Location, Relation, Offer)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
@@ -22,6 +22,7 @@ from django.utils.timezone import now
 from django.contrib.gis.measure import Distance
 from django.db import transaction
 from django.contrib.contenttypes.generic import BaseGenericInlineFormSet
+from django.contrib.auth.decorators import login_required
 
 
 def index_view(request, page_app):
@@ -156,6 +157,12 @@ ORGANIZATION_MEDIA = (
     JSMedia('../_tinymce/compressor/', prefix_file=''),
 )
 
+OFFER_MEDIA = (
+    CSSMedia('select2/select2.css', prefix_file=''),
+    CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
+    JSMedia('select2/select2.min.js', prefix_file=''),
+)
+
 class OrganizationCreateView(OrganizationEditView):
 
     def __init__(self, *args, **kwargs):
@@ -265,3 +272,44 @@ class OrganizationChangeView(OrganizationEditView):
             context_instance=RequestContext(self.request))
 
 change_view = login_required(OrganizationChangeView.as_view(ORGANIZATION_FORMS[1:]))
+
+
+@login_required
+def offer_delete_view(request, page_app, pk):
+    offer = get_object_or_404(Offer, pk=pk)
+    if not offer.provider.engagement_set.filter(org_admin=True, person__user=request.user).exists():
+        return HttpResponseForbidden('Opération interdite')
+    offer.delete()
+    return HttpResponseRedirect('/mon-compte/p/mes-offres/')
+
+
+@login_required
+def offer_update_view(request, page_app, pk):
+    offer = get_object_or_404(Offer, pk=pk)
+    if not offer.provider.engagement_set.filter(org_admin=True, person__user=request.user).exists():
+        return HttpResponseForbidden('Opération interdite')
+    form = OfferForm(request.POST or None, instance=offer)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('/mon-compte/p/mes-offres/')
+    return render_view('page_directory/offer_edit.html',
+                       {'object': page_app, 'form': form},
+                       OFFER_MEDIA,
+                       context_instance=RequestContext(request))
+
+
+@login_required
+def offer_add_view(request, page_app):
+    org = Organization.mine(request)
+    if org is None:
+        return HttpResponseForbidden('Opération interdite')
+    form = OfferForm(request.POST or None)
+    if form.is_valid():
+        offer = form.save(commit=False)
+        offer.provider = org
+        offer.save()
+        return HttpResponseRedirect('/mon-compte/p/mes-offres/')
+    return render_view('page_directory/offer_edit.html',
+                       {'object': page_app, 'form': form},
+                       OFFER_MEDIA,
+                       context_instance=RequestContext(request))

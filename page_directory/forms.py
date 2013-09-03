@@ -5,7 +5,7 @@ from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
     Organization, Engagement, Role, Document, Relation, Located, Location,
-    Contact, Person)
+    Contact, Person, Offer)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -14,7 +14,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext, ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, HTML, Field
-from crispy_forms.bootstrap import InlineRadios, FormActions, StrictButton, AppendedText
+from crispy_forms.bootstrap import (InlineRadios, InlineCheckboxes,
+    FormActions, StrictButton, AppendedText)
 from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
@@ -450,3 +451,37 @@ ORGANIZATION_FORMS = (
     OrganizationForm10,
     OrganizationForm11,
 )
+
+
+class OfferForm(forms.ModelForm):
+
+    class Meta:
+        model = Offer
+        fields = (
+            'activity',
+            'description',
+            'targets',
+            'technical_means',
+            'workforce',
+            'practical_modalities',
+            'area',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(OfferForm, self).__init__(*args, **kwargs)
+        self.fields['activity'].queryset = ActivityNomenclature.objects.filter(level=settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL).order_by('path')
+        self.fields['targets'].widget = forms.widgets.CheckboxSelectMultiple()
+        self.fields['targets'].help_text = u''
+        self.fields['area'].help_text = u''
+        self.fields['workforce'].label = self.fields['workforce'].label.replace(' (ETP)', '')
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'activity',
+            'description',
+            InlineCheckboxes('targets'),
+            'technical_means',
+            AppendedText('workforce', u'ETP'),
+            'practical_modalities',
+            'area',
+        )

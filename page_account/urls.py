@@ -8,6 +8,7 @@ from .views import (
     inscription_view,
     organizations_view,
     my_calls_view,
+    my_offers_view,
 )
 
 urlpatterns = patterns('',
@@ -17,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^deconnexion/$', logout_view),
     url(r'^mes-organisations/$', organizations_view),
     url(r'^mes-appels-doffres/$', my_calls_view),
+    url(r'^mes-offres/$', my_offers_view),
 )
