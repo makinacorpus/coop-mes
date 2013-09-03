@@ -167,7 +167,7 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
 
 class OrganizationForm3(OrganizationMixin, forms.ModelForm):
 
-    description = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False)
+    description = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False, label=u'Description')
 
     class Meta:
         model = Organization
@@ -239,7 +239,7 @@ class OrganizationForm5(OrganizationMixin, forms.ModelForm):
 
 class OrganizationForm6(OrganizationMixin, forms.ModelForm):
 
-    testimony = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False)
+    testimony = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False, label=u'Témoignage')
 
     class Meta:
         model = Organization
@@ -304,10 +304,10 @@ class SaveGenericInlineFormset(BaseGenericInlineFormSet):
 
 class LocatedForm(OrganizationMixin, forms.ModelForm):
 
-    adr1 = forms.CharField(label=_(u"address"), max_length=100)
-    adr2 = forms.CharField(label=_(u"address (extra)"), required=False, max_length=100)
-    zipcode = forms.CharField(label=_(u"zipcode"), required=False, max_length=5)
-    city = forms.CharField(label=_(u"city"), required=False, max_length=100)
+    adr1 = forms.CharField(label=u'Adresse', max_length=100)
+    adr2 = forms.CharField(label=u'Adresse (option)', required=False, max_length=100)
+    zipcode = forms.CharField(label=u'Code postal', required=False, max_length=5)
+    city = forms.CharField(label=u'Ville', required=False, max_length=100)
 
     class Meta:
         model = Located
@@ -373,6 +373,7 @@ class ContactForm(OrganizationMixin, forms.ModelForm):
             self.fields['location'].queryset = queryset
         else:
             queryset = Location.objects.none()
+        self.fields['contact_medium'].label = u'Coordonnées'
         self.set_helper('10', (
             HTML('<fieldset class="formset-form">'),
             'contact_medium',
