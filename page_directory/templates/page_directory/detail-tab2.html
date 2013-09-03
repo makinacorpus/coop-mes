@@ -1,75 +1,38 @@
-{% if org.annual_revenue %}
-    <div class="row">
-        <div class="col-lg-4">
-            Chiffre d'affaire annuel&nbsp;:
-        </div>
-        <div class="col-lg-8">
-            {{ org.annual_revenue }}&nbsp;€
-        </div>
-    </div>
-{% endif %}
+<dl class="dl--raw">
 
-{% if org.workforce %}
-    <div class="row">
-        <div class="col-lg-4">
-            Effectif total&nbsp;:
-        </div>
-        <div class="col-lg-8">
-            {{ org.workforce }} ETP
-        </div>
-    </div>
-{% endif %}
+    {% if org.annual_revenue %}
+        <dt>Chiffre d'affaire annuel&nbsp;:</dt>
+        <dd>{{ org.annual_revenue }}&nbsp;€</dd>
+    {% endif %}
 
-{% if org.production_workforce %}
-    <div class="row">
-        <div class="col-lg-4">
-            Effectif de production&nbsp;:
-        </div>
-        <div class="col-lg-8">
-            {{ org.production_workforce }} ETP
-        </div>
-    </div>
-{% endif %}
+    {% if org.workforce %}
+        <dt>Effectif total&nbsp;:</dt>
+        <dd>{{ org.workforce }} ETP</dd>
+    {% endif %}
 
-{% if org.supervision_workforce %}
-    <div class="row">
-        <div class="col-lg-4">
-            Effectif d'encadrement&nbsp;:
-        </div>
-        <div class="col-lg-8">
-            {{ org.supervision_workforce }} ETP
-        </div>
-    </div>
-{% endif %}
+    {% if org.production_workforce %}
+    <dt>Effectif de production&nbsp;:</dt>
+    <dd>{{ org.production_workforce }} ETP</dd>
+    {% endif %}
 
-{% if org.integration_workforce %}
-    <div class="row">
-        <div class="col-lg-4">
-            Nombre de salariés en insertion&nbsp;:
-        </div>
-        <div class="col-lg-8">
-            {{ org.integration_workforce }} ETP
-        </div>
-    </div>
-{% endif %}
+    {% if org.supervision_workforce %}
+        <dt>Effectif d'encadrement&nbsp;:</dt>
+        <dd>{{ org.supervision_workforce }} ETP</dd>
+    {% endif %}
 
-{% if org.annual_integration_number %}
-    <div class="row">
-        <div class="col-lg-4">
-            Nombre de personnes en insertion accompagnées par an&nbsp;:
-        </div>
-        <div class="col-lg-8">
-            {{ org.annual_integration_number }}
-        </div>
-    </div>
-{% endif %}
+    {% if org.integration_workforce %}
+    <dt>Nombre de salariés en insertion&nbsp;:</dt>
+    <dd>{{ org.integration_workforce }} ETP</dd>
+    {% endif %}
 
-{% if org.references %}
-    <div class="row">
-        <div class="col-lg-4">
-            Références client&nbsp;:
-        </div>
-        <div class="col-lg-8">
+    {% if org.annual_integration_number %}
+        <dt>Nombre de personnes en insertion accompagnées par an&nbsp;:</dt>
+        <dd>{{ org.annual_integration_number }}</dd>
+    {% endif %}
+
+    {% if org.references %}
+        <dt>Références client&nbsp;:</dt>
+        <dd>
             <ul>
                 {% for r in org.references %}
                     <li>
@@ -91,6 +54,7 @@
                     </li>
                 {% endfor %}
             </ul>
-        </div>
-    </div>
-{% endif %}
+        </dd>
+    {% endif %}
+
+</dl>
