@@ -26,7 +26,7 @@ PERIOD_CHOICES = (
 class CallSearch(forms.Form):
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     clause = forms.ChoiceField(choices=(('', u'Tout voir'), ) + CLAUSE_CHOICES, required=False)
-    organization = forms.ModelChoiceField(queryset=Organization.objects.filter(status=ORGANIZATION_STATUSES.VALIDATED), required=False, empty_label=u'Toutes')
+    organization = forms.ModelChoiceField(queryset=Organization.objects.filter(is_customer=True, status=ORGANIZATION_STATUSES.VALIDATED), required=False, empty_label=u'Toutes')
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
     period = forms.ChoiceField(choices=PERIOD_CHOICES, required=False)
     q = forms.CharField(required=False)
