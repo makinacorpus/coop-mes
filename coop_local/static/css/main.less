@@ -58,12 +58,12 @@ h3 {
 }
 
 a {
-    color: @body-color;
+    color: @body-link-color;
     .transition(all 150ms);
 }
 
 a:hover, a:focus {
-    color: @body-link-color;
+    color: black;
     text-decoration: none;
 }
 
@@ -129,6 +129,10 @@ hr {
 
     #layout-logo {
         margin: 0;
+
+        p {
+           margin: 0; 
+        }
     }
 
     nav {
@@ -347,6 +351,7 @@ hr {
 
 
 .top-content {
+    background: url("../img/@{home-img}") repeat-x;
     padding: 16px 0;
     background-color: @color1;
 
@@ -379,13 +384,19 @@ hr {
             }
         }
 
+        .item-small {
+            .input-group {
+                margin-top: 5px;
+            }
+        }
+
         &.top {
             .result {
-                    background: @color1lighter;
-                    color: white;
-                    margin-top: -10px;
-                    margin-right: -10px;
-                    text-align: center;
+                background: @color1lighter;
+                color: white;
+                margin-top: -10px;
+                margin-right: -10px;
+                text-align: center;
 
                 .number {
                     font-size: 30px;
@@ -445,8 +456,6 @@ hr {
 // HOMEPAGE
 .home {
     .top-content {
-        background: url("../img/@{home-img}") repeat-x;
-
         @media (min-width: @screen-desktop) {
             .top-content-box {
                 min-height: 357px;
@@ -602,6 +611,11 @@ hr {
     }
 }
 
+// SVG map
+svg.map a:hover path {
+    fill: lighten(@topsiteborder-color2, 15%);
+}
+
 #annuaires-search {
     .btn {
         min-width: 140px;
@@ -726,7 +740,9 @@ hr {
 
     .utils-links {
         float: right;
-        margin-top: 22px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding-top: 3px;
         .hide-text();
 
         a {
@@ -771,11 +787,6 @@ hr {
 .request-proposal-detail__head {
     margin-bottom: 20px;
 
-    .title {
-        margin-top: 20px;
-        margin-bottom: 15px;
-    }
-
     img {
         margin-top: 10px;
     }
@@ -791,6 +802,15 @@ hr {
 
     .col-lg-3 {
         width: 20%;
+    }
+}
+
+.request-proposal-detail__title {
+    padding: 5px 0;
+
+    .title {
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 }
 
@@ -825,7 +845,126 @@ hr {
 
 
 
+// RESSOURCES
 
+i.icon-book {
+    width: 41px;
+    height: 59px;
+}
+
+.list-counter {
+    counter-reset: section;
+
+    > div {
+        counter-increment: section;
+    }
+
+    .content-box {
+        margin-top: 30px;
+    }
+
+    .color1 {
+        .list-counter__number {
+            color: @topsiteborder-color1;
+        }
+
+        .list-counter__number:before {
+            background-color: @topsiteborder-color1;
+        }
+    }
+
+    .color2 {
+        .list-counter__number {
+            color: @topsiteborder-color2;
+        }
+
+        .list-counter__number:before {
+            background-color: @topsiteborder-color2;   
+        }
+    }
+
+    .color3 {
+        .list-counter__number {
+            color: @topsiteborder-color3;
+        }
+
+        .list-counter__number:before {
+            background-color: @topsiteborder-color3;
+        }
+    }
+
+    .list-group {
+        margin: 0;
+    }
+
+    .content-box {
+        padding-bottom: 0;
+    }
+}
+
+.list-counter__number {
+    line-height: 1.2;
+
+    &:before {
+        content: counter(section);
+        .border-radius(20px);
+        border: 4px solid white;
+        padding: 8px 12px 3px 12px;
+        color: white;
+        position: absolute;
+        top: -20px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 9px;
+    }
+}
+
+
+// SITEMAP
+
+.app-sitemap {
+    padding: 0 10px;
+
+    > ul {
+        padding: 0;
+
+        > li:first-child {
+            a {
+                border-top: none;
+            }
+        }
+
+        > li {
+            > a {
+                // background-color: lighten(@color1, 5%);
+                font-weight: bold;
+            }
+
+            li a {
+                // background-color: @color1;
+            }
+        }
+    }
+
+    ul > li {
+        padding: 0;
+
+        
+    }
+
+    li {
+        list-style: none;
+    }
+
+    a {
+        padding: 10px 0;
+        // height: 26px;
+        display: block;
+        border-top: 1px solid #EEE;
+        // color: white;
+    }
+}
 
 
 
