@@ -1,72 +1,75 @@
-<div class="navbar">
-    <i class="icon-en-direct"></i>
-    <h1 class="navbar-brand title">{{ object.title }}</h1>
-    <ul class="nav navbar-nav">
-        <li data-tab="Les appels$d'offres" class="active"><a href="javascript:void(0);">Appels d'offres</a></li>
-        <li data-tab="Les$fournisseurs"><a href="javascript:void(0);">Fournisseurs</a></li>
-        <li data-tab="Les$acheteurs"><a href="javascript:void(0);">Acheteurs</a></li>
-        {#<li data-tab="L'$agenda"><a href="javascript:void(0);">Agenda</a></li>#}
-        {#<li data-tab="Les$actualites"><a href="javascript:void(0);">Actualités</a></li>#}
-    </ul>
-</div>
-<div class="row">
-    <div class="col-lg-3">
-        <div class="vignette">
-            <div class="border"></div>
-            <span>Les appels<br />d'offres</span>
-            <div class="border"></div>
+<div class="en-direct">
+
+    <div class="navbar">
+        <i class="icon-en-direct"></i>
+        <h1 class="navbar-brand title">{{ object.title }}</h1>
+        <ul class="nav navbar-nav">
+            <li data-tab="Les appels$d'offres" class="active"><a href="javascript:void(0);">Appels d'offres</a></li>
+            <li data-tab="Les$fournisseurs"><a href="javascript:void(0);">Fournisseurs</a></li>
+            <li data-tab="Les$acheteurs"><a href="javascript:void(0);">Acheteurs</a></li>
+            {#<li data-tab="L'$agenda"><a href="javascript:void(0);">Agenda</a></li>#}
+            {#<li data-tab="Les$actualites"><a href="javascript:void(0);">Actualités</a></li>#}
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="vignette">
+                <div class="border"></div>
+                <span>Les appels<br />d'offres</span>
+                <div class="border"></div>
+            </div>
         </div>
+        <div class="col-lg-9 direct-content" data-tab="Les appels$d'offres">
+            {% for call in calls %}
+                <div class="article-extract">
+                    <h3><a href="/appels-d-offres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
+                    <div class="article-meta">{{ call.deadline|date:"d/m/Y" }} - {{ call.organization }}</div>
+                    <p>{{ call.activities }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-9 direct-content" data-tab="Les$fournisseurs" style="display: none;">
+            {% for provider in providers %}
+                <div class="article-extract">
+                    <h3><a href="/annuaire/p/{{ provider.pk }}/">{{ provider.label }}</a></h3>
+                    <div class="article-meta">{{ provider.validation|date:"d/m/Y" }} - Catégorie {{ provider.category.all|join:", " }}</div>
+                    <p>{{ provider.brief_description|truncatewords:10 }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-9 direct-content" data-tab="Les$acheteurs" style="display: none;">
+            {% for customer in customers %}
+                <div class="article-extract">
+                    <h3><a href="/annuaire/p/{{ customer.pk }}/">{{ customer.label }}</a></h3>
+                    <div class="article-meta">{{ customer.validation|date:"d/m/Y" }} - Catégorie {{ customer.category.all|join:", " }}</div>
+                    <p>{{ customer.brief_description|truncatewords:10 }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% comment %}
+        <div class="col-lg-9 direct-content" data-tab="L'$agenda" style="display: none;">
+        </div>
+        <div class="col-lg-9 direct-contentt" data-tab="Les$actualites" style="display: none;">
+            {% for actu in actus %}
+                <div class="article-extract">
+                    <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
+                    <div class="article-meta">{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</div>
+                    <div class="cms-content">{{ actu.body|safe }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endcomment %}
     </div>
-    <div class="col-lg-9 direct-content" data-tab="Les appels$d'offres">
-        {% for call in calls %}
-            <div class="article-extract">
-                <h3><a href="/appels-d-offres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
-                <div class="article-meta">{{ call.deadline|date:"d/m/Y" }} - {{ call.organization }}</div>
-                <p>{{ call.activities }}</p>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="col-lg-9 direct-content" data-tab="Les$fournisseurs" style="display: none;">
-        {% for provider in providers %}
-            <div class="article-extract">
-                <h3><a href="/annuaire/p/{{ provider.pk }}/">{{ provider.label }}</a></h3>
-                <div class="article-meta">{{ provider.validation|date:"d/m/Y" }} - Catégorie {{ provider.category.all|join:", " }}</div>
-                <p>{{ provider.brief_description|truncatewords:10 }}</p>
-            </div>
-        {% endfor %}
-    </div>
-    <div class="col-lg-9 direct-content" data-tab="Les$acheteurs" style="display: none;">
-        {% for customer in customers %}
-            <div class="article-extract">
-                <h3><a href="/annuaire/p/{{ customer.pk }}/">{{ customer.label }}</a></h3>
-                <div class="article-meta">{{ customer.validation|date:"d/m/Y" }} - Catégorie {{ customer.category.all|join:", " }}</div>
-                <p>{{ customer.brief_description|truncatewords:10 }}</p>
-            </div>
-        {% endfor %}
-    </div>
-{% comment %}
-    <div class="col-lg-9 direct-content" data-tab="L'$agenda" style="display: none;">
-    </div>
-    <div class="col-lg-9 direct-contentt" data-tab="Les$actualites" style="display: none;">
-        {% for actu in actus %}
-            <div class="article-extract">
-                <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
-                <div class="article-meta">{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</div>
-                <div class="cms-content">{{ actu.body|safe }}</div>
-            </div>
-        {% endfor %}
-    </div>
-{% endcomment %}
+
+    <script type="text/javascript">
+        $(".navbar-nav li").click(function(event) {
+            var tab = $(this).attr("data-tab");
+            $(".navbar-nav li").removeClass("active");
+            $(".direct-content").hide();
+            $(".vignette span").html(tab.replace('$', '<br/>'));
+            $(this).addClass("active");
+            $(".direct-content[data-tab=\"" + tab + "\" ]").show();
+        });
+    </script>
+
 </div>
-
-
-<script type="text/javascript">
-    $(".navbar-nav li").click(function(event) {
-        var tab = $(this).attr("data-tab");
-        $(".navbar-nav li").removeClass("active");
-        $(".direct-content").hide();
-        $(".vignette span").html(tab.replace('$', '<br/>'));
-        $(this).addClass("active");
-        $(".direct-content[data-tab=\"" + tab + "\" ]").show();
-    });
-</script>
