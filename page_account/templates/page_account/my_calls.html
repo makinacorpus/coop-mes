@@ -3,8 +3,8 @@
 <h2>Mes appels d'offres</h2>
 
 {% if my_organization %}
-    <div class="row">
-        {% for call in my_organization.future_calls %}
+    {% for call in my_organization.future_calls %}
+        <div class="row">
             <div class="col-lg-5">
                 <a href="{{ call.get_absolute_url }}">{{ call.title }}</a>
             </div>
@@ -17,8 +17,9 @@
             <div class="col-lg-2">
                 <a class="btn btn-danger" href="{{ call.get_absolute_url }}supprimer/">Supprimer</a>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+        <hr>
+    {% endfor %}
     <p class="text-center"><a class="btn btn-default" href="/appels-doffres/p/ajouter/">Ajouter</a></p>
 {% else %}
     Votre compte n'est lié à aucune organisation.

@@ -3,8 +3,8 @@
 <h2>Mes offres</h2>
 
 {% if my_organization %}
-    <div class="row">
-        {% for offer in my_organization.offer_set.all %}
+    {% for offer in my_organization.offer_set.all %}
+        <div class="row">
             <div class="col-lg-8">
                 {{ offer.activity.label }}
             </div>
@@ -14,9 +14,10 @@
             <div class="col-lg-2">
                 <a class="btn btn-danger" href="{{ offer.get_absolute_url }}supprimer/">Supprimer</a>
             </div>
-        {% endfor %}
-    </div>
-    <p class="text-center"><a class="btn btn-default" href="/annuaire/p/offre/ajouter/">Ajouter</a></p>
+        </div>
+        <hr>
+    {% endfor %}
+<p class="text-center"><a class="btn btn-default" href="/annuaire/p/offre/ajouter/">Ajouter</a></p>
 {% else %}
     Votre compte n'est lié à aucune organisation.
 {% endif %}
