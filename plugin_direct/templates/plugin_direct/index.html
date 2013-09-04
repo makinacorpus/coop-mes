@@ -4,11 +4,11 @@
         <i class="icon-en-direct"></i>
         <h1 class="navbar-brand title">{{ object.title }}</h1>
         <ul class="nav navbar-nav">
-            <li data-tab="Les appels$d'offres" class="active"><a href="javascript:void(0);">Appels d'offres</a></li>
-            <li data-tab="Les$fournisseurs"><a href="javascript:void(0);">Fournisseurs</a></li>
-            <li data-tab="Les$acheteurs"><a href="javascript:void(0);">Acheteurs</a></li>
-            {#<li data-tab="L'$agenda"><a href="javascript:void(0);">Agenda</a></li>#}
-            {#<li data-tab="Les$actualites"><a href="javascript:void(0);">Actualités</a></li>#}
+            <li data-tab="Les appels$d'offres" {% if tab == 'appels-doffres' %}class="active"{% endif %}><a href="javascript:void(0);">Appels d'offres</a></li>
+            <li data-tab="Les$fournisseurs" {% if tab == 'fournisseurs' %}class="active"{% endif %}><a href="javascript:void(0);">Fournisseurs</a></li>
+            <li data-tab="Les$acheteurs" {% if tab == 'acheteurs' %}class="active"{% endif %}><a href="javascript:void(0);">Acheteurs</a></li>
+            {#<li data-tab="L'$agenda" {% if tab == 'agenda' %}class="active"{% endif %}><a href="javascript:void(0);">Agenda</a></li>#}
+            {#<li data-tab="Les$actualites" {% if tab == 'actualites' %}class="active"{% endif %}><a href="javascript:void(0);">Actualités</a></li>#}
         </ul>
     </div>
     <div class="row">
@@ -19,7 +19,7 @@
                 <div class="border"></div>
             </div>
         </div>
-        <div class="col-lg-9 direct-content" data-tab="Les appels$d'offres">
+        <div class="col-lg-9 direct-content" data-tab="Les appels$d'offres" {% if tab != 'appels-doffres' %}style="display: none;"{% endif %}>
             {% for call in calls %}
                 <div class="article-extract">
                     <h3><a href="/appels-d-offres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
@@ -28,7 +28,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-lg-9 direct-content" data-tab="Les$fournisseurs" style="display: none;">
+        <div class="col-lg-9 direct-content" data-tab="Les$fournisseurs" {% if tab != 'fournisseurs' %}style="display: none;"{% endif %}>
             {% for provider in providers %}
                 <div class="article-extract">
                     <h3><a href="/annuaire/p/{{ provider.pk }}/">{{ provider.label }}</a></h3>
@@ -37,7 +37,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-lg-9 direct-content" data-tab="Les$acheteurs" style="display: none;">
+        <div class="col-lg-9 direct-content" data-tab="Les$acheteurs" {% if tab != 'acheteurs' %}style="display: none;"{% endif %}>
             {% for customer in customers %}
                 <div class="article-extract">
                     <h3><a href="/annuaire/p/{{ customer.pk }}/">{{ customer.label }}</a></h3>
@@ -47,9 +47,9 @@
             {% endfor %}
         </div>
     {% comment %}
-        <div class="col-lg-9 direct-content" data-tab="L'$agenda" style="display: none;">
+        <div class="col-lg-9 direct-content" data-tab="L'$agenda" {% if tab != 'agenda' %}style="display: none;"{% endif %}>
         </div>
-        <div class="col-lg-9 direct-contentt" data-tab="Les$actualites" style="display: none;">
+        <div class="col-lg-9 direct-content" data-tab="Les$actualites" {% if tab != 'actualites' %}style="display: none;"{% endif %}>
             {% for actu in actus %}
                 <div class="article-extract">
                     <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
@@ -62,6 +62,7 @@
     </div>
 
     <script type="text/javascript">
+        $(".vignette span").html($('.navbar-nav li.active').attr("data-tab").replace('$', '<br/>'));
         $(".navbar-nav li").click(function(event) {
             var tab = $(this).attr("data-tab");
             $(".navbar-nav li").removeClass("active");
