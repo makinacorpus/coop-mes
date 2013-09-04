@@ -5,8 +5,8 @@
         <li data-tab="Les appels$d'offres" class="active"><a href="javascript:void(0);">Appels d'offres</a></li>
         <li data-tab="Les$fournisseurs"><a href="javascript:void(0);">Fournisseurs</a></li>
         <li data-tab="Les$acheteurs"><a href="javascript:void(0);">Acheteurs</a></li>
-        <li data-tab="L'$agenda"><a href="javascript:void(0);">Agenda</a></li>
-        <li data-tab="Les$actualites"><a href="javascript:void(0);">Actualités</a></li>
+        {#<li data-tab="L'$agenda"><a href="javascript:void(0);">Agenda</a></li>#}
+        {#<li data-tab="Les$actualites"><a href="javascript:void(0);">Actualités</a></li>#}
     </ul>
 </div>
 <div class="row">
@@ -44,6 +44,7 @@
             </div>
         {% endfor %}
     </div>
+{% comment %}
     <div class="col-lg-9 direct-content" data-tab="L'$agenda" style="display: none;">
     </div>
     <div class="col-lg-9 direct-contentt" data-tab="Les$actualites" style="display: none;">
@@ -55,6 +56,7 @@
             </div>
         {% endfor %}
     </div>
+{% endcomment %}
 </div>
 
 
