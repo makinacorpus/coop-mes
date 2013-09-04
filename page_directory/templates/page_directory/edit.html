@@ -24,7 +24,6 @@
                             </ul>
                         </div>
                         <div class="form">
-                            {#<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris</p>#}
                             {{ wizard.management_form }}
                             {% if wizard.form.form %}
                                 {% crispy wizard.form wizard.form.form.helper %}
@@ -46,6 +45,7 @@
                                     <button type="submit" class="btn btn-default">Enregistrer</button>
                                 {% endif %}
                             </fieldset>
+                            <p><b>*</b> champs obligatoires</p>
                         </div>
                     </div>
                 </div>
