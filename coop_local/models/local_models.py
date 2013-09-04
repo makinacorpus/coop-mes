@@ -477,11 +477,11 @@ Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name'))
 class Offer(models.Model):
 
     activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
-    description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)])
+    description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'customer targets'), blank=True, null=True)
-    technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
+    technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
-    practical_modalities = models.TextField(_(u'practical modalities'), blank=True, validators = [MaxLengthValidator(400)])
+    practical_modalities = models.TextField(_(u'practical modalities'), blank=True, validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     provider = models.ForeignKey('Organization', verbose_name=_('provider'))
     area = models.ManyToManyField('coop_local.Area', verbose_name=_(u'coverage'), blank=True, null=True)
 

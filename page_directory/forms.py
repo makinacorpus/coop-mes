@@ -170,7 +170,7 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
 
 class OrganizationForm3(OrganizationMixin, forms.ModelForm):
 
-    description = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False, label=u'Description')
+    description = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), required=False, label=u'Description', help_text=u'3000 caractères maximum.')
 
     class Meta:
         model = Organization
