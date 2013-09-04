@@ -313,6 +313,7 @@ class CallForTenders(models.Model):
     deadline = models.DateTimeField(_(u'deadline'), blank=True, null=True)
     clauses = MultiSelectField(_(u'clauses (si marché public)'), max_length=200, choices=CLAUSE_CHOICES, blank=True)
     url = models.URLField(u'URL', blank=True, null=True, max_length=250)
+    en_direct = models.BooleanField(u'en direct', default=False)
 
     objects = models.Manager()
     geo_objects = GeoManager()
@@ -382,6 +383,8 @@ class Organization(BaseOrganization):
 
     # COMMON Search
     norm_title = models.CharField(max_length=250, unique=True)
+
+    en_direct = models.BooleanField(u'en direct', default=False)
 
     geo_objects = GeoManager()
 

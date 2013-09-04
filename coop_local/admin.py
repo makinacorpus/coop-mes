@@ -308,16 +308,16 @@ class OrganizationAdmin(BaseOrganizationAdmin):
 
     form = OrganizationAdminForm
     list_display = ['logo_list_display', 'title', 'acronym', 'status', 'is_provider',
-        'is_customer', 'is_network', 'active', 'has_description', 'has_location']
+        'is_customer', 'is_network', 'active', 'en_direct']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['status', 'authors', 'is_provider', 'is_customer', 'is_network']
+    list_filter = ['status', 'authors', 'is_provider', 'is_customer', 'is_network', 'en_direct']
     ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', 'birth', 'active',
                        'legal_status', 'category', 'category_iae', 'agreement_iae',
-                       'web', 'siret', 'bdis_id']
+                       'web', 'siret', 'bdis_id', 'en_direct']
             }),
         (_(u'Organization type'), {
             'fields': ['is_provider', 'is_customer', 'is_network', 'customer_type']
@@ -507,8 +507,9 @@ class CFTActivityInline(InlineAutocompleteAdmin):
 
 class CallForTendersAdmin(FkAutocompleteAdmin):
 
-    list_display = ('title', 'organization', 'activities')
+    list_display = ('title', 'organization', 'activities', 'en_direct')
     search_fields = ('title', 'organization__title', 'organization__acronym')
+    list_filter = ('en_direct', )
     related_search_fields = {
         'organization': ('title', 'acronym', ),
         'area': ('label', ),
