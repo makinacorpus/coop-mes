@@ -17,7 +17,7 @@
     <div class="article-extract">
         <h3><a href="">{{ entry.title }}</a></h3>
         <div class="article-meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
-        <div class="cms-content">{{ entry.body|safe }}</div>
+        <div class="cms-content">{{ entry.body|truncatewords_html:30|safe }}</div>
     </div>
     <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a></p>
     </div>
