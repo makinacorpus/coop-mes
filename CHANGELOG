@@ -4,6 +4,9 @@ V1.3
  * Ajout d'un champ description aux appels d'offres
  * Lieux d'exécution multiples pour les appels d'offres
  * Carte cliquable en page d'accueil (PACA et Midipy)
+ * Foire aux questions
 
 D&ploiement:
  - migrate coop_local
+ - créer la page foire-aux-questions
+ 
