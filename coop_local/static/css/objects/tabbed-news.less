@@ -1,0 +1,111 @@
+.tabbed-news {
+    min-height: 370px;
+
+    .article-extract {
+        width: 33.33333333333333%;
+        float: left;
+        padding: 10px 0 0 20px;
+
+        p {
+            height: 55px;
+            overflow: hidden;
+        }
+    }
+
+    .navbar {
+        padding-left: 0;
+        padding-right: 0;
+        .border-radius(0);
+        border: 1px solid @tab-border;
+        .box-shadow(0px 3px 10px 0px rgba(0, 0, 0, 0.2));
+        background-color: @tab-bg;
+
+        i {
+            display: block;
+            background-color: @endirect-bg;
+            width: 50px;
+            height: 44px;
+            float: left;
+            margin-right: 20px;
+            position: relative;
+
+            &:after {
+                left: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-left-color: @endirect-bg;
+                border-width: 8px;
+                top: 50%;
+                margin-top: -8px;
+            }
+        }
+
+        .navbar-brand {
+            padding: 15px 10px 9px 10px;
+            .uppercase;
+            margin-top: 0;
+            margin-bottom: 0;
+
+            &:hover {
+                color: @body-color;
+            }
+        }
+
+        .nav > li > a {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-left: 26px;
+            color: @tab-text;
+            font-weight: 500;
+
+            &:hover {
+                color: darken(@tab-text, 20%);
+            }
+
+            &:before {
+                .iconf;
+                vertical-align: middle;
+                content: "f";
+                margin-right: 3px;
+                top: 4px;
+                bottom: 4px;
+                left: 0;
+                padding-left: 10px;
+                padding-top: 13px;
+                border-left-color: @greylighter2;
+            }
+        }
+
+        li.active + li a:before {
+            border-left-color: transparent;
+        }
+
+        li.active {
+            a {
+                color: @color1;
+                text-shadow: 0 -1px lighten(@color1,30%);
+            }
+
+            a:before {
+                content: "i";
+                border: none;
+            }
+        }
+
+        .navbar-nav {
+            float: right;
+        }
+    }
+
+    .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+        background-color: @tabselected-bg;
+    }
+
+    .vignette {
+        margin: 50px auto 0 auto;
+    }
+}

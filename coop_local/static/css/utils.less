@@ -2,9 +2,17 @@
     Custom mixins
     ========================================================================== */
 .border-radius(@radius) {
-    -webkit-border-radius: @radius;
-    -moz-border-radius: @radius;
-    border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+// Transition mixin to affect transform property
+.transitionTransform(@options, @transition) {
+  -webkit-transition: -webkit-transform @options, @transition;
+     -moz-transition: -moz-transform @options, @transition;
+       -o-transition: -o-transform @options, @transition;
+          transition: transform @options, @transition;
 }
 
 /* ==========================================================================

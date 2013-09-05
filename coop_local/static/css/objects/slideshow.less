@@ -1,0 +1,31 @@
+.carousel-inner {
+	> .item {
+		.clearfix();
+		.transition(~"left 0.6s ease-in-out, opacity 0.5s ease-in-out");
+	}
+
+	> .active {
+	  left: 0;
+	}
+
+	> .next {
+	  left: 100%;
+	}
+	> .prev {
+	  left: -30%;
+	  opacity: 0;
+	}
+	> .next.left,
+	> .prev.right {
+	  left: 0;
+	  opacity: 1;
+	}
+
+	> .active.left {
+	  left: -30%;
+  	  opacity: 0;
+	}
+	> .active.right {
+	  left: 100%;
+	}
+}

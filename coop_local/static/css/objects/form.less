@@ -64,20 +64,22 @@ input[type="checkbox"] {
 
 form .validation {
     position: absolute;
-    display: inline-block;
+    display: none;
     content: "";
     height: 33px;
     width: 33px;
     border-radius: 3px;
     background-image: url('../img/sprite.png');
     background-repeat: no-repeat;
-    border: 1px solid #81a352;
+    border: 1px solid transparent;
     vertical-align: middle;
     margin-left: 5px;
 
     &.icon-check {
         background-color: #a5ca72;
         background-position: 6px -357px;
+        border-color: #81a352;
+        display: inline-block;
 
         &:after {
             border-color: rgba(129, 163, 82, 0);
@@ -112,6 +114,7 @@ form .validation {
         background-color: red;
         background-position: 7px -290px;
         border-color: #a61010;
+        display: inline-block;
 
         &:after {
             border-color: rgba(129, 163, 82, 0);
