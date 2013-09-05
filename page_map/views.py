@@ -29,6 +29,14 @@ def index_view(request, page_app):
         qd['interim'] = '2'
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
+    if 'dep' in qd:
+        try:
+            area = Area.objects.get(reference=qd['dep'], area_type__txt_idx='DEP')
+        except Area.DoesNotExist:
+            pass
+        else:
+            qd['area_0'] = area.label
+            qd['area_1'] = area.pk
     form = OrgSearch(qd)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
@@ -74,9 +82,9 @@ def index_view(request, page_app):
     if area is None:
         bounds = Area.objects.filter(label=settings.REGION_LABEL).extent()
     else:
-        bounds = Location.objects.filter(pref_address_org__in=orgs).extent()
+        bounds = area.polygon.extent
     return render_view('page_map/index.html',
-                       {'object': page_app, 'form': form, 'orgs': orgs,
+                       {'object': page_app, 'form': form, 'orgs': orgs, 'area': area,
                         'bounds': bounds, 'get_params': get_params.urlencode()},
                        MEDIAS,
                        context_instance=RequestContext(request))

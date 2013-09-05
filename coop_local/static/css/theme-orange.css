@@ -1213,8 +1213,8 @@ textarea.form-control {
   max-width: 100%;
 }
 .form-control-small {
-  height: 26px;
-  padding: 2px 12px;
+  height: 24px;
+  padding: 1px 12px;
 }
 .ribbon {
   position: relative;
@@ -1965,18 +1965,39 @@ body.modal-open {
   margin-top: 0;
 }
 .main-content .content-box .item-small .input-group {
-  margin-top: 5px;
+  margin-top: 2px;
 }
 .main-content .content-box.top .result {
   background: #699fd1;
   color: white;
   margin-top: -10px;
-  margin-right: -10px;
+  margin-right: -11px;
+  margin-left: -11px;
   text-align: center;
 }
 .main-content .content-box.top .result .number {
   font-size: 30px;
   font-weight: bold;
+}
+.advanced-search-form > .row {
+  display: table;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+.advanced-search-form > .row > div {
+  display: table-cell;
+  float: none;
+  height: 100%;
+  border-left: 1px solid #BBB;
+  vertical-align: top;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.advanced-search-form > .row > div:first-child {
+  border-left: none;
+}
+.advanced-search-form .input-group {
+  width: 100%;
 }
 .main-footer {
   background: #3b444d;

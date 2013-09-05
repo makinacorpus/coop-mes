@@ -389,7 +389,7 @@ hr {
 
         .item-small {
             .input-group {
-                margin-top: 5px;
+                margin-top: 2px;
             }
         }
 
@@ -398,7 +398,8 @@ hr {
                 background: @color1lighter;
                 color: white;
                 margin-top: -10px;
-                margin-right: -10px;
+                margin-right: -11px;
+                margin-left: -11px;
                 text-align: center;
 
                 .number {
@@ -410,6 +411,31 @@ hr {
     }
 }
 
+.advanced-search-form {
+    > .row {
+        display: table;
+        margin-top: -10px;
+        margin-bottom: -10px;
+
+        > div {
+            display: table-cell;
+            float: none;
+            height: 100%;
+            border-left: 1px solid #BBB;
+            vertical-align: top;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            &:first-child {
+                border-left: none;
+            }
+        }
+    }
+
+    .input-group {
+        width: 100%;
+    }
+}
 
 
 

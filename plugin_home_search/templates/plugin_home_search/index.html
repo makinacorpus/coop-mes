@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-6">
         <h3 class="col-subtitle iconf-book">Annuaire</h3>
-        {{ object.texte_annuaire }}
+        <p>{{ object.texte_annuaire }}</p>
         <form method="GET" action="/annuaire/">
             <input type="hidden" name="area_0" value="x">
             <div class="dropdown">
@@ -21,7 +21,10 @@
     </div>
     <div class="col-lg-6">
         <h3 class="col-subtitle iconf-geopins">Cartographie</h3>
-        {{ object.texte_carto }}
-        <a href="/cartographie/"><img src="{% static "img/map.jpg" %}"/></a>
+        <p>{{ object.texte_carto }}</p>
+        <div class="text-center" id="svg-map">
+        </div>
     </div>
 </div>
+
+<script src="{% static "js/svg-map-" %}{{ REGION_LABEL|slugify }}.js"></script>

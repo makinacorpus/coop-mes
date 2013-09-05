@@ -3,6 +3,7 @@ V1.3
  * Bar de recherche annuaire/carte
  * Ajout d'un champ description aux appels d'offres
  * Lieux d'exécution multiples pour les appels d'offres
+ * Carte cliquable en page d'accueil (PACA et Midipy)
 
 D&ploiement:
  - migrate coop_local

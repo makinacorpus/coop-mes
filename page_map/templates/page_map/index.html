@@ -134,6 +134,10 @@
                             {% endif %}
                         {% endfor %}
 
+                        {% if area %}
+                            L.geoJson({{ area.geoJson|safe }}).addTo(map);
+                        {% endif %}
+
                         var southWest = new L.LatLng({{ bounds.1 }}, {{ bounds.0 }});
                         var northEast = new L.LatLng({{ bounds.3 }}, {{ bounds.2 }});
                         var bounds = new L.LatLngBounds(southWest, northEast);
