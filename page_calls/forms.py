@@ -44,7 +44,7 @@ class CallForm(forms.ModelForm):
         fields = (
             'title',
             'activity',
-            'area',
+            'areas',
             'allotment',
             'lot_numbers',
             'clauses',
@@ -56,12 +56,13 @@ class CallForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CallForm, self).__init__(*args, **kwargs)
         self.fields['activity'].help_text = u''
+        self.fields['areas'].help_text = u''
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
             'title',
             'activity',
-            'area',
+            'areas',
             'allotment',
             'lot_numbers',
             InlineCheckboxes('clauses'),

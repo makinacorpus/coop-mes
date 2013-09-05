@@ -1,7 +1,8 @@
 V1.3
 
- * Map search bar
- * Call for tenders description
+ * Bar de recherche annuaire/carte
+ * Ajout d'un champ description aux appels d'offres
+ * Lieux d'exécution multiples pour les appels d'offres
 
-Deployment:
+D&ploiement:
  - migrate coop_local

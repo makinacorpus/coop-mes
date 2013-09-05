@@ -307,7 +307,7 @@ class CallForTenders(models.Model):
     title = models.CharField(_(u'title'), max_length=200)
     activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
     organization = models.ForeignKey('Organization', verbose_name=_('organization'))
-    area = models.ForeignKey('coop_local.Area', verbose_name=_(u'execution location'), blank=True, null=True)
+    areas = models.ManyToManyField('coop_local.Area', verbose_name=_(u'execution locations'), blank=True, null=True)
     allotment = models.BooleanField(_(u'allotment'))
     lot_numbers = models.CharField(_(u'lot numbers'), max_length=200, blank=True)
     deadline = models.DateTimeField(_(u'deadline'), blank=True, null=True)

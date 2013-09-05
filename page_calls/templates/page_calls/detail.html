@@ -54,8 +54,8 @@
                                     <dd>{{ activity.label }}</dd>
                                 {% endfor %}
 
-                                <dt class="iconf-pins">Lieu d'exécution :</dt>
-                                <dd>{{ call.area }}</dd>
+                                <dt class="iconf-pins">Lieu{{ call.areas.count|pluralize:"x" }} d'exécution :</dt>
+                                <dd>{{ call.areas.all|join:", " }}</dd>
 
                                 <dt class="iconf-bag">Numéros du ou des lots :</dt>
                                 <dd>{{ call.lot_numbers }}</dd>
@@ -72,25 +72,6 @@
 {% endcomment %}
                         </div>
                     </div>
-{% comment %}
-                    <h4 class="separator-title">Offres similaires</h4>
-                    <div>
-                        {% for call in similar %}
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="..." width="220" height="140">
-                                </a>
-                                <div class="media-body">
-                                <p class="activity">{{ call.activity.all|join:", " }}</p>
-                                <span class="location">{{ call.area }}</span>
-                                <h4 class="media-heading">{{ call.title }}</h4>
-                                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. </p>
-                                <a href="{{ call.get_absolute_url }}" class="btn btn-default">En savoir +</a>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-{% endcomment %}
                     <div class="section-foot">
                         <ul class="pager pager--request-proposal-detail">
                             {#<li><a href="#prev" class="prev"><span class="arrow">g</span> Titre de l'appel d'offre précédent</a></li>#}

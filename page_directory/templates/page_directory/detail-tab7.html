@@ -13,7 +13,7 @@
         <div class="media">
             <div class="media-body">
                 <p class="activity">{{ call.activity.label }}</p>
-                {% if call.area %}<span class="location">{{ call.area }}</span>{% endif %}
+                {% if call.areas.all %}<span class="location">{{ call.areas.all|join:", " }}</span>{% endif %}
                 <h4 class="media-heading">{{ call.title }}</h4>
                 <p>{{ call.description|linebreaks }}</p>
             </div>

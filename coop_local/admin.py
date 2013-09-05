@@ -503,6 +503,15 @@ class PersonAdmin(BasePersonAdmin):
 class CFTActivityInline(InlineAutocompleteAdmin):
     model = CallForTenders.activity.through
     related_search_fields = {'activitynomenclature': ('path', ), }
+    verbose_name = u'Secteur d\'activité'
+    verbose_name_plural = u'Secteurs d\'activité'
+
+
+class AreaInline(InlineAutocompleteAdmin):
+    model = CallForTenders.areas.through
+    related_search_fields = {'area': ('label', ), }
+    verbose_name = u'Lieu d\'exécution'
+    verbose_name_plural = u'Lieux d\'exécution'
 
 
 class CallForTendersAdmin(FkAutocompleteAdmin):
@@ -512,10 +521,9 @@ class CallForTendersAdmin(FkAutocompleteAdmin):
     list_filter = ('en_direct', )
     related_search_fields = {
         'organization': ('title', 'acronym', ),
-        'area': ('label', ),
     }
-    inlines = [CFTActivityInline, ]
-    exclude = ('activity',)
+    inlines = [CFTActivityInline, AreaInline]
+    exclude = ('activity', 'areas')
 
 
 class OfferDocumentInline(DocumentInline):

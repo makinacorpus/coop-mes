@@ -30,7 +30,7 @@ def index_view(request, page_app):
         calls = CallForTenders.geo_objects.filter(organization__status=ORGANIZATION_STATUSES.VALIDATED)
         calls = calls.filter(
             Q(title__icontains=form.cleaned_data['q']) |
-            Q(area__label__icontains=form.cleaned_data['q']) |
+            Q(areas__label__icontains=form.cleaned_data['q']) |
             Q(activity__path__icontains=form.cleaned_data['q']) |
             Q(organization__title__icontains=form.cleaned_data['q']) |
             Q(organization__acronym__icontains=form.cleaned_data['q']))
