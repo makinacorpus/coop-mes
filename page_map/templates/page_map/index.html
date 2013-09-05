@@ -35,18 +35,16 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="item">
+                            <div class="item item-small">
                                 <h3>Territoire</h3>
-                                <div>
+                                <div class="dropdown">
                                     {{ form.area }}
                                 </div>
-                            </div>
-                            <div class="item">
                                 <div class="dropdown input-group">
-                                    {{ form.radius }}<span class="input-group-addon">km</a>
+                                    {{ form.radius }}<span class="input-group-addon form-control-small">km</a>
                                 </div>
                             </div>
-                            <div class="item">
+                            <div class="item search">
                                 <h3>Recherche libre</h3>
                                 <div class="dropdown">
                                     {{ form.q }}
