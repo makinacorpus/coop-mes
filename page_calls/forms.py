@@ -50,6 +50,7 @@ class CallForm(forms.ModelForm):
             'clauses',
             'deadline',
             'url',
+            'description',
         )
 
     def __init__(self, *args, **kwargs):
@@ -66,4 +67,5 @@ class CallForm(forms.ModelForm):
             InlineCheckboxes('clauses'),
             'deadline',
             'url',
+            'description',
         )

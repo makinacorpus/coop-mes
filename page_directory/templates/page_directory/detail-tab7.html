@@ -13,9 +13,9 @@
         <div class="media">
             <div class="media-body">
                 <p class="activity">{{ call.activity.label }}</p>
-                <span class="location">{{ call.area }}</span>
+                {% if call.area %}<span class="location">{{ call.area }}</span>{% endif %}
                 <h4 class="media-heading">{{ call.title }}</h4>
-                <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. </p>
+                <p>{{ call.description|linebreaks }}</p>
             </div>
             <div class="row media-meta">
                 <div class="col-lg-6">
