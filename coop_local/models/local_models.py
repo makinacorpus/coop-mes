@@ -429,6 +429,12 @@ class Organization(BaseOrganization):
     def part_fin(self):
         return Relation.objects.filter(source=self, relation_type__id=5)
 
+    def images(self):
+        return self.document_set.filter(attachment__iregex=r'\.(jpe?g|gif|png)$')
+
+    def documents(self):
+        return self.document_set.exclude(attachment__iregex=r'\.(jpe?g|gif|png)$')
+
     def other_contacts(self):
         return self.contacts.filter(location__isnull=True)
 

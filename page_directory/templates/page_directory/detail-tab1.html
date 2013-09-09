@@ -97,7 +97,48 @@
                 <dd>{{ org.tags.all|join:", " }}</dd>
             {% endif %}
         </dl>
+        {% if org.images %}
+            <div id="carousel-organization-images" class="carousel slide pull-left">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {% for image in org.images %}
+                        <li data-target="#carousel-organization-images" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                    {% endfor %}
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    {% for image in org.images %}
+                        <div class="item {% if forloop.first %}active{% endif %}">
+                            {% thumbnail image.attachment "175x275" upscale=0 as thumb_image %}
+                                <img src="{{ thumb_image.url }}" width="175" height="275" alt="{{ image.name }}" style="padding: {{ thumb_image|margin:"175x275" }}">
+                            {% endthumbnail %}
+                            <div class="carousel-caption">
+                                {{ image.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-organization-images" data-slide="prev">
+                    <span class="icon-prev"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-organization-images" data-slide="next">
+                    <span class="icon-next"></span>
+                </a>
+            </div>
+        {% endif %}
         <div class="cms-content">{{ org.description|safe }}</div>
+        {% if org.documents %}
+            <hr class="dotted">
+            <h5>Documents associés :</h5>
+            <ul class="list-unstyled text-center">
+                {% for doc in org.documents %}
+                    <li><a href="{{ doc.attachment.url }}"><i class="icon-export-doc"></i>{{ doc.name }}<span class="file-size">- {{ doc.attachment.size|filesizeformat }}</span></a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </div>
 {# <p class="text-center"><a class="btn btn-default" href="modifier/">Modifier la fiche</a></p> #}
