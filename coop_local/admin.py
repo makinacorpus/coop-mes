@@ -220,38 +220,6 @@ class ActivityWidget(AutoCompleteSelectEditWidget):
         return mark_safe(markup)
 
 
-def make_offer_form(admin_site, request):
-    class OfferAdminForm(forms.ModelForm):
-        class Meta:
-            model = get_model('coop_local', 'Offer')
-        def __init__(self, *args, **kwargs):
-            super(OfferAdminForm, self).__init__(*args, **kwargs)
-            activity_rel = Offer._meta.get_field_by_name('activity')[0].rel
-            related_modeladmin = admin_site._registry.get(activity_rel.to)
-            can_change_related = bool(related_modeladmin and
-                related_modeladmin.has_change_permission(request))
-            can_add_related = bool(related_modeladmin and
-                related_modeladmin.has_add_permission(request))
-            activity_widget = ActivityWidget(activity_rel, admin_site, ActivityLookup, can_change_related=can_change_related)
-            activity_widget.choices = None
-            self.fields['activity'].widget = RelatedFieldWidgetWrapper(activity_widget, activity_rel, admin_site, can_add_related=can_add_related)
-            targets_rel = Offer._meta.get_field_by_name('targets')[0].rel
-            targets_widget = forms.CheckboxSelectMultiple(attrs={'class': 'multiple_checkboxes'}, choices=self.fields['targets'].choices)
-            self.fields['targets'].widget = RelatedFieldWidgetWrapper(targets_widget, targets_rel, admin_site, can_add_related=False)
-            #area_rel = Offer._meta.get_field_by_name('area')[0].rel
-            self.fields['area'].widget = AutoCompleteSelectMultipleWidget(AreaLookup)
-    return OfferAdminForm
-
-class OfferInline(admin.StackedInline):
-
-    model = Offer
-    verbose_name = _(u'offer')
-    verbose_name_plural = _(u'offers')
-    formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'class':'multiple_checkboxes'})}}
-
-    def get_formset(self, request, obj=None, **kwargs):
-        return forms.models.inlineformset_factory(Organization, Offer, form=make_offer_form(self.admin_site, request), extra=1)
-
 class OrganizationAdminForm(BaseOrganizationAdminForm):
 
     testimony = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
@@ -343,7 +311,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'fields': ['testimony',]
             })
     )
-    inlines = [DocumentInline, RelationInline, LocatedInline, ContactInline, EngagementInline, ReferenceInline, OfferInline]
+    inlines = [DocumentInline, RelationInline, LocatedInline, ContactInline, EngagementInline, ReferenceInline]
     change_form_template = 'admin/coop_local/organization/tabbed_change_form.html'
     search_fields = ['norm_title', 'acronym']
     related_search_fields = {'legal_status': ('label', )}
@@ -531,16 +499,23 @@ class OfferDocumentInline(DocumentInline):
     model = OfferDocument
 
 
+class OActivityInline(InlineAutocompleteAdmin):
+    model = Offer.activity.through
+    related_search_fields = {'activitynomenclature': ('path', ), }
+    verbose_name = u'Secteur d\'activité'
+    verbose_name_plural = u'Secteurs d\'activité'
+
+
 class OfferAdmin(FkAutocompleteAdmin):
 
-    list_display = ('provider', 'activity')
+    list_display = ('provider', 'activities')
     search_fields = ('activity__label', 'provider__title', 'provider__acronym')
     related_search_fields = {
-        'activity': ('path', ),
         'provider': ('title', 'acronym', ),
         'area': ('label', ),
     }
-    inlines = [OfferDocumentInline]
+    inlines = [OActivityInline, OfferDocumentInline]
+    exclude = ('activity', )
 
 
 admin.site.unregister(Organization)

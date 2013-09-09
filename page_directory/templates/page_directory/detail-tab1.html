@@ -10,7 +10,7 @@
                         {% if org.offer_set.all|length == 1 %}
                             {% include "page_directory/detail-offer.html" %}
                         {% else %}
-                            <h3>{{ o.activity.label }}</h3>
+                            <h3>{{ o.activities }}</h3>
                             <p>{{ o.description|truncatewords_html:"30"|linebreaks }}</p>
                             <a data-toggle="modal" href="#offer-{{ o.pk }}">Voir les détails</a>
                             <div class="modal fade" id="offer-{{ o.pk }}">

@@ -489,7 +489,7 @@ Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name'))
 
 class Offer(models.Model):
 
-    activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
+    activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
     description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'customer targets'), blank=True, null=True)
     technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
@@ -500,13 +500,16 @@ class Offer(models.Model):
 
     def __unicode__(self):
 
-        return unicode(self.activity)
+        return self.activities()
 
     def get_absolute_url(self):
         return '/annuaire/p/offre/%u/' % self.id
 
     def unchecked_targets(self):
         return ClientTarget.objects.exclude(id__in=self.targets.all().values_list('id', flat=True))
+
+    def activities(self):
+        return ", ".join(self.activity.all().values_list('label', flat=True))
 
     class Meta:
         verbose_name = _(u'Offer')

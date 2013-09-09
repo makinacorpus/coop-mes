@@ -1,12 +1,15 @@
 V1.3
 
- * Bar de recherche annuaire/carte
- * Ajout d'un champ description aux appels d'offres
+ * Barre de recherche annuaire/carte
+ * Champ description pour les appels d'offres
  * Lieux d'exécution multiples pour les appels d'offres
- * Carte cliquable en page d'accueil (PACA et Midipy)
+ * Secteurs d'activité multiples pour les offres (dans le backend, les offres ne sont plus un onglet dans organisation mais sont à part comme les appels d'offres)
+ * Carte cliquable en page d'accueil (PACA et Midipy seulement)
  * Foire aux questions
+ * Onglet partenariats
+ * Document et images sur la fiche fournisseur (l'aspect graphique du carrousel reste à améliorer)
+ * En direct
 
 D&ploiement:
  - migrate coop_local
  - créer la page foire-aux-questions
- 
