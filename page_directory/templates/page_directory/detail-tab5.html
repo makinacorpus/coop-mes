@@ -1,25 +1,38 @@
-<h3>Partenariats avec des adhérents</h3>
-<hr>
-<div class="links-list clearfix">
-    {% for r in org.reseaux %}
-        <div class="col-lg-4 links-list-item">
-            <span class="user">{{ org.label }}</span>
-            <i>{{ r.relation_type.label }}</i><br>
-            <span class="value">{{ r.target.label }}</span><br>
-            <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
-        </div>
-    {% endfor %}
-</div>
-<hr>
-<h3>Autres partenariats</h3>
-<hr>
-<div class="links-list">
-    {% for r in org.non_reseaux %}
-        <div class="col-lg-4 links-list-item">
-            <span class="user">{{ org.label }}</span>
-            <i>{{ r.relation_type.label }}</i><br>
-            <span class="value">{{ r.target.label }}</span><br>
-            <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
-        </div>
-    {% endfor %}
-</div>
+{% if org.reseaux %}
+    <h3>Est membre de</h3>
+    <div class="links-list clearfix">
+        {% for r in org.reseaux %}
+            <div class="col-lg-4 links-list-item">
+                <span class="value">{{ r.target.label }}</span><br>
+                <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+{% endif %}
+
+{% if org.part_eco %}
+    <h3>Partenariats économiques</h3>
+    <div class="links-list clearfix">
+        {% for r in org.part_eco %}
+            <div class="col-lg-4 links-list-item">
+                <span class="value">{{ r.target.label }}</span><br>
+                <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+{% endif %}
+
+{% if org.part_tech %}
+    <h3>Autres partenariats</h3>
+    <div class="links-list clearfix">
+        {% for r in org.part_tech %}
+            <div class="col-lg-4 links-list-item">
+                <span class="value">{{ r.target.label }}</span><br>
+                <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+{% endif %}

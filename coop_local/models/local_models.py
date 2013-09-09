@@ -420,6 +420,9 @@ class Organization(BaseOrganization):
     def non_reseaux(self):
         return Relation.objects.filter(source=self).exclude(relation_type__id=1)
 
+    def part_eco(self):
+        return Relation.objects.filter(source=self, relation_type__id__in=(2, 3, 5))
+
     def part_tech(self):
         return Relation.objects.filter(source=self, relation_type__id=4)
 
