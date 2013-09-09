@@ -23,8 +23,8 @@
             {% for call in calls %}
                 <div class="article-extract">
                     <h3><a href="/appels-d-offres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
-                    <div class="article-meta">{{ call.deadline|date:"d/m/Y" }} - {{ call.organization }}</div>
-                    <p>{{ call.activities }}</p>
+                    <div class="article-extract__meta">{{ call.organization.label }}</div>
+                    <p>Date limite de réception des offres&nbsp;: {{ call.deadline|date:"j F Y à g\hi" }}</p>
                 </div>
             {% endfor %}
         </div>
@@ -32,7 +32,10 @@
             {% for provider in providers %}
                 <div class="article-extract">
                     <h3><a href="/annuaire/p/{{ provider.pk }}/">{{ provider.label }}</a></h3>
-                    <div class="article-meta">{{ provider.validation|date:"d/m/Y" }} - Catégorie {{ provider.category.all|join:", " }}</div>
+                    <div class="article-extract__meta">
+                        {{ provider.main_location.zipcode }} {{ provider.main_location.city }} -
+                        {{ provider.offer_activities }}
+                    </div>
                     <p>{{ provider.brief_description|truncatewords:10 }}</p>
                 </div>
             {% endfor %}
@@ -41,7 +44,7 @@
             {% for customer in customers %}
                 <div class="article-extract">
                     <h3><a href="/annuaire/p/{{ customer.pk }}/">{{ customer.label }}</a></h3>
-                    <div class="article-meta">{{ customer.validation|date:"d/m/Y" }} - Catégorie {{ customer.category.all|join:", " }}</div>
+                    <div class="article-extract__meta">{{ customer.main_location.zipcode }} {{ customer.main_location.city }}</div>
                     <p>{{ customer.brief_description|truncatewords:10 }}</p>
                 </div>
             {% endfor %}
@@ -53,7 +56,7 @@
             {% for actu in actus %}
                 <div class="article-extract">
                     <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
-                    <div class="article-meta">{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</div>
+                    <div class="article-extract__meta">{{ actu.publication_date|date:"d/m/Y" }} - Catégorie {{ actu.category.name }}</div>
                     <div class="cms-content">{{ actu.body|safe }}</div>
                 </div>
             {% endfor %}
