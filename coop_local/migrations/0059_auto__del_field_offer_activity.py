@@ -322,7 +322,7 @@ class Migration(SchemaMigration):
         },
         'coop_local.offer': {
             'Meta': {'object_name': 'Offer'},
-            'activity2': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['coop_local.ActivityNomenclature']", 'symmetrical': 'False'}),
+            'activity': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['coop_local.ActivityNomenclature']", 'symmetrical': 'False'}),
             'area': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['coop_local.Area']", 'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
