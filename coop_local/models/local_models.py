@@ -375,7 +375,7 @@ class Organization(BaseOrganization):
     # PROVIDER Management
     creation = models.DateField(_(u'creation date'), auto_now_add=True)
     modification = models.DateField(_(u'modification date'), auto_now=True)
-    status = models.CharField(_(u'status'), max_length=1, choices=ORGANIZATION_STATUSES.CHOICES, blank=True)
+    status = models.CharField(_(u'status'), max_length=1, choices=ORGANIZATION_STATUSES.CHOICES, default='I')
     correspondence = models.TextField(_(u'correspondence'), blank=True)
     transmission = models.IntegerField(_(u'transmission mode'), choices=TRANSMISSION_MODES.CHOICES, blank=True, null=True)
     transmission_date = models.DateField(_(u'transmission date'), blank=True, null=True)

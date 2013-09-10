@@ -32,6 +32,15 @@
                             </ul>
                         </div>
                         <div class="form">
+                            {% if form.instance.status == 'I' %}
+                                <p>Un fois que vous avez cliqué sur « Enregistrer », vous pouvez revenir plus tard pour finir de saisir votre fiche. Lorsque la fiche est complète vous devez cliquer sur le bouton « Proposer » afin de soumettre la fiche pur validation aux administrateurs du site.</p>
+                            {% endif %}
+                            {% if form.instance.status == 'P' %}
+                                <p>Votre fiche est en cours de validation par les administration du site. Elle ne sera visible publiquement qu'après validation.</p>
+                            {% endif %}
+                            {% if form.instance.status == 'V' %}
+                                <p>Votre fiche est validée.</p>
+                            {% endif %}
                             {% if form.form %}
                                 {% crispy form form.form.helper %}
                             {% else %}
@@ -44,6 +53,7 @@
                                     <button class="add-link btn btn--form">{{ form.add_label }}</button>
                                 {% endif %}
                                 <button type="submit" class="btn btn-default">Enregistrer</button>
+                                {% if form.instance.status == 'I' %}<a href="/annuaire/p/proposer/" class="btn btn--form">Proposer la fiche</a>{% endif %}
                             </fieldset>
                             <p><b>*</b> champs obligatoires</p>
                         </div>

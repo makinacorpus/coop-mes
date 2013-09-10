@@ -24,6 +24,7 @@ from django.contrib.contenttypes.generic import BaseGenericInlineFormSet
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.views.generic import CreateView, UpdateView
+from datetime import date
 
 
 def index_view(request, page_app):
@@ -286,6 +287,10 @@ class OrganizationChangeView(UpdateView):
     model = Organization
     forms = ORGANIZATION_FORMS
     last_step = len(forms) - 1
+    initial = {
+        'status': 'I',
+        'transmission': 1, # proposed on line
+    }
 
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -338,6 +343,19 @@ class OrganizationChangeView(UpdateView):
             context_instance=RequestContext(self.request))
 
 change_view = login_required(OrganizationChangeView.as_view())
+
+
+def submit_view(request, page_app):
+
+    try:
+        person = Person.objects.get(user=request.user)
+    except Person.DoesNotExist:
+        raise PermissionDenied
+    org = person.my_organization()
+    org.status = 'P'
+    org.transmission_date = date.today()
+    org.save()
+    return HttpResponseRedirect('/mon-compte/')
 
 
 @login_required
