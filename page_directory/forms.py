@@ -10,7 +10,7 @@ from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
 from chosen import widgets as chosenwidgets
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext, ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, HTML, Field
@@ -23,6 +23,7 @@ from django.db.models import Q
 from django.contrib.contenttypes.generic import (
     generic_inlineformset_factory, BaseGenericInlineFormSet)
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import login, authenticate
 
 
 class PageApp_DirectoryForm(ModuloModelForm):
@@ -82,55 +83,112 @@ class OrgSearch(forms.Form):
 
 class OrganizationMixin(object):
 
-    def set_helper(self, step, fields):
+    def set_helper(self, fields):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout()
         self.helper.layout.extend(fields)
 
 
-class OrganizationForm0(OrganizationMixin, UserCreationForm):
+class OrganizationForm1(OrganizationMixin, forms.ModelForm):
 
+    error_messages = {
+        'duplicate_username': _("A user with that username already exists."),
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+    username = forms.RegexField(label=_("Username"), max_length=30,
+        regex=r'^[\w.@+-]+$',
+        help_text = _("Required. 30 characters or fewer. Letters, digits and "
+                      "@/./+/-/_ only."),
+        error_messages = {
+            'invalid': _("This value may contain only letters, numbers and "
+                         "@/./+/-/_ characters.")})
+    old_password = forms.CharField(label=_("Old password"),
+        widget=forms.PasswordInput)
+    password1 = forms.CharField(label=_("Password"),
+        widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_("Password confirmation"),
+        widget=forms.PasswordInput,
+        help_text = _("Enter the same password as above, for verification."))
+    gender = forms.ChoiceField(choices=(('M', u'M.'), ('W', u'Mme')),
+        widget=forms.RadioSelect, required=False, label='Genre')
     charte = forms.TypedChoiceField(coerce=lambda x: bool(int(x)),
         choices=((0, u'Non'), (1, u'Oui')), widget=forms.RadioSelect,
         initial=0, required=False, label=u'J\'accepte la <a \
         data-toggle="modal" href="#charte">charte de l\'utilisateur</a>')
 
-    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
-        super(OrganizationForm0, self).__init__(*args, **kwargs)
-        self.set_helper(step, (
-            'username',
-            'password1',
-            'password2',
-            HTML('<hr>'),
-            InlineRadios('charte', css_class="large-label")))
+    class Meta:
+        model = User
+        fields = ("username", "last_name", "first_name")
+
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        if request.user.is_authenticated():
+            self.person = request.user.get_profile()
+        else:
+            self.person = Person()
+        super(OrganizationForm1, self).__init__(*args, **kwargs)
+        self.fields['last_name'].required = True
+        self.fields['gender'].initial = self.person.gender
+        if self.instance.pk:
+            self.fields['password1'].required = False
+            self.fields['password2'].required = False
+            del self.fields['charte']
+            self.set_helper((
+                InlineRadios('gender'),
+                'first_name',
+                'last_name',
+                'username',
+                'old_password',
+                'password1',
+                'password2'))
+        else:
+            del self.fields['old_password']
+            self.set_helper((
+                InlineRadios('gender'),
+                'first_name',
+                'last_name',
+                'username',
+                'password1',
+                'password2',
+                HTML('<hr>'),
+                InlineRadios('charte', css_class="large-label")))
+
+    def clean_username(self):
+        # Since User.username is unique, this check is redundant,
+        # but it sets a nicer error message than the ORM. See #13147.
+        username = self.cleaned_data["username"]
+        existing_users  = User.objects.filter(username=username)
+        existing_users = existing_users.exclude(username=self.instance.username)
+        if existing_users.exists():
+            raise forms.ValidationError(self.error_messages['duplicate_username'])
+        return username
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1", "")
+        password2 = self.cleaned_data["password2"]
+        if password1 != password2:
+            raise forms.ValidationError(
+                self.error_messages['password_mismatch'])
+        return password2
 
     def clean_charte(self):
         if not self.cleaned_data['charte']:
             raise forms.ValidationError(u'Vous devez accepter la charte pour pouvoir vous inscrire.')
         return True
 
-
-class OrganizationForm1(OrganizationMixin, forms.ModelForm):
-
-    gender = forms.ChoiceField(choices=(('M', u'M.'), ('W', u'Mme')),
-        widget=forms.RadioSelect, required=False, label='Genre')
-    tel = forms.CharField(required=False, label=u'Téléphone')
-    role = forms.ModelChoiceField(queryset=Role.objects, required=False, label=u'Rôle')
-
-    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
-        super(OrganizationForm1, self).__init__(*args, **kwargs)
-        self.set_helper(step, (
-            InlineRadios('gender'),
-            'last_name',
-            'first_name',
-            'email',
-            'tel',
-            'role'))
-
-    class Meta:
-        model = Person
-        fields = ('gender', 'first_name', 'last_name', 'email')
+    def save(self):
+        user = super(OrganizationForm1, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.save()
+        user = authenticate(username=user.username, password=self.cleaned_data['password1'])
+        login(self.request, user)
+        self.person.user = user
+        self.person.gender = self.cleaned_data['gender']
+        self.person.first_name = user.first_name
+        self.person.last_name = user.last_name
+        self.person.save()
+        return user
 
 
 class OrganizationForm2(OrganizationMixin, forms.ModelForm):
@@ -141,12 +199,12 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
                   'legal_status', 'web', 'siret', 'is_provider',
                   'is_customer', 'customer_type')
 
-    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(OrganizationForm2, self).__init__(*args, **kwargs)
         self.fields['is_provider'].label += '*'
         self.fields['is_customer'].label += '*'
         self.fields['customer_type'].label += '*'
-        self.set_helper(step, (
+        self.set_helper((
             'title', 'acronym', 'pref_label', 'logo', 'birth',
             'legal_status', 'web', 'siret', 'is_provider',
             'is_customer', 'customer_type'))
@@ -176,9 +234,9 @@ class OrganizationForm3(OrganizationMixin, forms.ModelForm):
         model = Organization
         fields = ('brief_description', 'description', 'added_value')
 
-    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(OrganizationForm3, self).__init__(*args, **kwargs)
-        self.set_helper(step, ('brief_description', 'description', 'added_value',))
+        self.set_helper(('brief_description', 'description', 'added_value',))
 
 
 class OrganizationForm4(OrganizationMixin, forms.ModelForm):
@@ -195,17 +253,17 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             'guaranties',
         )
 
-    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
-        if not is_customer:
+        if not self.instance.is_customer:
             del self.fields['activities']
-        if not is_provider:
+        if not self.instance.is_provider:
             del self.fields['category']
             del self.fields['agreement_iae']
             del self.fields['category_iae']
             del self.fields['transverse_themes']
             del self.fields['guaranties']
-        self.set_helper(step, self.fields.keys())
+        self.set_helper(self.fields.keys())
         for name, field in self.fields.iteritems():
             if name == 'tags':
                 field.help_text = u'Entrez des mots-clés séparés par une virgule.'
@@ -226,12 +284,12 @@ class OrganizationForm5(OrganizationMixin, forms.ModelForm):
             'annual_integration_number',
         )
 
-    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(OrganizationForm5, self).__init__(*args, **kwargs)
         for field in self.fields.itervalues():
             field.label = field.label.replace(' (ETP)', '')
             field.localize = True
-        self.set_helper(step, (
+        self.set_helper((
             AppendedText('annual_revenue', u'€'),
             AppendedText('workforce', u'ETP'),
             AppendedText('production_workforce', u'ETP'),
@@ -249,9 +307,9 @@ class OrganizationForm6(OrganizationMixin, forms.ModelForm):
         model = Organization
         fields = ('testimony', )
 
-    def __init__(self, step, is_customer, is_provider, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(OrganizationForm6, self).__init__(*args, **kwargs)
-        self.set_helper(step, ('testimony', ))
+        self.set_helper(('testimony', ))
 
 
 class DocumentForm(OrganizationMixin, forms.ModelForm):
@@ -262,7 +320,7 @@ class DocumentForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(DocumentForm, self).__init__(*args, **kwargs)
-        self.set_helper('7', (
+        self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'name',
             'attachment',
@@ -273,7 +331,6 @@ class DocumentForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm7 = forms.models.inlineformset_factory(Organization, Document, form=DocumentForm, extra=2)
-OrganizationForm7.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm7.add_label = u'Ajouter un document'
 
 
@@ -285,7 +342,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RelationForm, self).__init__(*args, **kwargs)
-        self.set_helper('8', (
+        self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'relation_type',
             'target',
@@ -295,11 +352,39 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm8 = forms.models.inlineformset_factory(Organization, Relation, form=RelationForm, fk_name='source', extra=2)
-OrganizationForm8.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm8.add_label = u'Ajouter une relation'
 
 
-class SaveGenericInlineFormset(BaseGenericInlineFormSet):
+class FixedBaseGenericInlineFormSet(BaseGenericInlineFormSet):
+
+    # Fix https://code.djangoproject.com/ticket/17927
+    def __init__(self, data=None, files=None, instance=None, save_as_new=None,
+                 prefix=None, queryset=None, **kwargs):
+        # Avoid a circular import.
+        from django.contrib.contenttypes.models import ContentType
+        opts = self.model._meta
+        self.instance = instance
+        self.rel_name = '-'.join((
+            opts.app_label, opts.object_name.lower(),
+            self.ct_field.name, self.ct_fk_field.name,
+        ))
+        if self.instance is None or self.instance.pk is None:
+            qs = self.model._default_manager.none()
+        else:
+            if queryset is None:
+                queryset = self.model._default_manager
+            qs = queryset.filter(**{
+                self.ct_field.name: ContentType.objects.get_for_model(self.instance),
+                self.ct_fk_field.name: self.instance.pk,
+            })
+        super(BaseGenericInlineFormSet, self).__init__(
+            queryset=qs, data=data, files=files,
+            prefix=prefix, **kwargs
+        )
+
+
+
+class SaveGenericInlineFormset(FixedBaseGenericInlineFormSet):
 
     def save_new(self, form, commit=True):
         """ Default save_new does not call our form.save() method. """
@@ -323,7 +408,7 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
             kwargs['initial'] = dict([(field, getattr(instance.location, field))
                 for field in ('adr1', 'adr2', 'zipcode', 'city')])
         super(LocatedForm, self).__init__(*args, **kwargs)
-        self.set_helper('9', (
+        self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'main_location',
             'category',
@@ -352,11 +437,10 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm9 = generic_inlineformset_factory(Located, form=LocatedForm, formset=SaveGenericInlineFormset, extra=2)
-OrganizationForm9.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: SaveGenericInlineFormset.__init__(self, *args, **kwargs)
 OrganizationForm9.add_label = u'Ajouter un lieu'
 
 
-class ContactInlineFormSet(BaseGenericInlineFormSet):
+class ContactInlineFormSet(FixedBaseGenericInlineFormSet):
 
     def _construct_form(self, i, **kwargs):
         kwargs['organization'] = self.instance
@@ -378,7 +462,7 @@ class ContactForm(OrganizationMixin, forms.ModelForm):
         else:
             queryset = Location.objects.none()
         self.fields['contact_medium'].label = u'Coordonnées'
-        self.set_helper('10', (
+        self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'contact_medium',
             'content',
@@ -389,7 +473,6 @@ class ContactForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm10 = generic_inlineformset_factory(Contact, form=ContactForm, formset=ContactInlineFormSet, extra=2)
-OrganizationForm10.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: ContactInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm10.add_label = u'Ajouter un contact'
 
 
@@ -409,7 +492,7 @@ class EngagementForm(OrganizationMixin, forms.ModelForm):
             kwargs['initial'] = dict([(field, getattr(instance.person, field))
                 for field in ('gender', 'last_name', 'first_name')])
         super(EngagementForm, self).__init__(*args, **kwargs)
-        self.set_helper('11', (
+        self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'gender',
             'first_name',
@@ -439,8 +522,13 @@ class EngagementForm(OrganizationMixin, forms.ModelForm):
         return engagement
 
 
-OrganizationForm11 = forms.models.inlineformset_factory(Organization, Engagement, form=EngagementForm, extra=2)
-OrganizationForm11.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
+class EngagementInlineFormSet(forms.models.BaseInlineFormSet):
+
+    # FIXME: filter delete field when engagement.person.user = current user
+    def add_fields(self, form, index):
+        return super(EngagementInlineFormSet, self).add_fields(form, index)
+
+OrganizationForm11 = forms.models.inlineformset_factory(Organization, Engagement, form=EngagementForm, formset=EngagementInlineFormSet,  extra=2)
 OrganizationForm11.add_label = u'Ajouter un membre'
 
 
@@ -452,7 +540,7 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ReferenceForm, self).__init__(*args, **kwargs)
-        self.set_helper('12', (
+        self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'source',
             'from_year',
@@ -471,13 +559,10 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm12 = forms.models.inlineformset_factory(Organization, Reference, form=ReferenceForm, fk_name='target', extra=2)
-OrganizationForm12.__init__ = lambda self, step, is_customer, is_provider, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm12.add_label = u'Ajouter une référence'
 
 
 ORGANIZATION_FORMS = (
-    OrganizationForm0,
-    OrganizationForm1,
     OrganizationForm2,
     OrganizationForm3,
     OrganizationForm4,

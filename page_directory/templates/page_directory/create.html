@@ -1,0 +1,38 @@
+{% load i18n staticfiles crispy_forms_tags ascii %}
+
+<div class="main-content">
+    <div class="container">
+        <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
+            <div class="content-box">
+                <div class="section-head">
+                    <h1 class="title">CODES D'ACCES</h1>
+                </div>
+                <div class="form">
+                    <fieldset>
+                        {% crispy form %}
+                    </fieldset>
+                    <fieldset class="text-center">
+                        <button type="submit" class="btn btn-default">Enregistrer</button>
+                    </fieldset>
+                    <p><b>*</b> champs obligatoires</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="charte">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div class="modal-title__bg"></div>
+                <h4 class="modal-title title">Charte de l'utilisateur</h4>
+            </div>
+            <div class="modal-body">
+                {{ charte|safe }}
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,3 +1,11 @@
+V1.4
+
+ * Enregistrement à chaque étape du formulaire acheteur/fournisseur
+
+
+Déploiement:
+
+
 V1.3
 
  * Barre de recherche annuaire/carte
@@ -10,6 +18,6 @@ V1.3
  * Document et images sur la fiche fournisseur (l'aspect graphique du carrousel reste à améliorer)
  * En direct
 
-D&ploiement:
+Déploiement:
  - migrate coop_local
  - créer la page foire-aux-questions

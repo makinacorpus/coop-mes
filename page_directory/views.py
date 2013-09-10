@@ -2,7 +2,7 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch, ORGANIZATION_FORMS, OfferForm)
+from .forms import (OrgSearch, OrganizationForm1, ORGANIZATION_FORMS, OfferForm)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
     Person, Location, Relation, Offer)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
@@ -15,7 +15,6 @@ from django.core.files.storage import FileSystemStorage
 from tempfile import gettempdir
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from ionyweb.page.models import Page
-from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.utils.timezone import now
@@ -24,6 +23,7 @@ from django.db import transaction
 from django.contrib.contenttypes.generic import BaseGenericInlineFormSet
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.views.generic import CreateView, UpdateView
 
 
 def index_view(request, page_app):
@@ -135,8 +135,6 @@ class OrganizationEditView(SessionWizardView):
 
 
 ORGANIZATION_TITLES = (
-    u'Codes d\'accès',
-    u'Données personnelles',
     u'Type d\'organisation',
     u'Description',
     u'Classification',
@@ -165,121 +163,181 @@ OFFER_MEDIA = (
     JSMedia('select2/select2.min.js', prefix_file=''),
 )
 
-class OrganizationCreateView(OrganizationEditView):
+#class OrganizationCreateView(OrganizationEditView):
 
-    def __init__(self, *args, **kwargs):
-        super(OrganizationCreateView, self).__init__(*args, **kwargs)
-        self.user = User()
-        self.person = Person()
-        self.organization = Organization()
+    #def __init__(self, *args, **kwargs):
+        #super(OrganizationCreateView, self).__init__(*args, **kwargs)
+        #self.user = User()
+        #self.person = Person()
+        #self.organization = Organization()
 
-    def get_form_instance(self, step):
-        if step == '0':
-            return self.user
-        elif step == '1':
-            return self.person
-        else:
-            return self.organization
+    #def get_form_instance(self, step):
+        #if step == '0':
+            #return self.user
+        #elif step == '1':
+            #return self.person
+        #else:
+            #return self.organization
 
-    @transaction.commit_on_success
-    def done(self, forms, **kwargs):
-        # User
-        forms[0].save()
-        self.user = authenticate(username=self.user.username, password=forms[0].cleaned_data['password1'])
-        login(self.request, self.user)
-        # Person
-        self.person.user = self.user
-        self.person.username = self.user.username
-        forms[1].save()
-        # Organization
-        self.organization = forms[2].save()
-        for form in forms[3:7]:
-            for field, value in form.cleaned_data.iteritems():
-                setattr(self.organization, field, value)
-        self.organization.save()
-        # Inline formsets
-        for form in forms[7:13]:
-            form.save()
-        # Engagement
-        engagement = Engagement()
-        engagement.person = self.person
-        engagement.organization = self.organization
-        engagement.org_admin = True
-        engagement.tel = forms[1].cleaned_data['tel']
-        engagement.email = forms[1].cleaned_data['email']
-        engagement.role = forms[1].cleaned_data['role']
-        engagement.save()
-        return HttpResponseRedirect('/mon-compte/')
+    #@transaction.commit_on_success
+    #def done(self, forms, **kwargs):
+        ## User
+        #forms[0].save()
+        #self.user = authenticate(username=self.user.username, password=forms[0].cleaned_data['password1'])
+        #login(self.request, self.user)
+        ## Person
+        #self.person.user = self.user
+        #self.person.username = self.user.username
+        #forms[1].save()
+        ## Organization
+        #self.organization = forms[2].save()
+        #for form in forms[3:7]:
+            #for field, value in form.cleaned_data.iteritems():
+                #setattr(self.organization, field, value)
+        #self.organization.save()
+        ## Inline formsets
+        #for form in forms[7:13]:
+            #form.save()
+        ## Engagement
+        #engagement = Engagement()
+        #engagement.person = self.person
+        #engagement.organization = self.organization
+        #engagement.org_admin = True
+        #engagement.tel = forms[1].cleaned_data['tel']
+        #engagement.email = forms[1].cleaned_data['email']
+        #engagement.role = forms[1].cleaned_data['role']
+        #engagement.save()
+        #return HttpResponseRedirect('/mon-compte/')
+
+    #def render_to_response(self, context, **response_kwargs):
+        #assert response_kwargs == {}
+        #context['titles'] = ORGANIZATION_TITLES
+        #context['title'] = context['titles'][int(self.steps.current)]
+        #if self.steps.current == '0':
+            #try:
+                #context['charte'] = Page.objects.get(title='Charte').app.text
+            #except Page.DoesNotExist:
+                #context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
+        #return render_view(self.get_template_names(),
+            #context,
+            #ORGANIZATION_MEDIA,
+            #context_instance=RequestContext(self.request))
+
+
+class OrganizationCreateView(CreateView):
+
+    template_name = 'page_directory/create.html'
+    model = User
+    form_class = OrganizationForm1
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            raise PermissionDenied
+        return super(OrganizationCreateView, self).dispatch(request, args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(OrganizationCreateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    def get_success_url(self):
+        ## Person
+        #self.person.user = self.user
+        #self.person.username = self.user.username
+        #forms[1].save()
+        ## Organization
+        #self.organization = forms[2].save()
+        #for form in forms[3:7]:
+            #for field, value in form.cleaned_data.iteritems():
+                #setattr(self.organization, field, value)
+        #self.organization.save()
+        ## Inline formsets
+        #for form in forms[7:13]:
+            #form.save()
+        ## Engagement
+        #engagement = Engagement()
+        #engagement.person = self.person
+        #engagement.organization = self.organization
+        #engagement.org_admin = True
+        #engagement.tel = forms[1].cleaned_data['tel']
+        #engagement.email = forms[1].cleaned_data['email']
+        #engagement.role = forms[1].cleaned_data['role']
+        #engagement.save()
+        return '/annuaire/p/modifier/'
+
+    def render_to_response(self, context, **response_kwargs):
+        assert response_kwargs == {}
+        try:
+            context['charte'] = Page.objects.get(title='Charte').app.text
+        except Page.DoesNotExist:
+            context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
+        return render_view(self.get_template_names(),
+            context,
+            ORGANIZATION_MEDIA,
+            context_instance=RequestContext(self.request))
+
+add_view = OrganizationCreateView.as_view()
+
+
+class OrganizationChangeView(UpdateView):
+
+    template_name = 'page_directory/edit.html'
+    success_url  = '/mon-compte/'
+    model = Organization
+    forms = ORGANIZATION_FORMS
+    last_step = len(forms) - 1
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.step = int(kwargs['step'])
+        except:
+            self.step = 0
+        if self.step > self.last_step:
+            self.step = 0
+        return super(OrganizationChangeView, self).dispatch(request, args, **kwargs)
+
+    def get_form_class(self):
+        return self.forms[self.step]
+
+    def get_object(self, queryset=None):
+        try:
+            person = Person.objects.get(user=self.request.user)
+        except Person.DoesNotExist:
+            raise PermissionDenied
+        return person.my_organization()
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'step': {
+                'current': self.step,
+                'prev': str(self.step - 1) if self.step > 0 else None,
+                'next': str(self.step + 1) if self.step < self.last_step else None,
+                'count': self.last_step + 1,
+            },
+        })
+        return super(OrganizationChangeView, self).get_context_data(**kwargs)
+
+    def get_success_url(self):
+        if not self.object.engagement_set.exists():
+            engagement = Engagement()
+            engagement.person = Person.objects.get(user=self.request.user)
+            engagement.organization = self.object
+            engagement.org_admin = True
+            engagement.save()
+        if self.step == self.last_step:
+            return self.success_url
+        return '/annuaire/p/modifier/%u/' % (self.step + 1)
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
         context['titles'] = ORGANIZATION_TITLES
-        context['title'] = context['titles'][int(self.steps.current)]
-        if self.steps.current == '0':
-            try:
-                context['charte'] = Page.objects.get(title='Charte').app.text
-            except Page.DoesNotExist:
-                context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
+        context['title'] = context['titles'][self.step]
         return render_view(self.get_template_names(),
             context,
             ORGANIZATION_MEDIA,
             context_instance=RequestContext(self.request))
 
-add_view = OrganizationCreateView.as_view(ORGANIZATION_FORMS)
-
-
-class OrganizationChangeView(OrganizationEditView):
-
-    def get_form_instance(self, step):
-        if step == '0':
-            return self.person
-        else:
-            return self.organization
-
-    def get_form_initial(self, step):
-        pk = self.kwargs['pk']
-        self.organization = get_object_or_404(Organization, pk=pk)
-        try:
-            self.person = Person.objects.get(user=self.request.user)
-        except Person.DoesNotExist:
-            raise PermissionDenied
-        try:
-            self.engagement = Engagement.objects.get(person=self.person, organization=self.organization)
-        except Engagement.DoesNotExist:
-            raise PermissionDenied
-        if step == '0':
-            return {'tel': self.engagement.tel, 'role': self.engagement.role}
-        return {}
-
-    @transaction.commit_on_success
-    def done(self, forms, **kwargs):
-        # Person
-        forms[0].save()
-        # Organization
-        for form in forms[1:6]:
-            for field, value in form.cleaned_data.iteritems():
-                setattr(self.organization, field, value)
-        self.organization.save()
-        # Inline formsets
-        for form in forms[6:12]:
-            form.save()
-        # Engagement
-        self.engagement.tel = forms[0].cleaned_data['tel']
-        self.engagement.email = forms[0].cleaned_data['email']
-        self.engagement.role = forms[0].cleaned_data['role']
-        self.engagement.save()
-        return HttpResponseRedirect('/mon-compte/')
-
-    def render_to_response(self, context, **response_kwargs):
-        assert response_kwargs == {}
-        context['titles'] = ORGANIZATION_TITLES[1:]
-        context['title'] = context['titles'][int(self.steps.current)]
-        return render_view(self.get_template_names(),
-            context,
-            ORGANIZATION_MEDIA,
-            context_instance=RequestContext(self.request))
-
-change_view = login_required(OrganizationChangeView.as_view(ORGANIZATION_FORMS[1:]))
+change_view = login_required(OrganizationChangeView.as_view())
 
 
 @login_required
