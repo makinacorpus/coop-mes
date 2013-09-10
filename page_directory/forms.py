@@ -199,11 +199,21 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
                   'legal_status', 'web', 'siret', 'is_provider',
                   'is_customer', 'customer_type')
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm2, self).__init__(*args, **kwargs)
-        self.fields['is_provider'].label += '*'
-        self.fields['is_customer'].label += '*'
-        self.fields['customer_type'].label += '*'
+        self.propose = propose
+        if propose:
+            self.fields['birth'].required = True
+            self.fields['legal_status'].required = True
+            self.fields['siret'].required = True
+        else:
+            self.fields['birth'].label += '*'
+            self.fields['legal_status'].label += '*'
+            self.fields['siret'].label += '*'
+        self.fields['title'].label += '*'
+        self.fields['is_provider'].label += '**'
+        self.fields['is_customer'].label += '**'
+        self.fields['customer_type'].label += '**'
         self.set_helper((
             'title', 'acronym', 'pref_label', 'logo', 'birth',
             'legal_status', 'web', 'siret', 'is_provider',
@@ -225,6 +235,13 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
         # Always return the full collection of cleaned data.
         return cleaned_data
 
+    def save(self):
+        org = super(OrganizationForm2, self).save(commit=False)
+        if org.transmission is None:
+            org.transmission = 1 # proposed on line
+        org.save()
+        return org
+
 
 class OrganizationForm3(OrganizationMixin, forms.ModelForm):
 
@@ -234,8 +251,12 @@ class OrganizationForm3(OrganizationMixin, forms.ModelForm):
         model = Organization
         fields = ('brief_description', 'description', 'added_value')
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm3, self).__init__(*args, **kwargs)
+        if propose:
+            self.fields['brief_description'].required = True
+        else:
+            self.fields['brief_description'].label += '*'
         self.set_helper(('brief_description', 'description', 'added_value',))
 
 
@@ -253,7 +274,7 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             'guaranties',
         )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
         if not self.instance.is_customer:
             del self.fields['activities']
@@ -284,8 +305,18 @@ class OrganizationForm5(OrganizationMixin, forms.ModelForm):
             'annual_integration_number',
         )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm5, self).__init__(*args, **kwargs)
+        if propose:
+            self.fields['workforce'].required = True
+        else:
+            self.fields['workforce'].label += '*'
+        if propose and self.instance.agreement_iae.filter(label=u'Conventionnement IAE').exists():
+            self.fields['integration_workforce'].required = True
+            self.fields['annual_integration_number'].required = True
+        else:
+            self.fields['integration_workforce'].label += '*'
+            self.fields['annual_integration_number'].label += '*'
         for field in self.fields.itervalues():
             field.label = field.label.replace(' (ETP)', '')
             field.localize = True
@@ -307,7 +338,7 @@ class OrganizationForm6(OrganizationMixin, forms.ModelForm):
         model = Organization
         fields = ('testimony', )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm6, self).__init__(*args, **kwargs)
         self.set_helper(('testimony', ))
 
@@ -331,6 +362,7 @@ class DocumentForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm7 = forms.models.inlineformset_factory(Organization, Document, form=DocumentForm, extra=2)
+OrganizationForm7.__init__ = lambda self, propose, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm7.add_label = u'Ajouter un document'
 
 
@@ -352,6 +384,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm8 = forms.models.inlineformset_factory(Organization, Relation, form=RelationForm, fk_name='source', extra=2)
+OrganizationForm8.__init__ = lambda self, propose, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm8.add_label = u'Ajouter une relation'
 
 
@@ -408,6 +441,11 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
             kwargs['initial'] = dict([(field, getattr(instance.location, field))
                 for field in ('adr1', 'adr2', 'zipcode', 'city')])
         super(LocatedForm, self).__init__(*args, **kwargs)
+        self.fields['zipcode'].required = True
+        self.fields['city'].required = True
+        self.fields['adr1'].label += '*'
+        self.fields['zipcode'].label += '*'
+        self.fields['city'].label += '*'
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'main_location',
@@ -437,6 +475,7 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm9 = generic_inlineformset_factory(Located, form=LocatedForm, formset=SaveGenericInlineFormset, extra=2)
+OrganizationForm9.__init__ = lambda self, propose, *args, **kwargs: SaveGenericInlineFormset.__init__(self, *args, **kwargs)
 OrganizationForm9.add_label = u'Ajouter un lieu'
 
 
@@ -473,6 +512,7 @@ class ContactForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm10 = generic_inlineformset_factory(Contact, form=ContactForm, formset=ContactInlineFormSet, extra=2)
+OrganizationForm10.__init__ = lambda self, propose, *args, **kwargs: ContactInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm10.add_label = u'Ajouter un contact'
 
 
@@ -529,6 +569,7 @@ class EngagementInlineFormSet(forms.models.BaseInlineFormSet):
         return super(EngagementInlineFormSet, self).add_fields(form, index)
 
 OrganizationForm11 = forms.models.inlineformset_factory(Organization, Engagement, form=EngagementForm, formset=EngagementInlineFormSet,  extra=2)
+OrganizationForm11.__init__ = lambda self, propose, *args, **kwargs: EngagementInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm11.add_label = u'Ajouter un membre'
 
 
@@ -559,6 +600,7 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
 
 OrganizationForm12 = forms.models.inlineformset_factory(Organization, Reference, form=ReferenceForm, fk_name='target', extra=2)
+OrganizationForm12.__init__ = lambda self, propose, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm12.add_label = u'Ajouter une référence'
 
 
@@ -594,6 +636,7 @@ class OfferForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(OfferForm, self).__init__(*args, **kwargs)
         self.fields['activity'].queryset = ActivityNomenclature.objects.filter(level=settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL).order_by('path')
+        self.fields['activity'].help_text = u''
         self.fields['targets'].widget = forms.widgets.CheckboxSelectMultiple()
         self.fields['targets'].help_text = u''
         self.fields['area'].help_text = u''

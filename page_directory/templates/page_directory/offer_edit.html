@@ -5,8 +5,13 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="content-box">
-                    <form class="form form-horizontal" action="" enctype="multipart/form-data" method="post">
+                    <form class="form form-horizontal" action="/annuaire/p/offre/ajouter/" enctype="multipart/form-data" method="post">
                         <fieldset>
+                            {% if propose %}
+                                <div class="alert alert-block alert-danger">
+                                    <ul><li>Veuillez ajouter au moins une offre avant de proposer la fiche pour validation.</li></ul>
+                                </div>
+                            {% endif %}
                             {% crispy form %}
                         </fieldset>
                         <fieldset class="text-center">

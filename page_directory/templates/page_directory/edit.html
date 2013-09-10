@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="container">
-        <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
+        <form class="form-horizontal" action="/annuaire/p/modifier/{{ step.current }}/" enctype="multipart/form-data" method="post">
             <div class="row">
                 <div class="col-lg-3 sidebar sidebar--left">
                     <div class="content-box profile">
@@ -53,9 +53,12 @@
                                     <button class="add-link btn btn--form">{{ form.add_label }}</button>
                                 {% endif %}
                                 <button type="submit" class="btn btn-default">Enregistrer</button>
-                                {% if form.instance.status == 'I' %}<a href="/annuaire/p/proposer/" class="btn btn--form">Proposer la fiche</a>{% endif %}
+                                {% if form.instance.status == 'I' %}
+                                    <button type="submit" name='propose' class="btn btn--form">Proposer la fiche</button>
+                                {% endif %}
                             </fieldset>
-                            <p><b>*</b> champs obligatoires</p>
+                            <p><b>*</b> champs obligatoires lors de la proposition.</p>
+                            <p><b>**</b> champs obligatoires lors de l'enregistrement.</p>
                         </div>
                     </div>
                 </div>

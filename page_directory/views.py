@@ -25,6 +25,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.views.generic import CreateView, UpdateView
 from datetime import date
+from django.forms.models import model_to_dict
 
 
 def index_view(request, page_app):
@@ -164,72 +165,13 @@ OFFER_MEDIA = (
     JSMedia('select2/select2.min.js', prefix_file=''),
 )
 
-#class OrganizationCreateView(OrganizationEditView):
-
-    #def __init__(self, *args, **kwargs):
-        #super(OrganizationCreateView, self).__init__(*args, **kwargs)
-        #self.user = User()
-        #self.person = Person()
-        #self.organization = Organization()
-
-    #def get_form_instance(self, step):
-        #if step == '0':
-            #return self.user
-        #elif step == '1':
-            #return self.person
-        #else:
-            #return self.organization
-
-    #@transaction.commit_on_success
-    #def done(self, forms, **kwargs):
-        ## User
-        #forms[0].save()
-        #self.user = authenticate(username=self.user.username, password=forms[0].cleaned_data['password1'])
-        #login(self.request, self.user)
-        ## Person
-        #self.person.user = self.user
-        #self.person.username = self.user.username
-        #forms[1].save()
-        ## Organization
-        #self.organization = forms[2].save()
-        #for form in forms[3:7]:
-            #for field, value in form.cleaned_data.iteritems():
-                #setattr(self.organization, field, value)
-        #self.organization.save()
-        ## Inline formsets
-        #for form in forms[7:13]:
-            #form.save()
-        ## Engagement
-        #engagement = Engagement()
-        #engagement.person = self.person
-        #engagement.organization = self.organization
-        #engagement.org_admin = True
-        #engagement.tel = forms[1].cleaned_data['tel']
-        #engagement.email = forms[1].cleaned_data['email']
-        #engagement.role = forms[1].cleaned_data['role']
-        #engagement.save()
-        #return HttpResponseRedirect('/mon-compte/')
-
-    #def render_to_response(self, context, **response_kwargs):
-        #assert response_kwargs == {}
-        #context['titles'] = ORGANIZATION_TITLES
-        #context['title'] = context['titles'][int(self.steps.current)]
-        #if self.steps.current == '0':
-            #try:
-                #context['charte'] = Page.objects.get(title='Charte').app.text
-            #except Page.DoesNotExist:
-                #context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
-        #return render_view(self.get_template_names(),
-            #context,
-            #ORGANIZATION_MEDIA,
-            #context_instance=RequestContext(self.request))
-
 
 class OrganizationCreateView(CreateView):
 
     template_name = 'page_directory/create.html'
     model = User
     form_class = OrganizationForm1
+    success_url = '/annuaire/p/modifier/'
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -240,31 +182,6 @@ class OrganizationCreateView(CreateView):
         kwargs = super(OrganizationCreateView, self).get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
-
-    def get_success_url(self):
-        ## Person
-        #self.person.user = self.user
-        #self.person.username = self.user.username
-        #forms[1].save()
-        ## Organization
-        #self.organization = forms[2].save()
-        #for form in forms[3:7]:
-            #for field, value in form.cleaned_data.iteritems():
-                #setattr(self.organization, field, value)
-        #self.organization.save()
-        ## Inline formsets
-        #for form in forms[7:13]:
-            #form.save()
-        ## Engagement
-        #engagement = Engagement()
-        #engagement.person = self.person
-        #engagement.organization = self.organization
-        #engagement.org_admin = True
-        #engagement.tel = forms[1].cleaned_data['tel']
-        #engagement.email = forms[1].cleaned_data['email']
-        #engagement.role = forms[1].cleaned_data['role']
-        #engagement.save()
-        return '/annuaire/p/modifier/'
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
@@ -287,10 +204,6 @@ class OrganizationChangeView(UpdateView):
     model = Organization
     forms = ORGANIZATION_FORMS
     last_step = len(forms) - 1
-    initial = {
-        'status': 'I',
-        'transmission': 1, # proposed on line
-    }
 
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -299,6 +212,7 @@ class OrganizationChangeView(UpdateView):
             self.step = 0
         if self.step > self.last_step:
             self.step = 0
+        self.propose = 'propose' in request.REQUEST
         return super(OrganizationChangeView, self).dispatch(request, args, **kwargs)
 
     def get_form_class(self):
@@ -309,7 +223,21 @@ class OrganizationChangeView(UpdateView):
             person = Person.objects.get(user=self.request.user)
         except Person.DoesNotExist:
             raise PermissionDenied
-        return person.my_organization()
+        self.org = person.my_organization()
+        if self.org and self.org.status == 'V':
+            self.propose = True
+        return self.org
+
+    def get_form_kwargs(self):
+        kwargs = super(OrganizationChangeView, self).get_form_kwargs()
+        kwargs['propose'] = self.propose
+        return kwargs
+
+    def get_form(self, form_class):
+        kwargs = self.get_form_kwargs()
+        if not 'data' in kwargs and self.propose and self.step in (0, 1, 3):
+            kwargs['data'] = model_to_dict(self.object)
+        return form_class(**kwargs)
 
     def get_context_data(self, **kwargs):
         kwargs.update({
@@ -323,12 +251,26 @@ class OrganizationChangeView(UpdateView):
         return super(OrganizationChangeView, self).get_context_data(**kwargs)
 
     def get_success_url(self):
-        if not self.object.engagement_set.exists():
+        if isinstance(self.object, Organization) and not self.object.engagement_set.exists():
             engagement = Engagement()
             engagement.person = Person.objects.get(user=self.request.user)
             engagement.organization = self.object
             engagement.org_admin = True
             engagement.save()
+        if self.propose:
+            if not self.org.birth or not self.org.legal_status or not self.org.siret:
+                return '/annuaire/p/modifier/0/?propose'
+            if not self.org.brief_description:
+                return '/annuaire/p/modifier/1/?propose'
+            if not self.org.workforce:
+                return '/annuaire/p/modifier/3/?propose'
+            if self.org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (self.org.integration_workforce or self.org.annual_integration_number):
+                return '/annuaire/p/modifier/3/?propose'
+            if self.org.is_provider and not self.org.offer_set.exists():
+                return '/annuaire/p/offre/ajouter/?propose'
+            self.org.status = 'P'
+            self.org.transmission_date = date.today()
+            self.org.save()
         if self.step == self.last_step:
             return self.success_url
         return '/annuaire/p/modifier/%u/' % (self.step + 1)
@@ -343,19 +285,6 @@ class OrganizationChangeView(UpdateView):
             context_instance=RequestContext(self.request))
 
 change_view = login_required(OrganizationChangeView.as_view())
-
-
-def submit_view(request, page_app):
-
-    try:
-        person = Person.objects.get(user=request.user)
-    except Person.DoesNotExist:
-        raise PermissionDenied
-    org = person.my_organization()
-    org.status = 'P'
-    org.transmission_date = date.today()
-    org.save()
-    return HttpResponseRedirect('/mon-compte/')
 
 
 @login_required
@@ -392,8 +321,9 @@ def offer_add_view(request, page_app):
         offer = form.save(commit=False)
         offer.provider = org
         offer.save()
+        form.save_m2m()
         return HttpResponseRedirect('/mon-compte/p/mes-offres/')
     return render_view('page_directory/offer_edit.html',
-                       {'object': page_app, 'form': form},
+                       {'object': page_app, 'form': form, 'propose': 'propose' in request.GET},
                        OFFER_MEDIA,
                        context_instance=RequestContext(request))
