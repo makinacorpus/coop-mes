@@ -3,12 +3,14 @@ V1.4
  * Enregistrement à chaque étape du formulaire acheteur/fournisseur
  * Accès aux offres pour l'administrateur restreint
  * Barre de recherche de l'annuaire
+ * Mise en page des actualités
 
 
 Déploiement:
 
  - collectstatic
  - vérif des droits d'accès pour les admin restreints
+ - layout de la page actualités
 
 
 V1.3

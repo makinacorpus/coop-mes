@@ -1,17 +1,56 @@
 {% load i18n %}
 
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
 {% if latest %}
-    {% for entry in latest %}
-    <h2 class="page-header"><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
-    <p class="article-meta">
-        {{ entry.publication_date|date:"d/m/Y" }} - Catégorie
-                    {% with entry as object %}
-                    {% include 'page_blog/display_category.html' %}
-                    {% endwith %}
-    </p>
-    {{ entry.body|truncatewords_html:50|safe }}
-    <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a></p>
-    {% endfor %}
+{% comment %}
+                    <div class="section-head">
+                        {% include "page_blog/pagination.html" %}
+                    </div>
+{% endcomment %}
+                    <div class="">
+{% for entry in latest %}
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                            <img class="media-object" src="..." width="220" height="140">
+                            </a>
+                            <div class="media-body">
+                            <p class="activity"> {{ entry.publication_date|date:"j F Y" }} / Catégorie {{ entry.category }}</p>
+                            <h4 class="media-heading">{{ entry.title }}</h4>
+                            {{ entry.body|truncatewords_html:50|safe }}
+                                <div class="row">
+                                <div class="col-lg-3">
+                                    <a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="media-data">
+                                        Posté par : <span>lorem ipsum</span><br>
+                                        Tags : <span>Lorem, Ipsum, Dolor Amet</span>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+{% endfor %}
+                    </div>
+{% comment %}
+                    <div class="section-foot">
+                        {% include "page_blog/pagination.html" %}
+                    </div>
+{% endcomment %}
 {% else %}
-    <p><strong>{% trans "No entry yet" %}.</strong></p>
+                    <div>Aucune actualité.</div>
 {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-3 sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+
+        </div>
+    </div>
+</div>

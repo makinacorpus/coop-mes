@@ -1,5 +1,32 @@
-<h1 class="ection-title">{{ object.title }}</h1>
-<p class="article-meta">
-    {{ object.publication_date|date:"d/m/Y" }} - Catégorie {% include 'page_blog/display_category.html' %}
-</p>
-{{ object.body|safe }}
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+{% comment %}
+                    <div class="section-head">
+                        <ul class="pager">
+                            <li><a href="#prev" class="prev inactive"><span class="arrow">g</span> Titre de l'article précédent</a></li>
+                            <li><a href="#next" class="next">Titre de l'article suivant <span class="arrow">f</span></a></li>
+                        </ul>
+                    </div>
+{% endcomment %}
+                    <div class="article">
+                        <h1>{{ object.title }}</h1>
+                        <div class="article__meta">
+                            <span class="small">Par <a href="#" class="name">{{ object.author.last_name }} {{ object.author.first_name }}</a></span>
+                            <hr>
+                            <span class="small iconf-time date">{{ object.publication_date|date:"j F Y" }}</span>
+                            <span class="small iconf-fontawesome-webfont tag"> Catégorie <a href="">{% include 'page_blog/display_category.html' %}</a></span>
+                        </div>
+                       {{ object.body|safe }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+        </div>
+    </div>
+</div>
