@@ -1,24 +1,49 @@
 {% load staticfiles thumbnail %}
 
-<h1 class="icon-a-la-une section-title">{{ object.title }}</h1>
-{% comment %}
-<ul class="pager simple">
-    <li><a href="#prev" class="iconf-chevron-left">Page précédente</a></li>
-    <li><a href="#next" class="iconf-chevron-right">Page suivante</a></li>
-</ul>
-{% endcomment %}
-<div class="row">
-    <div class="col-lg-6">
-        {% thumbnail entry.image "410x280" upscale=0 as image %}
-            <img src="{{ image.url }}" width="410" height="280" style="padding: {{ image|margin:"410x280" }}">
-        {% endthumbnail %}
-    </div>
-    <div class="col-lg-6">
-    <div class="article-extract">
-        <h3><a href="">{{ entry.title }}</a></h3>
-        <div class="article-meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
-        <div class="cms-content">{{ entry.body|truncatewords_html:30|safe }}</div>
-    </div>
-    <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a></p>
+<div id="homepage-new-carousel" class="top-content-box carousel slide">
+    <h1 class="icon-a-la-une section-title">{{ object.title }}</h1>
+    <ul class="pager simple">
+        <li><a href="#homepage-new-carousel" class="iconf-chevron-left" data-slide="prev">Page précédente</a></li>
+        <li><a href="#homepage-new-carousel" class="iconf-chevron-right" data-slide="next">Page suivante</a></li>
+    </ul>
+    <div class="carousel-inner">
+{% for entry in news %}
+        <div class="item {% if forloop.first %}active{% endif %}">
+            <div class="row">
+                <div class="col-lg-6">
+                    {% thumbnail entry.image "210x280" upscale=0 as image %}
+                        <img src="{{ image.url }}" style="margin: {{ image|margin:"210x280" }}">
+                    {% endthumbnail %}
+                </div>
+                <div class="col-lg-6">
+                    <div class="article-extract">
+                        <h3><a href="">{{ entry.title }}</a></h3>
+                        <div class="article-extract__meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
+                        <p>{{ entry.body|striptags|truncatewords:30 }}</p>
+                    </div>
+                    <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a></p>
+                </div>
+            </div>
+        </div>
+{% endfor %}
+{% for entry in orgs %}
+        <div class="item {% if not news and forloop.first %}active{% endif %}">
+            <div class="row">
+                <div class="col-lg-6">
+                    {% thumbnail entry.logo "210x280" upscale=0 as image %}
+                        <img src="{{ image.url }}" style="margin: {{ image|margin:"210x280" }}">
+                    {% endthumbnail %}
+                </div>
+                <div class="col-lg-6">
+                    <div class="article-extract">
+                        <h3><a href="">{{ entry.label }}</a></h3>
+                        <div class="article-extract__meta">{{ entry.validation|date:"d/m/Y"|default:"&nbsp" }}</div>
+                        <p>{{ entry.brief_description|truncatewords:30 }}</p>
+                    </div>
+                    <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire la fiche</a></p>
+                </div>
+            </div>
+        </div>
+{% endfor %}
     </div>
 </div>

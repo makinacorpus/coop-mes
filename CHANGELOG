@@ -5,13 +5,16 @@ V1.4
  * Barre de recherche de l'annuaire
  * Mise en page des actualités
  * Titre dans la liste des appels d'offres
+ * Carrousel à la une
 
 
 Déploiement:
 
+ - pull de ionyweb
  - collectstatic
  - vérif des droits d'accès pour les admin restreints
  - layout de la page actualités
+ - migrate coop_local + page_blog
 
 
 V1.3

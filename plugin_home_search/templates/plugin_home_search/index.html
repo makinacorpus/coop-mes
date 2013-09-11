@@ -1,28 +1,30 @@
 {% load staticfiles %}
 
-<h1 class="icon-search section-title">{{ object.title }}</h1>
-<div class="row">
-    <div class="col-lg-6">
-        <h3 class="col-subtitle iconf-book">Annuaire</h3>
-        <p>{{ object.texte_annuaire }}</p>
-        <form method="GET" action="/annuaire/">
-            <input type="hidden" name="area_0" value="x">
-            <div class="dropdown">
-                {{ form.org_type }}
+<div class="top-content-box">
+    <h1 class="icon-search section-title">{{ object.title }}</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 class="col-subtitle iconf-book">Annuaire</h3>
+            <p>{{ object.texte_annuaire }}</p>
+            <form method="GET" action="/annuaire/">
+                <input type="hidden" name="area_0" value="x">
+                <div class="dropdown">
+                    {{ form.org_type }}
+                </div>
+                <div class="dropdown">
+                    {{ form.sector }}
+                </div>
+                <div class="dropdown">
+                    {{ form.area_1 }}
+                </div>
+                <button type="submit" class="btn btn-default">Rechercher</button>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <h3 class="col-subtitle iconf-geopins">Cartographie</h3>
+            <p>{{ object.texte_carto }}</p>
+            <div class="text-center" id="svg-map">
             </div>
-            <div class="dropdown">
-                {{ form.sector }}
-            </div>
-            <div class="dropdown">
-                {{ form.area_1 }}
-            </div>
-            <button type="submit" class="btn btn-default">Rechercher</button>
-        </form>
-    </div>
-    <div class="col-lg-6">
-        <h3 class="col-subtitle iconf-geopins">Cartographie</h3>
-        <p>{{ object.texte_carto }}</p>
-        <div class="text-center" id="svg-map">
         </div>
     </div>
 </div>

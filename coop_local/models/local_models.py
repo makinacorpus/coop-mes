@@ -386,6 +386,7 @@ class Organization(BaseOrganization):
     norm_title = models.CharField(max_length=250, unique=True)
 
     en_direct = models.BooleanField(u'en direct', default=False)
+    a_la_une = models.BooleanField(u'à la une', default=False)
 
     geo_objects = GeoManager()
 
