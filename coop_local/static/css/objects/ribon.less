@@ -19,7 +19,16 @@
         }
 
         &:hover {
+            color: darken(@secondnav-bg, 35%);
+
+            &:before {
+                background-color: darken(@secondnav-bg, 35%);
+            }
+        }
+
+        &:active {
             color: black;
+            .box-shadow(none);
 
             &:before {
                 background-color: black;
@@ -47,9 +56,10 @@
 
 .ribbon--detail {
     background-color: @secondnav-bg;
+    color: white;
 }
 
     .ribbon__title {
-        color: white;
         margin: 0;
+        color: white;
     }

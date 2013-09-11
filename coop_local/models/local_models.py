@@ -457,6 +457,16 @@ class Organization(BaseOrganization):
     def future_calls(self):
         return self.callfortenders_set.order_by('deadline')
 
+    def types(self):
+        t = []
+        if self.is_provider:
+            t.append(u'Fournisseur')
+        if self.is_customer:
+            t.append(u'Acheteur %s' % self.get_customer_type_display())
+        if self.is_network:
+            t.append(u'Réseau')
+        return u' - '.join(t)
+
     @classmethod
     def mine(klass, request):
         if not request.user:

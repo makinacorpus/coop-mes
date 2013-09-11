@@ -283,6 +283,16 @@ h4 {
   font-size: 14px;
   margin-top: 5px;
 }
+h1,
+h2,
+h3,
+h4,
+.h1,
+.h2,
+.h3,
+.h4 {
+  font-weight: bold;
+}
 a {
   color: #ed7009;
   -webkit-transition: all 150ms;
@@ -881,6 +891,10 @@ button {
 .btn-icon.detail:hover:before {
   background-color: black;
 }
+.btn-icon.detail:active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 .btn-icon.detail:before {
   background-color: #6e567c;
 }
@@ -1275,9 +1289,17 @@ fieldset[disabled] .form-control {
   background-color: white;
 }
 .ribbon .btn-icon:hover {
-  color: black;
+  color: #100d13;
 }
 .ribbon .btn-icon:hover:before {
+  background-color: #100d13;
+}
+.ribbon .btn-icon:active {
+  color: black;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ribbon .btn-icon:active:before {
   background-color: black;
 }
 .ribbon .links {
@@ -1296,10 +1318,11 @@ fieldset[disabled] .form-control {
 }
 .ribbon--detail {
   background-color: #6e567c;
+  color: white;
 }
 .ribbon__title {
-  color: white;
   margin: 0;
+  color: white;
 }
 .pagination {
   margin: 0;
@@ -1714,11 +1737,15 @@ body.modal-open {
 .tabbed-news .article-extract {
   width: 33.33333333333333%;
   float: left;
-  padding: 10px 0 0 20px;
+  padding: 15px 0 0 20px;
 }
 .tabbed-news .article-extract p {
-  height: 55px;
+  height: 45px;
   overflow: hidden;
+  line-height: 1.2;
+}
+.tabbed-news .article-extract h3 {
+  font-size: 13px;
 }
 .tabbed-news .navbar {
   padding-left: 0;
@@ -2402,7 +2429,7 @@ svg.map a:hover path {
 }
 .results .activity {
   max-width: 65%;
-  height: 25px;
+  margin-top: 8px;
 }
 i.icon-book {
   width: 41px;
