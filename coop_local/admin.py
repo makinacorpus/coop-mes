@@ -506,16 +506,22 @@ class OActivityInline(InlineAutocompleteAdmin):
     verbose_name_plural = u'Secteurs d\'activité'
 
 
+class OfferAreaInline(InlineAutocompleteAdmin):
+    model = Offer.area.through
+    related_search_fields = {'area': ('label', ), }
+    verbose_name = u'Couverture géographique'
+    verbose_name_plural = u'Couverture géographique'
+
+
 class OfferAdmin(FkAutocompleteAdmin):
 
     list_display = ('provider', 'activities')
     search_fields = ('activity__label', 'provider__title', 'provider__acronym')
     related_search_fields = {
         'provider': ('title', 'acronym', ),
-        'area': ('label', ),
     }
-    inlines = [OActivityInline, OfferDocumentInline]
-    exclude = ('activity', )
+    inlines = [OActivityInline, OfferAreaInline, OfferDocumentInline]
+    exclude = ('activity', 'area')
 
 
 admin.site.unregister(Organization)
