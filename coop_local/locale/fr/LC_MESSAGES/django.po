@@ -351,7 +351,7 @@ msgstr "lieux d'exécution"
 
 #: models/local_models.py:311
 msgid "allotment"
-msgstr "allotement"
+msgstr "allotissement"
 
 #: models/local_models.py:312
 msgid "lot numbers"
