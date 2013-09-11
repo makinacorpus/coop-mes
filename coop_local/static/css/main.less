@@ -48,13 +48,24 @@ body {
 
 h1 {
     font-family: Melbourne;
-    text-transform: uppercase;
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 5px;
+    color: @greydarker;
 }
 
 h3 {
     font-size: 14px;
     margin-top: 5px;
     color: @greydarker;
+}
+
+h4 {
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 a {
@@ -337,6 +348,7 @@ hr {
             border-color: @color1;
             color: @color1;
             border-right: none;
+            height: 34px; // bug fix FF 3.6
         }
 
         .form-control {
@@ -375,41 +387,6 @@ hr {
 
 
 
-
-.main-content {
-    .content-box {
-        .item {
-            margin-top: 20px;
-
-            &:first-child {
-                margin-top: 0;
-            }
-        }
-
-        .item-small {
-            .input-group {
-                margin-top: 2px;
-            }
-        }
-
-        &.top {
-            .result {
-                background: @color1lighter;
-                color: white;
-                margin-top: -10px;
-                margin-right: -11px;
-                margin-left: -11px;
-                text-align: center;
-
-                .number {
-                    font-size: 30px;
-                    font-weight: bold;
-                }
-            }
-        }
-    }
-}
-
 .advanced-search-form {
     > .row {
         display: table;
@@ -434,8 +411,69 @@ hr {
     .input-group {
         width: 100%;
     }
+
+    .item {
+        margin-top: 20px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    .search {
+        input {
+            border-color: @color1lighter;
+            margin-top: 10px;
+        }
+    }
+
+    .item-small {
+        .input-group {
+            margin-top: 2px;
+        }
+    }
+
+    .result {
+        background: @color1lighter;
+        color: white;
+        margin-top: -10px;
+        margin-right: -11px;
+        margin-left: -11px;
+        padding-bottom: 2px;
+        text-align: center;
+
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .item {
+            margin-top: 21px;
+        }
+    }
 }
 
+
+
+
+.associated-docs {
+    position: relative;
+    float: left;
+    left: 50%;
+    .translateX(-50%);
+
+    .icon-export-doc {
+        margin-left: -20px;
+    }
+}
+
+.no-csstransforms {
+    .associated-docs {
+        position: static;
+        text-align: center;
+        float: none;
+    }
+}
 
 
 
@@ -696,8 +734,6 @@ svg.map a:hover path {
     dl {
         margin-left: 10px;
     }
-
-
 }
 
 .request-proposal-detail__head {
@@ -825,7 +861,7 @@ i.icon-book {
         content: counter(section);
         .border-radius(20px);
         border: 4px solid white;
-        padding: 8px 12px 3px 12px;
+        padding: 6px 12px 4px 12px;
         color: white;
         position: absolute;
         top: -20px;
@@ -853,12 +889,7 @@ i.icon-book {
 
         > li {
             > a {
-                // background-color: lighten(@color1, 5%);
                 font-weight: bold;
-            }
-
-            li a {
-                // background-color: @color1;
             }
         }
     }
@@ -875,10 +906,8 @@ i.icon-book {
 
     a {
         padding: 10px 0;
-        // height: 26px;
         display: block;
         border-top: 1px solid #EEE;
-        // color: white;
     }
 }
 

@@ -1,20 +1,26 @@
+.carousel {
+	&.pull-left {
+		margin-right: 10px;
+		margin-bottom: 10px;
+	}
+
+	&.pull-right {
+		margin-left: 10px;
+		margin-bottom: 10px;
+	}
+}
+
 .carousel-inner {
 	> .item {
 		.clearfix();
 		.transition(~"left 0.6s ease-in-out, opacity 0.5s ease-in-out");
 	}
 
-	> .active {
-	  left: 0;
-	}
-
-	> .next {
-	  left: 100%;
-	}
 	> .prev {
 	  left: -30%;
 	  opacity: 0;
 	}
+
 	> .next.left,
 	> .prev.right {
 	  left: 0;
@@ -25,7 +31,55 @@
 	  left: -30%;
   	  opacity: 0;
 	}
+	
 	> .active.right {
 	  left: 100%;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.carousel-control .glyphicon,
+	.carousel-control .icon-prev,
+	.carousel-control .icon-next {
+		margin-top: -23px;
+	}
+}
+
+.carousel-control .icon-prev:before,
+.carousel-control .icon-next:before {
+	background-image: none;
+}
+
+.carousel-control {
+	margin-top: -15px;
+	background: #333;
+	top: 50%;
+	height: 30px;
+	text-shadow: none;
+
+	&.left, &.right {
+		background-image: none;
+		background-color: @greylighter;
+	}
+}
+
+.carousel-indicators {
+	bottom: 0;
+	margin-bottom: 0;
+}
+
+.carousel-caption {
+	padding-bottom: 5px;
+}
+
+.carousel-dark {
+	.carousel-indicators {
+		li {
+			border-color: @greylighter;
+
+			&.active {
+				background-color: @greylighter;
+			}
+		}
 	}
 }

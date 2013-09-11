@@ -15,6 +15,13 @@
           transition: transform @options, @transition;
 }
 
+.translateX(@x) {
+  -webkit-transform: translate(@x);
+     -moz-transform: translate(@x);
+      -ms-transform: translate(@x);
+          transform: translate(@x);
+}
+
 /* ==========================================================================
     Custom fonts
     ========================================================================== */
@@ -262,4 +269,8 @@ hr.dotted {
   border-bottom: 0;
   border-top-style: dotted;
   border-color: @greylighter2;
+}
+
+.clear {
+  clear: both;
 }

@@ -18,10 +18,6 @@ dt {
 	margin-top: 10px;
 	position: relative;
 
-	// &:efirst-child {
-	// 	margin:-top:;
-	// }
-
 	&:before {
 		font-size: 18px;
 		margin-right: 10px;
@@ -40,6 +36,17 @@ dd {
 	border: none;
 	padding: 10px 30px 10px 30px;
 	margin-bottom: 0;
+	.clearfix();
+
+	dd {
+		float: left;
+		margin-top: 10px;
+	}
+
+	dt {
+		float: left;
+		clear: left;
+	}
 
 	li {
 		margin-top: 5px;

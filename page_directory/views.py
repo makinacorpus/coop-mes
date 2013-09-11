@@ -32,8 +32,6 @@ def index_view(request, page_app):
     if request.GET.get('display') == 'Cartographie':
         return HttpResponseRedirect('../cartographie/?' + request.GET.urlencode())
     qd = request.GET.copy()
-    if 'interim' not in qd:
-        qd['interim'] = '2'
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
     form = OrgSearch(qd)
@@ -55,11 +53,10 @@ def index_view(request, page_app):
         if form.cleaned_data['org_type'] == 'acheteur-prive':
             orgs = orgs.filter(is_customer=True, customer_type=2)
         interim = form.cleaned_data['interim']
-        if interim == '1':
-            descendants = ActivityNomenclature.objects.filter(label__in=(u'mise à disposition de personnel', u'travail temporaire'))
-        else:
-            sector = form.cleaned_data['sector']
-            descendants = sector and sector.get_descendants(include_self=True)
+        if interim:
+            orgs = orgs.filter(offer__activity__label__in=(u'mise à disposition de personnel', u'travail temporaire'))
+        sector = form.cleaned_data['sector']
+        descendants = sector and sector.get_descendants(include_self=True)
         if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
         if form.cleaned_data['area']:

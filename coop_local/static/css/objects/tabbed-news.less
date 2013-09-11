@@ -1,5 +1,6 @@
 .tabbed-news {
     min-height: 370px;
+    margin-bottom: 15px;
 
     .article-extract {
         width: 33.33333333333333%;
@@ -45,7 +46,7 @@
         }
 
         .navbar-brand {
-            padding: 15px 10px 9px 10px;
+            padding: 13px 10px 10px 10px;
             .uppercase;
             margin-top: 0;
             margin-bottom: 0;
@@ -64,6 +65,10 @@
 
             &:hover {
                 color: darken(@tab-text, 20%);
+
+                &:before {
+                    padding-left: 12px;
+                }
             }
 
             &:before {
@@ -77,6 +82,7 @@
                 padding-left: 10px;
                 padding-top: 13px;
                 border-left-color: @greylighter2;
+                .transition(all 200ms);
             }
         }
 
@@ -86,8 +92,16 @@
 
         li.active {
             a {
-                color: @color1;
-                text-shadow: 0 -1px lighten(@color1,30%);
+                color: darken(@color1, 25%);
+                text-shadow: 0 -1px lighten(@color1,35%);
+
+                &:hover {
+                    color: darken(@color1, 25%);
+
+                    &:before {
+                        padding-left: 10px;
+                    }
+                }
             }
 
             a:before {

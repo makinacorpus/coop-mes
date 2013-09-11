@@ -55,6 +55,14 @@
         border: none;
     }
 
+    .form-control[disabled]:hover,
+    .form-control[readonly]:hover,
+    fieldset[disabled] .form-control:hover {
+        background-color: white;
+        color: @color1;
+        border-color: @greylighter2;
+        background-position: right -1009px;
+    }
 }
 /* Firefox hack for select element */
 @-moz-document url-prefix() {

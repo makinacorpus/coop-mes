@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <form id="annuaires-search" method="GET" action="#" class="content-box top">
+                <form id="annuaires-search" method="GET" action="#" class="content-box top advanced-search-form">
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="item">
@@ -21,13 +21,10 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div id="id_interim" class="item">
+                            <div class="item">
                                 <h3>Secteur d'activité</h3>
-                                <div id="id_interim_0" class="radio">
-                                    {{ form.interim.0 }}
-                                </div>
-                                <div id="id_interim_1" class="radio">
-                                    {{ form.interim.1 }}
+                                <div class="checkbox">
+                                    <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
                                 </div>
                                 <div class="dropdown">
                                     {{ form.sector }}
@@ -37,18 +34,14 @@
                         <div class="col-lg-3">
                             <div class="item item-small">
                                 <h3>Territoire</h3>
-                                <div class="dropdown">
-                                    {{ form.area }}
-                                </div>
+                                {{ form.area }}
                                 <div class="dropdown input-group">
-                                    {{ form.radius }}<span class="input-group-addon form-control-small">km</a>
+                                    {{ form.radius }}
+                                    <span class="input-group-addon form-control-small">km</span>
                                 </div>
                             </div>
                             <div class="item search">
-                                <h3>Recherche libre</h3>
-                                <div class="dropdown">
-                                    {{ form.q }}
-                                </div>
+                                {{ form.q }}
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -89,19 +82,6 @@
                             false
                         );
                         org_type_change.apply(org_type_select);
-
-                        // Show activity field only if "Production de biens et services" is selected
-                        interim0 = $('#id_interim_0 input');
-                        interim0.change(function() {
-                            $('#id_sector').hide();
-                        });
-                        interim1 = $('#id_interim_1 input');
-                        interim1.change(function() {
-                            $('#id_sector').show();
-                        });
-                        if ($('#id_interim input:checked').val() != 2) {
-                            $('#id_sector').hide();
-                        }
                     </script>
 
                 </div>

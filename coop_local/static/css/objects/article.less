@@ -2,9 +2,14 @@
 .article-extract {
     h3 {
         margin-top: 0;
+        text-transform: uppercase;
 
         a {
-            color: @body-color;
+            color: @greydarker;
+
+            &:hover {
+                color: @body-link-color;
+            }
         }
     }
 }
@@ -14,7 +19,7 @@
     border-bottom: 1px solid @greylighter2;
     font-style: italic;
     font-size: 12px;
-    color: @greylighter;
+    color: @greydarker;
     padding: 2px 0;
     margin-bottom: 10px;
     line-height: 1.2;
@@ -70,7 +75,7 @@
 }
 
 .article__meta {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 
     .name {
         color: @color2;
@@ -80,7 +85,7 @@
         }
     }
 
-    .date {
+    .date, .tag {
         color: @color1;
 
         &:before {
@@ -90,8 +95,16 @@
         }
     }
 
+    .tag:before {
+        font-size: 14px;
+    }
+
     hr {
         margin: 5px 0 10px 0;
         border-style: dotted;
+    }
+
+    span {
+        margin-right: 20px;
     }
 }
