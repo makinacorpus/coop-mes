@@ -193,6 +193,15 @@ class DocumentInline(InlineAutocompleteAdmin):
     verbose_name_plural = _(u'documents')
     extra = 1
 
+    def has_change_permission(self, request, obj=None):
+        return True
+
+    def has_add_permission(self, request, obj=None):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
 
 class ReferenceInline(InlineAutocompleteAdmin):
 
@@ -474,6 +483,15 @@ class CFTActivityInline(InlineAutocompleteAdmin):
     verbose_name = u'Secteur d\'activité'
     verbose_name_plural = u'Secteurs d\'activité'
 
+    def has_change_permission(self, request, obj=None):
+        return True
+
+    def has_add_permission(self, request, obj=None):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
 
 class AreaInline(InlineAutocompleteAdmin):
     model = CallForTenders.areas.through
@@ -504,6 +522,15 @@ class OActivityInline(InlineAutocompleteAdmin):
     related_search_fields = {'activitynomenclature': ('path', ), }
     verbose_name = u'Secteur d\'activité'
     verbose_name_plural = u'Secteurs d\'activité'
+
+    def has_change_permission(self, request, obj=None):
+        return True
+
+    def has_add_permission(self, request, obj=None):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return True
 
 
 class OfferAreaInline(InlineAutocompleteAdmin):
