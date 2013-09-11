@@ -84,7 +84,8 @@
                             {% endif %}
                             </a>
                             <div class="media-body">
-                                <h4 class="media-heading">{{ call.activities }}</h4>
+                                <p class="activity">{{ call.activities }}</p>
+                                <h4 class="media-heading">{{ call.title }}</h4>
                                 <p>Date limite de remise des offres&nbsp;: {{ call.deadline }}</p>
                                 <a href="{{ call.get_absolute_url }}?{{ get_params }}&page={{ calls.number }}" class="btn btn-default">Détails de l'offre</a>
                             </div>
