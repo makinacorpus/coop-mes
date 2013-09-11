@@ -512,6 +512,12 @@ class Offer(models.Model):
     def activities(self):
         return ", ".join(self.activity.all().values_list('label', flat=True))
 
+    def image(self):
+        try:
+            return self.offerdocument_set.filter(attachment__iregex=r'\.(jpe?g|gif|png)$')[0].attachment
+        except IndexError:
+            return None
+
     class Meta:
         verbose_name = _(u'Offer')
         verbose_name_plural = _(u'Offers')
