@@ -1,9 +1,13 @@
 V1.4
 
  * Enregistrement à chaque étape du formulaire acheteur/fournisseur
+ * Accès aux offres pour l'administrateur restreint
 
 
 Déploiement:
+
+ - collectstatic
+ - vérif des droits d'accès pour les admin restreints
 
 
 V1.3
