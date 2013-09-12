@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n thumbnail %}
 
 <div class="main-content">
     <div class="container">
@@ -15,12 +15,20 @@
 {% for entry in latest %}
                         <div class="media">
                             <a class="pull-left" href="#">
-                            <img class="media-object" src="..." width="220" height="140">
+                                {% if entry.thumb %}
+                                    {% thumbnail entry.thumb "220x140" upscale=0 as image %}
+                                        <img class="media-object" src="{{ image.url }}" style="margin: {{ image|margin:"220x140" }}">
+                                    {% endthumbnail %}
+                                {% endif %}
                             </a>
                             <div class="media-body">
                             <p class="activity"> {{ entry.publication_date|date:"j F Y" }} / Catégorie {{ entry.category }}</p>
                             <h4 class="media-heading">{{ entry.title }}</h4>
-                            {{ entry.body|truncatewords_html:50|safe }}
+                            {% if entry.resume %}
+                                {{ entry.resume }}
+                            {% else %}
+                                {{ entry.body|striptags|truncatewords:25 }}
+                            {% endif %}
                                 <div class="row">
                                 <div class="col-lg-3">
                                     <a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a>

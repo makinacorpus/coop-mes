@@ -11,7 +11,7 @@
         <div class="item {% if forloop.first %}active{% endif %}">
             <div class="row">
                 <div class="col-lg-6">
-                    {% thumbnail entry.image "210x280" upscale=0 as image %}
+                    {% thumbnail entry.thumb "210x280" upscale=0 as image %}
                         <img src="{{ image.url }}" style="margin: {{ image|margin:"210x280" }}">
                     {% endthumbnail %}
                 </div>
@@ -19,7 +19,13 @@
                     <div class="article-extract">
                         <h3><a href="">{{ entry.title }}</a></h3>
                         <div class="article-extract__meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
-                        <p>{{ entry.body|striptags|truncatewords:30 }}</p>
+                        <p>
+                            {% if entry.resume %}
+                                {{ entry.resume }}
+                            {% else %}
+                                {{ entry.body|striptags|truncatewords:25 }}
+                            {% endif %}
+                        </p>
                     </div>
                     <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a></p>
                 </div>

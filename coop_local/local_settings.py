@@ -23,6 +23,7 @@ if 'runserver' in sys.argv or 'test' in sys.argv:
     DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
+THUMBNAIL_DEBUG = DEBUG
 
 TEMPLATE_DIRS = [
     PROJECT_PATH + '/coop_local/templates/',
