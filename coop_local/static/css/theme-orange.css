@@ -781,6 +781,10 @@ hr {
 }
 .list-group-item--infos.iconf-emails:before {
   font-size: 26px;
+  margin-top: -1px;
+}
+.list-group-item--infos a:before {
+  display: none;
 }
 button {
   -webkit-transition: all 150ms;

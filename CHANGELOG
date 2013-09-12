@@ -1,4 +1,16 @@
-V1.4
+v1.5
+
+ * Formulaire de contact
+
+Déploiement:
+
+ - pull ionyweb
+ - migration plugin_coop
+ - collectstatic
+ - layout du formulaire de contact
+
+
+v1.4
 
  * Enregistrement à chaque étape du formulaire acheteur/fournisseur
  * Accès aux offres pour l'administrateur restreint
@@ -21,7 +33,7 @@ Déploiement:
  - migrate coop_local + page_blog
 
 
-V1.3
+v1.3
 
  * Barre de recherche annuaire/carte
  * Champ description pour les appels d'offres
