@@ -58,7 +58,6 @@ hg+https://bitbucket.org/ubernostrum/django-profiles
 django-positions
 django-push
 mimeparse
-geohash
 rdflib
 git+git://github.com/RDFLib/rdfextras.git
 git+git://github.com/RDFLib/rdflib-jsonld.git
