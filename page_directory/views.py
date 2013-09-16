@@ -219,7 +219,7 @@ class OrganizationChangeView(UpdateView):
         self.org = person.my_organization()
         if self.org and self.org.status == 'V':
             self.propose = True
-        if self.org.is_provider:
+        if self.org and self.org.is_provider:
             self.forms = ORGANIZATION_FORMS
             self.titles = ORGANIZATION_TITLES
         else:
