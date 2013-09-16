@@ -1,21 +1,56 @@
-listen=mes:8000
+LISTEN=localhost:8000
+VENV=venv
+PYTHON=$(VENV)/bin/python
+PIP=$(VENV)/bin/pip
 
-ALL: install serve
+default: install
 
-install:
-	./install.sh
+virtualenv: $(PYTHON)
+$(PYTHON):
+	virtualenv $(VENV)
+
+requirements: virtualenv
+	$(PIP) install -U distribute
+	$(PIP) install --no-deps -r requirements.txt
+
+install: requirements
+	$(PYTHON) manage.py collectstatic --noinput
+	$(PYTHON) manage.py syncdb --all --noinput
+	$(PYTHON) manage.py migrate --fake
+
+fixtures:
+	$(PYTHON) manage.py loaddata coop_local/fixtures/area_types.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/django_site.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/exchange_methods.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/linking_properties.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/location_categories.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/roles.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/uriredirect.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/user.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/legalstatus.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/organizationcategory.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/categoryiae.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/activitynomenclatureavise.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/activitynomenclature.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/clienttarget.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/transversetheme.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/guaranty.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/agreementiae.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/contact_mediums.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/relation_types.json
+	$(PYTHON) manage.py loaddata coop_local/fixtures/group.json
 
 makemessages:
-	(cd coop_local; ../ve/bin/python ../manage.py makemessages -l fr)
+	(cd coop_local; $(PYTHON) ../manage.py makemessages -l fr)
 
 compilemessages:
-	(cd coop_local; ../ve/bin/python ../manage.py compilemessages -l fr)
+	(cd coop_local; $(PYTHON) ../manage.py compilemessages -l fr)
 
 serve:
-	ve/bin/python manage.py runserver ${listen}
+	$(PYTHON) manage.py runserver $(LISTEN)
 
 clean:
-	rm -rf bin include lib local src static_collected
+	rm -rf $(VENV) static_collected
 
 convert:
 	soffice --invisible --headless --accept="socket,host=localhost,port=2002;urp;" &
