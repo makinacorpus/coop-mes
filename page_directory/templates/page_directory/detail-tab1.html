@@ -62,8 +62,8 @@
             {% thumbnail org.logo "130x60" upscale=0 as logo %}
                 <img class="fiche__logo" src="{{ logo.url }}" width="130" height="60" style="padding: {{ logo|margin:"130x60" }}" />
             {% endthumbnail %}
-            <div>
-                <h2 class="fiche__title">{{ org.title }}</h2>
+            <h2 class="fiche__title">{{ org.title }}</h2>
+            <div class="pull-left activity-container">
                 <h6 class="activity">{{ org.offer_activities }}</h6>
                 <h6 class="activity">{{ org.offer_areas }}</h6>
             </div>

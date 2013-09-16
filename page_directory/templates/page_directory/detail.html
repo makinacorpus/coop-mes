@@ -31,7 +31,9 @@
                             {% endif %}
                             {% if org.is_customer %}
                                 <li {% if not org.is_provider and not org.is_network %}class="active"{% endif %}><a href="#tab6" data-toggle="tab">Présentation{% if org.is_provider or org.is_network %} acheteur{% endif %}</a></li>
-                                <li><a href="#tab7" data-toggle="tab">Appels d'offres déposés</a></li>
+                                {% if org.callfortenders_set.exists %}
+                                    <li><a href="#tab7" data-toggle="tab">Appels d'offres déposés</a></li>
+                                {% endif %}
                             {% endif %}
                             {% if org.testimony %}
                                 <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
@@ -56,9 +58,11 @@
                                 <div class="tab-pane {% if not org.is_provider and not org.is_network %}active{% endif %}" id="tab6">
                                     {% include "page_directory/detail-tab6.html" %}
                                 </div>
-                                <div class="tab-pane" id="tab7">
-                                    {% include "page_directory/detail-tab7.html" %}
-                                </div>
+                                {% if org.callfortenders_set.exists %}
+                                    <div class="tab-pane" id="tab7">
+                                        {% include "page_directory/detail-tab7.html" %}
+                                    </div>
+                                {% endif %}
                             {% endif %}
                             {% if org.testimony %}
                                 <div class="tab-pane" id="tab4">

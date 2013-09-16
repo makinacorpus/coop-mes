@@ -27,7 +27,7 @@
                             {% if entry.resume %}
                                 {{ entry.resume }}
                             {% else %}
-                                {{ entry.body|striptags|truncatewords:25 }}
+                                {{ entry.body|striptags|truncatewords:25|safe }}
                             {% endif %}
                                 <div class="row">
                                 <div class="col-lg-3">
