@@ -120,3 +120,6 @@ LEAFLET_CONFIG = {
 LOGIN_URL = '/mon-compte/p/connexion/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

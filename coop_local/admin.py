@@ -18,6 +18,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.admin.templatetags.admin_static import static
 from django.utils.safestring import mark_safe
 from django.conf import settings
+from django.core.mail import send_mail
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -390,6 +391,21 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             instance.source.is_customer = True
             # FIXME: save only the is_customer field
             instance.source.save()
+
+    def save_model(self, request, obj, form, change):
+        """Send an email if just validated"""
+        if change and obj.status == 'V':
+            if Organization.objects.get(pk=obj.pk).status == 'P':
+                from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
+                try:
+                    sender = Plugin_Contact.objects.all()[0].email
+                except IndexError:
+                    sender = None
+                dests = Person.objects.filter(engagements__org_admin=True, engagements__organization=obj).values_list('email', flat=True)
+                send_mail(u'Validation de votre fiche sur la PASR',
+                    u'Bonjour,\n\nVotre fiche vient d\'être validée sur la PASR.',
+                    sender, dests)
+        super(OrganizationAdmin, self).save_model(request, obj, form, change)
 
     def odt_view(self, request, pk, format):
         organization = get_object_or_404(Organization, pk=pk)
