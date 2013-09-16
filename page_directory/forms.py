@@ -273,6 +273,8 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
         if not self.instance.is_customer:
             del self.fields['activities']
+        else:
+            self.fields['activities'].queryset = ActivityNomenclature.objects.filter(level=settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL).order_by('path')
         if not self.instance.is_provider:
             del self.fields['category']
             del self.fields['agreement_iae']
