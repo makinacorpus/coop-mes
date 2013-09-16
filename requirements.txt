@@ -130,5 +130,5 @@ sphinx-me
 BeautifulSoup
 django-filebrowser
 
-django-leaflet
+django-leaflet==0.5.1
 git+git://github.com/maraujop/django-crispy-forms.git
