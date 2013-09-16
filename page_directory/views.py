@@ -308,7 +308,7 @@ def offer_update_view(request, page_app, pk):
         form.save()
         return HttpResponseRedirect('/mon-compte/p/mes-offres/')
     return render_view('page_directory/offer_edit.html',
-                       {'object': page_app, 'form': form},
+                       {'object': page_app, 'form': form, 'org': offer.provider},
                        OFFER_MEDIA,
                        context_instance=RequestContext(request))
 
@@ -326,6 +326,6 @@ def offer_add_view(request, page_app):
         form.save_m2m()
         return HttpResponseRedirect('/mon-compte/p/mes-offres/')
     return render_view('page_directory/offer_edit.html',
-                       {'object': page_app, 'form': form, 'propose': 'propose' in request.GET},
+                       {'object': page_app, 'form': form, 'org': org, 'propose': 'propose' in request.GET},
                        OFFER_MEDIA,
                        context_instance=RequestContext(request))

@@ -2,6 +2,13 @@
 
 <h2>Mes offres</h2>
 
+{% if my_organization.status == 'I' %}
+    <p>Vos offres ne seront pas visibles publiquement tant que vous n'aurez pas <a href="/annuaire/p/modifier/">proposé</a> votre fiche pour validation.</p>
+{% endif %}
+{% if my_organization.status == 'P' and my_organization.offer_set.all %}
+    <p>Vos offres sont en cours de validation par les administration du site. Elle ne seront visibles publiquement qu'après validation.</p>
+{% endif %}
+
 {% if my_organization %}
     {% for offer in my_organization.offer_set.all %}
         <div class="row">
