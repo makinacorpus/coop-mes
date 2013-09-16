@@ -199,15 +199,11 @@ class OrganizationChangeView(UpdateView):
     template_name = 'page_directory/edit.html'
     success_url  = '/mon-compte/'
     model = Organization
-    forms = ORGANIZATION_FORMS
-    last_step = len(forms) - 1
 
     def dispatch(self, request, *args, **kwargs):
         try:
             self.step = int(kwargs['step'])
         except:
-            self.step = 0
-        if self.step > self.last_step:
             self.step = 0
         self.propose = 'propose' in request.REQUEST
         return super(OrganizationChangeView, self).dispatch(request, args, **kwargs)
@@ -223,6 +219,15 @@ class OrganizationChangeView(UpdateView):
         self.org = person.my_organization()
         if self.org and self.org.status == 'V':
             self.propose = True
+        if self.org.is_provider:
+            self.forms = ORGANIZATION_FORMS
+            self.titles = ORGANIZATION_TITLES
+        else:
+            self.forms = ORGANIZATION_FORMS[:-1]
+            self.titles = ORGANIZATION_TITLES[:-1]
+        self.last_step = len(self.forms) - 1
+        if self.step > self.last_step:
+            self.step = self.last_step
         return self.org
 
     def get_form_kwargs(self):
@@ -274,7 +279,7 @@ class OrganizationChangeView(UpdateView):
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
-        context['titles'] = ORGANIZATION_TITLES
+        context['titles'] = self.titles
         context['title'] = context['titles'][self.step]
         return render_view(self.get_template_names(),
             context,
