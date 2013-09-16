@@ -1,6 +1,13 @@
 #!/bin/bash
+if [ -z "${DB_USER}" ]; then
+    echo "ERROR: DB_USER is not defined"
+    exit 1
+fi
+if [ -z "${DB_NAME}" ]; then
+    echo "ERROR: DB_NAME is not defined"
+    exit 1
+fi
 
-echo 'DROP SCHEMA public CASCADE;' | sudo -u postgres psql coop_mes
-echo ' CREATE SCHEMA public AUTHORIZATION coop_mes;' | sudo -u postgres psql coop_mes
-pg_restore pg_dump.data | sudo -u postgres psql coop_mes
-
+echo "DROP SCHEMA public CASCADE;" | sudo -u postgres psql $DB_NAME
+echo "CREATE SCHEMA public AUTHORIZATION ${DB_USER};" | sudo -u postgres psql $DB_NAME
+pg_restore $1 | sudo -u postgres psql $DB_NAME
