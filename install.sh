@@ -17,6 +17,9 @@ sudo apt-get -y install python-dev python-virtualenv
 sudo apt-get -y install postgresql postgresql-9.1-postgis postgresql-server-dev-9.1
 sudo apt-get -y install gdal-bin libgeoip1
 
+sudo sed -i 's/^local *all *all *peer$/local   all             all                                     ident/' /etc/postgresql/9.1/main/pg_hba.conf
+sudo service postgresql restart
+
 if ! sudo -u postgres psql -tAc "SELECT 'ok' FROM pg_roles WHERE rolname='${DB_USER}'" | grep "ok"; then
     sudo -u postgres psql -c "CREATE USER ${DB_USER} PASSWORD '${DB_PASS}';"
 fi
