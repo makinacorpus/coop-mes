@@ -19,6 +19,7 @@ from django.contrib.admin.templatetags.admin_static import static
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -282,6 +283,19 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
         return title
 
 
+class AuthorListFilter(admin.SimpleListFilter):
+    title = u'rédacteur'
+    parameter_name = 'redacteur'
+
+    def lookups(self, request, model_admin):
+        return [(user.id, user.username) for user in User.objects.filter(is_staff=True)]
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        return queryset.filter(authors__id=self.value())
+
+
 class OrganizationAdmin(BaseOrganizationAdmin):
 
     form = OrganizationAdminForm
@@ -289,7 +303,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         'is_customer', 'is_network', 'active', 'en_direct', 'a_la_une']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['status', 'authors', 'is_provider', 'is_customer', 'is_network', 'en_direct', 'a_la_une']
+    list_filter = ['status', AuthorListFilter, 'is_provider', 'is_customer', 'is_network', 'en_direct', 'a_la_une']
     ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
