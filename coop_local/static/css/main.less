@@ -301,9 +301,10 @@ hr {
         font-weight: 300;
         line-height: 1.25;
         text-align: left;
-        min-width: 245px;
         padding: 7px 11px;
         margin-top: 10px;
+        padding-right: 60px;
+        padding-right: 11px\9; // Browser hack
 
         &:before {
             font-size: 32px;
@@ -344,7 +345,7 @@ hr {
 
         @media (min-width: @screen-desktop) {
             margin-top: 31px;
-            width: 96%;
+            width: 55%;
         }
 
         .btn {
@@ -482,6 +483,8 @@ hr {
 
 
 
+
+
 .main-footer {
     background: @footer-bg;
     margin-left: -10px;
@@ -516,6 +519,12 @@ hr {
         }
     }
 }
+
+.alert-success {
+    margin-top: 10px;
+    margin-bottom: 0;    
+}
+
 
 
 /* ==========================================================================

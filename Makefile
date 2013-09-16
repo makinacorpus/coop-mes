@@ -1,4 +1,4 @@
-LISTEN=localhost:8000
+DJANGO_LISTEN?=localhost:8000
 VENV=venv
 PYTHON=$(VENV)/bin/python
 PIP=$(VENV)/bin/pip
@@ -47,7 +47,7 @@ compilemessages:
 	(cd coop_local; $(PYTHON) ../manage.py compilemessages -l fr)
 
 serve:
-	$(PYTHON) manage.py runserver $(LISTEN)
+	$(PYTHON) manage.py runserver $(DJANGO_LISTEN)
 
 clean:
 	rm -rf $(VENV) static_collected

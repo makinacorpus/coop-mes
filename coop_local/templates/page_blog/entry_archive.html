@@ -19,6 +19,8 @@
                                     {% thumbnail entry.thumb "220x140" upscale=0 as image %}
                                         <img class="media-object" src="{{ image.url }}" style="margin: {{ image|margin:"220x140" }}">
                                     {% endthumbnail %}
+                                {% else %}
+                                    <img class="media-object" src="" width="220" height="140">
                                 {% endif %}
                             </a>
                             <div class="media-body">

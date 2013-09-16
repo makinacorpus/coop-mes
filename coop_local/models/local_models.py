@@ -358,7 +358,8 @@ class Organization(BaseOrganization):
     bdis_id = models.IntegerField(_(u'bdis identifiant'), blank=True, null=True)
 
     # PROVIDER Description
-    brief_description = models.TextField(_(u'brief description'), blank=True)
+    brief_description = models.TextField(_(u'brief description'), blank=True,
+        validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     added_value = models.TextField(_(u'added value'), blank=True)
 
     # PROVIDER Economic data
@@ -496,6 +497,7 @@ Organization._meta.get_field('title').verbose_name = _(u'corporate name')
 Organization._meta.get_field('description').verbose_name = _(u'general presentation')
 Organization._meta.get_field('description').validators = [HtmlMaxLengthValidator(3000)]
 Organization._meta.get_field('pref_label')._choices = ((1, _(u'corporate name')), (2, _(u'acronym')))
+Organization._meta.get_field('activities').verbose_name = u'achats responsables recherchés'
 
 
 class Offer(models.Model):
