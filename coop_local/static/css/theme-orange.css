@@ -579,8 +579,8 @@ hr {
   font-style: italic;
 }
 .fiche .activity-container {
-  max-width: 40%;
   margin-top: 2px;
+  overflow: hidden;
 }
 .fiche .activity {
   margin-bottom: 5px;
@@ -1384,6 +1384,7 @@ fieldset[disabled] .form-control {
   margin-top: 2px;
   margin-bottom: 2px;
   white-space: nowrap;
+  vertical-align: middle;
   -webkit-transition: all 150ms;
   transition: all 150ms;
 }
@@ -2030,9 +2031,10 @@ body.modal-open {
   font-weight: 300;
   line-height: 1.25;
   text-align: left;
-  min-width: 245px;
   padding: 7px 11px;
   margin-top: 10px;
+  padding-right: 60px;
+  padding-right: 11px\9;
 }
 .main-header .login:before {
   font-size: 32px;
@@ -2071,7 +2073,7 @@ body.modal-open {
 @media (min-width: 992px) {
   .main-header .search {
     margin-top: 31px;
-    width: 96%;
+    width: 55%;
   }
 }
 .main-header .search .btn {
@@ -2196,6 +2198,10 @@ body.modal-open {
 }
 .main-footer .nav-pills a:before {
   border-color: #6f625a;
+}
+.alert-success {
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 /* ==========================================================================
    Page specifics styles
@@ -2607,6 +2613,9 @@ i.icon-book {
 }
 .main-header .search {
   margin-top: 3px;
+}
+.main-header .search .btn {
+  height: 26px;
 }
 .main-header .search .form-control {
   height: 26px;
