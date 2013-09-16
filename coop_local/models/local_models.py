@@ -358,7 +358,8 @@ class Organization(BaseOrganization):
     bdis_id = models.IntegerField(_(u'bdis identifiant'), blank=True, null=True)
 
     # PROVIDER Description
-    brief_description = models.TextField(_(u'brief description'), blank=True)
+    brief_description = models.TextField(_(u'brief description'), blank=True,
+        validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     added_value = models.TextField(_(u'added value'), blank=True)
 
     # PROVIDER Economic data
