@@ -36,10 +36,10 @@
                                     <a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire l'article</a>
                                 </div>
                                 <div class="col-lg-9">
-                                    <div class="media-data">
-                                        Posté par : <span>lorem ipsum</span><br>
-                                        Tags : <span>Lorem, Ipsum, Dolor Amet</span>
-                                    </div>
+                                    {% comment %}<div class="media-data">
+                                        Posté par : <span>{{ entry.author.last_name }} {{ entry.author.first_name }}</span><br>
+                                        Tags : <span></span>
+                                    </div>{% endcomment %}
                                 </div>
                                 </div>
                             </div>
