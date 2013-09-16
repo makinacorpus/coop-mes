@@ -22,7 +22,7 @@ if ! sudo -u postgres psql -tAc "SELECT 'ok' FROM pg_roles WHERE rolname='${DB_U
 fi
 
 if ! sudo -u postgres psql -tAl | grep "^${DB_NAME}"; then
-    sudo -u postgres psql -c "CREATE DATABASE ${DB_NAME} OWNER ${DB_USER};"
+    sudo -u postgres psql -c "CREATE DATABASE ${DB_NAME} OWNER ${DB_USER} ENCODING 'UTF8' LC_COLLATE 'C' LC_CTYPE 'C' TEMPLATE template0;"
     sudo -u postgres psql -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql -d ${DB_NAME}
     sudo -u postgres psql -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql -d ${DB_NAME}
     sudo -u postgres psql ${DB_NAME} -c "ALTER TABLE geometry_columns OWNER TO ${DB_USER};"
