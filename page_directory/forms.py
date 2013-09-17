@@ -24,6 +24,11 @@ from django.contrib.contenttypes.generic import (
     generic_inlineformset_factory, BaseGenericInlineFormSet)
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import login, authenticate
+import urllib, urllib2, json
+
+
+GMAP_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=%s"\
+           "&sensor=false"
 
 
 class PageApp_DirectoryForm(ModuloModelForm):
@@ -421,6 +426,34 @@ class SaveGenericInlineFormset(FixedBaseGenericInlineFormSet):
         return form.save(commit, self.instance)
 
 
+def geocode(location):
+
+    addr = urllib.quote_plus(location.city.encode("utf-8"))
+    if location.adr1:
+        addr += ",+" + urllib.quote_plus(location.adr1.encode("utf-8"))
+    if location.adr2:
+        addr += ",+" + urllib.quote_plus(location.adr2.encode("utf-8"))
+    if location.zipcode:
+        addr += ",+" + urllib.quote_plus(location.zipcode.encode("utf-8"))
+    addr += "&region=fr"
+    try:
+        r = urllib2.urlopen(GMAP_URL % addr)
+    except urllib2.URLError:
+        r = None
+    if not r or r.msg != 'OK':
+        return
+    res = json.loads(r.read())
+    results = res.get('results')
+    if not results:
+        return
+    try:
+        latlon = results[0].get('geometry').get('location')
+    except AttributeError:
+        return
+    wkt = 'SRID=4326;POINT (%s %s)' % (latlon['lng'], latlon['lat'])
+    location.point = wkt
+
+
 class LocatedForm(OrganizationMixin, forms.ModelForm):
 
     adr1 = forms.CharField(label=u'Adresse', max_length=100)
@@ -463,6 +496,7 @@ class LocatedForm(OrganizationMixin, forms.ModelForm):
             location = Location()
         for field in ('adr1', 'adr2', 'zipcode', 'city'):
             setattr(location, field, self.cleaned_data[field])
+        geocode(location)
         if commit:
             location.save()
         located.location = location
