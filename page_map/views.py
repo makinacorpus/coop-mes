@@ -67,9 +67,9 @@ def index_view(request, page_app):
             except:
                 radius = 0
             if radius != 0:
-                orgs = orgs.filter(pref_address__point__distance_lte=(area.polygon, Distance(km=radius)))
+                orgs = orgs.filter(located__location__point__distance_lte=(area.polygon, Distance(km=radius)))
             else:
-                orgs = orgs.filter(pref_address__point__contained=area.polygon)
+                orgs = orgs.filter(located__location__point__contained=area.polygon)
         orgs = orgs.distinct()
     else:
         area = None
