@@ -15,8 +15,11 @@ from django.contrib.gis.measure import Distance
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
     CSSMedia('leaflet/leaflet.css', prefix_file=''),
+    CSSMedia('leaflet/MarkerCluster.css', prefix_file=''),
+    CSSMedia('leaflet/MarkerCluster.Default.css', prefix_file=''),
     JSMedia('leaflet/leaflet-src.js', prefix_file=''),
     JSMedia('leaflet/leaflet.extras.js', prefix_file=''),
+    JSMedia('leaflet/leaflet.markercluster.js', prefix_file=''),
     CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
     JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),
 )
