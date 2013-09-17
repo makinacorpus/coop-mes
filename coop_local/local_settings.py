@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
+import os
+import sys
 
 from django.conf import settings
-import sys
 
 # Here you can override any settings from coop default settings files
 # See :
 # - coop/default_project_settings.py
 # - coop/db_settings.py
 
-import os.path
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SITE_AUTHOR = 'Organisme'
@@ -43,7 +43,7 @@ THESAURUS_HOST = 'http://thess.domain.com'
 
 # Need to be set to true, when domain stop moving,
 # to keep history of renaming of uri
-URI_FIXED = False  
+URI_FIXED = False
 
 INSTALLED_APPS = settings.INSTALLED_APPS + [
     # select your coop components
@@ -106,7 +106,7 @@ SITE_NAME = 'Achetons Solidaires'
 DOMAIN_NAME = 'mes:8000'
 ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 2
 #REGION_LABEL = 'MIDI-PYRENEES'
-REGION_LABEL = 'PROVENCE-ALPES-COTE D\'AZUR'
+REGION_LABEL = os.environ.get('REGION_LABEL', 'PROVENCE-ALPES-COTE D\'AZUR')
 #REGION_LABEL = 'NORD-PAS-DE-CALAIS'
 
 LEAFLET_CONFIG = {

@@ -1,26 +1,27 @@
 # -*- coding:utf-8 -*-
-
+import os
 from coop_local.settings import PROJECT_NAME
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': PROJECT_NAME,                      # Or path to database file if using sqlite3.
-        'USER': 'coop_mes',                      # Not used with sqlite3.
-        'PASSWORD': '123456',                  # Not used with sqlite3.
+        'NAME': os.environ.get('DB_NAME', PROJECT_NAME),     # Or path to database file if using sqlite3.
+        'USER': os.environ.get('DB_USER', 'coop_mes'),       # Not used with sqlite3.
+        'PASSWORD': os.environ.get('DB_PASS', '123456'),     # Not used with sqlite3.
         'HOST': 'localhost',
-   },
+    },
     'geofla_db': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'geofla',                      # Or path to database file if using sqlite3.
-        'USER': 'geofla',                      # Not used with sqlite3.
-        'PASSWORD': 'geofla',                  # Not used with sqlite3.
+        'NAME': 'geofla',                                    # Or path to database file if using sqlite3.
+        'USER': 'geofla',                                    # Not used with sqlite3.
+        'PASSWORD': 'geofla',                                # Not used with sqlite3.
         'HOST': 'localhost',
     },
 }
 
 # For redis
-REDIS_PORT = 6379  # Please ask for a redis port to your administrator. Default value 6379, may already been used'
+REDIS_PORT = 6379  # Please ask for a redis port to your administrator.
+                   # Default value 6379, may already been used'
 
 # # For django-rq, this mandatory to run rqworker command from manage.py
 RQ_QUEUES = {
