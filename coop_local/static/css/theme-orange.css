@@ -783,6 +783,9 @@ hr {
   font-size: 26px;
   margin-top: -1px;
 }
+.list-group-item--infos a {
+  font-weight: normal;
+}
 .list-group-item--infos a:before {
   display: none;
 }
