@@ -15,8 +15,11 @@ from django.contrib.gis.measure import Distance
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
     CSSMedia('leaflet/leaflet.css', prefix_file=''),
+    CSSMedia('leaflet/MarkerCluster.css', prefix_file=''),
+    CSSMedia('leaflet/MarkerCluster.Default.css', prefix_file=''),
     JSMedia('leaflet/leaflet-src.js', prefix_file=''),
     JSMedia('leaflet/leaflet.extras.js', prefix_file=''),
+    JSMedia('leaflet/leaflet.markercluster.js', prefix_file=''),
     CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
     JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),
 )
@@ -67,9 +70,9 @@ def index_view(request, page_app):
             except:
                 radius = 0
             if radius != 0:
-                orgs = orgs.filter(pref_address__point__distance_lte=(area.polygon, Distance(km=radius)))
+                orgs = orgs.filter(located__location__point__distance_lte=(area.polygon, Distance(km=radius)))
             else:
-                orgs = orgs.filter(pref_address__point__contained=area.polygon)
+                orgs = orgs.filter(located__location__point__contained=area.polygon)
         orgs = orgs.distinct()
     else:
         area = None

@@ -7,10 +7,18 @@
                 <div class="content-box profile">
                     <h2 class="iconf-user section-title">Informations</h2>
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item--infos iconf-pins">{{ object.address|linebreaksbr }}</li>
-                        <li class="list-group-item list-group-item--infos iconf-phone">{{ object.tel }}</li>
-                        <li class="list-group-item list-group-item--infos iconf-fax">{{ object.fax }}</li>
-                        <li class="list-group-item list-group-item--infos iconf-emails"><a href="mailto:{{ object.email }}">{{ object.email }}</a></li>
+                        {% if object.address %}
+                            <li class="list-group-item list-group-item--infos iconf-pins">{{ object.address|linebreaksbr }}</li>
+                        {% endif %}
+                        {% if object.tel %}
+                            <li class="list-group-item list-group-item--infos iconf-phone">{{ object.tel }}</li>
+                        {% endif %}
+                        {% if object.fax %}
+                            <li class="list-group-item list-group-item--infos iconf-fax">{{ object.fax }}</li>
+                        {% endif %}
+                        {% if object.email %}
+                            <li class="list-group-item list-group-item--infos iconf-emails"><a href="mailto:{{ object.email }}">{{ object.email }}</a></li>
+                        {% endif %}
                     </ul>
                     <div class="more">
                         <b>Nous joindre :</b><br/>
