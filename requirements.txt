@@ -8,7 +8,7 @@ Django==1.4.5
 # coop-tag
 
 -e git+git://github.com/makinacorpus/django-coop.git@pasr#egg=django-coop
-git+git://github.com/credis/coop-tag.git
+git+git://github.com/makinacorpus/coop-tag.git@pasr
 -e git+git://github.com/makinacorpus/coop-geo.git#egg=coop_geo
 
 git+git://github.com/quinode/django-scanredirect
