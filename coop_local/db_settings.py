@@ -34,7 +34,6 @@ RQ_QUEUES = {
 
 
 # Elastic search
-import os
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
