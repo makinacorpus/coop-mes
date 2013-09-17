@@ -47,20 +47,22 @@
 
     li:first-child a {
         border-radius: 0;
-        border-right: 1px solid @greylighter;
+        border-right: 1px solid @greylighter2;
     }
 
     li > a {
+        position: relative;
         background: transparent; 
         color: @color1darker;
         border: none;
         .border-radius(0);
-        padding: 10px 20px 7px 20px;
+        padding: 11px 20px 7px 20px;
         margin-top: 2px;
         margin-bottom: 2px;
         white-space: nowrap;
         vertical-align: middle;
         .transition(all 150ms);
+        height: 40px;
 
         .arrow {
             .iconf;
@@ -68,19 +70,12 @@
             font-size: 24px;
             vertical-align: middle;
             float: none;
-            position: relative;
             .transition(all 150ms);
+            position: absolute;
+            right: -5px;
+            top: 9px;
         }
     }
-
-    .next {
-        padding-right: 0;
-    }
-
-    .prev {
-        padding-left: 0;
-    }
-
 
     // Inherit
     &.simple {
@@ -141,18 +136,19 @@
         &.inactive {
             overflow: hidden;
             color: transparent;
-            border-right-color: @greylighter2;
 
             .arrow {
                 color: @greylighter2;
             }
 
             &.prev .arrow {
-                left: 86%;
+                left: 100%;
+                margin-left: -40px;
             }
 
             &.next .arrow {
-                right: 86%;
+                right: 100%;
+                margin-right: -40px;
             }
         }
     }
