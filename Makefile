@@ -2,6 +2,7 @@ DJANGO_LISTEN?=localhost:8000
 VENV=venv
 PYTHON=$(VENV)/bin/python
 PIP=$(VENV)/bin/pip
+BACKUP=backups/$(shell date +%F_%H-%M-%S)
 
 default: install
 
@@ -49,11 +50,23 @@ compilemessages:
 serve:
 	$(PYTHON) manage.py runserver $(DJANGO_LISTEN)
 
-clean:
-	rm -rf $(VENV) static_collected
-
 convert:
 	soffice --invisible --headless --accept="socket,host=localhost,port=2002;urp;" &
 
 lessc:
 	(cd coop_local/static/css/; lessc theme-default.less theme-default.css; lessc theme-orange.less theme-orange.css)
+
+backup:
+	mkdir -p $(BACKUP)
+	./pg_dump.sh $(BACKUP)/db.dump
+	tar -cvf $(BACKUP)/media.tgz media/
+	tar -cvf $(BACKUP).tar $(BACKUP)
+	rm -rf $(BACKUP)
+
+restore:
+	tar -xvf $(BACKUP).tar
+	./pg_restore.sh $(BACKUP)/db.dump
+	tar -xvf $(BACKUP)/media.tgz
+
+clean:
+	rm -rf static_collected
