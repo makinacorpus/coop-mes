@@ -1374,22 +1374,24 @@ fieldset[disabled] .form-control {
 }
 .pager li:first-child a {
   border-radius: 0;
-  border-right: 1px solid #999999;
+  border-right: 1px solid #d6d6d6;
 }
 .pager li > a {
+  position: relative;
   background: transparent;
   color: #82919f;
   border: none;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  padding: 10px 20px 7px 20px;
+  padding: 11px 20px 7px 20px;
   margin-top: 2px;
   margin-bottom: 2px;
   white-space: nowrap;
   vertical-align: middle;
   -webkit-transition: all 150ms;
   transition: all 150ms;
+  height: 40px;
 }
 .pager li > a .arrow {
   font-family: "icons-font";
@@ -1407,15 +1409,11 @@ fieldset[disabled] .form-control {
   font-size: 24px;
   vertical-align: middle;
   float: none;
-  position: relative;
   -webkit-transition: all 150ms;
   transition: all 150ms;
-}
-.pager .next {
-  padding-right: 0;
-}
-.pager .prev {
-  padding-left: 0;
+  position: absolute;
+  right: -5px;
+  top: 9px;
 }
 .pager.simple {
   margin: 0;
@@ -1464,16 +1462,17 @@ fieldset[disabled] .form-control {
 .pager li > a.inactive {
   overflow: hidden;
   color: transparent;
-  border-right-color: #d6d6d6;
 }
 .pager li > a.inactive .arrow {
   color: #d6d6d6;
 }
 .pager li > a.inactive.prev .arrow {
-  left: 86%;
+  left: 100%;
+  margin-left: -40px;
 }
 .pager li > a.inactive.next .arrow {
-  right: 86%;
+  right: 100%;
+  margin-right: -40px;
 }
 .pager--request-proposal-detail li > a {
   color: #82919f;
