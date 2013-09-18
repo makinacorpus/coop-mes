@@ -1412,8 +1412,13 @@ fieldset[disabled] .form-control {
   -webkit-transition: all 150ms;
   transition: all 150ms;
   position: absolute;
-  right: -5px;
   top: 9px;
+}
+.pager li > a.prev .arrow {
+  left: -5px;
+}
+.pager li > a.next .arrow {
+  right: -5px;
 }
 .pager.simple {
   margin: 0;
