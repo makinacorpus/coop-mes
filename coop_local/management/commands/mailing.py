@@ -94,19 +94,35 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         sender = Plugin_Contact.objects.all()[0].email
- 
-        for org in Organization.objects.filter(is_provider=True, title='tata'):
-            if User.objects.filter(person__engagements__org_admin=True, person__engagements__organization=org).exists():
+
+        for org in Organization.objects.filter(is_provider=True):
+            try:
+                member = org.engagement_set.filter(org_admin=True)[0]
+            except IndexError:
+                print u'Pas de membre pour %s' % org.label()
                 continue
-            member = org.engagement_set.filter(org_admin=True)[0]
+            if member.person.user is not None:
+                continue
             person = member.person
-            email = member.email or org.contacts.filter(contact_medium__label='Email')[0].content
+            try:
+                email = member.email or org.contacts.filter(contact_medium__label='Email')[0].content
+            except IndexError:
+                print u'Pas d\'email pour %s' % org.label()
+                continue
             username = person.first_name + '.' + person.last_name
             username = unicodedata.normalize('NFKD', unicode(username))
             username = username.encode('ASCII', 'ignore')
             username = username.lower()
             username = username.replace(' ', '_')
             username = re.sub(r'[^a-z_\.-]', '-', username)
+            for i in range(0, 10):
+                if i == 0:
+                    _username = username
+                else:
+                    _username = username + '%u' % i
+                if not User.objects.filter(username=_username).exists():
+                    username = _username
+                    break
             password = ''.join([random.choice(string.digits + string.letters) for i in range(0, 6)]).lower()
             user = User(
                 first_name=person.first_name,
@@ -115,11 +131,10 @@ class Command(BaseCommand):
                 username=username
             )
             user.set_password(password)
-            print 'user:', user, ',', user.username, ',', password
             user.save()
             person.user = user
             person.save()
-            print 'send mail to %s' % email
-            send_html_mail(u'Accédez à votre fiche dans achetons-solidaires-paca.com', email,
-                {'username': username, 'password': password, 'sender': sender},
-                template='mailing.html', sender=sender)
+            print u'Envoi effectué à %s, %s, %s@%s' % (email, org.label(), username, password)
+            #send_html_mail(u'Accédez à votre fiche dans achetons-solidaires-paca.com', email,
+                #{'username': username, 'password': password, 'sender': sender},
+                #template='mailing.html', sender=sender)
