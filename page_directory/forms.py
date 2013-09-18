@@ -5,7 +5,7 @@ from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
     Organization, Engagement, Role, Document, Relation, Located, Location,
-    Contact, Person, Offer, Reference, OrgRelationType)
+    Contact, Person, Offer, Reference, OrgRelationType, ContactMedium)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -25,6 +25,7 @@ from django.contrib.contenttypes.generic import (
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import login, authenticate
 import urllib, urllib2, json
+from django.db import transaction
 
 
 GMAP_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=%s"\
@@ -119,7 +120,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "last_name", "first_name")
+        fields = ("username", "last_name", "first_name", "email")
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -130,6 +131,8 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         super(OrganizationForm1, self).__init__(*args, **kwargs)
         self.fields['last_name'].required = True
         self.fields['gender'].initial = self.person.gender
+        self.fields['email'].required = True
+        self.fields['email'].label = u'Email'
         if self.instance.pk:
             self.fields['password1'].required = False
             self.fields['password2'].required = False
@@ -138,6 +141,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 InlineRadios('gender'),
                 'first_name',
                 'last_name',
+                'email',
                 'username',
                 'old_password',
                 'password1',
@@ -148,6 +152,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 InlineRadios('gender'),
                 'first_name',
                 'last_name',
+                'email',
                 'username',
                 'password1',
                 'password2',
@@ -177,6 +182,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
             raise forms.ValidationError(u'Vous devez accepter la charte pour pouvoir vous inscrire.')
         return True
 
+    @transaction.commit_on_success
     def save(self):
         user = super(OrganizationForm1, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
@@ -185,6 +191,8 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         login(self.request, user)
         self.person.user = user
         self.person.gender = self.cleaned_data['gender']
+        self.person.username = user.username
+        self.person.email = user.email
         self.person.first_name = user.first_name
         self.person.last_name = user.last_name
         self.person.save()

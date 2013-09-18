@@ -172,7 +172,8 @@ class OrganizationCreateView(CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
-            raise PermissionDenied
+            return render_view('page_directory/should_logout.html',
+                {}, (), context_instance=RequestContext(request))
         return super(OrganizationCreateView, self).dispatch(request, args, **kwargs)
 
     def get_form_kwargs(self):
@@ -258,6 +259,7 @@ class OrganizationChangeView(UpdateView):
             engagement.person = Person.objects.get(user=self.request.user)
             engagement.organization = self.object
             engagement.org_admin = True
+            engagement.email = self.request.user.email
             engagement.save()
         if self.propose:
             if not self.org.birth or not self.org.legal_status or not self.org.siret:
