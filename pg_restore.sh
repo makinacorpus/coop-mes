@@ -25,7 +25,7 @@ PSQL="sudo -u postgres psql -d $DB_NAME"
 $PSQL -c "DROP SCHEMA public CASCADE;"
 $PSQL -c "CREATE SCHEMA public AUTHORIZATION $DB_USER;"
 
-gzip $1 \
+gzip -cd $1 \
     | sed "s/{{DB_USER}}/$DB_USER/g" \
     | $PSQL
 
