@@ -1,5 +1,6 @@
 {% load thumbnail %}
 
+{% if org.is_provider %}
 <div class="row">
     <div class="col-lg-4 sidebar--left">
         <div class="content-box">
@@ -58,6 +59,7 @@
         </div>
     </div>
     <div class="col-lg-8">
+{% endif %}
         <div class="fiche clearfix">
             {% thumbnail org.logo "130x60" upscale=0 as logo %}
                 <img class="fiche__logo" src="{{ logo.url }}" width="130" height="60" style="padding: {{ logo|margin:"130x60" }}" />
@@ -145,6 +147,8 @@
                 {% endfor %}
             </ul>
         {% endif %}
+{% if org.is_provider %}
     </div>
 </div>
+{% endif %}
 {# <p class="text-center"><a class="btn btn-default" href="modifier/">Modifier la fiche</a></p> #}
