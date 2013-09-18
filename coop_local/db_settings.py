@@ -11,10 +11,10 @@ DATABASES = {
         'HOST': 'localhost',
     },
     'geofla_db': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'geofla',                                    # Or path to database file if using sqlite3.
-        'USER': 'geofla',                                    # Not used with sqlite3.
-        'PASSWORD': 'geofla',                                # Not used with sqlite3.
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',      # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.environ.get('GEOFLA_DB_NAME', 'geofla'),      # Or path to database file if using sqlite3.
+        'USER': os.environ.get('GEOFLA_DB_USER', 'geofla'),      # Not used with sqlite3.
+        'PASSWORD': os.environ.get('GEOFLA_DB_PASS', 'geofla'),  # Not used with sqlite3.
         'HOST': 'localhost',
     },
 }
