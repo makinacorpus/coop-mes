@@ -58,14 +58,14 @@ lessc:
 
 backup:
 	mkdir -p $(BACKUP)
-	./pg_dump.sh $(BACKUP)/db.dump
+	./pg_dump.sh $(BACKUP)/db.sql.gz
 	tar -cvf $(BACKUP)/media.tgz media/
 	tar -cvf $(BACKUP).tar $(BACKUP)
 	rm -rf $(BACKUP)
 
 restore:
 	tar -xvf $(BACKUP).tar
-	./pg_restore.sh $(BACKUP)/db.dump
+	./pg_restore.sh $(BACKUP)/db.sql.gz
 	tar -xvf $(BACKUP)/media.tgz
 
 clean:

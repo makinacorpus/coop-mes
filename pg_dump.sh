@@ -12,10 +12,10 @@ if [ -z "$DB_NAME" ]; then
     exit 1
 fi
 if [ -z "$1" ]; then
-    OUTPUT="db_`date +%FT%T`.dump"
+    OUTPUT="db_`date +%F_%H-%M-%S`.sql.gz"
 else
     OUTPUT="$1"
 fi
 
-pg_dump -Fc -U "$DB_USER" -h localhost "$DB_NAME" \
-    | sed "s/$DB_USER/{{DB_USER}}/g" "$OUTPUT" > "$OUTPUT"
+pg_dump -U "$DB_USER" -h localhost "$DB_NAME" \
+    | sed "s/$DB_USER/{{DB_USER}}/g" | gzip > "$OUTPUT"
