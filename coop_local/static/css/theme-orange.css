@@ -444,6 +444,8 @@ hr {
 .article-extract h3 {
   margin-top: 0;
   text-transform: uppercase;
+  max-height: 28px;
+  overflow: hidden;
 }
 .article-extract h3 a {
   color: #575657;
@@ -460,6 +462,8 @@ hr {
   padding: 2px 0;
   margin-bottom: 10px;
   line-height: 1.2;
+  max-height: 48px;
+  overflow: hidden;
 }
 .article h1 {
   text-transform: none;
@@ -1750,6 +1754,7 @@ body.modal-open {
   width: 33.33333333333333%;
   float: left;
   padding: 15px 0 0 20px;
+  height: 160px;
 }
 .tabbed-news .article-extract p {
   height: 45px;

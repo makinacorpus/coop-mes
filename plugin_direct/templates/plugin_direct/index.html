@@ -34,7 +34,7 @@
                     <h3><a href="/annuaire/p/{{ provider.pk }}/">{{ provider.label }}</a></h3>
                     <div class="article-extract__meta">
                         {{ provider.main_location.zipcode }} {{ provider.main_location.city }} -
-                        {{ provider.offer_activities }}
+                        {{ provider.offer_activities|truncatewords:10 }}
                     </div>
                     <p>{{ provider.brief_description|truncatewords:10 }}</p>
                 </div>
