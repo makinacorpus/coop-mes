@@ -2,7 +2,8 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import (login, logout, password_reset,
+    password_reset_done, password_reset_confirm, password_reset_complete)
 from .forms import PersonForm, AccountForm, AuthenticationForm
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
@@ -84,6 +85,28 @@ def login(request, template_name='page_account/login.html',
 def logout_view(request, page_app):
 
     return logout(request)
+
+
+def password_reset_view(request, page_app):
+
+    return password_reset(request,
+        template_name='page_account/password_reset_form.html')
+
+
+def password_reset_done_view(request, page_app):
+
+    return password_reset_done(request)
+
+
+def password_reset_confirm_view(request, page_app):
+
+    return password_reset_confirm(request)
+
+
+def password_reset_complete_view(request, page_app):
+
+    return password_reset_complete(request)
+
 
 
 def inscription_view(request, page_app):
