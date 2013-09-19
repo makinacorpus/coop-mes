@@ -1866,10 +1866,14 @@ body.modal-open {
 .tabbed-news .vignette {
   margin: 50px auto 0 auto;
 }
-.topsite-border div {
+.topsite-border {
+  display: table;
+  width: 100%;
   height: 5px;
-  width: 33.33333333333333%;
-  float: left;
+}
+.topsite-border div {
+  display: table-cell;
+  line-height: 0;
 }
 .topsite-border .color1 {
   background-color: #54ae4e;
@@ -1879,6 +1883,9 @@ body.modal-open {
 }
 .topsite-border .color3 {
   background-color: #fdd635;
+}
+.topsite-border .color4 {
+  background-color: "";
 }
 .main-header {
   background-color: #ffffff;

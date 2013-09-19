@@ -49,11 +49,13 @@
 
     {% block body %}
 
-    <div class="topsite-border">
-        <div class="color1"></div>
-        <div class="color2"></div>
-        <div class="color3"></div>
-    </div>
+    {% block topsite-border %}
+        <div class="topsite-border">
+            <div class="color1"></div>
+            <div class="color2"></div>
+            <div class="color3"></div>
+        </div>
+    {% endblock %}
 
     <header  class="main-header">
 
@@ -72,9 +74,7 @@
                                 <li><a href="/espace-presse/">Espace Presse</a></li>
                             </ul>
                         </nav>
-                        {% block feedback %}
-                            <a href="/contact/" class="feedback"><span>►</span>Retour d’expérience d’utilisation</a>
-                        {% endblock %}
+                        {% block feedback %}{% endblock %}
                         <a class="login btn iconf-user" href="/mon-compte/">
                             <b class="uppercase">Votre compte</b><br/>
                             Bonjour,
