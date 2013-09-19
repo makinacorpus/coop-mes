@@ -59,17 +59,23 @@ def index_view(request, page_app):
         descendants = sector and sector.get_descendants(include_self=True)
         if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
-        if form.cleaned_data['area']:
+        area = form.cleaned_data.get('area')
+        if area:
             try:
                 radius = int(form.cleaned_data.get('radius'))
             except:
                 radius = 0
             if radius != 0:
-                orgs = orgs.filter(pref_address__point__distance_lte=(form.cleaned_data['area'].polygon, Distance(km=radius)))
+                q = Q(located__location__point__dwithin=(area.polygon, Distance(km=radius)))
+                q |= Q(offer__area__polygon__dwithin=(area.polygon, Distance(km=radius)))
+                orgs = orgs.filter(q)
             else:
-                orgs = orgs.filter(pref_address__point__contained=form.cleaned_data['area'].polygon)
+                q = Q(located__location__point__contained=area.polygon)
+                q |= Q(offer__area__polygon__intersects=area.polygon)
+                orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
         orgs = orgs.distinct()
     else:
+        area = None
         orgs = Organization.objects.none()
     paginator = Paginator(orgs, 20)
     page = request.GET.get('page')
