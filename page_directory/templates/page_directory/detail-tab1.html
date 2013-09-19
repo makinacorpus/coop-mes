@@ -10,14 +10,14 @@
                     <li class="list-group-item">
                         {% if org.offer_set.all|length == 1 %}
                             {% include "page_directory/detail-offer.html" %}
-                            {% thumbnail org.offer_set.0.image "115x115" upscale=0 as image %}
+                            {% thumbnail org.offer_set.0.image "200x150" upscale=0 as image %}
                                 <img src="{{ image.url }}">
                             {% endthumbnail %}
                         {% else %}
                             <h3>{{ o.activities }}</h3>
                             <p>{{ o.description|truncatewords_html:"30"|linebreaks }}</p>
                             <a data-toggle="modal" href="#offer-{{ o.pk }}">Voir les détails</a>
-                            {% thumbnail o.image "115x115" upscale=0 as image %}
+                            {% thumbnail o.image "200x150" upscale=0 as image %}
                                 <img src="{{ image.url }}">
                             {% endthumbnail %}
                             <div class="modal fade" id="offer-{{ o.pk }}">
