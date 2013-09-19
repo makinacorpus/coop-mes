@@ -16,7 +16,8 @@ from email.MIMEImage import MIMEImage
 import email.Charset
 
 from django.core.management.base import BaseCommand, CommandError
-from coop_local.models import Organization
+from coop_local.models import Organization, Engagement, Person
+from django.db import transaction
 import unicodedata
 import re
 import random
@@ -96,45 +97,63 @@ class Command(BaseCommand):
         sender = Plugin_Contact.objects.all()[0].email
 
         for org in Organization.objects.filter(is_provider=True):
-            try:
-                member = org.engagement_set.filter(org_admin=True)[0]
-            except IndexError:
-                print u'Pas de membre pour %s' % org.label()
-                continue
+            self.mail_org(org)
+
+    @transaction.commit_on_success
+    def mail_org(self, org):
+
+        members = org.engagement_set.filter(org_admin=True)
+        if members:
+            member = org.engagement_set.filter(org_admin=True)[0]
             if member.person.user is not None:
-                continue
+                return
             person = member.person
-            try:
-                email = member.email or org.contacts.filter(contact_medium__label='Email')[0].content
-            except IndexError:
-                print u'Pas d\'email pour %s' % org.label()
-                continue
-            username = person.first_name + '.' + person.last_name
-            username = unicodedata.normalize('NFKD', unicode(username))
-            username = username.encode('ASCII', 'ignore')
-            username = username.lower()
-            username = username.replace(' ', '_')
-            username = re.sub(r'[^a-z_\.-]', '-', username)
-            for i in range(0, 10):
-                if i == 0:
-                    _username = username
-                else:
-                    _username = username + '%u' % i
-                if not User.objects.filter(username=_username).exists():
-                    username = _username
-                    break
-            password = ''.join([random.choice(string.digits + string.letters) for i in range(0, 6)]).lower()
-            user = User(
-                first_name=person.first_name,
-                last_name=person.last_name,
-                email=email,
-                username=username
-            )
-            user.set_password(password)
-            user.save()
-            person.user = user
-            person.save()
-            print u'Envoi effectué à %s, %s, %s@%s' % (email, org.label(), username, password)
-            #send_html_mail(u'Accédez à votre fiche dans achetons-solidaires-paca.com', email,
-                #{'username': username, 'password': password, 'sender': sender},
-                #template='mailing.html', sender=sender)
+            username = (person.first_name.strip() + '.' + person.last_name.strip())[:30]
+        else:
+            #print u'Pas de membre pour %s' % org.label()
+            person = None
+            username = org.label().lower()
+            username = username.replace('association ', '')
+            username = username.replace('assoc ', '')
+            username = username[:12]
+        try:
+            email = (person and member.email) or org.contacts.filter(contact_medium__label='Email')[0].content
+        except IndexError:
+            #print u'Pas d\'email pour %s' % org.label()
+            return
+        username = unicodedata.normalize('NFKD', unicode(username))
+        username = username.encode('ASCII', 'ignore')
+        username = username.lower()
+        username = username.replace(' ', '_')
+        username = re.sub(r'[^a-z0-9_\.-]', '-', username)
+        username = re.sub(r'[_.-]+$', '', username)
+        for i in range(0, 10):
+            if i == 0:
+                _username = username
+            else:
+                _username = username + '%u' % i
+            if not User.objects.filter(username=_username).exists():
+                username = _username
+                break
+            #print 'L\'identifiant %s existe déjà' % _username
+        password = ''.join([random.choice(string.digits + string.letters) for i in range(0, 6)]).lower()
+        if person is None:
+            person = Person.objects.create(last_name=u'Votre nom',
+                first_name=u'Votre prénom', username=username)
+            member = Engagement.objects.create(person=person,
+                organization=org, org_admin = True)
+        user = User(
+            first_name=person.first_name[:30],
+            last_name=person.last_name[:30],
+            email=email,
+            username=username
+        )
+        user.set_password(password)
+        user.save()
+        person.user = user
+        person.save()
+        #print u'Envoi effectué à %s, %s, %s:%s' % (email, org.label(), username, password)
+        print '%s;%s' % (username, password)
+        #send_html_mail(u'Accédez à votre fiche dans achetons-solidaires-paca.com', email,
+            #{'username': username, 'password': password, 'sender': sender},
+            #template='mailing.html', sender=sender)
