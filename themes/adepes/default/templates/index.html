@@ -2,4 +2,8 @@
 
 {% load staticfiles %}
 
+{% block feedback %}
+    <a href="/contact/" class="feedback"><span>►</span>Retour d’expérience d’utilisation</a>
+{% endblock %}
+
 {% block main_css %}<link rel="stylesheet" href="{% static "css/theme-orange.css" %}">{% endblock %}

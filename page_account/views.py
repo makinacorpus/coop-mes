@@ -2,7 +2,8 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import (login, logout, password_reset,
+    password_reset_done, password_reset_confirm, password_reset_complete)
 from .forms import PersonForm, AccountForm, AuthenticationForm
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
@@ -10,7 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, authenticate
 from django.contrib.sites.models import get_current_site
 from django.utils.http import is_safe_url
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from coop_local.models import Organization
 from django.contrib.auth.decorators import login_required
 from ionyweb.page.models import Page
@@ -84,6 +85,33 @@ def login(request, template_name='page_account/login.html',
 def logout_view(request, page_app):
 
     return logout(request)
+
+
+def make_ionyweb_view(view, **kwargs):
+    def ionyweb_view(request, page_app, **kwargs2):
+        kwargs.update(kwargs2)
+        response = view(request, **kwargs)
+        if isinstance(response, HttpResponseRedirect):
+            return response
+        response.render()
+        return render_view('content.html', {'content': response.content}, (),
+            context_instance=RequestContext(request))
+    return ionyweb_view
+
+password_reset_view = make_ionyweb_view(password_reset,
+    template_name='page_account/password_reset_form.html',
+    email_template_name='page_account/password_reset_email.html',
+    post_reset_redirect='/mon-compte/p/password_reset_done/')
+
+password_reset_done_view = make_ionyweb_view(password_reset_done,
+    template_name='page_account/password_reset_done.html')
+
+password_reset_confirm_view = make_ionyweb_view(password_reset_confirm,
+    template_name='page_account/password_reset_confirm.html',
+    post_reset_redirect='/mon-compte/p/password_reset_complete/')
+
+password_reset_complete_view = make_ionyweb_view(password_reset_complete,
+    template_name='page_account/password_reset_complete.html')
 
 
 def inscription_view(request, page_app):

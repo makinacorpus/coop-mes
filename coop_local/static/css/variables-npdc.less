@@ -3,15 +3,16 @@
 // -- Base colors
 @orange:            #ee8908;
 @green:             #98be2c;
-@blue:              #699fd1;
+@blue:              #6da3d3;
+@purple:            #875b92;
 
 
 // Main UI elements color
 @color1:    desaturate(darken(@blue, 5%), 40%);
 // Secondary UI elements color
-@color2:    @orange;
+@color2:    @purple;
 // Buttons color
-@color3:    @green;
+@color3:    @purple;
 
 @color1lighter2:  lighten(@blue, 20%);
 @color1lighter:  @blue;
@@ -28,9 +29,9 @@
 
 // Top border of the site
 @topsiteborder-color1: @color3;
-@topsiteborder-color2: @blue;
-@topsiteborder-color3: @color2;
-@topsiteborder-color4: "";
+@topsiteborder-color2: @green;
+@topsiteborder-color3: @blue;
+@topsiteborder-color4: @orange;
 
 // Header
 @header-bg : inherit;
@@ -39,12 +40,12 @@
 @mainnav-bg: darken(@color1, 10%);
 
 // Second navigation color
-@secondnav-bg: @color3lighter;
-@secondnav-selected: darken(@color3, 20%);
-@secondnav-selected-bg: @color3lighter;
+@secondnav-bg: @blue;
+@secondnav-selected: darken(@secondnav-bg, 30%);
+@secondnav-selected-bg: @secondnav-bg;
 
 // Homepage image
-@home-img: "bg-home.jpg";
+@home-img: "bg-home-npdc.jpg";
 
 // Section title
 @sectiontitle-bg: @color2;
@@ -60,7 +61,7 @@
 @endirect-bg: @color2;
 
 // Login button color
-@loginbtn-bg: @color1;
+@loginbtn-bg: @orange;
 
 // Footer
 @footer-bg: darken(@color1, 30%);

@@ -1,50 +1,60 @@
 {% load url from future %}
 {% load i18n %}
 
-<form method="post" action="">
+<div class="section-head">
+    <h1 class="title">CONNEXION</h1>
+</div>
 
-    {% csrf_token %}
-
-    {% if form.errors %}
-        <p class="errorlist">Votre identifiant et votre mot de passe ne correspondent pas.<br/>
-            Vérifiez votre mot de passe SVP.</p>
-    {% endif %}
-
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-6 col-lg-offset-3">
-                <div class="form-group">
-                    {{ form.username.label_tag }}
-                    {{ form.username.errors }}
-                    {{ form.username }}
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-6 col-lg-offset-3">
-                <div class="form-group">
-                    {{ form.password.label_tag }}
-                    {{ form.password.errors }}
-                    {{ form.password }}
-                </div>
-            </div>
-        </div>
-
+{% if form.errors %}
+    <div class="alert alert-error">
+        Votre identifiant et votre mot de passe ne correspondent pas.<br/>
+        Vérifiez votre mot de passe SVP.
     </div>
+{% endif %}
 
-    <p class="text-center">
-        <button class="btn btn-default" type="submit">Connexion</button>
-    </p>
+<div class="form">
+    <form class="form-horizontal" action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        <fieldset>
+            <div class="form-group {% if form.username.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4 requiredField" for="id_username">
+                    {{ form.username.label }}
+                </label>
+                <div class="controls col-lg-8">
+                    <input id="id_username" class="textinput form-control" type="text" required="" name="username">
+                    {% if form.username.errors %}
+                        <span id="error_1_id_mail" class="help-block">
+                            <strong>{{ form.username.errors.0 }}</strong>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group {% if form.password.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4 requiredField" for="id_password">
+                    {{ form.password.label }}
+                </label>
+                <div class="controls col-lg-8">
+                    <input id="id_password" class="textinput form-control" type="password" required="" name="password">
+                </div>
+                    {% if form.password.errors %}
+                        <span id="error_1_id_mail" class="help-block">
+                            <strong>{{ form.password.errors.0 }}</strong>
+                        </span>
+                    {% endif %}
+            </div>
+            <div class="col-offset-3 col-lg-7">
+                <p class="text-center">
+                    <button type="submit" class="btn btn-default">
+                        Connexion
+                    </button>
+                </p>
+            </div>
+        </fieldset>
+        <input type="hidden" name="contactform" value="{{ object.pk }}" />
+    </form>
+</div>
 
-    <input type="hidden" name="next" value="{{ next }}" />
+<p>Vous n'avez pas encore de compte&nbsp;? <a class="link" href="/annuaire/p/ajouter/">Inscrivez-vous</a></p>
 
-</form>
-
-<p>Vous n'avez pas encore de compte&nbsp;? <a class="link" href="/annuaire/p/ajouter/">Inscrivez-vous</a>.</p>
-
-<!-- FIXME
-<p>Vous avez <a href="/client/password/reset/">oublié votre mot de passe</a> ?</p>
--->
+<p>Vous avez perdu votre mot de passe&nbsp;? <a class="link" href="/mon-compte/p/password_reset/">Réinitialisez le</a></p>

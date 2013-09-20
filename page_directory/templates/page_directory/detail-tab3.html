@@ -11,11 +11,14 @@
         {% endfor %}
     </div>
     <div class="col-lg-6">
-        {% if org.other_contacts %}
+        {% if org.other_contacts or org.web %}
             <h3>Coordonnées</h3>
             {% for c in org.other_contacts %}
                 {% if c.contact_medium %}{{ c.contact_medium }}&nbsp;: {% endif %}{% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
             {% endfor %}
+            {% if org.web %}
+                Web&nbsp;: <a href="{{ org.web }}">{{ org.web }}</a><br/>
+            {% endif %}
         {% endif %}
         {% for l in org.located.all %}
             <h3>{{ l.category|default:"Localisation" }}</h3>
