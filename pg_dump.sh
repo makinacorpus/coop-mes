@@ -17,5 +17,4 @@ else
     OUTPUT="$1"
 fi
 
-pg_dump -U "$DB_USER" -h localhost "$DB_NAME" \
-    | sed "s/$DB_USER/{{DB_USER}}/g" | gzip > "$OUTPUT"
+pg_dump -U "$DB_USER" -h localhost "$DB_NAME" | gzip > "$OUTPUT"

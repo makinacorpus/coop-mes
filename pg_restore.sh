@@ -26,7 +26,7 @@ $PSQL -c "DROP SCHEMA public CASCADE;"
 $PSQL -c "CREATE SCHEMA public AUTHORIZATION $DB_USER;"
 
 gzip -cd $1 \
-    | sed "s/{{DB_USER}}/$DB_USER/g" \
+    | sed "s/OWNER TO \w\+/OWNER TO $DB_USER/g" \
     | $PSQL
 
 $PSQL -c "UPDATE django_site SET name='localhost', domain='$DOMAIN' WHERE id=1;"
