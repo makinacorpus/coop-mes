@@ -443,6 +443,9 @@ class Organization(BaseOrganization):
     def engagements(self):
         return Engagement.objects.filter(organization=self)
 
+    def customer_activities(self):
+        return ", ".join(self.activities.values_list('label', flat=True).distinct())
+
     def offer_activities(self):
         return ", ".join(self.offer_set.values_list('activity__label', flat=True).distinct())
 
