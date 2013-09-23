@@ -378,7 +378,7 @@ class Organization(BaseOrganization):
     modification = models.DateField(_(u'modification date'), auto_now=True)
     status = models.CharField(_(u'status'), max_length=1, choices=ORGANIZATION_STATUSES.CHOICES, default='I')
     correspondence = models.TextField(_(u'correspondence'), blank=True)
-    transmission = models.IntegerField(_(u'transmission mode'), choices=TRANSMISSION_MODES.CHOICES, blank=True, null=True)
+    transmission = models.IntegerField(_(u'transmission mode'), choices=TRANSMISSION_MODES.CHOICES, default=2)
     transmission_date = models.DateField(_(u'transmission date'), blank=True, null=True)
     authors = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('authors'))
     validation = models.DateField(_(u'validation date'), blank=True, null=True)
