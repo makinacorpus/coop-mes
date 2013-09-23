@@ -1,0 +1,47 @@
+Madame, Monsieur,
+
+Vous avez référencé votre structure sur CERES, la plateforme des achats responsables en Nord-Pas-de-Calais, et nous vous en remercions. Vous pouvez désormais accéder à votre fiche fournisseur sur laquelle nous avons intégré les données que vous nous avez communiquées, et utiliser les fonctionnalités suivantes :
+
+1. L'annuaire et la cartographie des entreprises sociales et solidaires
+Recherchez les fournisseurs responsables référencés par territoire, secteur d’activité, sous forme de liste ou de cartographie.
+
+2. L'annuaire et la cartographie des acheteurs publics et privés
+Identifiez les acheteurs publics et privés ayant fait appel aux fournisseurs référencés, sous forme de liste ou de cartographie.
+
+Progressivement, de nouvelles fonctionnalités vont être mises en place d’ici au lancement officiel  dans le courant du second semestre 2012 :
+
+1. L'espace Appel d’offres
+Recherchez les appels d'offres des acheteurs publics et privés partenaires.
+Réceptionnez par Email des appels d’offres publics et privés correspondant à votre profil.
+Recevez des demandes de devis par Email.
+
+2. Actualités
+Consultez les actualités et les événements régionaux, nationaux et européens de l'achat socialement responsable.
+
+3. Centre ressources
+Découvrez des portraits de fournisseurs responsables et d'acheteurs partenaires, des fiches d’expériences, des outils (vidéothèque, bibliographies, etc.) sur l'achat responsable.
+
+Pour accéder dès à présent à votre compte et modifier et/ou compléter les informations concernant votre entreprise :
+
+========================================================================
+
+1. Connectez-vous sur CERES : www.ceres-npdc.org
+2. Jusqu’au lancement officiel du site, celui-ci est en accès restreint, vous devez donc entrer les identifiants suivants :
+utilisateur : achetons
+mot de passe : solidaire
+
+Vous êtes sur CERES !
+
+3. Pour vous identifier et pouvoir modifier les informations vous concernant, cliquez sur l’onglet « Votre compte » en haut à droite de la page, et identifiez-vous grâce aux identifiants suivants :
+utilisateur : {{ username }}
+mot de passe : {{ password }}
+
+========================================================================
+
+Si vous rencontrez des problèmes particuliers, contactez-nous par mail à ceresnpdc@gmail.com ou par téléphone :
+Marine LEMOINE à l’URIAE : 03 20 53 51 97
+Joackim LEBRUN à l’APES : 03 20 30 98 25
+
+Nous souhaitons vivement que CERES contribue pleinement au développement économique des entreprises sociales et solidaires. Elle évoluera au fil du temps pour être encore plus proche de vos besoins. Communiquez largement autour de vous pour qu'elle soit connue, utilisée et utile pour vous. N’hésitez pas à nous faire part de vos retours !
+
+L’URIAE et l’APES
