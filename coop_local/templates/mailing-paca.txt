@@ -1,0 +1,27 @@
+Madame, Monsieur,
+
+Après une longue gestation, la première version de la plateforme des achats solidaires et responsables achetons-solidaires-paca.com est en ligne.
+La plupart des fonctionnalités sont déjà disponibles : annuaire, cartographie, appels d’offres et actualités.
+La deuxième version sera livrée en octobre 2013 avec les fonctions supplémentaires : agenda, espace ressources et interactivité entre fournisseurs et acheteurs.
+Votre structure a été référencée dans achetons-solidaires-paca.com par l’APEAS ou l’un de ses partenaires (Coorace, Piles 04, Piles 83, La Claie, Pecos, Promess 84, CIE 84, RESSPA).
+
+Pour accéder à votre compte et effectuer des modifications et/ou des compléments d'information concernant votre entreprise :
+
+========================================================================
+www.achetons-solidaires-paca.com puis cliquez sur le bouton « VOTRE COMPTE, identifiez vous » en haut à droite de la page.
+Nom d’utilisateur : {{ username }}
+Mot de passe : {{ password }}
+========================================================================
+
+Si vous rencontrez des problèmes particuliers, contactez-nous par  message électronique à : {{ sender }} et laissez-nous vos coordonnées téléphoniques avec les créneaux horaires où nous pouvons vous rappeler.
+
+Nous souhaitons vivement que cette plateforme contribue pleinement au développement économique des entreprises sociales et solidaires.
+Elle évoluera au fil du temps pour être encore plus proche de vos besoins.
+Communiquez largement autour de vous pour qu'elle soit connue, utilisée et utile pour vous. N’hésitez pas à nous faire part de vos retours !
+Enfin, nous serons heureux de vous accueillir  lors du forum régional des achats responsables et solidaires, mardi 19 novembre 2013 à l’Hôtel de région à Marseille de 13h30 à 17h30.
+Réservez cette date dans votre agenda !
+
+Bien cordialement,
+Marc Alphandery et Myriam Carbonare
+Tel : 04 91 99 02 40
+Courriel : {{ sender }}

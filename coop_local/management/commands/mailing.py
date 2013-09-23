@@ -8,7 +8,7 @@ from BeautifulSoup import BeautifulSoup
 
 from django.conf import settings
 from django.template import loader, Context
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, SafeMIMEMultipart
 from django.contrib.auth.models import User
 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
 
@@ -22,6 +22,10 @@ import unicodedata
 import re
 import random
 import string
+from django.template.loader import render_to_string
+import os
+from email.MIMEBase import MIMEBase
+from django.utils.text import wrap
 
 CHARSET = 'utf-8'
 
@@ -89,12 +93,92 @@ def send_html_mail(subject, recipient, message, template='',
     msg.send()
 
 
+#-------------------------------------------------------------------------
+
+class EmailMultiRelated(EmailMultiAlternatives):
+    """
+    A version of EmailMessage that makes it easy to send multipart/related
+    messages. For example, including text and HTML versions with inline images.
+    """
+    related_subtype = 'related'
+
+    def __init__(self, subject='', body='', from_email=None, to=None, bcc=None,
+            connection=None, attachments=None, headers=None, alternatives=None):
+        # self.related_ids = []
+        self.related_attachments = []
+        return super(EmailMultiRelated, self).__init__(subject, body, from_email, to, bcc, connection, attachments, headers, alternatives)
+
+    def attach_related(self, filename=None, content=None, mimetype=None):
+        """
+        Attaches a file with the given filename and content. The filename can
+        be omitted and the mimetype is guessed, if not provided.
+
+        If the first parameter is a MIMEBase subclass it is inserted directly
+        into the resulting message attachments.
+        """
+        if isinstance(filename, MIMEBase):
+            assert content == mimetype == None
+            self.related_attachments.append(filename)
+        else:
+            assert content is not None
+            self.related_attachments.append((filename, content, mimetype))
+
+    def attach_related_file(self, path, mimetype=None):
+        """Attaches a file from the filesystem."""
+        filename = os.path.basename(path)
+        content = open(path, 'rb').read()
+        self.attach_related(filename, content, mimetype)
+
+    def _create_message(self, msg):
+        return self._create_attachments(self._create_related_attachments(self._create_alternatives(msg)))
+
+    def _create_alternatives(self, msg):
+        for i, (content, mimetype) in enumerate(self.alternatives):
+            if mimetype == 'text/html':
+                for filename, _, _ in self.related_attachments:
+                    content = re.sub(r'(?<!cid:)%s' % re.escape(filename), 'cid:%s' % filename, content)
+                self.alternatives[i] = (content, mimetype)
+
+        return super(EmailMultiRelated, self)._create_alternatives(msg)
+
+    def _create_related_attachments(self, msg):
+        encoding = self.encoding or settings.DEFAULT_CHARSET
+        if self.related_attachments:
+            body_msg = msg
+            msg = SafeMIMEMultipart(_subtype=self.related_subtype, encoding=encoding)
+            if self.body:
+                msg.attach(body_msg)
+            for related in self.related_attachments:
+                msg.attach(self._create_related_attachment(*related))
+        return msg
+
+    def _create_related_attachment(self, filename, content, mimetype=None):
+        """
+        Convert the filename, content, mimetype triple into a MIME attachment
+        object. Adjust headers to use Content-ID where applicable.
+        Taken from http://code.djangoproject.com/ticket/4771
+        """
+        attachment = super(EmailMultiRelated, self)._create_attachment(filename, content, mimetype)
+        if filename:
+            mimetype = attachment['Content-Type']
+            del(attachment['Content-Type'])
+            del(attachment['Content-Disposition'])
+            attachment.add_header('Content-Disposition', 'inline', filename=filename)
+            attachment.add_header('Content-Type', mimetype, name=filename)
+            attachment.add_header('Content-ID', '<%s>' % filename)
+        return attachment
+
+#-------------------------------------------------------------------------
+
+
+
 class Command(BaseCommand):
     help = 'Mailing'
 
-    def handle(self, *args, **options):
+    def handle(self, slug, *args, **options):
 
-        sender = Plugin_Contact.objects.all()[0].email
+        self.slug = slug
+        self.sender = Plugin_Contact.objects.all()[0].email
 
         for org in Organization.objects.filter(is_provider=True):
             self.mail_org(org)
@@ -140,7 +224,7 @@ class Command(BaseCommand):
         if person is None:
             person = Person.objects.create(last_name=u'Votre nom',
                 first_name=u'Votre prénom', username=username)
-            member = Engagement.objects.create(person=person,
+            member = Engagement.objects.create(person=person, email=email,
                 organization=org, org_admin = True)
         user = User(
             first_name=person.first_name[:30],
@@ -152,8 +236,18 @@ class Command(BaseCommand):
         user.save()
         person.user = user
         person.save()
-        #print u'Envoi effectué à %s, %s, %s:%s' % (email, org.label(), username, password)
-        print '%s;%s' % (username, password)
-        #send_html_mail(u'Accédez à votre fiche dans achetons-solidaires-paca.com', email,
-            #{'username': username, 'password': password, 'sender': sender},
-            #template='mailing.html', sender=sender)
+        print u'Envoi effectué à %s, %s, %s:%s' % (email, org.label(), username, password)
+        #print '%s;%s' % (username, password)
+        context = {'username': username, 'password': password, 'sender': self.sender}
+        subject = u'Accédez à votre fiche dans achetons-solidaires-paca.com'
+        text = wrap(render_to_string('mailing-%s.txt' % self.slug, context), 72)
+        html = render_to_string('mailing-%s.html' % self.slug, context)
+        #send_html_mail(subject, email, context, template='mailing.html', sender=self.sender)
+        msg = EmailMultiRelated(subject, text, self.sender, [email])
+        msg.attach_alternative(html, 'text/html')
+        soup = BeautifulSoup(html)
+        for index, tag in enumerate(soup.findAll(image_finder)):
+            if tag.name == u'img':
+                name = 'src'
+            msg.attach_related_file(settings.PROJECT_PATH + '/coop_local/static/img/' + tag[name])
+        msg.send()
