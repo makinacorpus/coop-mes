@@ -8,7 +8,6 @@
         <div>
             <h2 class="fiche__title">{{ org.title }}</h2>
             <h6 class="status">{{ org.acronym }}</h6>
-            <h6 class="activity">{{ org.offer_activities }}</h6>
         </div>
     </div>
     <div class="col-lg-6">
@@ -41,6 +40,13 @@
     </div>
 </div>
 <hr/>
+{% if org.customer_activities %}
+    <div class="">
+        <h5 class="">Achats responsables recherchés</h5>
+        {{ org.customer_activities }}
+    </div>
+    <hr/>
+{% endif %}
 <div class="">
     <h5 class="">Mots clés</h5>
     {{ org.tags.all|join:", " }}
