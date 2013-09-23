@@ -9,7 +9,6 @@ from .views import (
     password_reset_done_view,
     password_reset_confirm_view,
     password_reset_complete_view,
-    inscription_view,
     organizations_view,
     my_calls_view,
     my_offers_view,
@@ -17,7 +16,6 @@ from .views import (
 
 urlpatterns = patterns('',
     url(r'^$', index_view),
-    url(r'^inscription/$', inscription_view),
     url(r'^connexion/$', login_view),
     url(r'^deconnexion/$', logout_view),
     url(r'^password_reset/$', password_reset_view),

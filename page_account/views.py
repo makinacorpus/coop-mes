@@ -4,7 +4,7 @@ from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from django.contrib.auth.views import (login, logout, password_reset,
     password_reset_done, password_reset_confirm, password_reset_complete)
-from .forms import PersonForm, AccountForm, AuthenticationForm
+from .forms import AuthenticationForm
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -112,35 +112,6 @@ password_reset_confirm_view = make_ionyweb_view(password_reset_confirm,
 
 password_reset_complete_view = make_ionyweb_view(password_reset_complete,
     template_name='page_account/password_reset_complete.html')
-
-
-def inscription_view(request, page_app):
-
-    try:
-        charte = Page.objects.get(title='Charte').app.text
-    except Page.DoesNotExist:
-        charte = u'<p>La page « Charte » n\'existe pas.</p>'
-
-    if request.method == "POST":
-        form1 = PersonForm(request.POST)
-        form2 = AccountForm(request.POST)
-        if form1.is_valid() and form2.is_valid():
-            user = form2.save()
-            person = form1.save(commit=False)
-            person.user = user
-            person.username = user.username
-            person.save()
-            user = authenticate(username=user.username, password=form2.cleaned_data['password1'])
-            auth_login(request, user)
-            return HttpResponseRedirect('../..')
-    else:
-        form1 = PersonForm()
-        form2 = AccountForm()
-
-    return render_view('page_account/inscription.html',
-        {'form1': form1, 'form2': form2, 'charte': charte},
-        MEDIAS,
-        context_instance=RequestContext(request))
 
 
 @login_required
