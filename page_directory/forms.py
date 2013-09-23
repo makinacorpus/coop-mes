@@ -104,8 +104,6 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         error_messages = {
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")})
-    old_password = forms.CharField(label=_("Old password"),
-        widget=forms.PasswordInput)
     password1 = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Password confirmation"),
@@ -122,7 +120,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         model = User
         fields = ("username", "last_name", "first_name", "email")
 
-    def __init__(self, request, *args, **kwargs):
+    def __init__(self, request, propose, *args, **kwargs):
         self.request = request
         if request.user.is_authenticated():
             self.person = request.user.get_profile()
@@ -134,20 +132,16 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         self.fields['email'].required = True
         self.fields['email'].label = u'Email'
         if self.instance.pk:
-            self.fields['password1'].required = False
-            self.fields['password2'].required = False
+            del self.fields['username']
+            del self.fields['password1']
+            del self.fields['password2']
             del self.fields['charte']
             self.set_helper((
                 InlineRadios('gender'),
                 'first_name',
                 'last_name',
-                'email',
-                'username',
-                'old_password',
-                'password1',
-                'password2'))
+                'email'))
         else:
-            del self.fields['old_password']
             self.set_helper((
                 InlineRadios('gender'),
                 'first_name',
@@ -184,11 +178,14 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
 
     @transaction.commit_on_success
     def save(self):
-        user = super(OrganizationForm1, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        user.save()
-        user = authenticate(username=user.username, password=self.cleaned_data['password1'])
-        login(self.request, user)
+        if not self.instance.pk:
+            user = super(OrganizationForm1, self).save(commit=False)
+            user.set_password(self.cleaned_data["password1"])
+            user.save()
+            user = authenticate(username=user.username, password=self.cleaned_data['password1'])
+            login(self.request, user)
+        else:
+            user = super(OrganizationForm1, self).save()
         self.person.user = user
         self.person.gender = self.cleaned_data['gender']
         self.person.username = user.username
@@ -573,13 +570,14 @@ class EngagementForm(OrganizationMixin, forms.ModelForm):
         super(EngagementForm, self).__init__(*args, **kwargs)
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
+            HTML('{% if subform.instance.person.user == request.user %}<h3>Vous</h3>{% endif %}'),
             'gender',
             'first_name',
             'last_name',
             'role',
             'tel',
             'email',
-            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            Field('DELETE', template="bootstrap3/layout/delete-engagement.html"),
             HTML('</fieldset>'),
         ))
 
@@ -644,6 +642,7 @@ OrganizationForm12.add_label = u'Ajouter une référence'
 
 
 ORGANIZATION_FORMS = (
+    OrganizationForm1,
     OrganizationForm2,
     OrganizationForm3,
     OrganizationForm4,
