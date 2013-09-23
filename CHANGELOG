@@ -1,6 +1,24 @@
 v1.5
 
  * Formulaire de contact
+ * Ajout d'une résulmé et d'une image aux articles
+ * Diverses corrections d'affichage
+ * Limite la description succinte à 400 caractères
+ * Ajout d'informations pour que l'utilisateur connaisse le statut de sa fiche (incomplète, proposée, validée)
+ * Envoi d'un mail à l'orgnisation lorsque sa fiche est validée
+ * Restreint la liste des utilisateurs dans le filtre du back office pour les organisations
+ * Recherche sur les territoires d'intervention
+ * Regroupement/séparation des épingles sur la carte
+ * Géolocalisation automatique des lieu lors de l'inscription en ligne
+ * Affichage de l'identitifiant dans la zone d'authentification si le prénom n'est pas disponible
+ * Corrections de divers bugs lors de l'enregistrement en ligne
+ * Système d'envoi de mail pour diffuser les codes d'accès
+ * Thème et carte pour Nord-Pas-de-Calais
+ * Ajout des accents à la police de caractère Melbourne
+ * Système de récupération de mot de passe perdu
+ * pas de lien vers les fiches non validées
+ * Carrousel plus large
+
 
 Déploiement:
 
@@ -8,6 +26,7 @@ Déploiement:
  - migration plugin_coop
  - collectstatic
  - layout du formulaire de contact
+ - manage.py contacts_to_engagements
 
 
 v1.4
