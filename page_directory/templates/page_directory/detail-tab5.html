@@ -1,38 +1,11 @@
 {% if org.reseaux %}
-    <h3>Est membre de</h3>
-    <div class="links-list clearfix">
-        {% for r in org.reseaux %}
-            <div class="col-lg-4 links-list-item">
-                <span class="value">{{ r.target.label }}</span><br>
-                <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
-            </div>
-        {% endfor %}
-    </div>
-    <hr>
+    {% include 'page_directory/detail-tab5-elem.html' with title='Est membre de' relations=org.reseaux %}
 {% endif %}
 
 {% if org.part_eco %}
-    <h3>Partenariats économiques</h3>
-    <div class="links-list clearfix">
-        {% for r in org.part_eco %}
-            <div class="col-lg-4 links-list-item">
-                <span class="value">{{ r.target.label }}</span><br>
-                <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
-            </div>
-        {% endfor %}
-    </div>
-    <hr>
+    {% include 'page_directory/detail-tab5-elem.html' with title='Partenariats économiques' relations=org.part_eco %}
 {% endif %}
 
 {% if org.part_tech %}
-    <h3>Autres partenariats</h3>
-    <div class="links-list clearfix">
-        {% for r in org.part_tech %}
-            <div class="col-lg-4 links-list-item">
-                <span class="value">{{ r.target.label }}</span><br>
-                <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
-            </div>
-        {% endfor %}
-    </div>
-    <hr>
+    {% include 'page_directory/detail-tab5-elem.html' with title='Autres partenariats' relations=org.part_tech %}
 {% endif %}

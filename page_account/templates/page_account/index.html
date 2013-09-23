@@ -9,7 +9,9 @@
     {% if my_organization.status == 'P' and my_organization.offer_set.all %}
         <p>Vos informations sont en cours de validation par les administration du site. Elle ne seront visibles publiquement qu'après validation.</p>
     {% endif %}
-    <p><a href="{{ my_organization.get_absolute_url }}">Voir ma fiche</a></p>
+    {% if my_organization.status == 'V' %}
+        <p><a href="{{ my_organization.get_absolute_url }}">Voir ma fiche</a></p>
+    {% endif %}
     <p><a href="/annuaire/p/modifier/">Modifier ma fiche</a></p>
 {% endif %}
 <p><a href="p/deconnexion/?next=/">Déconnexion</a></p>
