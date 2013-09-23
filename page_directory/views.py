@@ -140,6 +140,7 @@ class OrganizationEditView(SessionWizardView):
 
 
 ORGANIZATION_TITLES = (
+    u'Identification',
     u'Type d\'organisation',
     u'Description',
     u'Classification',
@@ -174,7 +175,7 @@ class OrganizationCreateView(CreateView):
     template_name = 'page_directory/create.html'
     model = User
     form_class = OrganizationForm1
-    success_url = '/annuaire/p/modifier/'
+    success_url = '/annuaire/p/modifier/1/'
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -184,11 +185,13 @@ class OrganizationCreateView(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(OrganizationCreateView, self).get_form_kwargs()
+        kwargs['propose'] = False
         kwargs['request'] = self.request
         return kwargs
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
+        context['titles'] = ORGANIZATION_TITLES[:-1]
         try:
             context['charte'] = Page.objects.get(title='Charte').app.text
         except Page.DoesNotExist:
@@ -235,16 +238,21 @@ class OrganizationChangeView(UpdateView):
         self.last_step = len(self.forms) - 1
         if self.step > self.last_step:
             self.step = self.last_step
-        return self.org
+        if self.step == 0:
+            return self.request.user
+        else:
+            return self.org
 
     def get_form_kwargs(self):
         kwargs = super(OrganizationChangeView, self).get_form_kwargs()
         kwargs['propose'] = self.propose
+        if self.step == 0:
+            kwargs['request'] = self.request
         return kwargs
 
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
-        if not 'data' in kwargs and self.propose and self.step in (0, 1, 3):
+        if not 'data' in kwargs and self.propose and self.step in (1, 2, 4):
             kwargs['data'] = model_to_dict(self.object)
         return form_class(**kwargs)
 
@@ -269,19 +277,19 @@ class OrganizationChangeView(UpdateView):
             engagement.save()
         if self.propose:
             if not self.org.birth or not self.org.legal_status or not self.org.siret:
-                return '/annuaire/p/modifier/0/?propose'
-            if not self.org.brief_description:
                 return '/annuaire/p/modifier/1/?propose'
+            if not self.org.brief_description:
+                return '/annuaire/p/modifier/2/?propose'
             if not self.org.workforce:
-                return '/annuaire/p/modifier/3/?propose'
+                return '/annuaire/p/modifier/4/?propose'
             if self.org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (self.org.integration_workforce or self.org.annual_integration_number):
-                return '/annuaire/p/modifier/3/?propose'
+                return '/annuaire/p/modifier/4/?propose'
             if self.org.is_provider and not self.org.offer_set.exists():
                 return '/annuaire/p/offre/ajouter/?propose'
             self.org.status = 'P'
             self.org.transmission_date = date.today()
             self.org.save()
-        if self.step == self.last_step:
+        if self.propose or self.step == self.last_step:
             return self.success_url
         return '/annuaire/p/modifier/%u/' % (self.step + 1)
 

@@ -42,7 +42,11 @@
                                 <p>Votre fiche est validée.</p>
                             {% endif %}
                             {% if form.form %}
-                                {% crispy form form.form.helper %}
+                                {{ form.management_form }}
+                                {% for subform in form.forms %}
+                                    {{ subform.id }}
+                                    {% crispy subform %}
+                                {% endfor %}
                             {% else %}
                                 <fieldset>
                                     {% crispy form %}
@@ -53,7 +57,7 @@
                                     <button class="add-link btn btn--form">{{ form.add_label }}</button>
                                 {% endif %}
                                 <button type="submit" class="btn btn-default">Enregistrer</button>
-                                {% if form.instance.status == 'I' %}
+                                {% if my_organization.status == 'I' %}
                                     <button type="submit" name='propose' class="btn btn--form">Proposer la fiche</button>
                                 {% endif %}
                             </fieldset>
