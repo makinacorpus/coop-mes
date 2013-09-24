@@ -180,7 +180,7 @@ class Command(BaseCommand):
         self.slug = slug
         self.sender = Plugin_Contact.objects.all()[0].email
 
-        for org in Organization.objects.filter(is_provider=True):
+        for org in Organization.objects.filter(is_provider=True, id=898):
             self.mail_org(org)
 
     @transaction.commit_on_success
@@ -224,8 +224,9 @@ class Command(BaseCommand):
         if person is None:
             person = Person.objects.create(last_name=u'Votre nom',
                 first_name=u'Votre prénom', username=username)
-            member = Engagement.objects.create(person=person, email=email,
+            member = Engagement.objects.create(person=person,
                 organization=org, org_admin = True)
+            member.contacts.add(Contact(contact_medium=ContactMedium.objects.get(label='Email'), content=email))
         user = User(
             first_name=person.first_name[:30],
             last_name=person.last_name[:30],
@@ -235,6 +236,7 @@ class Command(BaseCommand):
         user.set_password(password)
         user.save()
         person.user = user
+        person.username = username
         person.save()
         print u'Envoi effectué à %s, %s, %s:%s' % (email, org.label(), username, password)
         #print '%s;%s' % (username, password)

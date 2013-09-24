@@ -286,7 +286,8 @@ class OrganizationChangeView(UpdateView):
                 return '/annuaire/p/modifier/4/?propose'
             if self.org.is_provider and not self.org.offer_set.exists():
                 return '/annuaire/p/offre/ajouter/?propose'
-            self.org.status = 'P'
+            if self.org.status == 'I':
+                self.org.status = 'P'
             self.org.transmission_date = date.today()
             self.org.save()
         if self.propose or self.step == self.last_step:
