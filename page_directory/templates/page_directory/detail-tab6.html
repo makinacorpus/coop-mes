@@ -41,18 +41,18 @@
 </div>
 <hr/>
 {% if org.customer_activities %}
-    <div class="">
-        <h5 class="">Achats responsables recherchés</h5>
+    <div class="fiche">
+        <h5>Achats responsables recherchés</h5>
         {{ org.customer_activities }}
     </div>
     <hr/>
 {% endif %}
-<div class="">
-    <h5 class="">Mots clés</h5>
+<div class="fiche">
+    <h5>Mots clés</h5>
     {{ org.tags.all|join:", " }}
 </div>
 <hr/>
-<div class="">
-    <h5 class="">Description détaillée</h5>
+<div class="fiche">
+    <h5>Description détaillée</h5>
     <div class="cms-content">{{ org.description|safe }}</div>
 </div>

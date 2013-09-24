@@ -220,6 +220,7 @@ hr {
             a {
                 color: white;
                 background-color: @secondnav-bg;
+                font-weight: 500;
             }
         }
 
@@ -367,6 +368,7 @@ hr {
             border-color: @color1;
             border-left: none;
             background: white url(../img/sprite.png) 178px -710px no-repeat;
+            padding-right: 30px;
         }
     }
 }
@@ -524,6 +526,10 @@ hr {
         &:before {
             border-color: @greydark-divider;
         }
+    }
+
+    .nav {
+        margin-top: 10px;
     }
 }
 
@@ -705,32 +711,12 @@ svg.map a:hover path {
 
 
 // APPEL D'OFFRES DETAIL
-.request-proposal-detail {
+.request-proposal-detail,
+.event-detail {
     h1 {
         text-transform: none;
         font-size: 28px;
         float: left;
-    }
-
-    .utils-links {
-        float: right;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding-top: 3px;
-        .hide-text();
-
-        a {
-            margin: 0 6px;
-
-            &:before {
-                color: @color3lighter;
-                font-size: 26px;
-            }
-
-            &:hover:before {
-                color: @color3;
-            }
-        }
     }
 
     .market-type {
@@ -756,7 +742,8 @@ svg.map a:hover path {
     }
 }
 
-.request-proposal-detail__head {
+.request-proposal-detail__head,
+.event-detail__head {
     margin-bottom: 20px;
 
     img {
@@ -814,6 +801,66 @@ svg.map a:hover path {
     margin-top: 8px;
 }
 
+.utils-links {
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 3px;
+    .hide-text();
+
+    a {
+        margin: 0 6px;
+
+        &:before {
+            color: @color3lighter;
+            font-size: 26px;
+        }
+
+        &:hover:before {
+            color: @color3;
+        }
+    }
+}
+
+
+
+
+// EVENT DETAIL
+.event-detail__head {
+    margin-bottom: 5px;
+}
+
+.event-detail__meta {
+    border-top: 1px dotted @greylighter2;
+    border-bottom: 1px dotted @greylighter2;
+    padding: 4px 0;
+    line-height: 1.3em;
+    margin-bottom: 10px;
+    .clearfix();
+
+    > div:first-child {
+        border-right: 1px dotted @greylighter2; 
+    }
+
+    > div {
+        width: 50%;
+        float: left;
+    }
+
+    .iconf-calendar, .iconf-pins {
+        &:before {
+            color: @color2;
+            font-size: 24px;
+            float: left;
+            margin-right: 8px;
+            margin-top: 3px;
+        }
+    }
+
+    .iconf-pins {
+        line-height: 2.4em;
+    }
+}
 
 
 

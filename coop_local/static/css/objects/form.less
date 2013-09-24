@@ -155,3 +155,46 @@ fieldset[disabled] .form-control {
     background-color: white;
     opacity: 0.6;
 }
+
+/* Custom checkboxes */
+.checkbox-custom {
+    padding-left: 0;
+
+    label {  
+        display: inline-block;  
+        cursor: pointer;  
+        position: relative;  
+        vertical-align: top;
+
+        &:before{  
+            content: "";  
+            display: inline-block;  
+            vertical-align: top;
+            
+            width: 16px;  
+            height: 16px;  
+            
+            margin-right: 10px;
+            background-color: #ccc;  
+
+            border-radius: 3px;
+        }
+    }
+
+    input[type=checkbox] {  
+        display: none;
+    }
+
+    input[type=checkbox]:checked + label:before {  
+        content: "\2714";
+        font-size: 15px;  
+        color: #fff;  
+        text-align: center;  
+        line-height: 15px;  
+        background-color: #999;
+    }
+
+    input[type=checkbox]:checked + label:before {
+        background-color: @color1 !important;
+    }
+}
