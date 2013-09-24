@@ -618,6 +618,7 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ReferenceForm, self).__init__(*args, **kwargs)
+        self.fields['source'].queryset = Organization.objects.filter(is_customer=True)
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'source',
