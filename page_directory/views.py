@@ -18,7 +18,6 @@ from ionyweb.page.models import Page
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.utils.timezone import now
-from django.contrib.gis.measure import Distance
 from django.db import transaction
 from django.contrib.contenttypes.generic import BaseGenericInlineFormSet
 from django.contrib.auth.decorators import login_required
@@ -66,8 +65,10 @@ def index_view(request, page_app):
             except:
                 radius = 0
             if radius != 0:
-                q = Q(located__location__point__dwithin=(area.polygon, Distance(km=radius)))
-                q |= Q(offer__area__polygon__dwithin=(area.polygon, Distance(km=radius)))
+                center = area.polygon.centroid
+                degrees = radius * 360 / 40000
+                q = Q(located__location__point__dwithin=(center, degrees))
+                q |= Q(offer__area__polygon__dwithin=(center, degrees))
                 orgs = orgs.filter(q)
             else:
                 q = Q(located__location__point__contained=area.polygon)

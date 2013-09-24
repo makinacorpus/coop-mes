@@ -10,7 +10,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q
-from django.contrib.gis.measure import Distance
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -70,9 +69,10 @@ def index_view(request, page_app):
             except:
                 radius = 0
             if radius != 0:
+                center = area.polygon.centroid
                 degrees = radius * 360 / 40000
-                q = Q(located__location__point__dwithin=(area.polygon, degrees))
-                q |= Q(offer__area__polygon__dwithin=(area.polygon, degrees))
+                q = Q(located__location__point__dwithin=(center, degrees))
+                q |= Q(offer__area__polygon__dwithin=(center, degrees))
                 orgs = orgs.filter(q)
             else:
                 q = Q(located__location__point__contained=area.polygon)
