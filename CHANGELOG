@@ -1,3 +1,15 @@
+v1.7
+
+ *
+
+v1.6
+
+ * Simplification des calculs de distance pour la recherche géographique
+ * Conserve les fiches validées lorsqu'elles sont modifiées en ligne
+ * Défilement automatique du carrousel
+ * Lien vers l'article à la Une
+ * Titres en gras dans la fiche acheteur
+
 v1.5
 
  * Formulaire de contact
