@@ -42,23 +42,15 @@ Comment s’inscrire ?
     - Identifiant : {{ username }}
     - Mot de passe : {{ password }}
 
-2. Modifier votre fiche qui détaille l’offre de biens et services responsables, avant le 20 septembre 2013
+2. Modifier votre fiche qui détaille l’offre de biens et services responsables, avant le 30 septembre 2013
 
-Information :
-
-24 septembre 2013 : conférence sur les partenariats avec les Structures d’Insertion par l’Activité Economique (SIAE) :
-Quelles opportunités pour les entreprises et les acheteurs publics ?
+Lancement de la plateforme des achats responsables en Midi-Pyrénées :
 
 Octobre : ouverture du site www.achetons-responsables-mp.com
 
-Son inauguration se déroulera lors du Forum Régional de l’Economie Sociale et Solidaire, les 8 et 9 novembre, aux Espaces Vanel, Arche Marengo, à Toulouse.
+Sa présentation se déroulera le 8 novembre (après-midi) lors de la 2e édition du colloque régional des acteurs du développement durable. Le rendez-vous de la responsabilité sociétale (RSE) en Midi-Pyrénées, dans le cadre du <b>13e Forum Régional de l’Economie Sociale et Solidaire</b>, les 8 et 9 novembre 2013, au 6e étage Espaces Vanel - Arche Marengo, à Toulouse.
 
-Vous remerciant par avance pour l'intérêt que vous porterez à notre démarche,
-
-Nous restons à votre disposition pour tous renseignements,
-
-
-
+Vous remerciant par avance pour l'intérêt que vous porterez à notre démarche, nous restons à votre disposition pour tous renseignements,
 
 Ce projet, financé par l’Union Européenne est mis en œuvre par l’ADEPES, Agence de Développement et de Promotion de l’Economie Solidaire en Midi-Pyrénées en partenariat avec l’UREI MP (Union Régionale des Entreprises d’Insertion), le COORACE MP (Fédération de COmités et d’ORganismes d’Aide aux Chômeurs par l’Emploi), FNARS MP (Fédération Nationale des associations d’Accueil et de Réinsertion Sociale) ainsi qu’un acteur innovant du territoire Synethic (Pôle de compétences en Achat Responsable et Innovation Sociétale).
 

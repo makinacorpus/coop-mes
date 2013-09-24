@@ -16,7 +16,8 @@ from email.MIMEImage import MIMEImage
 import email.Charset
 
 from django.core.management.base import BaseCommand, CommandError
-from coop_local.models import Organization, Engagement, Person
+from coop_local.models import (Organization, Engagement, Person, Contact,
+    ContactMedium)
 from django.db import transaction
 import unicodedata
 import re
@@ -26,6 +27,7 @@ from django.template.loader import render_to_string
 import os
 from email.MIMEBase import MIMEBase
 from django.utils.text import wrap
+from django.db.models import Q
 
 CHARSET = 'utf-8'
 
@@ -180,7 +182,45 @@ class Command(BaseCommand):
         self.slug = slug
         self.sender = Plugin_Contact.objects.all()[0].email
 
-        for org in Organization.objects.filter(is_provider=True, id=898):
+        orgs = Organization.objects.filter(is_provider=True)
+
+        if slug == 'npdc':
+            emails = (
+                'abcdubonpain@yahoo.fr',
+                'contact@asah-asso.fr',
+                'afp2i@afp2i.fr',
+                'gerard.trebacz@aism-eve.fr',
+                'afichelle@altereos.fr',
+                'arche.gerard@free.fr',
+                'contact@cliss21.com',
+                'christophe.louage@groupevitaminet.com',
+                'gerard.trebacz@aism-eve.fr',
+                'ac.delvinquiere@sfr.fr',
+                'p.vincent@aideadom.fr',
+                'nadia.oudin@groupevitaminet.com',
+                'contact@fermedusens.com',
+                'f.leroy@saveursetsaisons.com',
+                'lerelaisvermellois@wanadoo.fr',
+                'clambert@lilas-autopartage.com',
+                'mediapole@groupevitaminet.com',
+                'momlille@momartre.com',
+                'partenaires.contact@free.fr',
+                'elizabeth.dinsdale@pocheco.com',
+                'lille@vitame.fr',
+                'sapih@wanadoo.fr',
+                'amelie@ayin.fr',
+                'marc.sockeel@abbayedebelval.fr',
+                'cedric.houbart@scil.coop',
+                'remy.oulouna@groupevitaminet.com',
+                'contact@toerana-habitat.fr',
+                'adelin.delassus@groupevitaminet.com',
+                'direction@groupetandem.fr',
+            )
+            orgs = orgs.filter(Q(contacts__content__in=emails) | Q(engagement__email__in=emails)).distinct()
+
+        #orgs = orgs.filter(id=231) BAT MP
+
+        for org in orgs:
             self.mail_org(org)
 
     @transaction.commit_on_success
@@ -196,7 +236,7 @@ class Command(BaseCommand):
         else:
             #print u'Pas de membre pour %s' % org.label()
             person = None
-            username = org.label().lower()
+            username = org.label().lower().strip()
             username = username.replace('association ', '')
             username = username.replace('assoc ', '')
             username = username[:12]
@@ -211,12 +251,13 @@ class Command(BaseCommand):
         username = username.replace(' ', '_')
         username = re.sub(r'[^a-z0-9_\.-]', '-', username)
         username = re.sub(r'[_.-]+$', '', username)
+        username = username.replace('_-_', '-')
         for i in range(0, 10):
             if i == 0:
                 _username = username
             else:
                 _username = username + '%u' % i
-            if not User.objects.filter(username=_username).exists():
+            if not User.objects.filter(username=_username).exists() and not Person.objects.filter(username=_username).exists():
                 username = _username
                 break
             #print 'L\'identifiant %s existe déjà' % _username
@@ -224,9 +265,9 @@ class Command(BaseCommand):
         if person is None:
             person = Person.objects.create(last_name=u'Votre nom',
                 first_name=u'Votre prénom', username=username)
+            person.contacts.add(Contact(contact_medium=ContactMedium.objects.get(label='Email'), content=email))
             member = Engagement.objects.create(person=person,
                 organization=org, org_admin = True)
-            member.contacts.add(Contact(contact_medium=ContactMedium.objects.get(label='Email'), content=email))
         user = User(
             first_name=person.first_name[:30],
             last_name=person.last_name[:30],
@@ -238,14 +279,22 @@ class Command(BaseCommand):
         person.user = user
         person.username = username
         person.save()
-        print u'Envoi effectué à %s, %s, %s:%s' % (email, org.label(), username, password)
         #print '%s;%s' % (username, password)
-        context = {'username': username, 'password': password, 'sender': self.sender}
+        if self.slug == 'mp':
+            try:
+                sender = org.authors.all()[0].email
+            except IndexError:
+                sender = self.sender
+            if self.slug == 'mp' and sender not in ('carole.donaty@adepes.org', 'ndelcour.cooracemp@orange.fr', 'urei-mp@live.fr'):
+                return
+        else:
+            sender = self.sender
+        context = {'username': username, 'password': password, 'sender': sender}
         subject = u'Accédez à votre fiche dans achetons-solidaires-paca.com'
         text = wrap(render_to_string('mailing-%s.txt' % self.slug, context), 72)
         html = render_to_string('mailing-%s.html' % self.slug, context)
-        #send_html_mail(subject, email, context, template='mailing.html', sender=self.sender)
-        msg = EmailMultiRelated(subject, text, self.sender, [email])
+        #send_html_mail(subject, email, context, template='mailing.html', sender=sender)
+        msg = EmailMultiRelated(subject, text, sender, [email])
         msg.attach_alternative(html, 'text/html')
         soup = BeautifulSoup(html)
         for index, tag in enumerate(soup.findAll(image_finder)):
@@ -253,3 +302,4 @@ class Command(BaseCommand):
                 name = 'src'
             msg.attach_related_file(settings.PROJECT_PATH + '/coop_local/static/img/' + tag[name])
         msg.send()
+        print u'Envoi effectué à %s, %s, %s, %s:%s' % (email, sender, org.label(), username, password)
