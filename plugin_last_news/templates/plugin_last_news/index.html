@@ -21,9 +21,9 @@
                         <div class="article-extract__meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
                         <p>
                             {% if entry.resume %}
-                                {{ entry.resume }}
+                                {{ entry.resume|truncatewords:30 }}
                             {% else %}
-                                {{ entry.body|striptags|truncatewords:25|safe }}
+                                {{ entry.body|striptags|truncatewords:30|safe }}
                             {% endif %}
                         </p>
                     </div>
