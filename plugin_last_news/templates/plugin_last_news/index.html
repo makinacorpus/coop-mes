@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="article-extract">
-                        <h3><a href="">{{ entry.title }}</a></h3>
+                        <h3><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h3>
                         <div class="article-extract__meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
                         <p>
                             {% if entry.resume %}
@@ -53,3 +53,7 @@
 {% endfor %}
     </div>
 </div>
+
+<script type="text/javascript">
+     $('.carousel').carousel('cycle');
+</script>
