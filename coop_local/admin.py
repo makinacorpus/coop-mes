@@ -303,7 +303,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         'is_customer', 'is_network', 'active', 'en_direct', 'a_la_une']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['status', AuthorListFilter, 'is_provider', 'is_customer', 'is_network', 'en_direct', 'a_la_une']
+    list_filter = ['status', 'transmission', AuthorListFilter, 'is_provider', 'is_customer', 'is_network', 'en_direct', 'a_la_une']
     ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
