@@ -36,7 +36,15 @@
             <ul>
                 {% for r in org.references %}
                     <li>
-                        <a href="{{ r.source.web }}">{{ r.source }}</a>
+                        {% if r.source.status == 'V' %}
+                            <a href="{{ r.source.get_absolute_url }}">{{ r.source }}</a>
+                        {% else %}
+                            {% if r.source.web %}
+                                <a href="{{ r.source.web }}">{{ r.source }}</a>
+                            {% else %}
+                                {{ r.source }}
+                            {% endif %}
+                        {% endif %}
                         {% if r.from_year %}
                             {% if r.to_year %}
                                 (de {{ r.from_year }} à {{ r.to_year }})&nbsp;:<br/>
