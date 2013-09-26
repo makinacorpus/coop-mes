@@ -2519,6 +2519,7 @@ svg.map a:hover path {
 }
 .results .activity {
   max-width: 65%;
+  min-height: 14px;
   margin-top: 8px;
 }
 .utils-links {
