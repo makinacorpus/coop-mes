@@ -572,7 +572,7 @@ class Contact(BaseContact):
                    blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
-        ordering = ['category']
+        ordering = ['contact_medium__label']
         verbose_name = _(u'Contact')
         verbose_name_plural = _(u'Contacts')
         app_label = 'coop_local'

@@ -5,8 +5,8 @@
             <p>
                 {{ e.person.get_gender_display }} {{ e.person.first_name }} {{ e.person.last_name }}
                 {% if e.role %}<br />{{ e.role }}{% endif %}
-                {% if e.tel %}<br/>Tél.&nbsp;: {{ e.tel }}{% endif %}
                 {% if e.email %}<br/>Email&nbsp;: <a href="mailto:{{ e.email  }}">{{ e.email }}</a>{% endif %}
+                {% if e.tel %}<br/>Tél.&nbsp;: {{ e.tel }}{% endif %}
             </p>
         {% endfor %}
     </div>
