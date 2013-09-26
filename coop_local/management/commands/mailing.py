@@ -28,6 +28,7 @@ import os
 from email.MIMEBase import MIMEBase
 from django.utils.text import wrap
 from django.db.models import Q
+from django.contrib.sites.models import Site
 
 CHARSET = 'utf-8'
 
@@ -218,7 +219,8 @@ class Command(BaseCommand):
             )
             orgs = orgs.filter(Q(contacts__content__in=emails) | Q(engagement__email__in=emails)).distinct()
 
-        #orgs = orgs.filter(id=231) BAT MP
+        #orgs = orgs.filter(id=1148) # BAT PACA
+        #orgs = orgs.filter(id=231) # BAT MP
 
         for org in orgs:
             self.mail_org(org)
@@ -290,7 +292,7 @@ class Command(BaseCommand):
         else:
             sender = self.sender
         context = {'username': username, 'password': password, 'sender': sender}
-        subject = u'Accédez à votre fiche dans achetons-solidaires-paca.com'
+        subject = u'Accédez à votre fiche dans %s' % Site.objects.get_current().domain
         text = wrap(render_to_string('mailing-%s.txt' % self.slug, context), 72)
         html = render_to_string('mailing-%s.html' % self.slug, context)
         #send_html_mail(subject, email, context, template='mailing.html', sender=sender)
