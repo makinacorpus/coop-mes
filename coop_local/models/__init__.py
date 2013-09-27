@@ -34,4 +34,3 @@ if "coop_tag" in settings.INSTALLED_APPS:
     if "coop.mailing" in settings.INSTALLED_APPS:
         t.contribute_to_class(MailingList, "tags")
 
-

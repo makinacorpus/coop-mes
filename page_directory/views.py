@@ -93,7 +93,9 @@ def index_view(request, page_app):
                        {'object': page_app, 'form': form, 'orgs': orgs_page,
                         'get_params': get_params.urlencode()},
                        (CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
-                        JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file='')),
+                        JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file='')
+                        CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
+                        JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file='')),
                        context_instance=RequestContext(request))
 
 

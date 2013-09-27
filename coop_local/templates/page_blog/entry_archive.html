@@ -24,7 +24,12 @@
                                 {% endif %}
                             </a>
                             <div class="media-body">
-                            <p class="activity"> {{ entry.publication_date|date:"j F Y" }} / Catégorie {{ entry.category }}</p>
+                            <p class="activity">
+                                {{ entry.publication_date|date:"j F Y" }}
+                                {% if entry.tags.all %}
+                                    / {{ entry.tags.all|join:", " }}
+                                {% endif %}
+                            </p>
                             <h4 class="media-heading">{{ entry.title }}</h4>
                             {% if entry.resume %}
                                 {{ entry.resume }}

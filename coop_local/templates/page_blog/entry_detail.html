@@ -17,7 +17,7 @@
                             <span class="small">Par <a href="#" class="name">{{ object.author.last_name }} {{ object.author.first_name }}</a></span>
                             <hr>
                             <span class="small iconf-time date">{{ object.publication_date|date:"j F Y" }}</span>
-                            <span class="small iconf-fontawesome-webfont tag"> Catégorie <a href="">{% include 'page_blog/display_category.html' %}</a></span>
+                            {% if object.tags.all %}<span class="small iconf-fontawesome-webfont tag">{{ object.tags.all|join:", " }}</span>{% endif %}
                         </div>
                        {{ object.body|safe }}
                     </div>

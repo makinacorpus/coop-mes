@@ -68,6 +68,8 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'page_calls',
     'leaflet',
     'crispy_forms',
+    'ionyweb.page_app.page_blog',
+    'ionyweb.plugin_app.plugin_blog_entries_list',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [
