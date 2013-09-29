@@ -48,7 +48,7 @@ URI_FIXED = False
 INSTALLED_APPS = settings.INSTALLED_APPS + [
     # select your coop components
     'coop.tag',
-    #'coop.agenda',
+    'coop.agenda',
     #'coop.article',
     #'coop.mailing',
     #'coop.exchange',

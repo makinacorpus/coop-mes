@@ -66,3 +66,12 @@ class CustomMenu(Menu):
                 ]),
             ])
         )
+
+        self.children.append(
+            items.MenuItem(_(u'Agenda'), '#', icon='icon-calendar icon-white', children=[
+                    items.MenuItem(_(u'Events'), '/admin/coop_local/event/'),
+                    items.MenuItem(_(u'Calendar'), '/admin/coop_local/calendar/'),
+                    items.MenuItem(_(u'Event categories'), '/admin/coop_local/eventcategory/'),
+            ])
+        )
+
