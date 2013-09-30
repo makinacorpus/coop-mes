@@ -17,6 +17,7 @@ sudo apt-get -y install python-dev python-virtualenv
 sudo apt-get -y install postgresql postgresql-9.1-postgis postgresql-server-dev-9.1
 sudo apt-get -y install gdal-bin libgeoip1
 sudo apt-get -y install libjpeg8-dev
+sudo apt-get -y install openoffice-writer python-uno
 
 sudo sed -i 's/^local *all *all *peer$/local   all             all                                     ident/' /etc/postgresql/9.1/main/pg_hba.conf
 sudo service postgresql restart

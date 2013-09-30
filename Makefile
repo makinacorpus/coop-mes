@@ -13,6 +13,7 @@ $(PYTHON):
 requirements: virtualenv
 	$(PIP) install -U distribute
 	$(PIP) install --no-deps -r requirements.txt
+	(cd $(VENV)/lib/python2.7/site-packages/; ln -s /usr/lib/python2.7/dist-packages/uno*.py .)
 
 install: requirements
 	$(PYTHON) manage.py collectstatic --noinput
