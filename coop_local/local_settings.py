@@ -30,7 +30,7 @@ TEMPLATE_DIRS = [
 ]
 
 ADMINS = (
-    ('Administrateur', 'web@quinode.fr'),
+    ('Administrateur', 'gael.utard@makina-corpus.com'),
 )
 
 MANAGERS = ADMINS
