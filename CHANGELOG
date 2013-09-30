@@ -1,6 +1,19 @@
 v1.7
 
- *
+ * Troncature du texte à la une si trop long
+ * Ajout d'un filtre "mode de transmission" dans le back office
+ * Liste uniquement les acheteur lors de l'ajout d'une référence
+ * Diverses améliorations sur les fiches détaillées
+ * Fixe le chevauchement du titre dans la liste des organisations
+ * Remplacement des catégories par les tags pour les actualités
+ * Fixe les exports CSV/DOC/PDF
+
+
+Déploiement:
+
+- UPDATE coop_local_organization SET transmission=2 where transmission is null;
+- migrate
+
 
 v1.6
 
@@ -9,6 +22,7 @@ v1.6
  * Défilement automatique du carrousel
  * Lien vers l'article à la Une
  * Titres en gras dans la fiche acheteur
+
 
 v1.5
 
