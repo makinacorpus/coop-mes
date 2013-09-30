@@ -450,13 +450,13 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             _('transmission'), _('transmission_date'), _('authors'), _('validation'),
         ]])
         for organization in Organization.objects.order_by('title'):
-            row  = [organization.title, organization.acronym, organization.get_pref_label_display()]
+            row  = [organization.title, organization.acronym or '', organization.get_pref_label_display()]
             row += [organization.birth.strftime('%d/%m/%Y') if organization.birth else '']
             row += [unicode(organization.legal_status) if organization.legal_status else '']
             row += [', '.join([unicode(c) for c in organization.category.all()])]
             row += [', '.join([unicode(c) for c in organization.category_iae.all()])]
             row += [', '.join([unicode(a) for a in organization.agreement_iae.all()])]
-            row += [organization.web, organization.pref_email.content if organization.pref_email else '', organization.siret]
+            row += [organization.web or '', organization.pref_email.content if organization.pref_email else '', organization.siret]
             row.append(organization.creation.strftime('%d/%m/%Y') if organization.creation else '')
             row.append(organization.modification.strftime('%d/%m/%Y') if organization.modification else '')
             row.append(organization.get_status_display() or '')
