@@ -13,6 +13,8 @@ Déploiement:
 
 - UPDATE coop_local_organization SET transmission=2 where transmission is null;
 - migrate
+- pull django-coop
+- pull ionyweb
 
 
 v1.6
