@@ -210,15 +210,15 @@ class ReferenceInline(InlineAutocompleteAdmin):
     model = Reference
     verbose_name = _(u'reference')
     verbose_name_plural = _(u'references')
-    fk_name = 'target'
+    fk_name = 'source'
     readonly_fields = ('created',)
-    fields = ('source', 'from_year', 'to_year', 'services', 'created')
-    related_search_fields = {'source': ('title', 'subtitle', 'acronym',), }
+    fields = ('target', 'from_year', 'to_year', 'services', 'created')
+    related_search_fields = {'target': ('title', 'subtitle', 'acronym',), }
     extra = 1
 
     def queryset(self, request):
         queryset = super(ReferenceInline, self).queryset(request)
-        return queryset.filter(relation_type_id=2)
+        return queryset.filter(relation_type_id=6)
 
 
 class ActivityWidget(AutoCompleteSelectEditWidget):
@@ -400,11 +400,11 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             return super(OrganizationAdmin, self).save_formset(request, form, formset, change)
         instances = formset.save(commit=False)
         for instance in instances:
-            instance.relation_type_id = 2
+            instance.relation_type_id = 6
             instance.save()
-            instance.source.is_customer = True
+            instance.target.is_customer = True
             # FIXME: save only the is_customer field
-            instance.source.save()
+            instance.target.save()
 
     def save_model(self, request, obj, form, change):
         """Send an email if just validated"""

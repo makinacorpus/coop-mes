@@ -36,13 +36,13 @@
             <ul>
                 {% for r in org.references %}
                     <li>
-                        {% if r.source.status == 'V' %}
-                            <a href="{{ r.source.get_absolute_url }}">{{ r.source }}</a>
+                        {% if r.target.status == 'V' %}
+                            <a href="{{ r.target.get_absolute_url }}">{{ r.target }}</a>
                         {% else %}
-                            {% if r.source.web %}
-                                <a href="{{ r.source.web }}">{{ r.source }}</a>
+                            {% if r.target.web %}
+                                <a href="{{ r.target.web }}">{{ r.target }}</a>
                             {% else %}
-                                {{ r.source }}
+                                {{ r.target }}
                             {% endif %}
                         {% endif %}
                         {% if r.from_year %}
@@ -53,12 +53,10 @@
                             {% endif %}
                         {% else %}
                             {% if r.to_year %}
-                                (jusqu'à {{ r.to_year }})&nbsp;:<br/>
-                            {% else %}
-                                &nbsp;:<br/>
+                                (jusqu'à {{ r.to_year }})
                             {% endif %}
                         {% endif %}
-                        {{ r.services }}
+                        {% if r.services %}&nbsp;:<br/>{{ r.services }}{% endif %}
                     </li>
                 {% endfor %}
             </ul>

@@ -241,7 +241,7 @@ class Reference(Relation):
         verbose_name_plural = _(u'references')
         app_label = 'coop_local'
 
-Reference._meta.get_field('source').verbose_name = _(u'customer')
+Reference._meta.get_field('target').verbose_name = _(u'customer')
 
 
 class ClientTarget(models.Model):
@@ -408,7 +408,7 @@ class Organization(BaseOrganization):
         return models.get_model('coop_local', 'TransverseTheme').objects.exclude(id__in=self.transverse_themes.all().values_list('id', flat=True))
 
     def references(self):
-        return Reference.objects.filter(target=self)
+        return Reference.objects.filter(source=self)
 
     def source_relations(self):
         return Relation.objects.filter(source=self)
@@ -423,7 +423,7 @@ class Organization(BaseOrganization):
         return Relation.objects.filter(source=self).exclude(relation_type__id=1)
 
     def part_eco(self):
-        return Relation.objects.filter(source=self, relation_type__id__in=(2, 3, 5))
+        return Relation.objects.filter(source=self, relation_type__id=2)
 
     def part_tech(self):
         return Relation.objects.filter(source=self, relation_type__id=4)

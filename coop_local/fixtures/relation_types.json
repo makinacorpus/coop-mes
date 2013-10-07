@@ -7,7 +7,7 @@
             "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#isMemberOf",
             "org_to_project": true,
-            "label": " membre "
+            "label": " appartient au r\u00e9seau "
         }
     },
     {
@@ -18,18 +18,7 @@
             "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#hasRegularSupplier",
             "org_to_project": false,
-            "label": " fournisseur r\u00e9gulier "
-        }
-    },
-    {
-        "pk": 3,
-        "model": "coop_local.orgrelationtype",
-        "fields": {
-            "key_name": "OCC_SUPPLIER",
-            "org_to_org": true,
-            "uri": "http://ns.economie-solidaire.fr/ess#hasCasualSupplier",
-            "org_to_project": true,
-            "label": " fournisseur occasionnel "
+            "label": " a pour fournisseur "
         }
     },
     {
@@ -40,7 +29,7 @@
             "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#receivedTechnicalSupportFrom",
             "org_to_project": true,
-            "label": " soutien technique "
+            "label": " a re\u00e7u un soutien technique de "
         }
     },
     {
@@ -51,7 +40,18 @@
             "org_to_org": true,
             "uri": "http://ns.economie-solidaire.fr/ess#receivedFinancialSupportOf",
             "org_to_project": true,
-            "label": " soutien financier "
+            "label": " a re\u00e7u un soutien financier de "
+        }
+    },
+    {
+        "pk": 6,
+        "model": "coop_local.orgrelationtype",
+        "fields": {
+            "key_name": "CUSTOMER",
+            "org_to_org": true,
+            "uri": "http://ns.economie-solidaire.fr/ess#hasCustomer",
+            "org_to_project": true,
+            "label": " a pour client "
         }
     }
 ]

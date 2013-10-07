@@ -614,14 +614,14 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
     class Meta:
         model = Reference
-        fields = ('source', 'from_year', 'to_year', 'services')
+        fields = ('target', 'from_year', 'to_year', 'services')
 
     def __init__(self, *args, **kwargs):
         super(ReferenceForm, self).__init__(*args, **kwargs)
-        self.fields['source'].queryset = Organization.objects.filter(is_customer=True)
+        self.fields['target'].queryset = Organization.objects.filter(is_customer=True)
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
-            'source',
+            'target',
             'from_year',
             'to_year',
             'services',
@@ -631,13 +631,13 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
     def save(self, commit=True):
         ref = super(ReferenceForm, self).save(commit=False)
-        ref.relation_type = OrgRelationType.objects.get(id=2)
+        ref.relation_type = OrgRelationType.objects.get(id=6)
         if commit:
             ref.save()
         return ref
 
 
-OrganizationForm12 = forms.models.inlineformset_factory(Organization, Reference, form=ReferenceForm, fk_name='target', extra=2)
+OrganizationForm12 = forms.models.inlineformset_factory(Organization, Reference, form=ReferenceForm, fk_name='source', extra=2)
 OrganizationForm12.__init__ = lambda self, propose, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
 OrganizationForm12.add_label = u'Ajouter une référence'
 
