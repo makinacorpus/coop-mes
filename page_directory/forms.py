@@ -242,7 +242,7 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
 
     def save(self):
         org = super(OrganizationForm2, self).save(commit=False)
-        if org.transmission is None:
+        if org.pk is None:
             org.transmission = 1 # proposed on line
         org.save()
         return org
