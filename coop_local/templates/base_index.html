@@ -84,12 +84,12 @@
                                 <b>Identifiez-vous</b>
                             {% endif %}
                         </a>
-                        <form class="search">
+                        <form class="search" method="GET" action="/annuaire/">
                             <div class="input-group">
                               <span class="input-group-btn">
-                                <button class="btn" type="button">Rechercher</button>
+                                <button class="btn" type="submit">Rechercher</button>
                               </span>
-                              <input type="search" class="form-control">
+                              <input type="search" class="form-control" name="q">
                             </div><!-- /input-group -->
                         </form>
                     </div>
