@@ -21,6 +21,7 @@ DEBUG = False
 # Force DEBUG setting if we're developing locally or testing
 if 'runserver' in sys.argv or 'test' in sys.argv:
     DEBUG = True
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATE_DEBUG = DEBUG
 THUMBNAIL_DEBUG = DEBUG
@@ -120,6 +121,3 @@ LEAFLET_CONFIG = {
 LOGIN_URL = '/mon-compte/p/connexion/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
