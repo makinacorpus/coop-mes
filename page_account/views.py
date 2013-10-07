@@ -15,6 +15,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from coop_local.models import Organization
 from django.contrib.auth.decorators import login_required
 from ionyweb.page.models import Page
+from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
 
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
@@ -101,7 +102,8 @@ def make_ionyweb_view(view, **kwargs):
 password_reset_view = make_ionyweb_view(password_reset,
     template_name='page_account/password_reset_form.html',
     email_template_name='page_account/password_reset_email.html',
-    post_reset_redirect='/mon-compte/p/password_reset_done/')
+    post_reset_redirect='/mon-compte/p/password_reset_done/',
+    from_email=Plugin_Contact.objects.all()[0].email)
 
 password_reset_done_view = make_ionyweb_view(password_reset_done,
     template_name='page_account/password_reset_done.html')
