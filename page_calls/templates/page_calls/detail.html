@@ -44,7 +44,15 @@
                         <div class="col-lg-5">
                             <dl>
                                 <dt class="iconf-user">Structure organisatrice :</dt>
-                                <dd><a href="{{ call.organization.get_absolute_url }}">{{ call.organization }}</a></dd>
+                                <dd>
+                                    {% if call.organization.status == 'V' %}
+                                        <a href="{{ call.organization.get_absolute_url }}">{{ call.organization }}</a>
+                                    {% elif call.organization.pref_email %}
+                                        <a href="mailto:{{ call.organization.pref_email.content }}">{{ call.organization }}</a>
+                                    {% else %}
+                                        {{ call.organization }}
+                                    {% endif %}
+                                </dd>
 
                                 <dt class="iconf-calendar">Data et heure limite de réception :</dt>
                                 <dd>{{ call.deadline|date:"j F Y à g\hi" }}</dd>

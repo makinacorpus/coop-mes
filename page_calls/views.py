@@ -27,7 +27,7 @@ def index_view(request, page_app):
     qd = request.GET.copy()
     form = CallSearch(qd)
     if form.is_valid():
-        calls = CallForTenders.geo_objects.filter(organization__status=ORGANIZATION_STATUSES.VALIDATED)
+        calls = CallForTenders.geo_objects # .filter(organization__status=ORGANIZATION_STATUSES.VALIDATED)
         calls = calls.filter(
             Q(title__icontains=form.cleaned_data['q']) |
             Q(areas__label__icontains=form.cleaned_data['q']) |
