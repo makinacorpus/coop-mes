@@ -300,7 +300,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
 
     form = OrganizationAdminForm
     list_display = ['logo_list_display', 'title', 'acronym', 'status', 'is_provider',
-        'is_customer', 'is_network', 'active', 'en_direct', 'a_la_une']
+        'is_customer', 'is_network', 'active', 'creation', 'modification']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
     list_filter = ['status', 'transmission', AuthorListFilter, 'is_provider', 'is_customer', 'is_network', 'en_direct', 'a_la_une']
