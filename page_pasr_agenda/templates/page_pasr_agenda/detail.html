@@ -54,62 +54,57 @@
                                 <dd>{{ event.category.all|join:", " }}</dd>
 
                                 <dt class="iconf-info-circled">Secteur d'activité :</dt>
-                                <dd>Lorem Ipsum Dolor</dd>
+                                <dd>{{ event.activity_str|safe }}</dd>
 
                                 <dt class="iconf-rubon">Thématique :</dt>
-                                <dd>Lorem Ipsum Dolor</dd>
+                                <dd>{{ event.theme.all|join:"<br/>"|safe }}</dd>
 
                                 <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
-                                <dd>Lorem Ipsum Dolor</dd>
+                                <dd>{{ event.tags.all|join:", " }}</dd>
                             </dl>
                         </div>
                         <div class="col-lg-6">
 
-
-                            <div id="carousel-organization-images" class="carousel carousel-dark slide">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                        <li data-target="#carousel-organization-images" data-slide-to="0" class="active"></li>
-                                        <li data-target="#carousel-organization-images" data-slide-to="1" ></li>
-                                        <li data-target="#carousel-organization-images" data-slide-to="2" ></li>
-                                </ol>
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                        <div class="item active">
-                                            <img src="#" alt="Logo 1" width="175" height="275">
-                                            <div class="carousel-caption">
-                                                Logo 1
+                            {% if event.images %}
+                                <div id="carousel-organization-images" class="carousel carousel-dark slide">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        {% for image in event.images %}
+                                            <li data-target="#carousel-organization-images" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                                        {% endfor %}
+                                    </ol>
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        {% for image in event.images %}
+                                            <div class="item {% if forloop.first %}active{% endif %}">
+                                                {% thumbnail image.attachment "320x240" upscale=0 as thumb_image %}
+                                                    <img src="{{ thumb_image.url }}" width="320" height="240" alt="{{ image.name }}" style="padding: {{ thumb_image|margin:"320x240" }}">
+                                                {% endthumbnail %}
+                                                <div class="carousel-caption">
+                                                    {{ image.name }}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="item ">
-                                            <img src="#" alt="Logo 2" width="175" height="275">
-                                            <div class="carousel-caption">
-                                                Logo 2
-                                            </div>
-                                        </div>
-                                        <div class="item ">
-                                            <img src="#" alt="Logo 3" width="175" height="275">
-                                            <div class="carousel-caption">
-                                                Logo 3
-                                            </div>
-                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- Controls -->
+                                    <a class="left carousel-control" href="#carousel-organization-images" data-slide="prev">
+                                        <span class="icon-prev"></span>
+                                    </a>
+                                    <a class="right carousel-control" href="#carousel-organization-images" data-slide="next">
+                                        <span class="icon-next"></span>
+                                    </a>
                                 </div>
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#carousel-organization-images" data-slide="prev">
-                                    <span class="icon-prev"></span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-organization-images" data-slide="next">
-                                    <span class="icon-next"></span>
-                                </a>
-                            </div>
 
-                            <hr class="dotted">
-
-                            <h5>Documents associés :</h5>
-                            <ul class="list-unstyled text-center">
-                                <li><a href="fd"><i class="icon-export-doc"></i>Lorem ipsum <span class="file-size">- 14mo</span></a></li>
-                                <li><a href="fd"><i class="icon-export-pdf"></i>Lorem ipsum <span class="file-size">- 47mo</span></a></li>
-                            </ul>
+                                <hr class="dotted">
+                            {% endif %}
+                            {% if event.documents %}
+                                <h5>Documents associés :</h5>
+                                <ul class="list-unstyled text-center">
+                                    {% for doc in event.documents %}
+                                        <li><a href="{{ doc.attachment.url }}"><i class="icon-export-doc"></i>{{ doc.name }}<span class="file-size">- {{ doc.attachment.size|filesizeformat }}</span></a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="section-foot">
@@ -127,3 +122,7 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+     $('.carousel').carousel('cycle');
+</script>

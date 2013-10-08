@@ -179,6 +179,11 @@ class OfferDocument(AbstractDocument):
     offer = models.ForeignKey('Offer')
 
 
+class EventDocument(AbstractDocument):
+
+    event = models.ForeignKey('Event')
+
+
 class OrganizationCategory(BaseOrganizationCategory):
 
     class Meta:
@@ -582,6 +587,10 @@ class Contact(BaseContact):
 
 class Event(BaseEvent):
 
+    activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'), blank=True, null=True)
+    theme = models.ManyToManyField('TransverseTheme', verbose_name=_(u'transverse themes'), blank=True, null=True)
+    image = ImageField(upload_to='agenda/', null=True, blank=True)
+
     objects = models.Manager()
     geo_objects = GeoManager()
 
@@ -603,6 +612,15 @@ class Event(BaseEvent):
                 date_format(o.start_time, r'd/m/Y H\hi'),
                 date_format(o.end_time, r'd/m/Y H\hi'),
             ) for o in occurrences])
+
+    def activity_str(self):
+        return "<br/> ".join(self.activity.values_list('label', flat=True))
+
+    def images(self):
+        return self.eventdocument_set.filter(attachment__iregex=r'\.(jpe?g|gif|png)$')
+
+    def documents(self):
+        return self.eventdocument_set.exclude(attachment__iregex=r'\.(jpe?g|gif|png)$')
 
 
 # WORKAROUND to fix problem with model inheritance and django-coop post delete signal

@@ -42,6 +42,10 @@ from coop.org.admin import (
     OrgInline)
 from coop.person.admin import (
     PersonAdmin as BasePersonAdmin)
+from coop.agenda.admin import (
+    EventAdmin as BaseEventAdmin,
+    EventAdminForm as BaseEventAdminForm,
+    OccurrenceInline)
 from coop.utils.autocomplete_admin import (
     FkAutocompleteAdmin,
     InlineAutocompleteAdmin,
@@ -581,6 +585,34 @@ class OfferAdmin(FkAutocompleteAdmin):
     exclude = ('activity', 'area')
 
 
+class EventDocumentInline(DocumentInline):
+
+    model = EventDocument
+
+
+class EventAdminForm(BaseEventAdminForm):
+
+    class Meta:
+        model = Event
+        widgets = {
+            'sites': chosenwidgets.ChosenSelectMultiple(),
+            'category': chosenwidgets.ChosenSelectMultiple(),
+            'activity': chosenwidgets.ChosenSelectMultiple(),
+            'theme': forms.CheckboxSelectMultiple(),
+        }
+
+
+class EventAdmin(BaseEventAdmin):
+
+    form = EventAdminForm
+    inlines = [OccurrenceInline, EventDocumentInline]
+    fieldsets = [['Description', {'fields': ['title', 'description',
+        'tags', 'category', 'calendar', 'organization', 'person', 'location',
+        'activity', 'theme', 'image'
+      ]}],
+    ]
+
+
 admin.site.unregister(Organization)
 register(Guaranty, GuarantyAdmin)
 register(Organization, OrganizationAdmin)
@@ -595,3 +627,5 @@ admin.site.unregister(Person)
 register(Person, PersonAdmin)
 register(CallForTenders, CallForTendersAdmin)
 register(Offer, OfferAdmin)
+admin.site.unregister(Event)
+register(Event, EventAdmin)

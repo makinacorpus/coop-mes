@@ -59,16 +59,16 @@
                         {% for event in events %}
                             <div class="media">
                                 <a class="pull-left" href="{{ object.page.get.get_absolute_url }}p/{{ event.pk }}/?{{ get_params }}&page={{ events.number }}">
-                                    {% if event.logo %}
-                                        {% thumbnail event.logo "220x140" upscale=0 as logo %}
-                                            <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
+                                    {% if event.image %}
+                                        {% thumbnail event.image "220x140" upscale=0 as image %}
+                                            <img class="media-object" src="{{ image.url }}" width="220" height="140" style="padding: {{ image|margin:"220x140" }}">
                                         {% endthumbnail %}
                                     {% else %}
                                         <img class="media-object" src="" width="220" height="140">
                                     {% endif %}
                                 </a>
                                 <div class="media-body">
-                                    <p class="activity">{{ event.category.all|join:", " }}</p>
+                                    <p class="activity">{{ event.date_str }} / {{ event.category.all|join:", " }}</p>
                                     {% with event.location.city as city %}{% if city %}
                                         <span class="location">{{ event.location.zipcode }} {{ city }}</span>
                                     {% endif %}{% endwith %}
