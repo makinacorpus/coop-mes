@@ -36,11 +36,11 @@ def index_view(request, page_app):
                 radius = 0
             if radius != 0:
                 center = area.polygon.centroid
-                degrees = radius * 360 / 40000
-                q = Q(located__location__point__dwithin=(center, degrees))
+                degrees = radius * 360 / 40000.
+                q = Q(location__point__dwithin=(center, degrees))
                 events = events.filter(q)
             else:
-                q = Q(located__location__point__contained=area.polygon)
+                q = Q(location__point__contained=area.polygon)
                 events = events.filter(q)
         events = events.distinct()
     else:
