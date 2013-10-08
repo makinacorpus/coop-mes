@@ -1,0 +1,10 @@
+Page&nbsp;:
+<ul class="pagination">
+{% for p in events.paginator.page_range %}
+    <li class="{% if p == events.number %}active{% endif %}"><a href="?{{ get_params }}&page={{ p }}">{{ p }}</a></li>
+{% endfor %}
+</ul>
+<ul class="pager">
+    <li><a href="?{{ get_params }}&page={{ events.previous_page_number }}" class="prev {% if not events.has_previous %}inactive{% endif %}"><span class="arrow">g</span> Page précédente</a></li>
+    <li><a href="?{{ get_params }}&page={{ events.next_page_number }}" class="next {% if not events.has_next %}inactive{% endif %}">Page suivante <span class="arrow">f</span></a></li>
+</ul>

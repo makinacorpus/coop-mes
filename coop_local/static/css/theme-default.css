@@ -2572,6 +2572,10 @@ svg.map a:hover path {
   width: 50%;
   float: left;
 }
+.event-detail__meta .iconf-calendar,
+.event-detail__meta .iconf-pins {
+  line-height: 2.4em;
+}
 .event-detail__meta .iconf-calendar:before,
 .event-detail__meta .iconf-pins:before {
   color: #ee8908;
@@ -2579,9 +2583,6 @@ svg.map a:hover path {
   float: left;
   margin-right: 8px;
   margin-top: 3px;
-}
-.event-detail__meta .iconf-pins {
-  line-height: 2.4em;
 }
 i.icon-book {
   width: 41px;

@@ -73,7 +73,7 @@ def index_view(request, page_app):
             else:
                 q = Q(located__location__point__contained=area.polygon)
                 q |= Q(offer__area__polygon__intersects=area.polygon)
-                orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
+                orgs = orgs.filter(q)
         orgs = orgs.distinct()
     else:
         area = None

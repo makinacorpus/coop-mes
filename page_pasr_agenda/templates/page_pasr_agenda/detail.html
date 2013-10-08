@@ -1,0 +1,129 @@
+{% load thumbnail ascii %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box request-proposal-detail">
+                    <div class="section-head">
+                        <a href="../../?{{ get_params }}" class="btn-icon icon-back btn-icon--request-proposal-detail">Retour a la liste</a>
+                        <ul class="pager pager--request-proposal-detail">
+                            {#<li><a href="#prev" class="prev"><span class="arrow">g</span> Événement précédent</a></li>#}
+                            {#<li><a href="#next" class="next">Événement suivant <span class="arrow">f</span></a></li>#}
+                        </ul>
+                    </div>
+                    <div class="event-detail__head">
+                        <div class="clearfix request-proposal-detail__title">
+                            <h1 class="title">{{ event.title }}</h1>
+{% comment %}
+                            <div class="utils-links">
+                                <a href="" class="iconf-facebook-circled">Facebook</a>
+                                <a href="" class="iconf-twitter-circled">Twitter</a>
+                                <a href="" class="iconf-gplus-circled">Google+</a>
+                                <a href="" class="iconf-circled">??</a>
+                                <a href="" class="iconf-social-email">Email</a>
+                                <a href="" class="iconf-share-circled">Partager</a>
+                                <a href="" class="iconf-print-circled">Imprimer</a>
+                            </div>
+{% endcomment %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="event-detail__meta">
+                                <div class="iconf-calendar">
+                                    {{ event.date_str }}
+                                </div>
+                                {% if event.location %}
+                                    <div class="iconf-pins">
+                                        {{ event.location.city }} ({{ event.location.zipcode|slice:":2"}})
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <p>{{ event.description|linebreaks }}</p>
+                            <dl>
+                                {% if event.organization %}
+                                    <dt class="iconf-user">Structure organisatrice :</dt>
+                                    <dd><a href="{{ event.organization.get_absolute_url }}">{{ event.organization }}</a></dd>
+                                {% endif %}
+
+                                <dt class="iconf-time">Horaires :</dt>
+                                <dd>{{ event.time_str|safe }}</dd>
+
+                                <dt class="iconf-content-43">Catégorie :</dt>
+                                <dd>{{ event.category.all|join:", " }}</dd>
+
+                                <dt class="iconf-info-circled">Secteur d'activité :</dt>
+                                <dd>Lorem Ipsum Dolor</dd>
+
+                                <dt class="iconf-rubon">Thématique :</dt>
+                                <dd>Lorem Ipsum Dolor</dd>
+
+                                <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
+                                <dd>Lorem Ipsum Dolor</dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-6">
+
+
+                            <div id="carousel-organization-images" class="carousel carousel-dark slide">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                        <li data-target="#carousel-organization-images" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carousel-organization-images" data-slide-to="1" ></li>
+                                        <li data-target="#carousel-organization-images" data-slide-to="2" ></li>
+                                </ol>
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img src="#" alt="Logo 1" width="175" height="275">
+                                            <div class="carousel-caption">
+                                                Logo 1
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <img src="#" alt="Logo 2" width="175" height="275">
+                                            <div class="carousel-caption">
+                                                Logo 2
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <img src="#" alt="Logo 3" width="175" height="275">
+                                            <div class="carousel-caption">
+                                                Logo 3
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-organization-images" data-slide="prev">
+                                    <span class="icon-prev"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-organization-images" data-slide="next">
+                                    <span class="icon-next"></span>
+                                </a>
+                            </div>
+
+                            <hr class="dotted">
+
+                            <h5>Documents associés :</h5>
+                            <ul class="list-unstyled text-center">
+                                <li><a href="fd"><i class="icon-export-doc"></i>Lorem ipsum <span class="file-size">- 14mo</span></a></li>
+                                <li><a href="fd"><i class="icon-export-pdf"></i>Lorem ipsum <span class="file-size">- 47mo</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="section-foot">
+                        <ul class="pager pager--request-proposal-detail">
+                            {#<li><a href="#prev" class="prev"><span class="arrow">g</span> Événement précédent</a></li>#}
+                            {#<li><a href="#next" class="next">Événement suivant <span class="arrow">f</span></a></li>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 sidebar sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+        </div>
+    </div>
+</div>

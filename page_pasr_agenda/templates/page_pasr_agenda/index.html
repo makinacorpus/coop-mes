@@ -1,0 +1,97 @@
+{% load thumbnail %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="annuaires-search" method="GET" action="#" class="content-box top advanced-search-form">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Calendrier</h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item item-small">
+                                <h3>Territoire</h3>
+                                {{ form.area }}
+                                <div class="dropdown input-group">
+                                    {{ form.radius }}
+                                    <span class="input-group-addon form-control-small">km</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item search">
+                                <h3>Recherche libre</h3>
+                                {{ form.q }}
+                            </div>
+                            <div class="item">
+                                <div class="dropdown">
+                                    <h3>Secteur d'activité</h3>
+                                    {{ form.sector }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <div class="result">
+                                    <span class="number">{{ events.paginator.count }}</span> Résultat{{ events.paginator.count|pluralize }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <p class="text-center"><button class="btn btn-default" type="submit" name="display" value="RECHERCHER">RECHERCHER</button></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+{% if events.object_list %}
+                    <div class="section-head">
+                        {% include "page_pasr_agenda/pagination.html" %}
+                    </div>
+                    <div class="results">
+                        {% for event in events %}
+                            <div class="media">
+                                <a class="pull-left" href="{{ object.page.get.get_absolute_url }}p/{{ event.pk }}/?{{ get_params }}&page={{ events.number }}">
+                                    {% if event.logo %}
+                                        {% thumbnail event.logo "220x140" upscale=0 as logo %}
+                                            <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
+                                        {% endthumbnail %}
+                                    {% else %}
+                                        <img class="media-object" src="" width="220" height="140">
+                                    {% endif %}
+                                </a>
+                                <div class="media-body">
+                                    <p class="activity">{{ event.category.all|join:", " }}</p>
+                                    {% with event.location.city as city %}{% if city %}
+                                        <span class="location">{{ event.location.zipcode }} {{ city }}</span>
+                                    {% endif %}{% endwith %}
+                                    <h4 class="media-heading">{{ event.title }}</h4>
+                                    <p>{{ event.description|linebreaks }}</p>
+                                    <a href="{{ object.page.get.get_absolute_url }}p/{{ event.pk }}/?{{ get_params }}&page={{ events.number }}" class="btn btn-default">En savoir +</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="section-foot">
+                        {% include "page_pasr_agenda/pagination.html" %}
+                    </div>
+{% else %}
+                    <div>Aucun résultat.</div>
+{% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-3 sidebar sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+
+        </div>
+    </div>
+</div>
