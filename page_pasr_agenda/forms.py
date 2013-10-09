@@ -3,7 +3,7 @@
 import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_PasrAgenda
-from coop_local.models import ActivityNomenclature, Area
+from coop_local.models import ActivityNomenclature, Area, TransverseTheme, Organization
 from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
@@ -30,10 +30,14 @@ except LookupAlreadyRegistered:
 
 
 class EventSearch(forms.Form):
+    date = forms.DateField()
+    interval = forms.ChoiceField(choices=((9999, '---'), (1, 'Le jour même'), (3, 'Dans les 3 jours'), (7, 'Dans la semaine'), (31, 'Dans le mois')))
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
+    theme = forms.ModelChoiceField(queryset=TransverseTheme.objects.order_by('name'), empty_label=u'Tout voir', required=False)
     area = AutoCompleteSelectField(lookup_class=AreaLookup, required=False)
     radius = forms.IntegerField(required=False)
     q = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Recherche libre : mot clés'}))
+    organization = forms.ModelChoiceField(queryset=Organization.objects.filter(status='V'), required=False, empty_label=u'Toutes')
 
     def __init__(self, *args, **kwargs):
         super(EventSearch, self).__init__(*args, **kwargs)

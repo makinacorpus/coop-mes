@@ -2,32 +2,44 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from coop_local.models import Event
+from coop_local.models import Event, Occurrence
 from .forms import EventSearch
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from django.shortcuts import get_object_or_404
+from datetime import date, timedelta
 
 
 def index_view(request, page_app):
     qd = request.GET.copy()
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
+    if not qd.get('date'):
+        qd['date'] = date.today()
+    if not qd.get('interval') or not qd['interval'].isdigit:
+        qd['interval'] = '9999'
     form = EventSearch(qd)
     if form.is_valid():
         events = Event.geo_objects
+        start = form.cleaned_data['date']
+        end = form.cleaned_data['date'] + timedelta(days=int(form.cleaned_data['interval']))
+        events = events.filter(occurrence__end_time__gte=start, occurrence__start_time__lt=end)
         events = events.filter(
             Q(title__icontains=form.cleaned_data['q']) |
             Q(description__icontains=form.cleaned_data['q']) |
-            #Q(tagged_items__tag__name__icontains=form.cleaned_data['q']) |
-            Q(located__location__city__icontains=form.cleaned_data['q'])
-            #Q(activities__path__icontains=form.cleaned_data['q'])
+            Q(tagged_items__tag__name__icontains=form.cleaned_data['q']) |
+            Q(located__location__city__icontains=form.cleaned_data['q']) |
+            Q(activity__path__icontains=form.cleaned_data['q'])
         )
         sector = form.cleaned_data['sector']
         descendants = sector and sector.get_descendants(include_self=True)
-        #if descendants:
-            #events = events.filter(activity__in=descendants)
+        if descendants:
+            events = events.filter(activity__in=descendants)
+        if qd.get('theme'):
+            events = events.filter(theme=qd['theme'])
+        if qd.get('organization'):
+            events = events.filter(organization=qd['organization'])
         area = form.cleaned_data.get('area')
         if area:
             try:
