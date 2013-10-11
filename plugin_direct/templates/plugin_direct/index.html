@@ -22,7 +22,7 @@
         <div class="col-lg-9 direct-content" data-tab="Les appels$d'offres" {% if tab != 'appels-doffres' %}style="display: none;"{% endif %}>
             {% for call in calls %}
                 <div class="article-extract">
-                    <h3><a href="/appels-d-offres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
+                    <h3><a href="/appels-doffres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
                     <div class="article-extract__meta">{{ call.organization.label }}</div>
                     <p>Date limite de réception des offres&nbsp;: {{ call.deadline|date:"j F Y à g\hi" }}</p>
                 </div>
