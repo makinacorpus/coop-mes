@@ -1,3 +1,25 @@
+v1.8
+
+ * Pas de relation réciproque
+ * Correction du mode de transmission pour la saisie en ligne
+ * Ajout des dates de création et modification à la liste des fiches dans
+   le backoffice
+ * Recherche globale (sur l'annuaire uniquement)
+ * Affichage des appels d'offres des organisations non validées
+ * Agenda (saisie uniquement dans le backoffice)
+
+
+Déploiement
+
+ - south upgrade
+ - pull ionyweb
+ - source .env
+ - collectstatic
+ - migrate
+ - ajout d'un calendrier dans le backend
+ - modification de l'app et du template de la page agenda
+
+
 v1.7
 
  * Troncature du texte à la une si trop long
