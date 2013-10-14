@@ -44,7 +44,11 @@
                             <dl>
                                 {% if event.organization %}
                                     <dt class="iconf-user">Structure organisatrice :</dt>
-                                    <dd><a href="{{ event.organization.get_absolute_url }}">{{ event.organization }}</a></dd>
+                                    {% if event.organization.status == 'V' %}
+                                        <dd><a href="{{ event.organization.get_absolute_url }}">{{ event.organization }}</a></dd>
+                                    {% else %}
+                                        <dd>{{ event.organization }}</dd>
+                                    {% endif %}
                                 {% endif %}
 
                                 <dt class="iconf-time">Horaires :</dt>
