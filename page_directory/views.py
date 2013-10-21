@@ -176,7 +176,7 @@ OFFER_MEDIA = (
 class OrganizationCreateView(CreateView):
 
     template_name = 'page_directory/create.html'
-    model = User
+    model = Organization
     form_class = OrganizationForm1
     success_url = '/annuaire/p/modifier/1/'
 
@@ -241,10 +241,7 @@ class OrganizationChangeView(UpdateView):
         self.last_step = len(self.forms) - 1
         if self.step > self.last_step:
             self.step = self.last_step
-        if self.step == 0:
-            return self.request.user
-        else:
-            return self.org
+        return self.org
 
     def get_form_kwargs(self):
         kwargs = super(OrganizationChangeView, self).get_form_kwargs()
@@ -271,13 +268,6 @@ class OrganizationChangeView(UpdateView):
         return super(OrganizationChangeView, self).get_context_data(**kwargs)
 
     def get_success_url(self):
-        if isinstance(self.object, Organization) and not self.object.engagement_set.exists():
-            engagement = Engagement()
-            engagement.person = Person.objects.get(user=self.request.user)
-            engagement.organization = self.object
-            engagement.org_admin = True
-            engagement.email = self.request.user.email
-            engagement.save()
         if self.propose:
             if not self.org.birth or not self.org.legal_status or not self.org.siret:
                 return '/annuaire/p/modifier/1/?propose'

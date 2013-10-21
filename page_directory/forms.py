@@ -115,34 +115,49 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         choices=((0, u'Non'), (1, u'Oui')), widget=forms.RadioSelect,
         initial=0, required=False, label=u'J\'accepte la <a \
         data-toggle="modal" href="#charte">charte de l\'utilisateur</a>')
+    last_name = forms.CharField()
+    first_name = forms.CharField(required=False)
+    email = forms.CharField(label='Email')
 
     class Meta:
-        model = User
-        fields = ("username", "last_name", "first_name", "email")
+        model = Organization
+        fields = ('title', 'is_provider', 'is_customer')
 
     def __init__(self, request, propose, *args, **kwargs):
         self.request = request
-        if request.user.is_authenticated():
+        super(OrganizationForm1, self).__init__(*args, **kwargs)
+        if self.instance.pk:
             self.person = request.user.get_profile()
         else:
             self.person = Person()
-        super(OrganizationForm1, self).__init__(*args, **kwargs)
         self.fields['last_name'].required = True
         self.fields['gender'].initial = self.person.gender
-        self.fields['email'].required = True
-        self.fields['email'].label = u'Email'
+        self.fields['first_name'].initial = self.person.user and self.person.user.first_name
+        self.fields['last_name'].initial = self.person.user and self.person.user.last_name
+        self.fields['email'].initial = self.person.user and self.person.user.email
+        self.fields['is_provider'].label += '*'
+        self.fields['is_customer'].label += '*'
+        self.fields['charte'].label += '*'
         if self.instance.pk:
             del self.fields['username']
             del self.fields['password1']
             del self.fields['password2']
             del self.fields['charte']
             self.set_helper((
+                HTML('<p>Vous</p>'),
                 InlineRadios('gender'),
                 'first_name',
                 'last_name',
-                'email'))
+                'email',
+                HTML('<hr>'),
+                HTML('<p>Votre organisation</p>'),
+                'title',
+                'is_provider',
+                'is_customer'))
         else:
+            self.fields['username'].initial = self.person.user and self.person.user.username
             self.set_helper((
+                HTML('<p>Vous</p>'),
                 InlineRadios('gender'),
                 'first_name',
                 'last_name',
@@ -151,14 +166,25 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 'password1',
                 'password2',
                 HTML('<hr>'),
+                HTML('<p>Votre organisation</p>'),
+                'title',
+                'is_provider',
+                'is_customer',
+                HTML('<hr>'),
                 InlineRadios('charte', css_class="large-label")))
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if Organization.objects.exclude(pk=self.instance.pk).filter(norm_title=normalize_text(title)).exists():
+            raise forms.ValidationError(u'Un Fournisseur ou Acheteur avec ce nom existe déjà.')
+        return title
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
         username = self.cleaned_data["username"]
         existing_users  = User.objects.filter(username=username)
-        existing_users = existing_users.exclude(username=self.instance.username)
+        #existing_users = existing_users.exclude(username=...)
         if existing_users.exists():
             raise forms.ValidationError(self.error_messages['duplicate_username'])
         return username
@@ -176,33 +202,59 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
             raise forms.ValidationError(u'Vous devez accepter la charte pour pouvoir vous inscrire.')
         return True
 
+    def clean(self):
+        cleaned_data = super(OrganizationForm1, self).clean()
+        if not cleaned_data['is_provider'] and not cleaned_data['is_customer']:
+            raise forms.ValidationError(u'Veuillez cocher une des cases Fournisseur ou Acheteur.')
+
+        # Always return the full collection of cleaned data.
+        return cleaned_data
+
     @transaction.commit_on_success
     def save(self):
-        if not self.instance.pk:
-            user = super(OrganizationForm1, self).save(commit=False)
+        create = not self.instance.pk
+        if create:
+            user = User()
+            user.username = self.cleaned_data['username']
             user.set_password(self.cleaned_data["password1"])
-            user.save()
+        else:
+            user = self.request.user
+        user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+        if create:
             user = authenticate(username=user.username, password=self.cleaned_data['password1'])
             login(self.request, user)
-        else:
-            user = super(OrganizationForm1, self).save()
-        self.person.user = user
+            self.person.user = user
         self.person.gender = self.cleaned_data['gender']
         self.person.username = user.username
         self.person.email = user.email
         self.person.first_name = user.first_name
         self.person.last_name = user.last_name
         self.person.save()
-        return user
+        organization = super(OrganizationForm1, self).save(commit=False)
+        if create:
+            organization.transmission = 1 # proposed on line
+        organization.save()
+        if create:
+            engagement = Engagement()
+            engagement.person = self.person
+            engagement.organization = self.instance
+            engagement.org_admin = True
+        else:
+            engagement = Engagement.objects.get(person=self.person, organization=self.instance, org_admin=True)
+        engagement.email = self.cleaned_data['email']
+        engagement.save()
+        return organization
 
 
 class OrganizationForm2(OrganizationMixin, forms.ModelForm):
 
     class Meta:
         model = Organization
-        fields = ('title', 'acronym', 'pref_label', 'logo', 'birth',
-                  'legal_status', 'web', 'siret', 'is_provider',
-                  'is_customer', 'customer_type')
+        fields = ('acronym', 'pref_label', 'logo', 'birth',
+                  'legal_status', 'web', 'siret', 'customer_type')
 
     def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm2, self).__init__(*args, **kwargs)
@@ -215,37 +267,11 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
             self.fields['birth'].label += '*'
             self.fields['legal_status'].label += '*'
             self.fields['siret'].label += '*'
-        self.fields['title'].label += '*'
-        self.fields['is_provider'].label += '**'
-        self.fields['is_customer'].label += '**'
-        self.fields['customer_type'].label += '**'
-        self.set_helper((
-            'title', 'acronym', 'pref_label', 'logo', 'birth',
-            'legal_status', 'web', 'siret', 'is_provider',
-            'is_customer', 'customer_type'))
-
-    def clean_title(self):
-        title = self.cleaned_data['title']
-        if Organization.objects.exclude(pk=self.instance.pk).filter(norm_title=normalize_text(title)).exists():
-            raise forms.ValidationError(u'Un Fournisseur ou Acheteur avec ce nom existe déjà.')
-        return title
-
-    def clean(self):
-        cleaned_data = super(OrganizationForm2, self).clean()
-        if not cleaned_data['is_provider'] and not cleaned_data['is_customer']:
-            raise forms.ValidationError(u'Veuillez cocher une des cases Fournisseur ou Acheteur.')
-        if cleaned_data['is_customer'] and not cleaned_data['customer_type']:
-            raise forms.ValidationError(u'Veuillez sélectionner un type d\'Acheteur.')
-
-        # Always return the full collection of cleaned data.
-        return cleaned_data
-
-    def save(self):
-        org = super(OrganizationForm2, self).save(commit=False)
-        if org.pk is None:
-            org.transmission = 1 # proposed on line
-        org.save()
-        return org
+        if self.instance.is_customer:
+            self.fields['customer_type'].label += '*'
+        else:
+            del self.fields['customer_type']
+        self.set_helper(self.fields.keys())
 
 
 class OrganizationForm3(OrganizationMixin, forms.ModelForm):

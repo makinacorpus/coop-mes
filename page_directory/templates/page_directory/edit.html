@@ -33,10 +33,10 @@
                         </div>
                         <div class="form">
                             {% if form.instance.status == 'I' %}
-                                <p>Un fois que vous avez cliqué sur « Enregistrer », vous pouvez revenir plus tard pour finir de saisir votre fiche. Lorsque la fiche est complète vous devez cliquer sur le bouton « Proposer » afin de soumettre la fiche pur validation aux administrateurs du site.</p>
+                                <p>Un fois que vous avez cliqué sur « Enregistrer », vous pouvez revenir plus tard pour finir de saisir votre fiche. Lorsque la fiche est complète vous devez cliquer sur le bouton « Proposer » afin de soumettre la fiche pour validation aux administrateurs du site.</p>
                             {% endif %}
                             {% if form.instance.status == 'P' %}
-                                <p>Votre fiche est en cours de validation par les administration du site. Elle ne sera visible publiquement qu'après validation.</p>
+                                <p>Votre fiche est en cours de validation par les administrateurs du site. Elle ne sera visible publiquement qu'après validation.</p>
                             {% endif %}
                             {% if form.instance.status == 'V' %}
                                 <p>Votre fiche est validée.</p>

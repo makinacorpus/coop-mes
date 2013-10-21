@@ -71,3 +71,6 @@ restore:
 
 clean:
 	rm -rf static_collected
+
+test:
+	$(PYTHON) manage.py test page_directory --traceback
