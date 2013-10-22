@@ -58,10 +58,21 @@ helper.scenario('/annuaire/p/ajouter/',
         this.click('form.form-horizontal button.btn-default');
     }
     , function() {
+        this.waitForSelector('#id_description_ifr');
+    }
+    , function() {
+        this.evaluate(function() {
+            tinyMCE.activeEditor.setContent('Casper blabla blabla.');
+        });
+    }
+    , function() {
+        this.capture('tinymce_filled.png')
+    }
+    , function() {
         this.waitForSelector('#id_brief_description');
     }
     , function() {
-        this.sendKeys('#id_brief_description', 'Casper blabla blabla.');
+        this.sendKeys('#id_brief_description', 'Casper blabla.');
     }
     , function() {
         this.click('form.form-horizontal button.btn-default');

@@ -294,8 +294,12 @@ class OrganizationForm3(OrganizationMixin, forms.ModelForm):
         super(OrganizationForm3, self).__init__(*args, **kwargs)
         if propose:
             self.fields['brief_description'].required = True
+            if self.instance.is_customer:
+                self.fields['description'].required = True
         else:
             self.fields['brief_description'].label += '*'
+            if self.instance.is_customer:
+                self.fields['description'].label += '*'
         self.set_helper(('brief_description', 'description', 'added_value',))
 
 

@@ -68,8 +68,17 @@ helper.scenario('/annuaire/p/ajouter/',
     , function() {
         this.capture('customer_required_step2.png');
         this.test.assertExists('#div_id_brief_description.has-error');
+        this.test.assertExists('#div_id_description.has-error');
         this.fill('form.form-horizontal', {
-            brief_description: 'Blabla.'
+              brief_description: 'Casper blabla.'
+        });
+    }
+    , function() {
+        this.waitForSelector('#id_description_ifr');
+    }
+    , function() {
+        this.evaluate(function() {
+            tinyMCE.activeEditor.setContent('Casper blabla blabla.');
         });
     }
     , function() {

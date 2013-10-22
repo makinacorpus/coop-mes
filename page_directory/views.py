@@ -291,6 +291,8 @@ class OrganizationChangeView(UpdateView):
                 return '/annuaire/p/modifier/1/?propose'
             if not self.org.brief_description:
                 return '/annuaire/p/modifier/2/?propose'
+            if self.org.is_customer and not self.org.description:
+                return '/annuaire/p/modifier/2/?propose'
             if self.org.is_provider and not self.org.workforce:
                 return '/annuaire/p/modifier/4/?propose'
             if self.org.is_provider and self.org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (self.org.integration_workforce or self.org.annual_integration_number):
