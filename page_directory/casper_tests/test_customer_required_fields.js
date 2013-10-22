@@ -85,6 +85,25 @@ helper.scenario('/annuaire/p/ajouter/',
         this.click('form.form-horizontal button.btn--form');
     }
     , function() {
+        this.waitForSelector('#div_id_tags');
+    }
+    , function() {
+        this.capture('customer_required_step3.png');
+        this.test.assertExists('#div_id_tags.has-error');
+    }
+    , function() {
+        this.waitForSelector('#id_tags__tagautosuggest');
+    }
+    , function() {
+        this.sendKeys('#id_tags__tagautosuggest', 'ESS,');
+    }
+    , function() {
+        this.waitForSelector('.as-selection-item');
+    }
+    , function() {
+        this.click('form.form-horizontal button.btn--form');
+    }
+    , function() {
         this.waitForText('MON COMPTE');
     }
 );

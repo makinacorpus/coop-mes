@@ -265,9 +265,14 @@ class OrganizationChangeView(UpdateView):
         return kwargs
 
     def get_form(self, form_class):
+        """ Force form bounding to set fields as required
+        """
         kwargs = self.get_form_kwargs()
-        if not 'data' in kwargs and self.propose and self.step in (1, 2, 4):
-            kwargs['data'] = model_to_dict(self.object)
+        if not 'data' in kwargs and self.propose and self.step in (1, 2, 3, 4):
+            data = model_to_dict(self.object)
+            if not data.get('tags'):
+                data['tags'] = None
+            kwargs['data'] = data
         return form_class(**kwargs)
 
     def get_context_data(self, **kwargs):
@@ -293,6 +298,8 @@ class OrganizationChangeView(UpdateView):
                 return '/annuaire/p/modifier/2/?propose'
             if self.org.is_customer and not self.org.description:
                 return '/annuaire/p/modifier/2/?propose'
+            if self.org.is_customer and not self.org.tags.exists():
+                return '/annuaire/p/modifier/3/?propose'
             if self.org.is_provider and not self.org.workforce:
                 return '/annuaire/p/modifier/4/?propose'
             if self.org.is_provider and self.org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (self.org.integration_workforce or self.org.annual_integration_number):

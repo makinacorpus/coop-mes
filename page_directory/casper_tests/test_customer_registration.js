@@ -78,7 +78,13 @@ helper.scenario('/annuaire/p/ajouter/',
         this.click('form.form-horizontal button.btn-default');
     }
     , function() {
-        this.waitForSelector('#div_id_tags');
+        this.waitForSelector('#id_tags__tagautosuggest');
+    }
+    , function() {
+        this.sendKeys('#id_tags__tagautosuggest', 'ESS,');
+    }
+    , function() {
+        this.waitForSelector('.as-selection-item');
     }
     , function() {
         this.click('form.form-horizontal button.btn-default');

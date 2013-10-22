@@ -319,6 +319,12 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
+        if propose:
+            if self.instance.is_customer:
+                self.fields['tags'].required = True
+        else:
+            if self.instance.is_customer:
+                self.fields['tags'].label += '*'
         if not self.instance.is_customer:
             del self.fields['activities']
         else:
