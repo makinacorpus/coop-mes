@@ -221,6 +221,41 @@ class OrganizationCreateView(CreateView):
 add_view = OrganizationCreateView.as_view()
 
 
+def propose_url(org, default_url):
+    if not org.birth or not org.legal_status:
+        return '/annuaire/p/modifier/1/?propose'
+    if org.is_provider and not org.siret:
+        return '/annuaire/p/modifier/1/?propose'
+    if org.is_customer and (not org.customer_type or not org.logo or not org.web):
+        return '/annuaire/p/modifier/1/?propose'
+    if not org.brief_description:
+        return '/annuaire/p/modifier/2/?propose'
+    if org.is_customer and not org.description:
+        return '/annuaire/p/modifier/2/?propose'
+    if org.is_customer and not (org.tags.exists() or org.activities.exists()):
+        return '/annuaire/p/modifier/3/?propose'
+    if org.is_provider and not org.workforce:
+        return '/annuaire/p/modifier/4/?propose'
+    if org.is_provider and org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (org.integration_workforce or org.annual_integration_number):
+        return '/annuaire/p/modifier/4/?propose'
+    if org.is_provider and not org.offer_set.exists():
+        return '/annuaire/p/offre/ajouter/?propose'
+    if org.status == 'I':
+        org.status = 'P'
+    org.transmission_date = date.today()
+    org.save()
+    return default_url
+
+
+def propose_view(request, page_app):
+    try:
+        person = Person.objects.get(user=request.user)
+    except Person.DoesNotExist:
+        raise PermissionDenied
+    org = person.my_organization()
+    return HttpResponseRedirect(propose_url(org, '/mon-compte/'))
+
+
 class OrganizationChangeView(UpdateView):
 
     template_name = 'page_directory/edit.html'
@@ -287,32 +322,14 @@ class OrganizationChangeView(UpdateView):
         return super(OrganizationChangeView, self).get_context_data(**kwargs)
 
     def get_success_url(self):
-        if self.propose:
-            if not self.org.birth or not self.org.legal_status:
-                return '/annuaire/p/modifier/1/?propose'
-            if self.org.is_provider and not self.org.siret:
-                return '/annuaire/p/modifier/1/?propose'
-            if self.org.is_customer and (not self.org.customer_type or not self.org.logo or not self.org.web):
-                return '/annuaire/p/modifier/1/?propose'
-            if not self.org.brief_description:
-                return '/annuaire/p/modifier/2/?propose'
-            if self.org.is_customer and not self.org.description:
-                return '/annuaire/p/modifier/2/?propose'
-            if self.org.is_customer and not (self.org.tags.exists() or self.org.activities.exists()):
-                return '/annuaire/p/modifier/3/?propose'
-            if self.org.is_provider and not self.org.workforce:
-                return '/annuaire/p/modifier/4/?propose'
-            if self.org.is_provider and self.org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (self.org.integration_workforce or self.org.annual_integration_number):
-                return '/annuaire/p/modifier/4/?propose'
-            if self.org.is_provider and not self.org.offer_set.exists():
-                return '/annuaire/p/offre/ajouter/?propose'
-            if self.org.status == 'I':
-                self.org.status = 'P'
-            self.org.transmission_date = date.today()
-            self.org.save()
         if self.propose or self.step == self.last_step:
-            return self.success_url
-        return '/annuaire/p/modifier/%u/' % (self.step + 1)
+            default_url = self.success_url
+        else:
+            default_url = '/annuaire/p/modifier/%u/' % (self.step + 1)
+        if self.propose:
+            return propose_url(self.org, default_url)
+        else:
+            return default_url
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}

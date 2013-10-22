@@ -4,7 +4,7 @@
 
 {% if my_organization %}
     {% if my_organization.status == 'I' %}
-        <p>Vos informations ne seront pas visibles publiquement tant que vous n'aurez pas <a href="/annuaire/p/modifier/">proposé</a> votre fiche pour validation.</p>
+        <p>Vos informations ne seront pas visibles publiquement tant que vous n'aurez pas <a href="/annuaire/p/proposer/">proposé</a> votre fiche pour validation.</p>
     {% endif %}
     {% if my_organization.status == 'P' and my_organization.offer_set.all %}
         <p>Vos informations sont en cours de validation par les administrateurs du site. Elle ne seront visibles publiquement qu'après validation.</p>
@@ -13,5 +13,11 @@
         <p><a href="{{ my_organization.get_absolute_url }}">Voir ma fiche</a></p>
     {% endif %}
     <p><a href="/annuaire/p/modifier/">Modifier ma fiche</a></p>
+    {% if my_organization.is_customer %}
+        <p><a href="/mon-compte/p/mes-appels-doffres/">Modifier mes appels d'offres</a></p>
+    {% endif %}
+    {% if my_organization.is_provider %}
+        <p><a href="/mon-compte/p/mes-offres/">Modifier mes offres</a></p>
+    {% endif %}
 {% endif %}
 <p><a href="p/deconnexion/?next=/">Déconnexion</a></p>
