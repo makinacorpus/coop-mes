@@ -21,6 +21,7 @@ helper.scenario('/annuaire/p/ajouter/',
     }
     , function() {
         this.fill('form.form-horizontal', {logo: 'logo.jpeg'});
+        this.sendKeys('#id_web', 'www.casper.js');
         this.click('#id_birth');
     }
     , function() {

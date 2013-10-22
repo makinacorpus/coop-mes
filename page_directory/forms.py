@@ -266,6 +266,7 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
             self.fields['customer_type'].required = True
             if self.instance.is_customer:
                 self.fields['logo'].required = True
+                self.fields['web'].required = True
         else:
             self.fields['birth'].label += '*'
             self.fields['legal_status'].label += '*'
@@ -273,6 +274,7 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
             self.fields['customer_type'].label += '*'
             if self.instance.is_customer:
                 self.fields['logo'].label += '*'
+                self.fields['web'].label += '*'
         if not self.instance.is_customer:
             del self.fields['customer_type']
         if not self.instance.is_provider:
