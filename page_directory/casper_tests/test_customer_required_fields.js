@@ -46,11 +46,13 @@ helper.scenario('/annuaire/p/ajouter/',
     }
     , function() {
         this.capture('customer_required_step1.png');
+        this.test.assertExists('#div_id_logo.has-error');
         this.test.assertExists('#div_id_birth.has-error');
         this.test.assertExists('#div_id_legal_status.has-error');
         this.test.assertExists('#div_id_customer_type.has-error');
         this.fill('form.form-horizontal', {
-            birth: '2013-10-21'
+              logo: 'logo.jpeg'
+            , birth: '2013-10-21'
             , legal_status: '1'
             , customer_type: '1'
         });

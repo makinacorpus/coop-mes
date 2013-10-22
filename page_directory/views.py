@@ -283,7 +283,7 @@ class OrganizationChangeView(UpdateView):
 
     def get_success_url(self):
         if self.propose:
-            if not self.org.birth or not self.org.legal_status or (self.org.is_provider and not self.org.siret) or (self.org.is_customer and not self.org.customer_type):
+            if not self.org.birth or not self.org.legal_status or (self.org.is_provider and not self.org.siret) or (self.org.is_customer and not self.org.customer_type) or (self.org.is_customer and not self.org.logo):
                 return '/annuaire/p/modifier/1/?propose'
             if not self.org.brief_description:
                 return '/annuaire/p/modifier/2/?propose'

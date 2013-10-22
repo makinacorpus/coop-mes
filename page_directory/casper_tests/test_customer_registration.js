@@ -20,6 +20,7 @@ helper.scenario('/annuaire/p/ajouter/',
         this.waitForSelector('#id_birth');
     }
     , function() {
+        this.fill('form.form-horizontal', {logo: 'logo.jpeg'});
         this.click('#id_birth');
     }
     , function() {
