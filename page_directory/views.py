@@ -298,7 +298,7 @@ class OrganizationChangeView(UpdateView):
                 return '/annuaire/p/modifier/2/?propose'
             if self.org.is_customer and not self.org.description:
                 return '/annuaire/p/modifier/2/?propose'
-            if self.org.is_customer and not self.org.tags.exists():
+            if self.org.is_customer and not (self.org.tags.exists() or self.org.activities.exists()):
                 return '/annuaire/p/modifier/3/?propose'
             if self.org.is_provider and not self.org.workforce:
                 return '/annuaire/p/modifier/4/?propose'

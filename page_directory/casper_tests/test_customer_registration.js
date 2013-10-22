@@ -87,6 +87,12 @@ helper.scenario('/annuaire/p/ajouter/',
         this.waitForSelector('.as-selection-item');
     }
     , function() {
+        this.sendKeys('#s2id_id_activities .select2-input', 'aqua');
+    }
+    , function() {
+        this.mouseEvent('mouseup', '.select2-result-label');
+    }
+    , function() {
         this.click('form.form-horizontal button.btn-default');
     }
     , function() {
