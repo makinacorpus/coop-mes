@@ -2,7 +2,8 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch, OrganizationForm1, ORGANIZATION_FORMS, OfferForm)
+from .forms import (OrgSearch, OrganizationForm1, PROVIDER_FORMS,
+    NOT_PROVIDER_FORMS, OfferForm)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
     Person, Location, Relation, Offer)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
@@ -142,7 +143,7 @@ class OrganizationEditView(SessionWizardView):
         return self.form_list[step](**kwargs)
 
 
-ORGANIZATION_TITLES = (
+PROVIDER_TITLES = (
     u'Identification',
     u'Type d\'organisation',
     u'Description',
@@ -155,6 +156,19 @@ ORGANIZATION_TITLES = (
     u'Contacts',
     u'Membres',
     u'Références',
+)
+
+NOT_PROVIDER_TITLES = (
+    u'Identification',
+    u'Type d\'organisation',
+    u'Description',
+    u'Classification',
+    u'Témoignage',
+    u'Documents',
+    u'Partenaires',
+    u'Localisation',
+    u'Contacts',
+    u'Membres',
 )
 
 ORGANIZATION_MEDIA = (
@@ -194,7 +208,7 @@ class OrganizationCreateView(CreateView):
 
     def render_to_response(self, context, **response_kwargs):
         assert response_kwargs == {}
-        context['titles'] = ORGANIZATION_TITLES[:-1]
+        context['titles'] = NOT_PROVIDER_TITLES
         try:
             context['charte'] = Page.objects.get(title='Charte').app.text
         except Page.DoesNotExist:
@@ -233,11 +247,11 @@ class OrganizationChangeView(UpdateView):
         if self.org and self.org.status == 'V':
             self.propose = True
         if self.org and self.org.is_provider:
-            self.forms = ORGANIZATION_FORMS
-            self.titles = ORGANIZATION_TITLES
+            self.forms = PROVIDER_FORMS
+            self.titles = PROVIDER_TITLES
         else:
-            self.forms = ORGANIZATION_FORMS[:-1]
-            self.titles = ORGANIZATION_TITLES[:-1]
+            self.forms = NOT_PROVIDER_FORMS
+            self.titles = NOT_PROVIDER_TITLES
         self.last_step = len(self.forms) - 1
         if self.step > self.last_step:
             self.step = self.last_step
@@ -269,13 +283,13 @@ class OrganizationChangeView(UpdateView):
 
     def get_success_url(self):
         if self.propose:
-            if not self.org.birth or not self.org.legal_status or (self.org.is_provider and not self.org.siret):
+            if not self.org.birth or not self.org.legal_status or (self.org.is_provider and not self.org.siret) or (self.org.is_customer and not self.org.customer_type):
                 return '/annuaire/p/modifier/1/?propose'
             if not self.org.brief_description:
                 return '/annuaire/p/modifier/2/?propose'
-            if not self.org.workforce:
+            if self.org.is_provider and not self.org.workforce:
                 return '/annuaire/p/modifier/4/?propose'
-            if self.org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (self.org.integration_workforce or self.org.annual_integration_number):
+            if self.org.is_provider and self.org.agreement_iae.filter(label=u'Conventionnement IAE').exists() and not (self.org.integration_workforce or self.org.annual_integration_number):
                 return '/annuaire/p/modifier/4/?propose'
             if self.org.is_provider and not self.org.offer_set.exists():
                 return '/annuaire/p/offre/ajouter/?propose'

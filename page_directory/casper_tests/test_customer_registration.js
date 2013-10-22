@@ -41,6 +41,18 @@ helper.scenario('/annuaire/p/ajouter/',
         this.mouseEvent('mouseup', '.select2-result-label');
     }
     , function() {
+        this.mouseEvent('mousedown', '#s2id_id_customer_type b');
+    }
+    , function() {
+        this.waitForSelector('.select2-results');
+    }
+    , function() {
+        this.sendKeys('.select2-input.select2-focused', 'pub');
+    }
+    , function() {
+        this.mouseEvent('mouseup', '.select2-result-label');
+    }
+    , function() {
         this.click('form.form-horizontal button.btn-default');
     }
     , function() {
@@ -54,17 +66,6 @@ helper.scenario('/annuaire/p/ajouter/',
     }
     , function() {
         this.waitForSelector('#div_id_tags');
-    }
-    , function() {
-        this.click('form.form-horizontal button.btn-default');
-    }
-    , function() {
-        this.waitForSelector('#id_workforce');
-    }
-    , function() {
-        this.sendKeys('#id_workforce', '10');
-        this.sendKeys('#id_integration_workforce', '5');
-        this.sendKeys('#id_annual_integration_number', '20');
     }
     , function() {
         this.click('form.form-horizontal button.btn-default');

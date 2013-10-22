@@ -263,13 +263,13 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
             self.fields['birth'].required = True
             self.fields['legal_status'].required = True
             self.fields['siret'].required = True
+            self.fields['customer_type'].required = True
         else:
             self.fields['birth'].label += '*'
             self.fields['legal_status'].label += '*'
             self.fields['siret'].label += '*'
-        if self.instance.is_customer:
             self.fields['customer_type'].label += '*'
-        else:
+        if not self.instance.is_customer:
             del self.fields['customer_type']
         if not self.instance.is_provider:
             del self.fields['siret']
@@ -670,7 +670,7 @@ OrganizationForm12.__init__ = lambda self, propose, *args, **kwargs: forms.model
 OrganizationForm12.add_label = u'Ajouter une référence'
 
 
-ORGANIZATION_FORMS = (
+PROVIDER_FORMS = (
     OrganizationForm1,
     OrganizationForm2,
     OrganizationForm3,
@@ -683,6 +683,19 @@ ORGANIZATION_FORMS = (
     OrganizationForm10,
     OrganizationForm11,
     OrganizationForm12,
+)
+
+NOT_PROVIDER_FORMS = (
+    OrganizationForm1,
+    OrganizationForm2,
+    OrganizationForm3,
+    OrganizationForm4,
+    OrganizationForm6,
+    OrganizationForm7,
+    OrganizationForm8,
+    OrganizationForm9,
+    OrganizationForm10,
+    OrganizationForm11,
 )
 
 

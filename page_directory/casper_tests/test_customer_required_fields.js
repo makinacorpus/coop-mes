@@ -48,9 +48,11 @@ helper.scenario('/annuaire/p/ajouter/',
         this.capture('customer_required_step1.png');
         this.test.assertExists('#div_id_birth.has-error');
         this.test.assertExists('#div_id_legal_status.has-error');
+        this.test.assertExists('#div_id_customer_type.has-error');
         this.fill('form.form-horizontal', {
             birth: '2013-10-21'
             , legal_status: '1'
+            , customer_type: '1'
         });
     }
     , function() {
@@ -64,19 +66,6 @@ helper.scenario('/annuaire/p/ajouter/',
         this.test.assertExists('#div_id_brief_description.has-error');
         this.fill('form.form-horizontal', {
             brief_description: 'Blabla.'
-        });
-    }
-    , function() {
-        this.click('form.form-horizontal button.btn--form');
-    }
-    , function() {
-        this.waitForSelector('#div_id_workforce');
-    }
-    , function() {
-        this.capture('customer_required_step3.png');
-        this.test.assertExists('#div_id_workforce.has-error');
-        this.fill('form.form-horizontal', {
-            workforce: '1,5'
         });
     }
     , function() {
