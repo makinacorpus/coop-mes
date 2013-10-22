@@ -271,6 +271,8 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
             self.fields['customer_type'].label += '*'
         else:
             del self.fields['customer_type']
+        if not self.instance.is_provider:
+            del self.fields['siret']
         self.set_helper(self.fields.keys())
 
 

@@ -8,6 +8,9 @@ helper.scenario('/annuaire/p/ajouter/',
         this.click('form.form-horizontal button.btn-default');
     }
     , function() {
+        this.waitForSelector('#div_id_last_name');
+    }
+    , function() {
         this.capture('provider_required_step0.png');
         this.test.assertExists('#div_id_last_name.has-error');
         this.test.assertExists('#div_id_email.has-error');
@@ -26,6 +29,7 @@ helper.scenario('/annuaire/p/ajouter/',
             , title: 'Casper2'
             , charte: '1'
             , is_provider: true
+            , is_customer: false
         });
     }
     , function() {

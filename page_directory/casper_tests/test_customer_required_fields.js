@@ -8,6 +8,9 @@ helper.scenario('/annuaire/p/ajouter/',
         this.click('form.form-horizontal button.btn-default');
     }
     , function() {
+        this.waitForSelector('#div_id_last_name');
+    }
+    , function() {
         this.capture('customer_required_step0.png');
         this.test.assertExists('#div_id_last_name.has-error');
         this.test.assertExists('#div_id_email.has-error');
@@ -25,7 +28,8 @@ helper.scenario('/annuaire/p/ajouter/',
             , password2: 'casper'
             , title: 'Casper4'
             , charte: '1'
-            , is_provider: true
+            , is_provider: false
+            , is_customer: true
         });
     }
     , function() {
@@ -44,11 +48,9 @@ helper.scenario('/annuaire/p/ajouter/',
         this.capture('customer_required_step1.png');
         this.test.assertExists('#div_id_birth.has-error');
         this.test.assertExists('#div_id_legal_status.has-error');
-        this.test.assertExists('#div_id_siret.has-error');
         this.fill('form.form-horizontal', {
             birth: '2013-10-21'
             , legal_status: '1'
-            , siret: '12345678901234'
         });
     }
     , function() {
@@ -81,11 +83,7 @@ helper.scenario('/annuaire/p/ajouter/',
         this.click('form.form-horizontal button.btn--form');
     }
     , function() {
-        this.waitForText('Veuillez ajouter au moins une offre');
-    }
-    , function() {
-        this.capture('customer_required_step4.png');
-        this.test.assertTextExists('Veuillez ajouter au moins une offre');
+        this.waitForText('MON COMPTE');
     }
 );
 

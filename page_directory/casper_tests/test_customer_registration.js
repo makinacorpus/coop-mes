@@ -10,7 +10,7 @@ helper.scenario('/annuaire/p/ajouter/',
         this.sendKeys('#id_password1', 'casper');
         this.sendKeys('#id_password2', 'casper');
         this.sendKeys('#id_title', 'Casper3');
-        this.click('#id_is_provider');
+        this.click('#id_is_customer');
         this.click('#id_charte_2');
     }
     , function() {
@@ -39,9 +39,6 @@ helper.scenario('/annuaire/p/ajouter/',
     }
     , function() {
         this.mouseEvent('mouseup', '.select2-result-label');
-    }
-    , function() {
-        this.sendKeys('#id_siret', '12345678901234');
     }
     , function() {
         this.click('form.form-horizontal button.btn-default');
