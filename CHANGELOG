@@ -1,3 +1,13 @@
+v1.10
+
+ * Correction d'un bug: il était possible de créer une relation sans préciser
+   son type et cela faisait buguer le back office
+
+Déploiement
+
+- Pull django_coop
+
+
 v1.9
 
  * Correction d'un lien cassé depuis un événement vers une organisation
