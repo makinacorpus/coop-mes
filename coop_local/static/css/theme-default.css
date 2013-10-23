@@ -2754,3 +2754,8 @@ i.icon-book {
     page-break-after: avoid;
   }
 }
+/* Ionyweb admin */
+#wa_panel_center #id_author,
+#wa_panel_center label[for=id_author] {
+  display: none;
+}

@@ -12,6 +12,7 @@ v1.10
  * Ajout de l'identifiant et du nom/sigle de l'organisation comme critère de
    recherche des personnes dans le bak office
  * Alignement du texte de "A la Une" à gauche
+ * Enlève le champ auteur dans le formulaire Actualité
 
 
 Déploiement
