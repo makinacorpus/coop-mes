@@ -18,7 +18,7 @@
                 <div class="col-lg-6">
                     <div class="article-extract">
                         <h3><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h3>
-                        <div class="article-extract__meta">{{ entry.publication_date|date:"d/m/Y" }} - Catégorie {{ entry.category.name }}</div>
+                        <div class="article-extract__meta">{{ entry.publication_date|date:"d/m/Y" }} - Actualités</div>
                         <p>
                             {% if entry.resume %}
                                 {{ entry.resume|truncatewords:30 }}
@@ -43,7 +43,7 @@
                 <div class="col-lg-6">
                     <div class="article-extract">
                         <h3><a href="">{{ entry.label }}</a></h3>
-                        <div class="article-extract__meta">{{ entry.validation|date:"d/m/Y"|default:"&nbsp" }}</div>
+                        <div class="article-extract__meta">{{ entry.validation|date:"d/m/Y"|default:"&nbsp" }} - Organisation</div>
                         <p>{{ entry.brief_description|truncatewords:30 }}</p>
                     </div>
                     <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire la fiche</a></p>
