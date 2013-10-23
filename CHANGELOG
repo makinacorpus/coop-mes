@@ -5,6 +5,12 @@ v1.10
  * Google Analytics
  * Correction du secteur d'activité et de la couverture géographique des
    offres dans les exports ODT/DOC/PDF
+ * Ajout d'un bouton "Créer un identifiant" dans le back office
+   pour les Personnes
+ * Ajout des colonnes "Identifiant" et "Editeur de l'organisation" dans le
+   back office sur la page qui liste les personnes
+ * Ajout de l'identifiant et du nom/sigle de l'organisation comme critère de
+   recherche des personnes dans le bak office
 
 
 Déploiement

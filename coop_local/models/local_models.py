@@ -21,6 +21,7 @@ import re
 from django.contrib.gis.db.models import GeoManager
 from coop_local.models.fields import MultiSelectField
 from django.utils.dateformat import format as date_format
+from django.core.urlresolvers import reverse_lazy
 
  
 ADMIN_THUMBS_SIZE = '60x60'
@@ -59,6 +60,24 @@ class Person(BasePerson):
             return None
         return engagements[0].organization
 
+    def my_organization_link(self):
+        organization = self.my_organization()
+        if not organization:
+            return ''
+        return '<a href="%s">%s</a>' % (
+            reverse_lazy('admin:coop_local_organization_change', args=[organization.id]),
+            unicode(organization))
+    my_organization_link.short_description = u'Éditeur de l\'organisation'
+    my_organization_link.allow_tags = True
+
+    def user_link(self):
+        if not self.user:
+            return ''
+        return '<a href="%s">%s</a>' % (
+            reverse_lazy('admin:auth_user_change', args=[self.user.id]),
+            self.user.username)
+    user_link.short_description = u'Identifiant'
+    user_link.allow_tags = True
 
 class LegalStatus(models.Model):
 

@@ -31,6 +31,11 @@ from sorl.thumbnail.admin import AdminImageMixin
 from djappypod.response import OdtTemplateResponse
 from tinymce.widgets import AdminTinyMCE
 import csv
+from django.contrib import messages
+import unicodedata
+import re
+import random
+import string
 
 from coop.org.admin import (
     OrganizationAdmin as BaseOrganizationAdmin,
@@ -509,6 +514,59 @@ class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
 
 class PersonAdmin(BasePersonAdmin):
     inlines = [ContactInline, OrgInline]
+    list_display = ('last_name', 'first_name', 'structure', 'user_link', 'my_organization_link')
+    search_fields = ('last_name', 'first_name', 'user__username', 'engagements__organization__title', 'engagements__organization__acronym', 'structure')
+    change_form_template = 'admin/coop_local/person/tabbed_change_form.html'
+
+    def get_urls(self):
+        urls = super(PersonAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^(?P<pk>\d+)/create_user/$', self.admin_site.admin_view(self.create_user), name='create_user'),
+        )
+        return my_urls + urls
+
+    def create_user(self, request, pk):
+        person = get_object_or_404(Person, pk=pk)
+        if person.user:
+            return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
+        org = person.my_organization()
+        if not org:
+            messages.error(request, u"L'utilisateur n'est éditeur d'aucune organisation.")
+            return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
+        member = Engagement.objects.get(person=person, organization=org, org_admin=True)
+        if not member.email:
+            messages.error(request, u"L'utilisateur n'a pas d'email lié à son engagement dans %s." % unicode(org))
+            return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
+        username = (person.first_name.strip() + '.' + person.last_name.strip())[:30]
+        username = unicodedata.normalize('NFKD', unicode(username))
+        username = username.encode('ASCII', 'ignore')
+        username = username.lower()
+        username = username.replace(' ', '_')
+        username = re.sub(r'[^a-z0-9_\.-]', '-', username)
+        username = re.sub(r'[_.-]+$', '', username)
+        username = username.replace('_-_', '-')
+        for i in range(0, 10):
+            if i == 0:
+                _username = username
+            else:
+                _username = username + '%u' % i
+            if not User.objects.filter(username=_username).exists() and not Person.objects.filter(username=_username).exists():
+                username = _username
+                break
+        password = ''.join([random.choice(string.digits + string.letters) for i in range(0, 6)]).lower()
+        user = User(
+            first_name=person.first_name[:30],
+            last_name=person.last_name[:30],
+            email=member.email,
+            username=username
+        )
+        user.set_password(password)
+        user.save()
+        person.user = user
+        person.username = username
+        person.save()
+        messages.success(request, u"L'utilisateur %s mot de passe %s a été créé avec succès." % (username, password))
+        return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
 
 
 class CFTActivityInline(InlineAutocompleteAdmin):

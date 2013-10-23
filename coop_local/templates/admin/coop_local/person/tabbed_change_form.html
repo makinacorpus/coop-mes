@@ -1,0 +1,17 @@
+{% extends 'admintools_bootstrap/tabbed_change_form.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block object-tools %}
+{% if change %}{% if not is_popup %}
+  <div class="pull-right">
+    {% if not original.user %}
+        <a href='{% url 'admin:create_user' object_id %}' class="btn btn-info">{% trans "Créer un identifiant " %}</a>
+    {% endif %}
+    {% block object-tools-items %}
+    <a href="history/" class="btn btn-info">{% trans "History" %}</a>
+    {% if has_absolute_url %}<a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="btn primary">{% trans "View on site" %}</a>{% endif%}
+    {% endblock %}
+  </div>
+{% endif %}{% endif %}
+{% endblock %}

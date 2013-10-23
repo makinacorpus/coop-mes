@@ -36,7 +36,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 SEND_BROKEN_LINK_EMAILS = True
-INTERNAL_IPS = ('127.0.0.1', '10.0.3.104')
+INTERNAL_IPS = ('127.0.0.1', '10.0.3.1')
 
 SUBHUB_MAINTENANCE_AUTO = False    # set this value to True to automatically syncronize with agregator
 PES_HOST = 'http://pes.domain.com'
