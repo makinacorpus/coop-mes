@@ -697,6 +697,8 @@ class EventDocumentInline(DocumentInline):
 
 class EventAdminForm(BaseEventAdminForm):
 
+    description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
+
     class Meta:
         model = Event
         widgets = {
@@ -711,11 +713,27 @@ class EventAdmin(BaseEventAdmin):
 
     form = EventAdminForm
     inlines = [OccurrenceInline, EventDocumentInline]
-    fieldsets = [['Description', {'fields': ['title', 'description',
-        'tags', 'category', 'calendar', 'organization', 'person', 'location',
-        'activity', 'theme', 'image'
+    fieldsets = [['Description', {'fields': ['title', 'brief_description',
+        'description', 'tags', 'category', 'calendar', 'organization',
+        'person', 'location', 'activity', 'theme', 'image', 'a_la_une',
       ]}],
     ]
+    restricted_fieldsets = [['Description', {'fields': ['title', 'brief_description',
+        'description', 'tags', 'category', 'calendar', 'organization',
+        'person', 'location', 'activity', 'theme', 'image',
+      ]}],
+    ]
+
+    def get_fieldsets(self, request, obj=None):
+        if request.user.is_superuser:
+            return super(EventAdmin, self).get_fieldsets(request, obj)
+        return self.restricted_fieldsets
+
+    def get_form(self, request, obj=None, **kwargs):
+        """
+        Workaround bug http://code.djangoproject.com/ticket/9360 (thanks to peritus)
+        """
+        return super(EventAdmin, self).get_form(request, obj, fields=flatten_fieldsets(self.get_fieldsets(request, obj)))
 
 
 admin.site.unregister(Organization)

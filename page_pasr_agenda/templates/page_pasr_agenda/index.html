@@ -85,7 +85,11 @@
                                         <span class="location">{{ event.location.zipcode }} {{ city }}</span>
                                     {% endif %}{% endwith %}
                                     <h4 class="media-heading">{{ event.title }}</h4>
-                                    <p>{{ event.description|linebreaks }}</p>
+                                    {% if event.brief_description %}
+                                        <p>{{ event.brief_description|linebreaks }}</p>
+                                    {% else %}
+                                        <p>{{ event.description|striptags|truncatewords:100|safe }}</p>
+                                    {% endif %}
                                     <a href="{{ object.page.get.get_absolute_url }}p/{{ event.pk }}/?{{ get_params }}&page={{ events.number }}" class="btn btn-default">En savoir +</a>
                                 </div>
                             </div>

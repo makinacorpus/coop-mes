@@ -32,8 +32,33 @@
             </div>
         </div>
 {% endfor %}
-{% for entry in orgs %}
+{% for entry in events %}
         <div class="item {% if not news and forloop.first %}active{% endif %}">
+            <div class="row">
+                <div class="col-lg-6">
+                    {% thumbnail entry.image "210x280" upscale=0 as image %}
+                        <img src="{{ image.url }}" style="margin: {{ image|margin:"210x280" }}">
+                    {% endthumbnail %}
+                </div>
+                <div class="col-lg-6">
+                    <div class="article-extract">
+                        <h3><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h3>
+                        <div class="article-extract__meta">{{ entry.date_str }} - Événement</div>
+                        <p>
+                            {% if entry.brief_description %}
+                                {{ entry.brief_description|truncatewords:30|linebreaks }}
+                            {% else %}
+                                {{ entry.description|striptags|truncatewords:30|safe }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <p class="text-center"><a href="{{ entry.get_absolute_url }}" class="btn btn-default">Lire les détails</a></p>
+                </div>
+            </div>
+        </div>
+{% endfor %}
+{% for entry in orgs %}
+        <div class="item {% if not news and not events and forloop.first %}active{% endif %}">
             <div class="row">
                 <div class="col-lg-6">
                     {% thumbnail entry.logo "210x280" upscale=0 as image %}

@@ -609,6 +609,9 @@ class Event(BaseEvent):
     activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'), blank=True, null=True)
     theme = models.ManyToManyField('TransverseTheme', verbose_name=_(u'transverse themes'), blank=True, null=True)
     image = ImageField(upload_to='agenda/', null=True, blank=True)
+    brief_description = models.TextField(_(u'brief description'), blank=True,
+        validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
+    a_la_une = models.BooleanField(u'à la une', default=False)
 
     objects = models.Manager()
     geo_objects = GeoManager()

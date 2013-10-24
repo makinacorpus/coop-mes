@@ -40,7 +40,7 @@
                                     </div>
                                 {% endif %}
                             </div>
-                            <p>{{ event.description|linebreaks }}</p>
+                            {{ event.description|safe }}
                             <dl>
                                 {% if event.organization %}
                                     <dt class="iconf-user">Structure organisatrice :</dt>

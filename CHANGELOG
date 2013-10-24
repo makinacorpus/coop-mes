@@ -19,6 +19,9 @@ v1.10
    mots clés non obligatoires pour les acheteurs
  * "A la une" et "En direct" réservé aux admins
  * Traduction des champs nom et prénom
+ * Ajout d'une description courte pour les événements
+ * Ajout d'événemetns à la une
+ * Editeur de texte pour les événements
 
 
 Déploiement
