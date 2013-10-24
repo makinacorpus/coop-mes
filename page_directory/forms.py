@@ -352,12 +352,13 @@ class OrganizationForm5(OrganizationMixin, forms.ModelForm):
             self.fields['workforce'].required = True
         else:
             self.fields['workforce'].label += '*'
-        if propose and self.instance.agreement_iae.filter(label=u'Conventionnement IAE').exists():
-            self.fields['integration_workforce'].required = True
-            self.fields['annual_integration_number'].required = True
-        else:
-            self.fields['integration_workforce'].label += '*'
-            self.fields['annual_integration_number'].label += '*'
+        if self.instance.agreement_iae.filter(label=u'Conventionnement IAE').exists():
+            if propose:
+                self.fields['integration_workforce'].required = True
+                self.fields['annual_integration_number'].required = True
+            else:
+                self.fields['integration_workforce'].label += '*'
+                self.fields['annual_integration_number'].label += '*'
         for field in self.fields.itervalues():
             field.label = field.label.replace(' (ETP)', '')
             field.localize = True
