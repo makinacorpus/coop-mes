@@ -12,6 +12,11 @@ from django.utils.timezone import now
 from datetime import timedelta
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
+from django.contrib.contenttypes.models import ContentType
+from  django.utils.encoding import force_unicode
+from django.utils.translation import ugettext as _
+from django.utils.text import get_text_list
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -86,6 +91,14 @@ def delete_view(request, page_app, pk):
     call = get_object_or_404(CallForTenders, pk=pk)
     if not call.organization.engagement_set.filter(org_admin=True, person__user=request.user).exists():
         return HttpResponseForbidden('Opération interdite')
+    LogEntry.objects.log_action(
+        user_id         = request.user.pk,
+        content_type_id = ContentType.objects.get_for_model(Organization).pk,
+        object_id       = call.organization.pk,
+        object_repr     = force_unicode(call.organization),
+        action_flag     = CHANGE,
+        change_message  = u'Appel d\'offres "%s" supprimé.' % force_unicode(call)
+    )
     call.delete()
     return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
 
@@ -98,6 +111,14 @@ def update_view(request, page_app, pk):
     form = CallForm(request.POST or None, instance=call)
     if form.is_valid():
         form.save()
+        LogEntry.objects.log_action(
+            user_id         = request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Organization).pk,
+            object_id       = call.organization.pk,
+            object_repr     = force_unicode(call.organization),
+            action_flag     = CHANGE,
+            change_message  = u'%s modifié pour l\'appel d\'offres "%s".' % (get_text_list(form.changed_data, _('and')), force_unicode(call))
+        )
         return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
     return render_view('page_calls/edit.html',
                        {'object': page_app, 'form': form},
@@ -115,6 +136,14 @@ def add_view(request, page_app):
         call = form.save(commit=False)
         call.organization = org
         call.save()
+        LogEntry.objects.log_action(
+            user_id         = request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Organization).pk,
+            object_id       = call.organization.pk,
+            object_repr     = force_unicode(call.organization),
+            action_flag     = CHANGE,
+            change_message  = u'Appel d\'offres "%s" ajouté.' % force_unicode(call)
+        )
         return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
     return render_view('page_calls/edit.html',
                        {'object': page_app, 'form': form},

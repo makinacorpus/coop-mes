@@ -26,7 +26,11 @@ from django.core.exceptions import PermissionDenied
 from django.views.generic import CreateView, UpdateView
 from datetime import date
 from django.forms.models import model_to_dict
-
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
+from django.contrib.contenttypes.models import ContentType
+from  django.utils.encoding import force_unicode
+from django.utils.translation import ugettext as _
+from django.utils.text import get_text_list
 
 def index_view(request, page_app):
     if request.GET.get('display') == 'Cartographie':
@@ -111,38 +115,6 @@ def detail_view(request, page_app, pk):
                        context_instance=RequestContext(request))
 
 
-class OrganizationEditView(SessionWizardView):
-
-    file_storage = FileSystemStorage(location=gettempdir() + '/django-coop/')
-    template_name = 'page_directory/edit.html'
-
-    def get_form_kwargs(self, step):
-        cleaned_data1 = self.storage.get_step_data('1') or {}
-        cleaned_data2 = self.storage.get_step_data('2') or {}
-        is_customer = '1-is_customer' in cleaned_data1 or '2-is_customer' in cleaned_data2
-        is_provider = '1-is_provider' in cleaned_data1 or '2-is_provider' in cleaned_data2
-        return {
-            'step': step,
-            'is_customer': is_customer,
-            'is_provider': is_provider,
-        }
-
-    def get_form(self, step=None, data=None, files=None):
-        if step is None:
-            step = self.steps.current
-        kwargs = self.get_form_kwargs(step)
-        kwargs.update({
-            'data': data,
-            'files': files,
-            'prefix': self.get_form_prefix(step, self.form_list[step]),
-        })
-        initial = self.get_form_initial(step)
-        if initial:
-            kwargs['initial'] = initial
-        kwargs.setdefault('instance', self.get_form_instance(step))
-        return self.form_list[step](**kwargs)
-
-
 PROVIDER_TITLES = (
     u'Identification',
     u'Type d\'organisation',
@@ -217,6 +189,18 @@ class OrganizationCreateView(CreateView):
             context,
             ORGANIZATION_MEDIA,
             context_instance=RequestContext(self.request))
+
+    def form_valid(self, form):
+        response = super(OrganizationCreateView, self).form_valid(form)
+        LogEntry.objects.log_action(
+            user_id         = self.request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(self.object).pk,
+            object_id       = self.object.pk,
+            object_repr     = force_unicode(self.object),
+            action_flag     = ADDITION
+        )
+        return response
+
 
 add_view = OrganizationCreateView.as_view()
 
@@ -340,6 +324,45 @@ class OrganizationChangeView(UpdateView):
             ORGANIZATION_MEDIA,
             context_instance=RequestContext(self.request))
 
+    def construct_change_message(self, form):
+        """
+        Construct a change message from a changed object.
+        """
+        change_message = []
+
+        if hasattr(form, 'forms'):
+            for added_object in form.new_objects:
+                change_message.append(_('Added %(name)s "%(object)s".')
+                                        % {'name': force_unicode(added_object._meta.verbose_name),
+                                            'object': force_unicode(added_object)})
+            for changed_object, changed_fields in form.changed_objects:
+                change_message.append(_('Changed %(list)s for %(name)s "%(object)s".')
+                                        % {'list': get_text_list(changed_fields, _('and')),
+                                            'name': force_unicode(changed_object._meta.verbose_name),
+                                            'object': force_unicode(changed_object)})
+            for deleted_object in form.deleted_objects:
+                change_message.append(_('Deleted %(name)s "%(object)s".')
+                                        % {'name': force_unicode(deleted_object._meta.verbose_name),
+                                            'object': force_unicode(deleted_object)})
+        elif form.changed_data:
+            change_message.append(_('Changed %s.') % get_text_list(form.changed_data, _('and')))
+
+        change_message = ' '.join(change_message)
+        return change_message or _('No fields changed.')
+
+    def form_valid(self, form):
+        response = super(OrganizationChangeView, self).form_valid(form)
+        message = ''
+        LogEntry.objects.log_action(
+            user_id         = self.request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Organization).pk,
+            object_id       = self.org.pk,
+            object_repr     = force_unicode(self.org),
+            action_flag     = CHANGE,
+            change_message  = self.construct_change_message(form)
+        )
+        return response
+
 change_view = login_required(OrganizationChangeView.as_view())
 
 
@@ -348,6 +371,14 @@ def offer_delete_view(request, page_app, pk):
     offer = get_object_or_404(Offer, pk=pk)
     if not offer.provider.engagement_set.filter(org_admin=True, person__user=request.user).exists():
         return HttpResponseForbidden('Opération interdite')
+    LogEntry.objects.log_action(
+        user_id         = request.user.pk,
+        content_type_id = ContentType.objects.get_for_model(Organization).pk,
+        object_id       = offer.provider.pk,
+        object_repr     = force_unicode(offer.provider),
+        action_flag     = CHANGE,
+        change_message  = u'Offre "%s" supprimée.' % force_unicode(offer)
+    )
     offer.delete()
     return HttpResponseRedirect('/mon-compte/p/mes-offres/')
 
@@ -360,6 +391,14 @@ def offer_update_view(request, page_app, pk):
     form = OfferForm(request.POST or None, instance=offer)
     if form.is_valid():
         form.save()
+        LogEntry.objects.log_action(
+            user_id         = request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Organization).pk,
+            object_id       = offer.provider.pk,
+            object_repr     = force_unicode(offer.provider),
+            action_flag     = CHANGE,
+            change_message  = u'%s modifié pour l\'offre "%s".' % (get_text_list(form.changed_data, _('and')), force_unicode(offer))
+        )
         return HttpResponseRedirect('/mon-compte/p/mes-offres/')
     return render_view('page_directory/offer_edit.html',
                        {'object': page_app, 'form': form, 'org': offer.provider},
@@ -378,6 +417,14 @@ def offer_add_view(request, page_app):
         offer.provider = org
         offer.save()
         form.save_m2m()
+        LogEntry.objects.log_action(
+            user_id         = request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Organization).pk,
+            object_id       = offer.provider.pk,
+            object_repr     = force_unicode(offer.provider),
+            action_flag     = CHANGE,
+            change_message  = u'Offre "%s" ajoutée.' % force_unicode(offer)
+        )
         return HttpResponseRedirect('/mon-compte/p/mes-offres/')
     return render_view('page_directory/offer_edit.html',
                        {'object': page_app, 'form': form, 'org': org, 'propose': 'propose' in request.GET},
