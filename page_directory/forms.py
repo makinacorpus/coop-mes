@@ -260,21 +260,17 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
         super(OrganizationForm2, self).__init__(*args, **kwargs)
         self.propose = propose
         if propose:
-            self.fields['birth'].required = True
-            self.fields['legal_status'].required = True
+            if self.instance.is_provider:
+                self.fields['birth'].required = True
+                self.fields['legal_status'].required = True
             self.fields['siret'].required = True
             self.fields['customer_type'].required = True
-            if self.instance.is_customer:
-                self.fields['logo'].required = True
-                self.fields['web'].required = True
         else:
-            self.fields['birth'].label += '*'
-            self.fields['legal_status'].label += '*'
+            if self.instance.is_provider:
+                self.fields['birth'].label += '*'
+                self.fields['legal_status'].label += '*'
             self.fields['siret'].label += '*'
             self.fields['customer_type'].label += '*'
-            if self.instance.is_customer:
-                self.fields['logo'].label += '*'
-                self.fields['web'].label += '*'
         if not self.instance.is_customer:
             del self.fields['customer_type']
         if not self.instance.is_provider:
@@ -294,12 +290,8 @@ class OrganizationForm3(OrganizationMixin, forms.ModelForm):
         super(OrganizationForm3, self).__init__(*args, **kwargs)
         if propose:
             self.fields['brief_description'].required = True
-            if self.instance.is_customer:
-                self.fields['description'].required = True
         else:
             self.fields['brief_description'].label += '*'
-            if self.instance.is_customer:
-                self.fields['description'].label += '*'
         self.set_helper(('brief_description', 'description', 'added_value',))
 
 
@@ -321,12 +313,8 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
         if propose:
             self.fields['activities'].required = True
-            if self.instance.is_customer:
-                self.fields['tags'].required = True
         else:
             self.fields['activities'].label += '*'
-            if self.instance.is_customer:
-                self.fields['tags'].label += '*'
         if not self.instance.is_customer:
             del self.fields['activities']
         else:

@@ -206,17 +206,13 @@ add_view = OrganizationCreateView.as_view()
 
 
 def propose_url(org, default_url):
-    if not org.birth or not org.legal_status:
+    if org.is_provider and (not org.birth or not org.legal_status or not org.siret):
         return '/annuaire/p/modifier/1/?propose'
-    if org.is_provider and not org.siret:
-        return '/annuaire/p/modifier/1/?propose'
-    if org.is_customer and (not org.customer_type or not org.logo or not org.web):
+    if org.is_customer and not org.customer_type:
         return '/annuaire/p/modifier/1/?propose'
     if not org.brief_description:
         return '/annuaire/p/modifier/2/?propose'
-    if org.is_customer and not org.description:
-        return '/annuaire/p/modifier/2/?propose'
-    if org.is_customer and not (org.tags.exists() or org.activities.exists()):
+    if org.is_customer and not org.activities.exists():
         return '/annuaire/p/modifier/3/?propose'
     if org.is_provider and not org.workforce:
         return '/annuaire/p/modifier/4/?propose'
