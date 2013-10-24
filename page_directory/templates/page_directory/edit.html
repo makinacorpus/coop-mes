@@ -22,12 +22,12 @@
                                 {% if step.prev %}
                                     <li><a href="/annuaire/p/modifier/{{ step.prev }}/" class="prev"><span class="arrow">g</span> Précédent</a></li>
                                 {% else %}
-                                    <li><a href="javascript:;" class="prev inactive"><span class="arrow">g</span> Précédent</a></li>
+                                    <li><a href="javascript:;" class="prev"><span class="arrow">g</span> Précédent</a></li>
                                 {% endif %}
                                 {% if step.next %}
                                     <li><a href="/annuaire/p/modifier/{{ step.next }}/" class="next">Étape <span class="step-current">{{ step.current|add:"1" }}</span>/<span class="step-total">{{ step.count }}</span> <span class="arrow">f</span></a></li>
                                 {% else %}
-                                    <li><a href="javascript:;"  class="next inactive">Étape <span class="step-current">{{ step.current|add:"1" }}</span>/<span class="step-total">{{ step.count }}</span> <span class="arrow">f</span></a></li>
+                                    <li><a href="javascript:;"  class="next">Étape <span class="step-current">{{ step.current|add:"1" }}</span>/<span class="step-total">{{ step.count }}</span> <span class="arrow">f</span></a></li>
                                 {% endif %}
                             </ul>
                         </div>

@@ -17,6 +17,7 @@ v1.10
  * Historique des modifications effectuées en front-end
  * Champs logo, date de création, statut juridique, site web, description et
    mots clés non obligatoires pour les acheteurs
+ * "A la une" et "En direct" réservé aux admins
 
 
 Déploiement

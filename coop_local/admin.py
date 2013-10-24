@@ -20,6 +20,7 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.contrib.admin.util import flatten_fieldsets
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -344,11 +345,52 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'fields': ['testimony',]
             })
     )
+    restricted_fieldsets = (
+        (_(u'Key info'), {
+            'fields': ['title', ('acronym', 'pref_label'), 'logo', 'birth', 'active',
+                       'legal_status', 'category', 'category_iae', 'agreement_iae',
+                       'web', 'siret', 'bdis_id']
+            }),
+        (_(u'Organization type'), {
+            'fields': ['is_provider', 'is_customer', 'is_network', 'customer_type']
+            }),
+        (_(u'Economic info'), {
+            'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),
+                       ('integration_workforce', 'annual_integration_number')]
+            }),
+        (_(u'Description'), {
+            'fields': ['brief_description', 'description', 'added_value', 'activities', 'tags', 'transverse_themes']
+            }),
+        (_(u'Guaranties'), {
+            'fields': ['guaranties']
+            }),
+        (_(u'Management'), {
+            'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
+                       'transmission_date', 'authors', 'validation']
+            }),
+        (_(u'Preferences'), {
+            'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
+            }),
+        (_(u'Testimony'), {
+            'fields': ['testimony',]
+            })
+    )
     inlines = [DocumentInline, RelationInline, LocatedInline, ContactInline, EngagementInline, ReferenceInline]
     change_form_template = 'admin/coop_local/organization/tabbed_change_form.html'
     search_fields = ['norm_title', 'acronym']
     related_search_fields = {'legal_status': ('label', )}
     related_combobox = ('legal_status', )
+
+    def get_fieldsets(self, request, obj=None):
+        if request.user.is_superuser:
+            return super(OrganizationAdmin, self).get_fieldsets(request, obj)
+        return self.restricted_fieldsets
+
+    def get_form(self, request, obj=None, **kwargs):
+        """
+        Workaround bug http://code.djangoproject.com/ticket/9360 (thanks to peritus)
+        """
+        return super(OrganizationAdmin, self).get_form(request, obj, fields=flatten_fieldsets(self.get_fieldsets(request, obj)))
 
     def changelist_view(self, request, extra_context=None):
         query_dict = request.GET.copy()
@@ -601,8 +643,13 @@ class CallForTendersAdmin(FkAutocompleteAdmin):
         'organization': ('title', 'acronym', ),
     }
     inlines = [CFTActivityInline, AreaInline]
-    exclude = ('activity', 'areas')
 
+    def get_form(self, request, obj=None, **kwargs):
+         if request.user.is_superuser:
+             self.exclude = ('activity', 'areas')
+         else:
+             self.exclude = ('activity', 'areas', 'en_direct', 'a_la_une')
+         return super(CallForTendersAdmin, self).get_form(request, obj, **kwargs)
 
 class OfferDocumentInline(DocumentInline):
 
