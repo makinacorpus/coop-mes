@@ -46,25 +46,42 @@
                                     <dt class="iconf-user">Structure organisatrice :</dt>
                                     {% if event.organization.status == 'V' %}
                                         <dd><a href="{{ event.organization.get_absolute_url }}">{{ event.organization }}</a></dd>
+                                    {% elif event.organization.web %}
+                                        <dd><a href="{{ event.organization.web }}">{{ event.organization }}</a></dd>
                                     {% else %}
                                         <dd>{{ event.organization }}</dd>
                                     {% endif %}
                                 {% endif %}
 
-                                <dt class="iconf-time">Horaires :</dt>
-                                <dd>{{ event.time_str|safe }}</dd>
+                                {% if event.location %}
+                                    <dt class="iconf-pins">Lieu :</dt>
+                                    <dd>{{ event.location }}</dd>
+                                {% endif %}
 
-                                <dt class="iconf-content-43">Catégorie :</dt>
-                                <dd>{{ event.category.all|join:", " }}</dd>
+                                {% if event.occurrence_set.all %}
+                                    <dt class="iconf-time">Horaires :</dt>
+                                    <dd>{{ event.time_str|safe }}</dd>
+                                {% endif %}
 
-                                <dt class="iconf-info-circled">Secteur d'activité :</dt>
-                                <dd>{{ event.activity_str|safe }}</dd>
+                                {% if event.category.all %}
+                                    <dt class="iconf-content-43">Catégorie :</dt>
+                                    <dd>{{ event.category.all|join:", " }}</dd>
+                                {% endif %}
 
-                                <dt class="iconf-rubon">Thématique :</dt>
-                                <dd>{{ event.theme.all|join:"<br/>"|safe }}</dd>
+                                {% if event.activity.all %}
+                                    <dt class="iconf-info-circled">Secteur d'activité :</dt>
+                                    <dd>{{ event.activity_str|safe }}</dd>
+                                {% endif %}
 
-                                <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
-                                <dd>{{ event.tags.all|join:", " }}</dd>
+                                {% if event.theme.all %}
+                                    <dt class="iconf-rubon">Thématique :</dt>
+                                    <dd>{{ event.theme.all|join:"<br/>"|safe }}</dd>
+                                {% endif %}
+
+                                {% if event.tags.all %}
+                                    <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
+                                    <dd>{{ event.tags.all|join:", " }}</dd>
+                                {% endif %}
                             </dl>
                         </div>
                         <div class="col-lg-6">

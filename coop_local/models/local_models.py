@@ -13,7 +13,7 @@ from sorl.thumbnail import default
 
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
     BaseRole, BaseRelation, BaseContact, BaseEngagement)
-from coop.agenda.models import BaseEvent
+from coop.agenda.models import BaseEvent, BaseOccurrence
 from coop.person.models import BasePerson
 from coop_geo.models import Located as BaseLocated
 from unidecode import unidecode
@@ -604,6 +604,21 @@ class Contact(BaseContact):
         app_label = 'coop_local'
 
 
+class Occurrence(BaseOccurrence):
+
+    def time_str(self):
+        if self.start_time.date() == self.end_time.date():
+            return u'Le %s de %s à %s' % (
+                date_format(self.start_time, r'd/m/Y'),
+                date_format(self.start_time, r'H\hi'),
+                date_format(self.end_time, r'H\hi'),
+            )
+        return u'Du %s au %s' % (
+            date_format(self.start_time, r'd/m/Y H\hi'),
+            date_format(self.end_time, r'd/m/Y H\hi'),
+        )
+
+
 class Event(BaseEvent):
 
     activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'), blank=True, null=True)
@@ -630,10 +645,7 @@ class Event(BaseEvent):
 
     def time_str(self):
         occurrences = self.occurrence_set.order_by('start_time')
-        return '<br/>'.join(['Du %s au %s' % (
-                date_format(o.start_time, r'd/m/Y H\hi'),
-                date_format(o.end_time, r'd/m/Y H\hi'),
-            ) for o in occurrences])
+        return '<br/>'.join([o.time_str() for o in occurrences])
 
     def activity_str(self):
         return "<br/> ".join(self.activity.values_list('label', flat=True))
