@@ -12,8 +12,20 @@
                                 {{ form.date }}
                             </div>
                             <div class="item">
-                                <h3>Intervalle</h3>
+                                <h3>Période</h3>
                                 {{ form.interval }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Organisateur</h3>
+                                {{ form.organization }}
+                            </div>
+                            <div class="item">
+                                <div class="dropdown">
+                                    <h3>Secteur d'activité</h3>
+                                    {{ form.sector }}
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -25,21 +37,8 @@
                                     <span class="input-group-addon form-control-small">km</span>
                                 </div>
                             </div>
-                            <div class="item">
-                                <h3>Thématique</h3>
-                                {{ form.theme }}
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="item">
-                                <div class="dropdown">
-                                    <h3>Secteur d'activité</h3>
-                                    {{ form.sector }}
-                                </div>
-                            </div>
-                            <div class="item">
-                                <h3>Organisation</h3>
-                                {{ form.organization }}
+                            <div class="item search">
+                                {{ form.q }}
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -47,9 +46,6 @@
                                 <div class="result">
                                     <span class="number">{{ events.paginator.count }}</span> Résultat{{ events.paginator.count|pluralize }}
                                 </div>
-                            </div>
-                            <div class="item search">
-                                {{ form.q }}
                             </div>
                             <div class="item">
                                 <p class="text-center"><button class="btn btn-default" type="submit" name="display" value="RECHERCHER">RECHERCHER</button></p>

@@ -36,8 +36,6 @@ def index_view(request, page_app):
         descendants = sector and sector.get_descendants(include_self=True)
         if descendants:
             events = events.filter(activity__in=descendants)
-        if qd.get('theme'):
-            events = events.filter(theme=qd['theme'])
         if qd.get('organization'):
             events = events.filter(organization=qd['organization'])
         area = form.cleaned_data.get('area')
