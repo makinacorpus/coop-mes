@@ -56,6 +56,7 @@ def index_view(request, page_app):
     else:
         area = None
         events = Event.objects.none()
+    events = events.order_by('occurrence__start_time')
     paginator = Paginator(events, 20)
     page = request.GET.get('page')
     try:
