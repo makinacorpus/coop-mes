@@ -32,6 +32,8 @@ Déploiement
 
 - Pull django_coop
 - Pull ionyweb
+- collectstatic
+- migrate coop_local
 
 
 v1.9

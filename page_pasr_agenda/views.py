@@ -16,7 +16,7 @@ def index_view(request, page_app):
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
     if not qd.get('date'):
-        qd['date'] = date.today()
+        qd['date'] = date.today().strftime('%d/%m/%Y')
     if not qd.get('interval') or not qd['interval'].isdigit:
         qd['interval'] = '9999'
     form = EventSearch(qd)
