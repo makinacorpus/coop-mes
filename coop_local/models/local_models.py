@@ -325,7 +325,7 @@ class Engagement(BaseEngagement):
     email = models.EmailField(_(u'email'), max_length=100, blank=True, null=True)
 
 
-CLAUSE_CHOICES = (('14', '14'), ('15', '15'), ('30', '30'), ('53', '53'))
+CLAUSE_CHOICES = (('6', '6'), ('14', '14'), ('15', '15'), ('30', '30'), ('53', '53'))
 
 
 class CallForTenders(models.Model):
