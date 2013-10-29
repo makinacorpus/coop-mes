@@ -582,6 +582,24 @@ class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
     list_filter = ('type', )
     search_fields = ('type', 'name')
 
+    def csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('guaranties')
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer.writerow([s.encode('cp1252') for s in [u'organisation', u'garantie']])
+        for organization in Organization.objects.order_by('title'):
+            for guaranty in organization.guaranties.order_by('name'):
+                row = [organization.title, guaranty.name]
+                writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
+        return response
+
+    def get_urls(self):
+        urls = super(GuarantyAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view)),
+        )
+        return my_urls + urls
+
 
 class PersonAdmin(BasePersonAdmin):
     inlines = [ContactInline, OrgInline]
