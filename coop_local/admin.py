@@ -645,9 +645,23 @@ class PersonAdmin(BasePersonAdmin):
     search_fields = ('last_name', 'first_name', 'user__username', 'engagements__organization__title', 'engagements__organization__acronym', 'structure')
     change_form_template = 'admin/coop_local/person/tabbed_change_form.html'
 
+    def csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('guaranties')
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer.writerow([s.encode('cp1252') for s in [u'organisation', u'prénom',
+            u'nom', u'fonction', u'téléphone', 'courriel', u'affichage']])
+        for organization in Organization.objects.order_by('title'):
+            for e in organization.engagement_set.order_by('person__last_name'):
+                p = e.person
+                row = [organization.title, p.first_name, p.last_name, e.role.label if e.role else '', e.tel or '', e.email or '', e.get_engagement_display_display()]
+                writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
+        return response
+
     def get_urls(self):
         urls = super(PersonAdmin, self).get_urls()
         my_urls = patterns('',
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view)),
             url(r'^(?P<pk>\d+)/create_user/$', self.admin_site.admin_view(self.create_user), name='create_user'),
         )
         return my_urls + urls
