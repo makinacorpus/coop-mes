@@ -53,6 +53,7 @@ from coop.agenda.admin import (
     EventAdmin as BaseEventAdmin,
     EventAdminForm as BaseEventAdminForm,
     OccurrenceInline)
+from coop_geo.admin import LocationAdmin as BaseLocationAdmin
 from coop.utils.autocomplete_admin import (
     FkAutocompleteAdmin,
     InlineAutocompleteAdmin,
@@ -825,6 +826,51 @@ class EventAdmin(BaseEventAdmin):
         return super(EventAdmin, self).get_form(request, obj, fields=flatten_fieldsets(self.get_fieldsets(request, obj)))
 
 
+class LocationAdmin(BaseLocationAdmin):
+
+    def csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=offres.csv'
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer.writerow([s.encode('cp1252') for s in [u'organisation',
+            u'libellé', u'adresse', u'complément d\'adresse',
+            u'code postal', u'commune', u'jours et horaires d\'ouverture',
+            u'tél.', u'fax', u'mail']])
+        for org in Organization.objects.order_by('title'):
+            for loc in org.located.exclude(location__isnull=True):
+                row = [org.title]
+                row.append(loc.location.label)
+                row.append(loc.location.adr1)
+                row.append(loc.location.adr2)
+                row.append(loc.location.zipcode)
+                row.append(loc.location.city)
+                row.append(loc.opening)
+                tel = org.contacts.filter(contact_medium_id=1, location=loc.location)
+                if tel:
+                    row.append(tel[0].content)
+                else:
+                    row.append('')
+                fax = org.contacts.filter(contact_medium_id=3, location=loc.location)
+                if fax:
+                    row.append(fax[0].content)
+                else:
+                    row.append('')
+                email = org.contacts.filter(contact_medium_id=8, location=loc.location)
+                if email:
+                    row.append(email[0].content)
+                else:
+                    row.append('')
+                writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
+        return response
+
+    def get_urls(self):
+        urls = super(LocationAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view)),
+        )
+        return my_urls + urls
+
+
 admin.site.unregister(Organization)
 register(Guaranty, GuarantyAdmin)
 register(Organization, OrganizationAdmin)
@@ -841,3 +887,5 @@ register(CallForTenders, CallForTendersAdmin)
 register(Offer, OfferAdmin)
 admin.site.unregister(Event)
 register(Event, EventAdmin)
+admin.site.unregister(Location)
+register(Location, LocationAdmin)
