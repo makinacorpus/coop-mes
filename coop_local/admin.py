@@ -21,6 +21,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.contrib.admin.util import flatten_fieldsets
+from django.utils.formats import number_format
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -494,28 +495,56 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('organizations')
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [
-            _('corporate name'), _('acronym'), _('Preferred label'), _('creation date'),
-            _('legal status'), _('category ESS'), _('category IAE'),
-            _('agreement IAE'), _('web site'), _('preferred email'), _('No. SIRET'),
-            _('creation'), _('modification'), _('status'), _('correspondence'),
-            _('transmission'), _('transmission_date'), _('authors'), _('validation'),
-        ]])
+            _('creation'), _('modification'), _('status'), _('transmission'),
+            _('transmission_date'),  _('validation'), _('authors'),
+            _('corporate name'), _('acronym'), _('is a provider'),
+            _('is a customer'), _('is a network'), _('Customer type'),
+            _('creation date'), _('legal status'), _('category IAE'),
+            _('category ESS'), u'spécificités', _('web site'),
+            _('No. SIRET'), _('brief description'), _('annual revenue'),
+            _('added value'), u'mots-clés', _('transverse themes'),
+            _('workforce'), _('production workforce'),
+            _('supervision workforce'), _('integration workforce'),
+            _('annual integration number'), _('preferred phone'),
+            _('preferred email'),
+            u'adresse', u'autre adresse', u'code postal', u'ville']])
         for organization in Organization.objects.order_by('title'):
-            row  = [organization.title, organization.acronym or '', organization.get_pref_label_display()]
-            row += [organization.birth.strftime('%d/%m/%Y') if organization.birth else '']
-            row += [unicode(organization.legal_status) if organization.legal_status else '']
-            row += [', '.join([unicode(c) for c in organization.category.all()])]
-            row += [', '.join([unicode(c) for c in organization.category_iae.all()])]
-            row += [', '.join([unicode(a) for a in organization.agreement_iae.all()])]
-            row += [organization.web or '', organization.pref_email.content if organization.pref_email else '', organization.siret]
-            row.append(organization.creation.strftime('%d/%m/%Y') if organization.creation else '')
+            row = [organization.creation.strftime('%d/%m/%Y') if organization.creation else '']
             row.append(organization.modification.strftime('%d/%m/%Y') if organization.modification else '')
             row.append(organization.get_status_display() or '')
-            row.append(organization.correspondence)
             row.append(organization.get_transmission_display() or '')
             row.append(organization.transmission_date.strftime('%d/%m/%Y') if organization.transmission_date else '')
-            row.append(', '.join([unicode(a) for a in organization.authors.all()]))
             row.append(organization.validation.strftime('%d/%m/%Y') if organization.validation else '')
+            row.append(', '.join([unicode(a) for a in organization.authors.all()]))
+            row.append(organization.title)
+            row.append(organization.acronym or '')
+            row.append('X' if organization.is_provider else '')
+            row.append('X' if organization.is_customer else '')
+            row.append('X' if organization.is_network else '')
+            row.append(organization.get_customer_type_display() or '')
+            row += [organization.birth.strftime('%d/%m/%Y') if organization.birth else '']
+            row += [unicode(organization.legal_status) if organization.legal_status else '']
+            row += [', '.join([unicode(c) for c in organization.category_iae.all()])]
+            row += [', '.join([unicode(c) for c in organization.category.all()])]
+            row += [', '.join([unicode(a) for a in organization.agreement_iae.all()])]
+            row.append(organization.web or '')
+            row.append(organization.siret)
+            row.append(organization.brief_description)
+            row.append(str(organization.annual_revenue) if  organization.annual_revenue is not None else '')
+            row.append(organization.added_value)
+            row += [', '.join([unicode(t) for t in organization.tags.all()])]
+            row += [', '.join([unicode(t) for t in organization.transverse_themes.all()])]
+            row.append(number_format(organization.workforce) if  organization.workforce is not None else '')
+            row.append(number_format(organization.production_workforce) if  organization.production_workforce is not None else '')
+            row.append(number_format(organization.supervision_workforce) if  organization.supervision_workforce is not None else '')
+            row.append(number_format(organization.integration_workforce) if  organization.integration_workforce is not None else '')
+            row.append(number_format(organization.annual_integration_number) if  organization.annual_integration_number is not None else '')
+            row.append(organization.pref_phone.content if organization.pref_phone else '')
+            row.append(organization.pref_email.content if organization.pref_email else '')
+            row.append(organization.pref_address.adr1 if organization.pref_address else '')
+            row.append(organization.pref_address.adr2 if organization.pref_address else '')
+            row.append(organization.pref_address.zipcode if organization.pref_address else '')
+            row.append(organization.pref_address.city if organization.pref_address else '')
             writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
 
