@@ -748,6 +748,36 @@ class OfferAdmin(FkAutocompleteAdmin):
     inlines = [OActivityInline, OfferAreaInline, OfferDocumentInline]
     exclude = ('activity', 'area')
 
+    def csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=offres.csv'
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer.writerow([s.encode('cp1252') for s in [u'organisation',
+            u'secteur d\'activité', u'description', u'cibles client',
+            u'moyens techniques disponibles',
+            u'effectif total mobilisable (ETP)',
+            u'modalités pratiques', u'couverture géographique',
+            u'mots-clés']])
+        for offer in Offer.objects.order_by('provider__title'):
+            row = [offer.provider.title]
+            row.append(', '.join([unicode(a) for a in offer.activity.all()]))
+            row.append(offer.description)
+            row.append(', '.join([unicode(t) for t in offer.targets.all()]))
+            row.append(offer.technical_means)
+            row.append(number_format(offer.workforce) if  offer.workforce is not None else '')
+            row.append(offer.practical_modalities)
+            row.append(', '.join([unicode(a) for a in offer.area.all()]))
+            row.append(', '.join([unicode(t) for t in offer.tags.all()]))
+            writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
+        return response
+
+    def get_urls(self):
+        urls = super(OfferAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view)),
+        )
+        return my_urls + urls
+
 
 class EventDocumentInline(DocumentInline):
 
