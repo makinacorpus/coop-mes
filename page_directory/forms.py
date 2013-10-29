@@ -117,7 +117,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         data-toggle="modal" href="#charte">charte de l\'utilisateur</a>')
     last_name = forms.CharField(label=_(u'last name').capitalize(), max_length=100)
     first_name = forms.CharField(label=_(u'first name').capitalize(), max_length=100, required=False)
-    email = forms.CharField(label='Email')
+    email = forms.CharField(label='Courriel')
 
     class Meta:
         model = Organization

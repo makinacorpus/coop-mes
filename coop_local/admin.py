@@ -637,7 +637,7 @@ class PersonAdmin(BasePersonAdmin):
             return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
         member = Engagement.objects.get(person=person, organization=org, org_admin=True)
         if not member.email:
-            messages.error(request, u"L'utilisateur n'a pas d'email lié à son engagement dans %s." % unicode(org))
+            messages.error(request, u"L'utilisateur n'a pas de courriel lié à son engagement dans %s." % unicode(org))
             return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
         username = (person.first_name.strip() + '.' + person.last_name.strip())[:30]
         username = unicodedata.normalize('NFKD', unicode(username))
@@ -835,7 +835,7 @@ class LocationAdmin(BaseLocationAdmin):
         writer.writerow([s.encode('cp1252') for s in [u'organisation',
             u'libellé', u'adresse', u'complément d\'adresse',
             u'code postal', u'commune', u'jours et horaires d\'ouverture',
-            u'tél.', u'fax', u'mail']])
+            u'tél.', u'fax', u'courriel']])
         for org in Organization.objects.order_by('title'):
             for loc in org.located.exclude(location__isnull=True):
                 row = [org.title]

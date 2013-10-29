@@ -1,6 +1,12 @@
 v1.11
 
  * Exports CSV
+ * Renommage de email en courriel
+
+
+Déploiement
+
+ - migrate coop_local
 
 
 v1.10

@@ -5,7 +5,7 @@
             <p>
                 {{ e.person.get_gender_display }} {{ e.person.first_name }} {{ e.person.last_name }}
                 {% if e.role %}<br />{{ e.role }}{% endif %}
-                {% if e.email %}<br/>Email&nbsp;: <a href="mailto:{{ e.email  }}">{{ e.email }}</a>{% endif %}
+                {% if e.email %}<br/>Courriel&nbsp;: <a href="mailto:{{ e.email  }}">{{ e.email }}</a>{% endif %}
                 {% if e.tel %}<br/>Tél.&nbsp;: {{ e.tel }}{% endif %}
             </p>
         {% endfor %}
@@ -14,7 +14,7 @@
         {% if org.other_contacts or org.web %}
             <h3>Coordonnées</h3>
             {% for c in org.other_contacts %}
-                {% if c.contact_medium %}{{ c.contact_medium }}&nbsp;: {% endif %}{% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
+                {% if c.contact_medium %}{{ c.contact_medium }}&nbsp;: {% endif %}{% if c.contact_medium.id == 8 %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
             {% endfor %}
             {% if org.web %}
                 Web&nbsp;: <a href="{{ org.web }}">{{ org.web }}</a><br/>
@@ -27,7 +27,7 @@
                 {% if l.location.adr2 %}<br/>{{ l.location.adr2 }}{% endif %}
                 <br/>{{ l.location.zipcode }} {{ l.location.city }}
                 {% for c in l.location.contact_set.all %}
-                    <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.label == 'Email' %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
+                    <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.id == 8 %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
                 {% endfor %}
                 {% if l.opening %}<br />Ouverture&nbsp;: {{ l.opening }}{% endif %}
             </p>
