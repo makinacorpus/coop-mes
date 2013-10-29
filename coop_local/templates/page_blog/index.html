@@ -1,18 +1,49 @@
-{% load i18n thumbnail %}
+{% load i18n thumbnail staticfiles %}
 
 <div class="main-content">
     <div class="container">
         <div class="row">
+            <div class="col-lg-12">
+                <form id="annuaires-search" method="GET" action="#" class="content-box top advanced-search-form">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Date</h3>
+                                {{ form.date }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Recherche libre</h3>
+                                {{ form.q }}
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <div class="result">
+                                    <span class="number">{{ entries.paginator.count }}</span> Résultat{{ entries.paginator.count|pluralize }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <p class="text-center"><button class="btn btn-default" type="submit" name="display" value="RECHERCHER">RECHERCHER</button></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-9">
                 <div class="content-box">
-{% if latest %}
-{% comment %}
+{% if entries.object_list %}
                     <div class="section-head">
                         {% include "page_blog/pagination.html" %}
                     </div>
-{% endcomment %}
-                    <div class="">
-{% for entry in latest %}
+                    <div class="results">
+{% for entry in entries %}
                         <div class="media">
                             <a class="pull-left" href="#">
                                 {% if entry.thumb %}
@@ -51,11 +82,9 @@
                         </div>
 {% endfor %}
                     </div>
-{% comment %}
                     <div class="section-foot">
                         {% include "page_blog/pagination.html" %}
                     </div>
-{% endcomment %}
 {% else %}
                     <div>Aucune actualité.</div>
 {% endif %}
@@ -69,3 +98,9 @@
         </div>
     </div>
 </div>
+
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script src="{% static "js/bootstrap-datepicker.fr.js" %}"></script>
+<script type="text/javascript">
+    $('#id_date').datepicker({format: 'dd/mm/yyyy', weekStart: 1, language: 'fr', autoclose: true});
+</script>
