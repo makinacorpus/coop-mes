@@ -562,7 +562,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
 
     def contacts_csv_view(self, request):
         response = HttpResponse(mimetype='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=references.csv'
+        response['Content-Disposition'] = 'attachment; filename=contacts.csv'
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [
             u'organisation', u'medium', u'contenu', u'détail', u'affichage']])
@@ -572,6 +572,17 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                 writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
 
+    def relations_csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=relations.csv'
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer.writerow([s.encode('cp1252') for s in [
+            u'organisation source', u'type de relation', u'organisation cible']])
+        for rel in Relation.objects.order_by('source__title', 'target__title'):
+            row = [rel.source.title, rel.relation_type.label if rel.relation_type else '', rel.target.title]
+            writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
+        return response
+
     def get_urls(self):
         urls = super(OrganizationAdmin, self).get_urls()
         my_urls = patterns('',
@@ -579,6 +590,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             url(r'^csv/$', self.admin_site.admin_view(self.csv_view), name='organization_csv'),
             url(r'^references_csv/$', self.admin_site.admin_view(self.references_csv_view)),
             url(r'^contacts_csv/$', self.admin_site.admin_view(self.contacts_csv_view)),
+            url(r'^relations_csv/$', self.admin_site.admin_view(self.relations_csv_view)),
             url(r'^activity_list/$', self.activity_list_view, name='coop_local_offer_activity_list')
         )
         return my_urls + urls
