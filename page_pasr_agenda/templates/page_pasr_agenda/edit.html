@@ -1,0 +1,84 @@
+{% load thumbnail crispy_forms_tags staticfiles %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar sidebar--left">
+                {% include "forms-menu.html" %}
+            </div>
+            <div class="col-lg-9">
+                <div class="content-box">
+                    <div class="section-head">
+                        <h1 class="title">PROPOSER UN EVENEMENT</h1>
+                    </div>
+                    <form class="form form-horizontal" action="#" enctype="multipart/form-data" method="post">
+                        <fieldset>
+                            {% crispy form %}
+                        </fieldset>
+                        {{ form2.management_form }}
+                        {% for subform in form2.forms %}
+                            {{ subform.id }}
+                            {% crispy subform %}
+                        {% endfor %}
+                        <fieldset class="text-center">
+                            <button class="add-link btn btn--form">Ajouter une plage horaire</button>
+                            <button type="submit" class="btn btn-default">Enregistrer</button>
+                        </fieldset>
+                        <p><b>*</b> champs obligatoires</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+    /* Tags autoselect */
+
+    $('.as-selections').addClass('form-control');
+    $('.as-input').removeClass('form-control');
+
+    /* Datetime picker */
+
+    $('.datetimeinput').not($('.formset-form:last .datetimeinput')).datetimepicker({'format': 'dd/mm/yyyy hh:ii', 'weekStart': 1, 'language': 'fr', 'minuteStep': 15, 'autoclose': true});
+
+    /* Select2 */
+
+    $('select').select2();
+
+    /* Formset */
+    $('.formset-form:last').hide();
+    var hidden_id = $('[id$="TOTAL_FORMS"]').val();
+
+    $('.add-link').click(function() {
+        var newElement = $('.formset-form:last').clone(true);
+        var total = $('[id$="TOTAL_FORMS"]').val();
+        newElement.find('[id^="id_"]:input').each(function() {
+            var name = $(this).attr('name').replace('-' + (hidden_id-1) + '-','-' + total + '-');
+            var id = 'id_' + name;
+            $(this).attr({'name': name, 'id': id});
+        });
+        newElement.find('label').each(function() {
+            var newFor = $(this).attr('for').replace('-' + (hidden_id-1) + '-','-' + total + '-');
+            $(this).attr('for', newFor);
+        });
+        newElement.find('.datetimeinput').datetimepicker({'format': 'dd/mm/yyyy hh:ii', 'weekStart': 1, 'language': 'fr', 'minuteStep': 15, 'autoclose': true});
+        total++;
+        $('[id$="TOTAL_FORMS"]').val(total);
+        $('.formset-form:last').before(newElement);
+        newElement.show();
+        return false;
+    });
+
+    $('.delete-link').click(function() {
+        $(this).parent().find("input").prop('checked', true);
+        $(this).parents("fieldset").addClass("hidden");
+        return false;
+    });
+
+});
+
+</script>

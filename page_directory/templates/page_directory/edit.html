@@ -111,17 +111,20 @@ jQuery(document).ready(function() {
 
     /* Formset */
     $('.formset-form:last').hide();
+    var hidden_id = $('[id$="TOTAL_FORMS"]').val() - 1;
+    console.log('hidden_id: ' + hidden_id);
 
     $('.add-link').click(function() {
         var newElement = $('.formset-form:last').clone(true);
         var total = $('[id$="TOTAL_FORMS"]').val();
         newElement.find('[id^="id_"]:input').each(function() {
-            var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+            var name = $(this).attr('name').replace('-' + hidden_id + '-','-' + total + '-');
+            console.log('-' + hidden_id + '-','-' + total + '-');
             var id = 'id_' + name;
             $(this).attr({'name': name, 'id': id});
         });
         newElement.find('label').each(function() {
-            var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+            var newFor = $(this).attr('for').replace('-' + hidden_id + '-','-' + total + '-');
             $(this).attr('for', newFor);
         });
         newElement.find('select').select2();

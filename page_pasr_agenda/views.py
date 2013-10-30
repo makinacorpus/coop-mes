@@ -2,13 +2,34 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from coop_local.models import Event, Occurrence
-from .forms import EventSearch
-from django.db.models import Q
+from coop_local.models import Event, Occurrence, Organization, Calendar
+from .forms import EventSearch, FrontEventForm, OccurrencesForm
+from django.db.models import Q, Min
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from django.shortcuts import get_object_or_404
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
+from django.contrib.contenttypes.models import ContentType
+from  django.utils.encoding import force_unicode
+from django.utils.text import get_text_list
+from django.utils.translation import ugettext as _
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+
+
+EDIT_MEDIA = [
+    CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
+    JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
+    JSMedia('../_tinymce/compressor/', prefix_file=''),
+    CSSMedia('select2/select2.css', prefix_file=''),
+    CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
+    JSMedia('select2/select2.min.js', prefix_file=''),
+    CSSMedia('datetimepicker/css/datetimepicker.css', prefix_file=''),
+    JSMedia('datetimepicker/js/bootstrap-datetimepicker.min.js', prefix_file=''),
+    JSMedia('datetimepicker/js/locales/bootstrap-datetimepicker.fr.js', prefix_file=''),
+]
 
 
 def index_view(request, page_app):
@@ -85,4 +106,91 @@ def detail_view(request, page_app, pk):
                        {'object': page_app, 'event': event,
                         'get_params': get_params.urlencode()},
                        (),
+                       context_instance=RequestContext(request))
+
+
+@login_required
+def add_view(request, page_app):
+    org = Organization.mine(request)
+    if org is None:
+        return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
+    form = FrontEventForm(request.POST or None, request.FILES or None)
+    form2 = OccurrencesForm(request.POST or None, instance=form.instance)
+    if form.is_valid() and form2.is_valid():
+        event = form.save(commit=False)
+        event.calendar = Calendar.objects.all()[0]
+        event.organization = org
+        event.person = request.user.get_profile()
+        event.save()
+        form2.save()
+        LogEntry.objects.log_action(
+            user_id         = request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Event).pk,
+            object_id       = event.pk,
+            object_repr     = force_unicode(event),
+            action_flag     = ADDITION,
+        )
+        return HttpResponseRedirect('/agenda/p/mes-evenements/')
+    return render_view('page_pasr_agenda/edit.html',
+                       {'object': page_app, 'form': form, 'form2': form2},
+                       EDIT_MEDIA,
+                       context_instance=RequestContext(request))
+
+
+@login_required
+def delete_view(request, page_app, pk):
+    org = Organization.mine(request)
+    if org is None:
+        return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
+    event = get_object_or_404(Event, pk=pk, organization=org)
+    LogEntry.objects.log_action(
+        user_id         = request.user.pk,
+        content_type_id = ContentType.objects.get_for_model(Event).pk,
+        object_id       = event.pk,
+        object_repr     = force_unicode(event),
+        action_flag     = DELETION,
+        change_message  = u'Evénement "%s" supprimé.' % force_unicode(event)
+    )
+    event.delete()
+    return HttpResponseRedirect('/agenda/p/mes-evenements/')
+
+
+@login_required
+def update_view(request, page_app, pk):
+    org = Organization.mine(request)
+    if org is None:
+        return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
+    event = get_object_or_404(Event, pk=pk, organization=org)
+    form = FrontEventForm(request.POST or None, request.FILES or None, instance=event)
+    form2 = OccurrencesForm(request.POST or None, instance=event)
+    if form.is_valid() and form2.is_valid():
+        form.save()
+        form2.save()
+        LogEntry.objects.log_action(
+            user_id         = request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Event).pk,
+            object_id       = event.pk,
+            object_repr     = force_unicode(event),
+            action_flag     = CHANGE,
+            change_message  = u'%s modifié pour l\'événement "%s".' % (get_text_list(form.changed_data, _('and')), force_unicode(event))
+        )
+        return HttpResponseRedirect('/agenda/p/mes-evenements/')
+    return render_view('page_pasr_agenda/edit.html',
+                       {'object': page_app, 'form': form, 'form2': form2},
+                       EDIT_MEDIA,
+                       context_instance=RequestContext(request))
+
+
+@login_required
+def my_view(request, page_app):
+    org = Organization.mine(request)
+    if org is None:
+        return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
+    events = Event.objects.filter(organization=org)
+    events = events.annotate(start_time=Min('occurrence__start_time'))
+    events = events.filter(occurrence__end_time__gte=datetime.now())
+    events = events.order_by('start_time')
+    return render_view('page_pasr_agenda/my_events.html',
+                       {'object': page_app, 'events': events},
+                       ACTIONS_MEDIAS if request.is_admin else [],
                        context_instance=RequestContext(request))

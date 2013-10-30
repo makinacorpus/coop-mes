@@ -3,10 +3,17 @@
 import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_PasrAgenda
-from coop_local.models import ActivityNomenclature, Area, TransverseTheme, Organization
+from coop_local.models import (ActivityNomenclature, Area, TransverseTheme,
+    Organization, Occurrence)
 from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, HTML, Field
+from tinymce.widgets import TinyMCE
+from django.conf import settings
+from coop_local.models import Event
+from django.forms.models import inlineformset_factory
 
 class PageApp_PasrAgendaForm(ModuloModelForm):
 
@@ -46,3 +53,59 @@ class EventSearch(forms.Form):
         self.fields['area'].widget.attrs['class'] = u'form-control form-control-small'
         self.fields['radius'].widget.attrs['placeholder'] = u'Dans un rayon de'
         self.fields['radius'].widget.attrs['class'] = u'form-control form-control-small'
+
+
+class FrontEventForm(forms.ModelForm):
+
+    description = forms.CharField(widget=TinyMCE(mce_attrs=settings.TINYMCE_FRONTEND_CONFIG), label=u'Description')
+
+    class Meta:
+        model = Event
+        fields = (
+            'title',
+            'brief_description',
+            'description',
+            'activity',
+            'theme',
+            'tags',
+            'image',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(FrontEventForm, self).__init__(*args, **kwargs)
+        self.fields['tags'].help_text = u'Entrez des mots-clés séparés par une virgule.'
+        self.fields['activity'].help_text = u''
+        self.fields['theme'].help_text = u''
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'title',
+            'brief_description',
+            'description',
+            'activity',
+            'theme',
+            'tags',
+            'image',
+        )
+
+
+class OccurrenceForm(forms.ModelForm):
+
+    class Meta:
+        model = Occurrence
+        fields = ('start_time', 'end_time')
+
+    def __init__(self, *args, **kwargs):
+        super(OccurrenceForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            HTML('<fieldset class="formset-form">'),
+            'start_time',
+            'end_time',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        )
+
+
+OccurrencesForm = inlineformset_factory(Event, Occurrence, form=OccurrenceForm, extra=2)
