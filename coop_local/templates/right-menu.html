@@ -6,16 +6,20 @@
         {#<li class="list-group-item"><a href="#">Zoom sur des innovations&nbsp;/ Initiatives</a></li>#}
     </ul>
 </div>
-{% comment %}
 <div class="content-box">
     <h1 class="icon-participez section-title">Participez</h1>
     <ul class="list-group">
-        <li class="list-group-item"><a href="#">Proposer un article</a></li>
+        <li class="list-group-item"><a href="/actualites/p/ajouter/">Proposer un article</a></li>
+        {% if my_organization.is_customer %}
+            <li class="list-group-item"><a href="/appels-doffres/p/ajouter/">Déposer un appel d'offres</a></li>
+        {% endif %}
+{% comment %}
         <li class="list-group-item"><a href="#">Proposer un évènement</a></li>
-        <li class="list-group-item"><a href="#">Déposer un appel d'offres</a></li>
         <li class="list-group-item"><a href="#">Suggérer des améliorations</a></li>
+{% endcomment %}
     </ul>
 </div>
+{% comment %}
 <div class="content-box">
     <h1 class="iconf-discussion section-title">Echangez</h1>
     <ul class="list-group">
@@ -43,6 +47,7 @@
             {% endif %}
             <li class="list-group-item"><a href="/mon-compte/p/mes-organisations/">Mes clients et fournisseurs</a></li>
             <li class="list-group-item"><a href="#">Mes évènements</a></li>
+            <li class="list-group-item"><a href="/actualites/p/mes-articles/">Mes articles</a></li>
             <li class="list-group-item"><a href="/mon-compte/">Mes informations</a></li>
         {% else %}
             <li class="list-group-item"><a href="/mon-compte/">Connexion</a></li>
