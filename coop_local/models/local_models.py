@@ -533,7 +533,7 @@ class Offer(models.Model):
 
     provider = models.ForeignKey('Organization', verbose_name=_('provider'))
     activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
-    description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
+    description = models.TextField(_(u'description'), validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'customer targets'))
     technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
