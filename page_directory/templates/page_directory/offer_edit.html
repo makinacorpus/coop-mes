@@ -17,7 +17,13 @@
                             {% endif %}
                             {% crispy form %}
                         </fieldset>
+                        {{ form2.management_form }}
+                        {% for subform in form2.forms %}
+                            {{ subform.id }}
+                            {% crispy subform %}
+                        {% endfor %}
                         <fieldset class="text-center">
+                            <button class="add-link btn btn--form">Ajouter un document</button>
                             <button type="submit" class="btn btn-default">Enregistrer</button>
                         </fieldset>
                         <p><b>*</b> champs obligatoires</p>
@@ -41,6 +47,35 @@ jQuery(document).ready(function() {
     /* Select2 */
 
     $('select').select2();
+
+    /* Formset */
+    $('.formset-form:last').hide();
+    var hidden_id = $('[id$="TOTAL_FORMS"]').val();
+
+    $('.add-link').click(function() {
+        var newElement = $('.formset-form:last').clone(true);
+        var total = $('[id$="TOTAL_FORMS"]').val();
+        newElement.find('[id^="id_"]:input').each(function() {
+            var name = $(this).attr('name').replace('-' + (hidden_id-1) + '-','-' + total + '-');
+            var id = 'id_' + name;
+            $(this).attr({'name': name, 'id': id});
+        });
+        newElement.find('label').each(function() {
+            var newFor = $(this).attr('for').replace('-' + (hidden_id-1) + '-','-' + total + '-');
+            $(this).attr('for', newFor);
+        });
+        total++;
+        $('[id$="TOTAL_FORMS"]').val(total);
+        $('.formset-form:last').before(newElement);
+        newElement.show();
+        return false;
+    });
+
+    $('.delete-link').click(function() {
+        $(this).parent().find("input").prop('checked', true);
+        $(this).parents("fieldset").addClass("hidden");
+        return false;
+    });
 
 });
 

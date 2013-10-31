@@ -3,7 +3,7 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from .forms import (OrgSearch, OrganizationForm1, PROVIDER_FORMS,
-    NOT_PROVIDER_FORMS, OfferForm)
+    NOT_PROVIDER_FORMS, OfferForm, OfferDocumentsFormset)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
     Person, Location, Relation, Offer)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
@@ -387,8 +387,10 @@ def offer_update_view(request, page_app, pk):
     if not offer.provider.engagement_set.filter(org_admin=True, person__user=request.user).exists():
         return HttpResponseForbidden('Opération interdite')
     form = OfferForm(request.POST or None, instance=offer)
-    if form.is_valid():
+    form2 = OfferDocumentsFormset(request.POST or None, request.FILES or None, instance=offer)
+    if form.is_valid() and form2.is_valid():
         form.save()
+        form2.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
             content_type_id = ContentType.objects.get_for_model(Organization).pk,
@@ -399,7 +401,7 @@ def offer_update_view(request, page_app, pk):
         )
         return HttpResponseRedirect('/mon-compte/p/mes-offres/')
     return render_view('page_directory/offer_edit.html',
-                       {'object': page_app, 'form': form, 'org': offer.provider},
+                       {'object': page_app, 'form': form, 'form2': form2, 'org': offer.provider},
                        OFFER_MEDIA,
                        context_instance=RequestContext(request))
 
@@ -410,11 +412,13 @@ def offer_add_view(request, page_app):
     if org is None:
         return HttpResponseForbidden('Opération interdite')
     form = OfferForm(request.POST or None)
-    if form.is_valid():
+    form2 = OfferDocumentsFormset(request.POST or None, request.FILES or None, instance=form.instance)
+    if form.is_valid() and form2.is_valid():
         offer = form.save(commit=False)
         offer.provider = org
         offer.save()
         form.save_m2m()
+        form2.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
             content_type_id = ContentType.objects.get_for_model(Organization).pk,
@@ -425,6 +429,6 @@ def offer_add_view(request, page_app):
         )
         return HttpResponseRedirect('/mon-compte/p/mes-offres/')
     return render_view('page_directory/offer_edit.html',
-                       {'object': page_app, 'form': form, 'org': org, 'propose': 'propose' in request.GET},
+                       {'object': page_app, 'form': form, 'form2': form2, 'org': org, 'propose': 'propose' in request.GET},
                        OFFER_MEDIA,
                        context_instance=RequestContext(request))

@@ -5,7 +5,8 @@ from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
     Organization, Engagement, Role, Document, Relation, Located, Location,
-    Contact, Person, Offer, Reference, OrgRelationType, ContactMedium)
+    Contact, Person, Offer, Reference, OrgRelationType, ContactMedium,
+    OfferDocument)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -742,3 +743,24 @@ class OfferForm(forms.ModelForm):
             'practical_modalities',
             'area',
         )
+
+
+class OfferDocumentForm(OrganizationMixin, forms.ModelForm):
+
+    class Meta:
+        model = OfferDocument
+        fields = ('name', 'attachment', 'type', )
+
+    def __init__(self, *args, **kwargs):
+        super(OfferDocumentForm, self).__init__(*args, **kwargs)
+        self.set_helper((
+            HTML('<fieldset class="formset-form"><p>Document / Image</p>'),
+            'name',
+            'attachment',
+            'type',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        ))
+
+
+OfferDocumentsFormset = forms.models.inlineformset_factory(Offer, OfferDocument, form=OfferDocumentForm, extra=2)
