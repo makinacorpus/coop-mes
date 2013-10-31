@@ -153,6 +153,8 @@ ORGANIZATION_MEDIA = (
 )
 
 OFFER_MEDIA = (
+    CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
+    JSMedia('tagger/js/jquery.autoSuggest.minified.js', prefix_file=''),
     CSSMedia('select2/select2.css', prefix_file=''),
     CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
     JSMedia('select2/select2.min.js', prefix_file=''),

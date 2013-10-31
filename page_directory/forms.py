@@ -720,6 +720,7 @@ class OfferForm(forms.ModelForm):
             'workforce',
             'practical_modalities',
             'area',
+            'tags',
         )
 
     def __init__(self, *args, **kwargs):
