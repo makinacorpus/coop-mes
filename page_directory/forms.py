@@ -417,6 +417,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RelationForm, self).__init__(*args, **kwargs)
         self.fields['relation_type'].required = True
+        self.fields['target'].label = u'Partenaire'
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'relation_type',
