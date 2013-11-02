@@ -1,0 +1,5 @@
+Bonjour,
+
+Afin de confirmer votre abonnement à la newsletter, merci de cliquer sur le lien suivant :
+
+{{ link }}

@@ -657,6 +657,21 @@ class Event(BaseEvent):
         return self.eventdocument_set.exclude(attachment__iregex=r'\.(jpe?g|gif|png)$')
 
 
+class NewsletterSubscription(models.Model):
+    name = models.CharField(u'Nom', max_length=200)
+    email = models.EmailField(u'Courriel', unique=True)
+    structure = models.CharField(max_length=200, blank=True)
+    active = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = u'abonnement à la newsletter'
+        verbose_name_plural = u'abonnements à la newsletter'
+        app_label = 'coop_local'
+
+
 # WORKAROUND to fix problem with model inheritance and django-coop post delete signal
 from django.db.models.signals import post_delete
 from coop.signals import post_delete_callback

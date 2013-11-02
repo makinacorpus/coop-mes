@@ -4,12 +4,14 @@ v1.11
  * Renommage de email en courriel
  * Barre de recherche pour les actualités
  * Ajout des mots-clés et documents sur le formulaire des offres
+ * Système d'abonnement à la newsletter
 
 
 Déploiement
 
  - migrate coop_local
  - pull ionyweb
+ - créer la page /newsletter
 
 
 v1.10

@@ -910,6 +910,28 @@ class LocationAdmin(BaseLocationAdmin):
         return my_urls + urls
 
 
+class NewsletterSubscriptionAdmin(admin.ModelAdmin):
+
+    list_display = ('email', 'name', 'structure', 'active')
+    search_fields = ('email', 'name', 'structure')
+    list_filter = ('active', )
+
+    def csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=newsletter.csv'
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        for s in NewsletterSubscription.objects.filter(active=True):
+            writer.writerow([s.email])
+        return response
+
+    def get_urls(self):
+        urls = super(NewsletterSubscriptionAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view)),
+        )
+        return my_urls + urls
+
+
 admin.site.unregister(Organization)
 register(Guaranty, GuarantyAdmin)
 register(Organization, OrganizationAdmin)
@@ -928,3 +950,4 @@ admin.site.unregister(Event)
 register(Event, EventAdmin)
 admin.site.unregister(Location)
 register(Location, LocationAdmin)
+register(NewsletterSubscription, NewsletterSubscriptionAdmin)

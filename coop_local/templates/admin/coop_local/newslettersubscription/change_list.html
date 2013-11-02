@@ -1,0 +1,10 @@
+{% extends 'admin/change_list.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block object-tools-items %}
+{{ block.super }}
+<a href="csv/" class="btn btn-primary">
+    {% trans "CSV export" %}
+</a>
+{% endblock %}

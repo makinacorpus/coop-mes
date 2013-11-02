@@ -59,6 +59,7 @@ class CustomMenu(Menu):
                     items.MenuItem(_('Offers'), '/admin/coop_local/offer/'),
                     items.MenuItem(_('Calls for tenders'), '/admin/coop_local/callfortenders/'),
                     items.MenuItem(_('Persons'), '/admin/coop_local/person/'),
+                    items.MenuItem(_('Newsletter'), '/admin/coop_local/newslettersubscription/'),
                 ]),
                 items.MenuItem(_('Cartography'), '#', icon='icon-map-marker', children=[
                     items.MenuItem(_('Locations'), '/admin/coop_local/location/'),

@@ -1,0 +1,28 @@
+{% load thumbnail crispy_forms_tags %}
+
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+                    <div class="section-head">
+                        <h1 class="title">S'ABONNER A LA NEWSLETTER</h1>
+                    </div>
+                    <form class="form form-horizontal" action="#" enctype="multipart/form-data" method="post">
+                        <fieldset>
+                            {% crispy form %}
+                        </fieldset>
+                        <fieldset class="text-center">
+                            <button type="submit" class="btn btn-default">Abonner</button>
+                        </fieldset>
+                        <p><b>*</b> champs obligatoires</p>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+        </div>
+    </div>
+</div>
