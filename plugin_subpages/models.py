@@ -7,6 +7,7 @@ from ionyweb.plugin.models import AbstractPlugin
 class Plugin_Subpages(AbstractPlugin):
     
     # Define your fields here
+    ressources = models.BooleanField()
 
     def __unicode__(self):
         return u'Subpages #%d' % (self.pk)

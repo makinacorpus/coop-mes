@@ -1,0 +1,27 @@
+<div class="top-content">
+    <div class="container">
+        <div class="title-highlight">
+            <div class="vignette vignette--standard"><i class="icon-book"></i></div>
+            <h1 class="title">Espace ressources</h1>
+        </div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="container">
+        <div class="row list-counter">
+{% for level1 in pages %}
+            <div class="col-lg-4">
+                <div class="content-box color{{ forloop.counter }}">
+                    <h1 class="section-title list-counter__number"><a href="{{ level1.get_absolute_url }}">{{ level1.title }}</a></h1>
+                    <ul class="list-group">
+{% for level2 in level1.get_children %}
+                        <li class="list-group-item"><a href="{{ level2.get_absolute_url }}">{{ level2.title }}</a></li>
+{% endfor %}
+                    </ul>
+                </div>
+            </div>
+{% endfor %}
+        </div>
+    </div>
+</div>

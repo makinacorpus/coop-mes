@@ -13,7 +13,11 @@ MEDIAS = (
     )
 
 def index_view(request, plugin):
-    return render_view('plugin_subpages/index.html',
+    if plugin.ressources:
+        template = 'plugin_subpages/ressources.html'
+    else:
+        template = 'plugin_subpages/index.html'
+    return render_view(template,
                        {'object': plugin,
                         'pages': request.page.get_children()},
                        MEDIAS,

@@ -2597,19 +2597,22 @@ i.icon-book {
 .list-counter .content-box {
   margin-top: 30px;
 }
-.list-counter .color1 .list-counter__number {
+.list-counter .color1 .list-counter__number,
+.list-counter .color1 h1 a {
   color: #54ae4e;
 }
 .list-counter .color1 .list-counter__number:before {
   background-color: #54ae4e;
 }
-.list-counter .color2 .list-counter__number {
+.list-counter .color2 .list-counter__number,
+.list-counter .color2 h1 a {
   color: #ed7009;
 }
 .list-counter .color2 .list-counter__number:before {
   background-color: #ed7009;
 }
-.list-counter .color3 .list-counter__number {
+.list-counter .color3 .list-counter__number,
+.list-counter .color3 h1 a {
   color: #fdd635;
 }
 .list-counter .color3 .list-counter__number:before {
