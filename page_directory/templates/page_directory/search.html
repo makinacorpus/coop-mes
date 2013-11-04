@@ -1,0 +1,84 @@
+<form id="annuaires-search" method="GET" action="#" class="content-box top advanced-search-form">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="item">
+                <h3>Je recherche</h3>
+                <div class="dropdown">
+                    {{ form.org_type }}
+                </div>
+            </div>
+            <div class="item" id="prov-type">
+                <h3>Type de fournisseur</h3>
+                <div class="dropdown">
+                    {{ form.prov_type }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="item">
+                <h3>Secteur d'activité</h3>
+                <div class="checkbox">
+                    <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
+                </div>
+                <div class="dropdown">
+                    {{ form.sector }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="item item-small">
+                <h3>Territoire d'intervention</h3>
+                {{ form.area }}
+                <div class="dropdown input-group">
+                    {{ form.radius }}
+                    <span class="input-group-addon form-control-small">km</span>
+                </div>
+            </div>
+            <div class="item search">
+                {{ form.q }}
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="item">
+                <div class="result">
+                    {% if orgs.paginator %}
+                        <span class="number">{{ orgs.paginator.count }}</span> Résultat{{ orgs.paginator.count|pluralize }}
+                    {% else %}
+                        <span class="number">{{ orgs.count }}</span> Résultat{{ orgs.count|pluralize }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="item">
+                <p class="text-center"><button class="btn btn-second iconf-geopins" type="submit" name="display" value="{{ other }}">{{ other }}</button>
+            </div>
+            <div class="item">
+                <p class="text-center"><button class="btn btn-default" type="submit" name="display" value="RECHERCHER">RECHERCHER</button></p>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    // Default button is RECHERCHER
+    $('#annuaires-search').keypress(function(e) {
+        if(e.keyCode == 13) {
+            $('#annuaires-search').submit();
+        }
+    });
+    // Show org_type search field only if "Fournisseurs" is selected
+    function org_type_change() {
+        var cell = document.getElementById('prov-type');
+        if (this.options[this.selectedIndex].value == "fournisseur") {
+            cell.style.visibility = 'visible';
+        } else {
+            cell.style.visibility = 'hidden';
+        }
+    };
+    var org_type_select = document.getElementById('id_org_type');
+    org_type_select.addEventListener(
+        "change",
+        org_type_change,
+        false
+    );
+    org_type_change.apply(org_type_select);
+</script>
