@@ -37,6 +37,8 @@ def index_view(request, page_app):
     if request.GET.get('display') == 'Cartographie':
         return HttpResponseRedirect('../cartographie/?' + request.GET.urlencode())
     qd = request.GET.copy()
+    if not qd.get('geo'):
+        qd['geo'] = '1'
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
     form = OrgSearch(qd)
@@ -65,6 +67,7 @@ def index_view(request, page_app):
         if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
         area = form.cleaned_data.get('area')
+        geo = qd.get('geo')
         if area:
             try:
                 radius = int(form.cleaned_data.get('radius'))
@@ -73,13 +76,15 @@ def index_view(request, page_app):
             if radius != 0:
                 center = area.polygon.centroid
                 degrees = radius * 360 / 40000.
-                q = Q(located__location__point__dwithin=(center, degrees))
-                q |= Q(offer__area__polygon__dwithin=(center, degrees))
-                orgs = orgs.filter(q)
+                if geo == '1':
+                    orgs = orgs.filter(located__location__point__dwithin=(center, degrees))
+                else:
+                    orgs = orgs.filter(offer__area__polygon__dwithin=(center, degrees))
             else:
-                q = Q(located__location__point__contained=area.polygon)
-                q |= Q(offer__area__polygon__intersects=area.polygon)
-                orgs = orgs.filter(q)
+                if geo == '1':
+                    orgs = orgs.filter(located__location__point__contained=area.polygon)
+                else:
+                    orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
         orgs = orgs.distinct()
     else:
         area = None
@@ -96,7 +101,7 @@ def index_view(request, page_app):
     if 'page' in get_params:
         del get_params['page']
     return render_view('page_directory/index.html',
-                       {'object': page_app, 'form': form, 'orgs': orgs_page,
+                       {'object': page_app, 'form': form, 'geo': qd['geo'], 'orgs': orgs_page,
                         'get_params': get_params.urlencode()},
                        (CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
                         JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),

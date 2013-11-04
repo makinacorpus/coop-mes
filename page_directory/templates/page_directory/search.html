@@ -17,22 +17,24 @@
         <div class="col-lg-3">
             <div class="item">
                 <h3>Secteur d'activité</h3>
-                <div class="checkbox">
-                    <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
-                </div>
                 <div class="dropdown">
                     {{ form.sector }}
+                </div>
+                <div class="checkbox">
+                    <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
                 </div>
             </div>
         </div>
         <div class="col-lg-3">
             <div class="item item-small">
-                <h3>Territoire d'intervention</h3>
+                <h3>Territoire</h3>
                 {{ form.area }}
                 <div class="dropdown input-group">
                     {{ form.radius }}
                     <span class="input-group-addon form-control-small">km</span>
                 </div>
+                <label for="id_geo_0"><input {% if geo == "1" %}checked="checked"{% endif %} name="geo" value="1" id="id_geo_0" type="radio" class="form-control" /> Implantation</label> &nbsp;
+                <label for="id_geo_1"><input {% if geo == "2" %}checked="checked"{% endif %} value="2" type="radio" class="form-control" name="geo" id="id_geo_1" /> Intervention</label>
             </div>
             <div class="item search">
                 {{ form.q }}
