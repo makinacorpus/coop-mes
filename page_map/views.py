@@ -27,6 +27,8 @@ def index_view(request, page_app):
     if request.GET.get('display') == 'Annuaire':
         return HttpResponseRedirect('../annuaire/?' + request.GET.urlencode())
     qd = request.GET.copy()
+    if not qd.get('geo'):
+        qd['geo'] = 1
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
     if 'dep' in qd:
@@ -62,6 +64,7 @@ def index_view(request, page_app):
         descendants = sector and sector.get_descendants(include_self=True)
         if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
+        geo = qd.get('geo')
         area = form.cleaned_data.get('area')
         if area:
             try:
@@ -71,24 +74,26 @@ def index_view(request, page_app):
             if radius != 0:
                 center = area.polygon.centroid
                 degrees = radius * 360 / 40000.
-                q = Q(located__location__point__dwithin=(center, degrees))
-                q |= Q(offer__area__polygon__dwithin=(center, degrees))
-                orgs = orgs.filter(q)
+                if geo == '1':
+                    orgs = orgs.filter(located__location__point__dwithin=(center, degrees))
+                else:
+                    orgs = orgs.filter(offer__area__polygon__dwithin=(center, degrees))
             else:
-                q = Q(located__location__point__contained=area.polygon)
-                q |= Q(offer__area__polygon__intersects=area.polygon)
-                orgs = orgs.filter(q)
+                if geo == '1':
+                    orgs = orgs.filter(located__location__point__contained=area.polygon)
+                else:
+                    orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
         orgs = orgs.distinct()
     else:
         area = None
         orgs = Organization.objects.none()
     get_params = request.GET.copy()
-    if area is None:
+    if area is None or geo == '2':
         bounds = Area.objects.filter(label=settings.REGION_LABEL).extent()
     else:
         bounds = area.polygon.extent
     return render_view('page_map/index.html',
-                       {'object': page_app, 'form': form, 'orgs': orgs, 'area': area,
+                       {'object': page_app, 'form': form, 'geo': qd['geo'], 'orgs': orgs, 'area': area,
                         'bounds': bounds, 'get_params': get_params.urlencode()},
                        MEDIAS,
                        context_instance=RequestContext(request))

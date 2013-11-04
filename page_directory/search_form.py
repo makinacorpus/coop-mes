@@ -15,6 +15,12 @@ ORG_TYPE_CHOICES = (
 )
 
 
+GEO_CHOICES = (
+    (1, u'Implantation'),
+    (2, u'Intervention'),
+)
+
+
 class AreaLookup(ModelLookup):
     model = Area
     def get_query(self, request, term):
@@ -34,6 +40,7 @@ class OrgSearch(forms.Form):
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     prov_type = forms.ModelChoiceField(queryset=AgreementIAE.objects.all(), empty_label=u'Tout voir', required=False)
     interim = forms.BooleanField(required=False)
+    geo = forms.ChoiceField(choices=GEO_CHOICES, widget=forms.widgets.RadioSelect, required=False)
     sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
     area = AutoCompleteSelectField(lookup_class=AreaLookup, required=False)
     radius = forms.IntegerField(required=False)
