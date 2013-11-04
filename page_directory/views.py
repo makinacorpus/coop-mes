@@ -2,7 +2,8 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import (OrgSearch, OrganizationForm1, PROVIDER_FORMS,
+from .search_form import OrgSearch
+from .forms import (OrganizationForm1, PROVIDER_FORMS,
     NOT_PROVIDER_FORMS, OfferForm, OfferDocumentsFormset)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
     Person, Location, Relation, Offer)

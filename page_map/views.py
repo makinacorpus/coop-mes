@@ -2,7 +2,7 @@
 
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
-from .forms import OrgSearch
+from page_directory.search_form import OrgSearch
 from coop_local.models import Organization, ActivityNomenclature, Area, Location
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage

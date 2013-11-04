@@ -3,24 +3,18 @@
 from django import forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
-from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
-    Organization, Engagement, Role, Document, Relation, Located, Location,
-    Contact, Person, Offer, Reference, OrgRelationType, ContactMedium,
-    OfferDocument)
+from coop_local.models import (ActivityNomenclature,
+    Organization, Engagement, Document, Relation, Located, Location,
+    Contact, Person, Offer, Reference, OrgRelationType, OfferDocument)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
-from chosen import widgets as chosenwidgets
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, HTML, Field
+from crispy_forms.layout import Layout, HTML, Field
 from crispy_forms.bootstrap import (InlineRadios, InlineCheckboxes,
-    FormActions, StrictButton, AppendedText)
-from selectable.base import ModelLookup
-from selectable.registry import registry, LookupAlreadyRegistered
-from selectable.forms import AutoCompleteSelectField
-from django.db.models import Q
+    AppendedText)
 from django.contrib.contenttypes.generic import (
     generic_inlineformset_factory, BaseGenericInlineFormSet)
 from django.contrib.contenttypes.models import ContentType
@@ -37,50 +31,6 @@ class PageApp_DirectoryForm(ModuloModelForm):
 
     class Meta:
         model = PageApp_Directory
-
-
-ORG_TYPE_CHOICES = (
-    ('', u'Tout voir'),
-    ('fournisseur', u'Fournisseurs'),
-    ('acheteur-prive', u'Acheteurs privés'),
-    ('acheteur-public', 'Acheteurs publics'),
-)
-
-
-class AreaLookup(ModelLookup):
-    model = Area
-    def get_query(self, request, term):
-        qs = self.get_queryset()
-        if term:
-            for bit in term.split():
-                qs = qs.filter(label__icontains=bit)
-        return qs
-
-try:
-    registry.register(AreaLookup)
-except LookupAlreadyRegistered:
-    pass
-
-
-class OrgSearch(forms.Form):
-    org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
-    prov_type = forms.ModelChoiceField(queryset=AgreementIAE.objects.all(), empty_label=u'Tout voir', required=False)
-    interim = forms.BooleanField(required=False)
-    sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
-    area = AutoCompleteSelectField(lookup_class=AreaLookup, required=False)
-    radius = forms.IntegerField(required=False)
-    q = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Recherche libre : mot clés'}))
-
-    def __init__(self, *args, **kwargs):
-        super(OrgSearch, self).__init__(*args, **kwargs)
-        for name, field in self.fields.iteritems():
-            if name == 'interim':
-                continue
-            field.widget.attrs['class'] = 'form-control'
-        self.fields['area'].widget.attrs['placeholder'] = u'Tout voir'
-        self.fields['area'].widget.attrs['class'] = u'form-control form-control-small'
-        self.fields['radius'].widget.attrs['placeholder'] = u'Dans un rayon de'
-        self.fields['radius'].widget.attrs['class'] = u'form-control form-control-small'
 
 
 class OrganizationMixin(object):
@@ -439,7 +389,6 @@ class FixedBaseGenericInlineFormSet(BaseGenericInlineFormSet):
     def __init__(self, data=None, files=None, instance=None, save_as_new=None,
                  prefix=None, queryset=None, **kwargs):
         # Avoid a circular import.
-        from django.contrib.contenttypes.models import ContentType
         opts = self.model._meta
         self.instance = instance
         self.rel_name = '-'.join((
