@@ -1,17 +1,24 @@
 v1.11
 
  * Exports CSV
+ * Ajout de la clause n°6
  * Renommage de email en courriel
  * Barre de recherche pour les actualités
+ * Description des offres obligatoire
+ * Déposer/modifier/supprimer un article
+ * Ajout des champs secteur d'activité et thématique aux articles
+ * Déposer/modifier/supprimer un événement
  * Ajout des mots-clés et documents sur le formulaire des offres
  * Système d'abonnement à la newsletter
+ * Page d'accueil de l'espace ressource
 
 
 Déploiement
 
- - migrate coop_local
  - pull ionyweb
+ - migrate
  - créer la page /newsletter
+ - cocher la case ressources pour la home page de l'espace ressources
 
 
 v1.10
