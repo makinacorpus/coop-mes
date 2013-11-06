@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from coop_local.models import ActivityNomenclature, AgreementIAE, Area
+from coop_local.models import (ActivityNomenclature, AgreementIAE, Area,
+    Guaranty)
 from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
@@ -45,6 +46,7 @@ class OrgSearch(forms.Form):
     area = AutoCompleteSelectField(lookup_class=AreaLookup, required=False)
     radius = forms.IntegerField(required=False)
     q = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Recherche libre : mot clés'}))
+    guaranty = forms.ModelChoiceField(queryset=Guaranty.objects.all(), empty_label=u'Tout voir', required=False)
 
     def __init__(self, *args, **kwargs):
         super(OrgSearch, self).__init__(*args, **kwargs)

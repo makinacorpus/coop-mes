@@ -49,6 +49,8 @@ def index_view(request, page_app):
             Q(located__location__city__icontains=form.cleaned_data['q']) |
             Q(activities__path__icontains=form.cleaned_data['q']) |
             Q(offer__activity__path__icontains=form.cleaned_data['q']))
+        if form.cleaned_data['guaranty']:
+            orgs = orgs.filter(guaranties=form.cleaned_data['guaranty'])
         if form.cleaned_data['org_type'] == 'fournisseur':
             orgs = orgs.filter(is_provider=True)
             if form.cleaned_data['prov_type']:
