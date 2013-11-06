@@ -29,9 +29,13 @@
                                 </a>
                                 <div class="media-body">
                                     <p class="activity">{{ org.offer_activities }}</p>
-                                    {% with org.main_location.city as city %}{% if city %}
-                                        <span class="location">{{ org.main_location.zipcode }} {{ city }}</span>
-                                    {% endif %}{% endwith %}
+                                    {% if org.nearest %}
+                                        <span class="location">{{ org.nearest.zipcode }} {{ org.nearest.city }} ({{ org.nearest.distance.km|floatformat:"0" }} km)</span>
+                                    {% elif not no_location %}
+                                        {% with org.main_location.city as city %}{% if city %}
+                                            <span class="location">{{ org.main_location.zipcode }} {{ city }}</span>
+                                        {% endif %}{% endwith %}
+                                    {% endif %}
                                     <h4 class="media-heading">{{ org.title }}</h4>
                                     <p>{{ org.brief_description|linebreaks }}</p>
                                     <a href="{{ object.page.get.get_absolute_url }}p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" class="btn btn-default">Fiche personnelle</a>

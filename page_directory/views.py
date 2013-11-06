@@ -70,6 +70,7 @@ def index_view(request, page_app):
             orgs = orgs.filter(offer__activity__in=descendants)
         area = form.cleaned_data.get('area')
         geo = qd.get('geo')
+        no_location = False
         if area:
             try:
                 radius = int(form.cleaned_data.get('radius'))
@@ -80,14 +81,25 @@ def index_view(request, page_app):
                 degrees = radius * 360 / 40000.
                 if geo == '1':
                     orgs = orgs.filter(located__location__point__dwithin=(center, degrees))
+                    orgs = orgs.distinct()
+                    orgs = list(orgs)
+                    for o in orgs:
+                        locations = Location.objects.filter(located__organization=o)
+                        o.nearest = locations.distance(center).order_by('distance')[0]
+                    orgs.sort(key=lambda o: o.nearest.distance)
                 else:
                     orgs = orgs.filter(offer__area__polygon__dwithin=(center, degrees))
+                    orgs = orgs.distinct()
             else:
                 if geo == '1':
                     orgs = orgs.filter(located__location__point__contained=area.polygon)
+                    orgs = orgs.distinct()
+                    no_location = True
                 else:
                     orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
-        orgs = orgs.distinct()
+                    orgs = orgs.distinct()
+        else:
+            orgs = orgs.distinct()
     else:
         area = None
         orgs = Organization.objects.none()
@@ -104,7 +116,7 @@ def index_view(request, page_app):
         del get_params['page']
     return render_view('page_directory/index.html',
                        {'object': page_app, 'form': form, 'geo': qd['geo'], 'orgs': orgs_page,
-                        'get_params': get_params.urlencode()},
+                        'get_params': get_params.urlencode(), 'no_location': no_location},
                        (CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
                         JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),
                         CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
