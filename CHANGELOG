@@ -1,12 +1,13 @@
 v1.12
 
- * Annuaire: recherche sur les garanties
- * Annuaire: recherche par territoire d'implantation ou d'intervention
- * Annuaire: centrage sur la zone de recherche si recherche par territoire
+ * Annuaire : recherche sur les garanties
+ * Annuaire : recherche par territoire d'implantation ou d'intervention
+ * Annuaire : centrage sur la zone de recherche si recherche par territoire
    d'implantation ou centrage sur la région entière si recherche par
    territoire d'intervention
- * Annuaire: tri par distance en cas de recherche par territoire
+ * Annuaire : tri par distance en cas de recherche par territoire
    d'implantation autour d'un rayon
+ * Agenda : correction des doublons
 
 
  v1.11
