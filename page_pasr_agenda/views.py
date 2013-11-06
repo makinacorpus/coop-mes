@@ -73,11 +73,12 @@ def index_view(request, page_app):
             else:
                 q = Q(location__point__contained=area.polygon)
                 events = events.filter(q)
-        events = events.distinct()
     else:
         area = None
         events = Event.objects.none()
-    events = events.order_by('occurrence__start_time')
+    events = events.annotate(start_time=Min('occurrence__start_time'))
+    events = events.distinct()
+    events = events.order_by('start_time')
     paginator = Paginator(events, 20)
     page = request.GET.get('page')
     try:
