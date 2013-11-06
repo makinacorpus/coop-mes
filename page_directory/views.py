@@ -92,7 +92,7 @@ def index_view(request, page_app):
                     orgs = orgs.distinct()
             else:
                 if geo == '1':
-                    orgs = orgs.filter(located__location__point__contained=area.polygon)
+                    orgs = orgs.filter(located__location__point__intersects=area.polygon)
                     orgs = orgs.distinct()
                     no_location = True
                 else:
