@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q
+from django.contrib.gis.geos import Point, MultiPoint
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -92,6 +93,8 @@ def index_view(request, page_app):
     get_params = request.GET.copy()
     if area is None or geo == '2':
         bounds = Area.objects.filter(label=settings.REGION_LABEL).extent()
+    elif area and radius:
+        bounds = MultiPoint(Point(center.x - degrees, center.y - degrees), Point(center.x + degrees, center.y + degrees)).extent
     else:
         bounds = area.polygon.extent
     return render_view('page_map/index.html',
