@@ -16,7 +16,7 @@ from  django.utils.encoding import force_unicode
 from django.utils.text import get_text_list
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 
 
 EDIT_MEDIA = [
@@ -112,6 +112,7 @@ def detail_view(request, page_app, pk):
 
 @login_required
 def add_view(request, page_app):
+    return HttpResponseForbidden('Cette fonctionnalité est désactivée.')
     org = Organization.mine(request)
     if org is None:
         return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
@@ -140,6 +141,7 @@ def add_view(request, page_app):
 
 @login_required
 def delete_view(request, page_app, pk):
+    return HttpResponseForbidden('Cette fonctionnalité est désactivée.')
     org = Organization.mine(request)
     if org is None:
         return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
@@ -158,6 +160,7 @@ def delete_view(request, page_app, pk):
 
 @login_required
 def update_view(request, page_app, pk):
+    return HttpResponseForbidden('Cette fonctionnalité est désactivée.')
     org = Organization.mine(request)
     if org is None:
         return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')

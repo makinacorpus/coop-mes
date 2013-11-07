@@ -9,8 +9,8 @@
 <div class="content-box">
     <h1 class="icon-participez section-title">Participez</h1>
     <ul class="list-group">
-        <li class="list-group-item"><a href="/actualites/p/ajouter/">Proposer un article</a></li>
-        <li class="list-group-item"><a href="/agenda/p/ajouter/">Proposer un évènement</a></li>
+        {% comment %}<li class="list-group-item"><a href="/actualites/p/ajouter/">Proposer un article</a></li>
+        <li class="list-group-item"><a href="/agenda/p/ajouter/">Proposer un évènement</a></li>{% endcomment %}
         {% if my_organization.is_customer %}
             <li class="list-group-item"><a href="/appels-doffres/p/ajouter/">Déposer un appel d'offres</a></li>
         {% endif %}
@@ -46,8 +46,8 @@
                 <li class="list-group-item"><a href="/mon-compte/p/mes-offres/">Mes offres</a></li>
             {% endif %}
             <li class="list-group-item"><a href="/mon-compte/p/mes-organisations/">Mes clients et fournisseurs</a></li>
-            <li class="list-group-item"><a href="/actualites/p/mes-articles/">Mes articles</a></li>
-            <li class="list-group-item"><a href="/agenda/p/mes-evenements/">Mes événements</a></li>
+            {% comment %}<li class="list-group-item"><a href="/actualites/p/mes-articles/">Mes articles</a></li>
+            <li class="list-group-item"><a href="/agenda/p/mes-evenements/">Mes événements</a></li>{% endcomment %}
             <li class="list-group-item"><a href="/mon-compte/">Mes informations</a></li>
         {% else %}
             <li class="list-group-item"><a href="/mon-compte/">Connexion</a></li>
