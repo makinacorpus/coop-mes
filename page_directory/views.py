@@ -32,6 +32,8 @@ from django.contrib.contenttypes.models import ContentType
 from  django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 from django.utils.text import get_text_list
+from django.contrib.gis.measure import Distance
+
 
 def index_view(request, page_app):
     if request.GET.get('display') == 'Cartographie':
@@ -71,35 +73,43 @@ def index_view(request, page_app):
         area = form.cleaned_data.get('area')
         geo = qd.get('geo')
         no_location = False
+        orgs = orgs.distinct()
         if area:
+            if area.default_location and area.default_location.point:
+                center = area.default_location.point
+                print 'default_location:', center.y, center.x
+            else:
+                center = area.polygon.centroid
+                print 'centroid:', center.y, center.x
             try:
                 radius = int(form.cleaned_data.get('radius'))
             except:
                 radius = 0
             if radius != 0:
-                center = area.polygon.centroid
                 degrees = radius * 360 / 40000.
                 if geo == '1':
                     orgs = orgs.filter(located__location__point__dwithin=(center, degrees))
-                    orgs = orgs.distinct()
-                    orgs = list(orgs)
-                    for o in orgs:
-                        locations = Location.objects.filter(located__organization=o)
-                        o.nearest = locations.distance(center).order_by('distance')[0]
-                    orgs.sort(key=lambda o: o.nearest.distance)
                 else:
                     orgs = orgs.filter(offer__area__polygon__dwithin=(center, degrees))
-                    orgs = orgs.distinct()
             else:
                 if geo == '1':
                     orgs = orgs.filter(located__location__point__intersects=area.polygon)
-                    orgs = orgs.distinct()
                     no_location = True
                 else:
                     orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
-                    orgs = orgs.distinct()
-        else:
-            orgs = orgs.distinct()
+            if radius or geo == '2':
+                orgs = list(orgs)
+                for o in orgs:
+                    locations = Location.objects.filter(located__organization=o)
+                    if locations.exists():
+                        o.nearest = locations.distance(center).order_by('distance')[0]
+                    else:
+                        o.nearest = None
+                    if o.nearest and o.nearest.distance is not None:
+                        o.distance = o.nearest.distance
+                    else:
+                        o.distance = None
+                orgs.sort(key=lambda o: (o.distance is None, o.distance))
     else:
         area = None
         orgs = Organization.objects.none()
