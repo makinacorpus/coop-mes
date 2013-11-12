@@ -189,7 +189,7 @@ def my_view(request, page_app):
         return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
     events = Event.objects.filter(organization=org)
     events = events.annotate(start_time=Min('occurrence__start_time'))
-    events = events.filter(occurrence__end_time__gte=datetime.now())
+    events = events.filter(Q(occurrence__end_time=None) | Q(occurrence__end_time__gte=datetime.now()))
     events = events.order_by('start_time')
     return render_view('page_pasr_agenda/my_events.html',
                        {'object': page_app, 'events': events},
