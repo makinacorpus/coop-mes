@@ -16,7 +16,7 @@ from  django.utils.encoding import force_unicode
 from django.utils.text import get_text_list
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 
 
 EDIT_MEDIA = [
