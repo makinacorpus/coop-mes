@@ -135,7 +135,10 @@ def index_view(request, page_app):
 
 
 def detail_view(request, page_app, pk):
-    org = get_object_or_404(Organization, pk=pk, status=ORGANIZATION_STATUSES.VALIDATED)
+    org = get_object_or_404(Organization, pk=pk)
+    if org.status != ORGANIZATION_STATUSES.VALIDATED:
+        return render_view('page_directory/not_validated.html', {'object': page_app},
+                           (), context_instance=RequestContext(request))
     calls = org.callfortenders_set.filter(deadline__gte=now()).order_by('deadline')
     get_params = request.GET.copy()
     return render_view('page_directory/detail.html',
