@@ -866,6 +866,21 @@ class EventAdmin(BaseEventAdmin):
         """
         return super(EventAdmin, self).get_form(request, obj, fields=flatten_fieldsets(self.get_fieldsets(request, obj)))
 
+    def save_model(self, request, obj, form, change):
+        """Send an email if just validated"""
+        if change and obj.status == 'V':
+            if Event.objects.get(pk=obj.pk).status == 'P':
+                from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
+                try:
+                    sender = Plugin_Contact.objects.all()[0].email
+                except IndexError:
+                    sender = None
+                dests = Engagement.objects.filter(org_admin=True, organization=obj.organization).values_list('email', flat=True)
+                send_mail(u'Validation de votre événement sur la PASR',
+                    u'Bonjour,\n\nVotre événement vient d\'être validé sur la PASR.',
+                    sender, dests)
+        super(EventAdmin, self).save_model(request, obj, form, change)
+
 
 class LocationAdmin(BaseLocationAdmin):
 
