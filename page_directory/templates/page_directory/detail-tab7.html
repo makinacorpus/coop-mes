@@ -28,7 +28,7 @@
                     Date limite de réception<br/>
                     <span class="date">{{ call.deadline|date:"j F Y à g\hi" }}</span>
                 </div>
-                <div class="col-lg-2 text-right"><a href="{{ call.url }}" class="website">{{ call.url }}</a></div>
+                <div class="col-lg-2 text-right"><a href="{{ call.url }}" target="_blank" class="website">{{ call.url }}</a></div>
             </div>
         </div>
     {% endfor %}

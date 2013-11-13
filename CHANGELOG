@@ -8,7 +8,9 @@ v1.14
  * Vérification que la fin est après le début pour les événements
  * Circuit de validation des articles
  * Circuit de validation des événements
+ * Envoi d'un mail en cas de validation d'un événement
  * Supprime l'affichage de la distance dans la l'annuaire
+ * Ouverture des liens (saufs ceux de TinyMCE) dans une nouvelle page
 
 
 Déploiement
