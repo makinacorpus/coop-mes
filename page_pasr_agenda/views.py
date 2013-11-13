@@ -43,6 +43,7 @@ def index_view(request, page_app):
     form = EventSearch(qd)
     if form.is_valid():
         events = Event.geo_objects
+        events = events.filter(status='V')
         start = form.cleaned_data['date']
         end = form.cleaned_data['date'] + timedelta(days=int(form.cleaned_data['interval']))
         events = events.filter(occurrence__end_time__gte=start, occurrence__start_time__lt=end)
@@ -102,6 +103,9 @@ def index_view(request, page_app):
 
 def detail_view(request, page_app, pk):
     event = get_object_or_404(Event, pk=pk)
+    if event.status != 'V':
+        return render_view('page_pasr_agenda/not_validated.html', {'object': page_app},
+                           (), context_instance=RequestContext(request))
     get_params = request.GET.copy()
     return render_view('page_pasr_agenda/detail.html',
                        {'object': page_app, 'event': event,
@@ -119,6 +123,8 @@ def add_view(request, page_app):
     form2 = OccurrencesForm(request.POST or None, instance=form.instance)
     if form.is_valid() and form2.is_valid():
         event = form.save(commit=False)
+        if 'propose' in request.POST and event.status == 'I':
+            event.status = 'P'
         event.calendar = Calendar.objects.all()[0]
         event.organization = org
         event.person = request.user.get_profile()
@@ -165,7 +171,10 @@ def update_view(request, page_app, pk):
     form = FrontEventForm(request.POST or None, request.FILES or None, instance=event)
     form2 = OccurrencesForm(request.POST or None, instance=event)
     if form.is_valid() and form2.is_valid():
-        form.save()
+        event = form.save(commit=False)
+        if 'propose' in request.POST and event.status == 'I':
+            event.status = 'P'
+        event.save()
         form2.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,

@@ -4,9 +4,17 @@ v1.14
  * Confirmation de supression d'un article
  * Confirmation de supression d'une offre
  * Confirmation de supression d'un appel d'offres
- * Séparation de la data et de l'heure pour les événements
+ * Séparation de la date et de l'heure pour les événements
  * Vérification que la fin est après le début pour les événements
  * Circuit de validation des articles
+ * Circuit de validation des événements
+
+
+Déploiement
+
+ - pull ionyweb
+ - migrate
+ - collectstatic
 
 
 v1.13
