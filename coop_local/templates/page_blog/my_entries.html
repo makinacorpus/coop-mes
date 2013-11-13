@@ -13,7 +13,7 @@
                     {% for entry in entries %}
                         <div class="row">
                             <div class="col-lg-12">
-                                {{ entry.title }}
+                                {{ entry.title }} ({{ entry.get_status_display }})
                                 <div class="pull-right">
                                     <a class="btn btn-default" href="{{ entry.get_absolute_url }}">Voir</a>
                                     <a class="btn btn-second" href="/actualites/p/{{ entry.pk }}/modifier/">Modifier</a>
