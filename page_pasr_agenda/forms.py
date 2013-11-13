@@ -114,5 +114,12 @@ class OccurrenceForm(forms.ModelForm):
             HTML('</fieldset>'),
         )
 
+    def clean_end_time(self):
+        start_time = self.cleaned_data.get('start_time')
+        end_time = self.cleaned_data.get('end_time')
+        if start_time and end_time and end_time < start_time:
+            raise forms.ValidationError('La fin est avant le début.')
+        return end_time
+
 
 OccurrencesForm = inlineformset_factory(Event, Occurrence, form=OccurrenceForm, extra=2)

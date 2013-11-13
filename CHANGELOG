@@ -2,6 +2,8 @@ v1.14
 
  * Confirmation de supression d'un événement
  * Confirmation de supression d'un article
+ * Séparation de la data et de l'heure pour les événements
+ * Vérification que la fin est après le début pour les événements
 
 
 v1.13
