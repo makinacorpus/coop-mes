@@ -1203,6 +1203,14 @@ button {
 .form .input-group .form-control {
   max-width: 100%;
 }
+.form .input-group.split-date {
+  max-width: 45%;
+  float: left;
+  margin-right: 10px;
+}
+.form .input-group.split-time {
+  max-width: 35%;
+}
 .radio input[type="radio"] {
   margin-top: 1px;
 }

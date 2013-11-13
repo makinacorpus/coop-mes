@@ -26,9 +26,9 @@ EDIT_MEDIA = [
     CSSMedia('select2/select2.css', prefix_file=''),
     CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
     JSMedia('select2/select2.min.js', prefix_file=''),
-    CSSMedia('datetimepicker/css/datetimepicker.css', prefix_file=''),
-    JSMedia('datetimepicker/js/bootstrap-datetimepicker.min.js', prefix_file=''),
-    JSMedia('datetimepicker/js/locales/bootstrap-datetimepicker.fr.js', prefix_file=''),
+    CSSMedia('css/datepicker.css', prefix_file=''),
+    JSMedia('js/bootstrap-datepicker.js', prefix_file=''),
+    JSMedia('js/bootstrap-datepicker.fr.js', prefix_file=''),
 ]
 
 

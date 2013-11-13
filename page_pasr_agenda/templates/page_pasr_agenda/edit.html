@@ -41,9 +41,9 @@ jQuery(document).ready(function() {
     $('.as-selections').addClass('form-control');
     $('.as-input').removeClass('form-control');
 
-    /* Datetime picker */
+    /* Date picker */
 
-    $('.datetimeinput').not($('.formset-form:last .datetimeinput')).datetimepicker({'format': 'dd/mm/yyyy hh:ii', 'weekStart': 1, 'language': 'fr', 'minuteStep': 15, 'autoclose': true});
+    $('.dateinput').not($('.formset-form:last .dateinput')).datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'language': 'fr', 'autoclose': true});
 
     /* Select2 */
 
@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
             var newFor = $(this).attr('for').replace('-' + (hidden_id-1) + '-','-' + total + '-');
             $(this).attr('for', newFor);
         });
-        newElement.find('.datetimeinput').datetimepicker({'format': 'dd/mm/yyyy hh:ii', 'weekStart': 1, 'language': 'fr', 'minuteStep': 15, 'autoclose': true});
+        newElement.find('.dateinput').datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'language': 'fr', 'autoclose': true});
         total++;
         $('[id$="TOTAL_FORMS"]').val(total);
         $('.formset-form:last').before(newElement);

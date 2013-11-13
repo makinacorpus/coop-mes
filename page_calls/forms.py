@@ -9,6 +9,7 @@ from django.conf import settings
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, HTML, Field
 from crispy_forms.bootstrap import InlineCheckboxes, FormActions, StrictButton, AppendedText
+from coop_local.widgets import SplitDateTimeWidget
 
 
 ORG_TYPE_CHOICES = (
@@ -55,6 +56,9 @@ class CallForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CallForm, self).__init__(*args, **kwargs)
+        self.fields['deadline'].widget = SplitDateTimeWidget(time_format='%H:%M')
+        self.fields['deadline'].label = u'Date et heure limite'
+        self.fields['deadline'].help_text = u'Date au format jj/mm/aaaa. Heure au format hh:mm.'
         self.fields['activity'].help_text = u''
         self.fields['areas'].help_text = u''
         self.helper = FormHelper()
