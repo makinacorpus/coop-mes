@@ -17,7 +17,7 @@
                 <a class="btn btn-second" href="{{ call.get_absolute_url }}modifier/">Modifier</a>
             </div>
             <div class="col-lg-2">
-                <a class="btn btn-danger" href="{{ call.get_absolute_url }}supprimer/">Supprimer</a>
+                <a class="btn btn-danger" href="{{ call.get_absolute_url }}supprimer/" data-title="{{ call.title }}">Supprimer</a>
             </div>
         </div>
         <hr>
@@ -28,3 +28,11 @@
 {% endif %}
 
 </div>
+
+<script type="text/javascript">
+    $('.btn-danger').click(function(event) {
+        event.preventDefault();
+        if (confirm("Voulez vous réellement supprimer l'appel d'offres " + $(this).attr('data-title') + " ?"))
+            window.location = $(this).attr('href');
+    });
+</script>

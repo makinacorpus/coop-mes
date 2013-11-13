@@ -11,6 +11,11 @@
                     <div class="section-head">
                         <h1 class="title">PROPOSER UN EVENEMENT</h1>
                     </div>
+                    {% if form.instance.status == 0 %}
+                        Vous pouvez enregistrer l'événement pour le modifier plus tard. Lorsque vous êtes prêt à demander sa publication, cliquez sur le bouton « Proposer l'événement ».
+                    {% elif form.instance.status == 2 %}
+                        Votre événement est en attente de validation par les administrateurs du site.
+                    {% endif %}
                     <form class="form form-horizontal" action="#" enctype="multipart/form-data" method="post">
                         <fieldset>
                             {% crispy form %}
@@ -23,6 +28,9 @@
                         <fieldset class="text-center">
                             <button class="add-link btn btn--form">Ajouter une plage horaire</button>
                             <button type="submit" class="btn btn-default">Enregistrer</button>
+                            {% if form.instance.status == 'I' %}
+                                <button type="submit" name='propose' class="btn btn--form">Proposer l'événement</button>
+                            {% endif %}
                         </fieldset>
                         <p><b>*</b> champs obligatoires</p>
                     </form>
@@ -41,9 +49,9 @@ jQuery(document).ready(function() {
     $('.as-selections').addClass('form-control');
     $('.as-input').removeClass('form-control');
 
-    /* Datetime picker */
+    /* Date picker */
 
-    $('.datetimeinput').not($('.formset-form:last .datetimeinput')).datetimepicker({'format': 'dd/mm/yyyy hh:ii', 'weekStart': 1, 'language': 'fr', 'minuteStep': 15, 'autoclose': true});
+    $('.dateinput').not($('.formset-form:last .dateinput')).datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'language': 'fr', 'autoclose': true});
 
     /* Select2 */
 
@@ -65,7 +73,7 @@ jQuery(document).ready(function() {
             var newFor = $(this).attr('for').replace('-' + (hidden_id-1) + '-','-' + total + '-');
             $(this).attr('for', newFor);
         });
-        newElement.find('.datetimeinput').datetimepicker({'format': 'dd/mm/yyyy hh:ii', 'weekStart': 1, 'language': 'fr', 'minuteStep': 15, 'autoclose': true});
+        newElement.find('.dateinput').datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'language': 'fr', 'autoclose': true});
         total++;
         $('[id$="TOTAL_FORMS"]').val(total);
         $('.formset-form:last').before(newElement);

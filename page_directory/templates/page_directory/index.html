@@ -30,7 +30,7 @@
                                 <div class="media-body">
                                     <p class="activity">{{ org.offer_activities }}</p>
                                     {% if org.nearest %}
-                                        <span class="location">{{ org.nearest.zipcode }} {{ org.nearest.city }}{% comment %}{% if org.distance %} ({{ org.distance.km|floatformat:"0" }} km){% endif %}{% endcomment %}</span>
+                                        <span class="location">{{ org.nearest.zipcode }} {{ org.nearest.city }}{#{% if org.distance %} ({{ org.distance.km|floatformat:"0" }} km){% endif %}#}</span>
                                     {% elif not no_location %}
                                         {% with org.main_location.city as city %}{% if city %}
                                             <span class="location">{{ org.main_location.zipcode }} {{ city }}</span>

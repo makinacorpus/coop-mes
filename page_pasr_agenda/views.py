@@ -26,9 +26,9 @@ EDIT_MEDIA = [
     CSSMedia('select2/select2.css', prefix_file=''),
     CSSMedia('css/select2-bootstrap3.css', prefix_file=''),
     JSMedia('select2/select2.min.js', prefix_file=''),
-    CSSMedia('datetimepicker/css/datetimepicker.css', prefix_file=''),
-    JSMedia('datetimepicker/js/bootstrap-datetimepicker.min.js', prefix_file=''),
-    JSMedia('datetimepicker/js/locales/bootstrap-datetimepicker.fr.js', prefix_file=''),
+    CSSMedia('css/datepicker.css', prefix_file=''),
+    JSMedia('js/bootstrap-datepicker.js', prefix_file=''),
+    JSMedia('js/bootstrap-datepicker.fr.js', prefix_file=''),
 ]
 
 
@@ -43,6 +43,7 @@ def index_view(request, page_app):
     form = EventSearch(qd)
     if form.is_valid():
         events = Event.geo_objects
+        events = events.filter(status='V')
         start = form.cleaned_data['date']
         end = form.cleaned_data['date'] + timedelta(days=int(form.cleaned_data['interval']))
         events = events.filter(occurrence__end_time__gte=start, occurrence__start_time__lt=end)
@@ -102,6 +103,9 @@ def index_view(request, page_app):
 
 def detail_view(request, page_app, pk):
     event = get_object_or_404(Event, pk=pk)
+    if event.status != 'V':
+        return render_view('page_pasr_agenda/not_validated.html', {'object': page_app},
+                           (), context_instance=RequestContext(request))
     get_params = request.GET.copy()
     return render_view('page_pasr_agenda/detail.html',
                        {'object': page_app, 'event': event,
@@ -120,6 +124,8 @@ def add_view(request, page_app):
     form2 = OccurrencesForm(request.POST or None, instance=form.instance)
     if form.is_valid() and form2.is_valid():
         event = form.save(commit=False)
+        if 'propose' in request.POST and event.status == 'I':
+            event.status = 'P'
         event.calendar = Calendar.objects.all()[0]
         event.organization = org
         event.person = request.user.get_profile()
@@ -168,7 +174,10 @@ def update_view(request, page_app, pk):
     form = FrontEventForm(request.POST or None, request.FILES or None, instance=event)
     form2 = OccurrencesForm(request.POST or None, instance=event)
     if form.is_valid() and form2.is_valid():
-        form.save()
+        event = form.save(commit=False)
+        if 'propose' in request.POST and event.status == 'I':
+            event.status = 'P'
+        event.save()
         form2.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
@@ -192,7 +201,7 @@ def my_view(request, page_app):
         return HttpResponseForbidden('Votre compte n\'est pas attaché à une organisation.')
     events = Event.objects.filter(organization=org)
     events = events.annotate(start_time=Min('occurrence__start_time'))
-    events = events.filter(occurrence__end_time__gte=datetime.now())
+    events = events.filter(Q(occurrence__end_time=None) | Q(occurrence__end_time__gte=datetime.now()))
     events = events.order_by('start_time')
     return render_view('page_pasr_agenda/my_events.html',
                        {'object': page_app, 'events': events},

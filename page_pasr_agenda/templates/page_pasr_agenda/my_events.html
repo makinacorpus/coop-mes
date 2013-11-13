@@ -13,11 +13,11 @@
                     {% for event in events %}
                         <div class="row">
                             <div class="col-lg-12">
-                                {{ event.title }}
+                                {{ event.title }} ({{ event.get_status_display }})
                                 <div class="pull-right">
                                     <a class="btn btn-default" href="/agenda/p/{{ event.pk }}/">Voir</a>
                                     <a class="btn btn-second" href="/agenda/p/{{ event.pk }}/modifier/">Modifier</a>
-                                    <a class="btn btn-danger" href="/agenda/p/{{ event.pk }}/supprimer/">Supprimer</a>
+                                    <a class="btn btn-danger" href="/agenda/p/{{ event.pk }}/supprimer/" data-title="{{ event.title }}">Supprimer</a>
                                 </div>
                             </div>
                         </div>
@@ -32,3 +32,11 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('.btn-danger').click(function(event) {
+        event.preventDefault();
+        if (confirm("Voulez vous réellement supprimer l'événement " + $(this).attr('data-title') + " ?"))
+            window.location = $(this).attr('href');
+    });
+</script>

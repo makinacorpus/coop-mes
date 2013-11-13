@@ -27,7 +27,7 @@
 {% if o.offerdocument_set.all %}
     <p><b>Documents&nbsp;:</b><ul>
     {% for d in o.offerdocument_set.all %}
-        <li><a href="{{ d.attachment.url }}">{{ d.name }}</a></li>
+        <li><a href="{{ d.attachment.url }}" target="_blank">{{ d.name }}</a></li>
     {% endfor %}
     </ul></p>
 {% endif %}

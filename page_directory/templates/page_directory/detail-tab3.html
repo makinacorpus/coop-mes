@@ -17,7 +17,7 @@
                 {% if c.contact_medium %}{{ c.contact_medium }}&nbsp;: {% endif %}{% if c.contact_medium.id == 8 %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}<br/>
             {% endfor %}
             {% if org.web %}
-                Web&nbsp;: <a href="{{ org.web }}">{{ org.web }}</a><br/>
+                Web&nbsp;: <a href="{{ org.web }}" target="_blank">{{ org.web }}</a><br/>
             {% endif %}
         {% endif %}
         {% for l in org.located.all %}

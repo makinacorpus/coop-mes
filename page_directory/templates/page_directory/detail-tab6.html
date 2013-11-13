@@ -26,7 +26,7 @@
                 {% endif %}{% endwith %}
                 {% if org.pref_email %}<li class="mail"><span>Courriel : <a href="mailto:{{ org.pref_email.content }}">{{ org.pref_email.content }}</a></span></li>{% endif %}
                 {% if org.pref_phone %}<li class="phone"><span>Tél : {{ org.pref_phone.content }}</span></li>{% endif %}
-                {% if org.web %}<li class=""><span>Web : <a href="{{ org.web }}">{{ org.web }}</a></span></li>{% endif %}
+                {% if org.web %}<li class=""><span>Web : <a href="{{ org.web }}" target="_blank">{{ org.web }}</a></span></li>{% endif %}
             </ul>
         </div>
     {% endif %}

@@ -619,6 +619,14 @@ class Occurrence(BaseOccurrence):
         )
 
 
+EVENT_STATUSES = Choices(
+    ('INCOMPLETE', 'I', u'Incomplet'),
+    ('PROPOSED', 'P', u'Proposé'),
+    ('VALIDATED', 'V', u'Validé'),
+    ('REFUSED', 'R', u'Refusé'),
+)
+
+
 class Event(BaseEvent):
 
     activity = models.ManyToManyField('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'), blank=True, null=True)
@@ -627,6 +635,7 @@ class Event(BaseEvent):
     brief_description = models.TextField(_(u'brief description'), blank=True,
         validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     a_la_une = models.BooleanField(u'à la une', default=False)
+    status = models.CharField(u'statut', max_length=1, choices=EVENT_STATUSES.CHOICES, default='I')
 
     objects = models.Manager()
     geo_objects = GeoManager()

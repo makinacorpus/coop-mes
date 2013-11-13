@@ -14,6 +14,8 @@ from tinymce.widgets import TinyMCE
 from django.conf import settings
 from coop_local.models import Event
 from django.forms.models import inlineformset_factory
+from coop_local.widgets import SplitDateTimeWidget
+
 
 class PageApp_PasrAgendaForm(ModuloModelForm):
 
@@ -97,15 +99,27 @@ class OccurrenceForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(OccurrenceForm, self).__init__(*args, **kwargs)
+        self.fields['start_time'].widget = SplitDateTimeWidget(time_format='%H:%M')
+        self.fields['end_time'].widget = SplitDateTimeWidget(time_format='%H:%M')
+        self.fields['start_time'].label = u'Début'
+        self.fields['end_time'].label = u'Fin'
+        self.fields['end_time'].help_text = u'Date au format jj/mm/aaaa. Heure au format hh:mm.'
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            HTML('<fieldset class="formset-form">'),
+            HTML('<fieldset class="formset-form occurence-form">'),
             'start_time',
             'end_time',
             Field('DELETE', template="bootstrap3/layout/delete.html"),
             HTML('</fieldset>'),
         )
+
+    def clean_end_time(self):
+        start_time = self.cleaned_data.get('start_time')
+        end_time = self.cleaned_data.get('end_time')
+        if start_time and end_time and end_time < start_time:
+            raise forms.ValidationError('La fin est avant le début.')
+        return end_time
 
 
 OccurrencesForm = inlineformset_factory(Event, Occurrence, form=OccurrenceForm, extra=2)

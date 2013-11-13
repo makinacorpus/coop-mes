@@ -7,7 +7,7 @@
                 <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
             {% else %}
                 {% if r.target.web %}
-                    <a href="{{ r.target.web }}" class="links-list-item__link">Voir le site web</a>
+                    <a href="{{ r.target.web }}" target="_blank" class="links-list-item__link">Voir le site web</a>
                 {% else %}
                     &nbsp;
                 {% endif %}

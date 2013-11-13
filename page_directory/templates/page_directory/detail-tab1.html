@@ -143,7 +143,7 @@
             <h5>Documents associés :</h5>
             <ul class="list-unstyled text-center">
                 {% for doc in org.documents %}
-                    <li><a href="{{ doc.attachment.url }}"><i class="icon-export-doc"></i>{{ doc.name }}<span class="file-size">- {{ doc.attachment.size|filesizeformat }}</span></a></li>
+                    <li><a href="{{ doc.attachment.url }}" target="_blank"><i class="icon-export-doc"></i>{{ doc.name }}<span class="file-size">- {{ doc.attachment.size|filesizeformat }}</span></a></li>
                 {% endfor %}
             </ul>
         {% endif %}

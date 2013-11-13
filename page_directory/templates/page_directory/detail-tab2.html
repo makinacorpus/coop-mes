@@ -40,7 +40,7 @@
                             <a href="{{ r.target.get_absolute_url }}">{{ r.target }}</a>
                         {% else %}
                             {% if r.target.web %}
-                                <a href="{{ r.target.web }}">{{ r.target }}</a>
+                                <a href="{{ r.target.web }}" target="_blank">{{ r.target }}</a>
                             {% else %}
                                 {{ r.target }}
                             {% endif %}

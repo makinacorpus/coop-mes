@@ -47,7 +47,7 @@
                                     {% if event.organization.status == 'V' %}
                                         <dd><a href="{{ event.organization.get_absolute_url }}">{{ event.organization }}</a></dd>
                                     {% elif event.organization.web %}
-                                        <dd><a href="{{ event.organization.web }}">{{ event.organization }}</a></dd>
+                                        <dd><a href="{{ event.organization.web }}" target="_blank">{{ event.organization }}</a></dd>
                                     {% else %}
                                         <dd>{{ event.organization }}</dd>
                                     {% endif %}
@@ -122,7 +122,7 @@
                                 <h5>Documents associés :</h5>
                                 <ul class="list-unstyled text-center">
                                     {% for doc in event.documents %}
-                                        <li><a href="{{ doc.attachment.url }}"><i class="icon-export-doc"></i>{{ doc.name }}<span class="file-size">- {{ doc.attachment.size|filesizeformat }}</span></a></li>
+                                        <li><a href="{{ doc.attachment.url }}" target="_blank"><i class="icon-export-doc"></i>{{ doc.name }}<span class="file-size">- {{ doc.attachment.size|filesizeformat }}</span></a></li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
