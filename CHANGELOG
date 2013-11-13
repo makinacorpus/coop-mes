@@ -2,6 +2,8 @@ v1.14
 
  * Confirmation de supression d'un événement
  * Confirmation de supression d'un article
+ * Confirmation de supression d'une offre
+ * Confirmation de supression d'un appel d'offres
  * Séparation de la data et de l'heure pour les événements
  * Vérification que la fin est après le début pour les événements
 
