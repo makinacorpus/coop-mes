@@ -136,6 +136,7 @@ def add_view(request, page_app):
         call = form.save(commit=False)
         call.organization = org
         call.save()
+        form.save_m2m()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
             content_type_id = ContentType.objects.get_for_model(Organization).pk,
