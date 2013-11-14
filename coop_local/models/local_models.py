@@ -180,6 +180,11 @@ class AbstractDocument(models.Model):
     attachment = models.FileField(_(u'attachment'), upload_to='docs', max_length=255)
     type = models.ForeignKey('DocumentType', verbose_name=_(u'type'), blank=True, null=True)
 
+    def __unicode__(self):
+        if self.name:
+            return self.name
+        return self.attachment.path.split('/')[-1].replace('_', ' ')
+
     class Meta:
         abstract = True
         verbose_name = _(u'associated document')
