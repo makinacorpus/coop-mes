@@ -4,7 +4,7 @@ import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_PasrAgenda
 from coop_local.models import (ActivityNomenclature, Area, TransverseTheme,
-    Organization, Occurrence)
+    Organization, Occurrence, Location)
 from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
@@ -15,6 +15,7 @@ from django.conf import settings
 from coop_local.models import Event
 from django.forms.models import inlineformset_factory
 from coop_local.widgets import SplitDateTimeWidget
+from page_directory.forms import geocode
 
 
 class PageApp_PasrAgendaForm(ModuloModelForm):
@@ -123,3 +124,25 @@ class OccurrenceForm(forms.ModelForm):
 
 
 OccurrencesForm = inlineformset_factory(Event, Occurrence, form=OccurrenceForm, extra=2)
+
+
+class LocationForm(forms.ModelForm):
+
+    class Meta:
+        model = Location
+        fields = ('adr1', 'adr2', 'zipcode', 'city')
+
+    def __init__(self, *args, **kwargs):
+        super(LocationForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.layout = Layout(
+            'adr1', 'adr2', 'zipcode', 'city'
+        )
+
+    def save(self, commit=True):
+        location = super(LocationForm, self).save(commit=False)
+        geocode(location)
+        if commit:
+            location.save()
+        return location

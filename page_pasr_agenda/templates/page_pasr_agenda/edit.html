@@ -20,6 +20,9 @@
                         <fieldset>
                             {% crispy form %}
                         </fieldset>
+                        <fieldset>
+                            {% crispy form3 %}
+                        </fieldset>
                         {{ form2.management_form }}
                         {% for subform in form2.forms %}
                             {{ subform.id }}
