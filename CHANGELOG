@@ -2,6 +2,7 @@ v1.16
 
  * Ouverture des liens (y compris ceux de TinyMCE) dans une nouvelle page
  * Export CSV des appels d'offres
+ * Affichage de l'image si offre unique pour une organisation
 
 
 Déploiement
