@@ -130,6 +130,7 @@ def add_view(request, page_app):
         event.organization = org
         event.person = request.user.get_profile()
         event.save()
+        form.save_m2m()
         form2.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
@@ -178,6 +179,7 @@ def update_view(request, page_app, pk):
         if 'propose' in request.POST and event.status == 'I':
             event.status = 'P'
         event.save()
+        form.save_m2m()
         form2.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,

@@ -1,3 +1,9 @@
+v1.15
+
+ * Corrige l'enregistrement du secteur d'activité en front end pour les
+   événements, articles et appels d'offres
+
+
 v1.14
 
  * Confirmation de supression d'un événement
