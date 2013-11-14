@@ -44,6 +44,7 @@ def index_view(request, page_app):
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
     form = OrgSearch(qd)
+    no_location = False
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
         orgs = orgs.filter(
@@ -72,7 +73,6 @@ def index_view(request, page_app):
             orgs = orgs.filter(offer__activity__in=descendants)
         area = form.cleaned_data.get('area')
         geo = qd.get('geo')
-        no_location = False
         orgs = orgs.distinct()
         if area:
             if area.default_location and area.default_location.point:
