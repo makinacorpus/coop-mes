@@ -24,7 +24,7 @@
                 <div class="article-extract">
                     <h3><a href="/appels-doffres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
                     <div class="article-extract__meta">{{ call.organization.label }}</div>
-                    <p>Date limite de réception des offres&nbsp;: {{ call.deadline|date:"j F Y à g\hi" }}</p>
+                    <p>Date limite de réception des offres&nbsp;: {{ call.deadline|date:"j F Y à G\hi" }}</p>
                 </div>
             {% endfor %}
         </div>
