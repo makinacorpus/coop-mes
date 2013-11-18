@@ -55,7 +55,7 @@
                                 </dd>
 
                                 <dt class="iconf-calendar">Data et heure limite de réception :</dt>
-                                <dd>{{ call.deadline|date:"j F Y à g\hi" }}</dd>
+                                <dd>{{ call.deadline|date:"j F Y à G\hi" }}</dd>
 
                                 <dt class="iconf-info-circled">Secteur{{ call.activity.count|pluralize }} d'activité :</dt>
                                 {% for activity in call.activity.all %}
