@@ -1,3 +1,19 @@
+v1.16
+
+ * Ouverture des liens (y compris ceux de TinyMCE) dans une nouvelle page
+ * Export CSV des appels d'offres
+ * Affichage de l'image si offre unique pour une organisation
+ * Supprime les deux-points en trop dans les informations économiques
+ * Déplacement de l'URL des appels d'offre dans le paneau de gauche
+ * Affichage de l'heure sur 24h et non sur 12h
+
+
+Déploiement
+
+ - pull ionyweb
+ - collectstatic
+
+
 v1.15
 
  * Corrige l'enregistrement du secteur d'activité en front end pour les

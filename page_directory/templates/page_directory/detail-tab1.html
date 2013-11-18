@@ -10,7 +10,7 @@
                     <li class="list-group-item">
                         {% if org.offer_set.all|length == 1 %}
                             {% include "page_directory/detail-offer.html" %}
-                            {% thumbnail org.offer_set.0.image "200x150" upscale=0 as image %}
+                            {% thumbnail org.offer_set.all.0.image "200x150" upscale=0 as image %}
                                 <img src="{{ image.url }}">
                             {% endthumbnail %}
                         {% else %}

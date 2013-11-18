@@ -750,6 +750,37 @@ class CallForTendersAdmin(FkAutocompleteAdmin):
              self.exclude = ('activity', 'areas', 'en_direct', 'a_la_une')
          return super(CallForTendersAdmin, self).get_form(request, obj, **kwargs)
 
+    def csv_view(self, request):
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=ao.csv'
+        writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer.writerow([s.encode('cp1252') for s in [u'titre', u'organisation',
+            u'secteur d\'activité', u'localisation', u'allotement', u'numéros de lot',
+            u'date limite', u'clauses', u'url', u'description']])
+        for call in CallForTenders.objects.order_by('title'):
+            row = [
+                call.title,
+                call.organization.title,
+                call.activities(),
+                ', '.join([area.label for area in call.areas.all()]),
+                'oui' if call.allotment else 'non',
+                call.lot_numbers,
+                call.deadline.strftime('%d/%m/%Y %H:%M') if call.deadline else '',
+                ', '.join(call.clauses),
+                call.url,
+                call.description,
+            ]
+            writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
+        return response
+
+    def get_urls(self):
+        urls = super(CallForTendersAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^csv/$', self.admin_site.admin_view(self.csv_view)),
+        )
+        return my_urls + urls
+
+
 class OfferDocumentInline(DocumentInline):
 
     model = OfferDocument

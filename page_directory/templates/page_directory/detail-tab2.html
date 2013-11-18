@@ -47,16 +47,16 @@
                         {% endif %}
                         {% if r.from_year %}
                             {% if r.to_year %}
-                                (de {{ r.from_year }} à {{ r.to_year }})&nbsp;:<br/>
+                                (de {{ r.from_year }} à {{ r.to_year }})
                             {% else %}
-                                (à partir de {{ r.from_year }})&nbsp;:<br/>
+                                (à partir de {{ r.from_year }})
                             {% endif %}
                         {% else %}
                             {% if r.to_year %}
                                 (jusqu'à {{ r.to_year }})
                             {% endif %}
                         {% endif %}
-                        {% if r.services %}&nbsp;:<br/>{{ r.services }}{% endif %}
+                        {% if r.services %}<br/>{{ r.services }}{% endif %}
                     </li>
                 {% endfor %}
             </ul>

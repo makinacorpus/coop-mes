@@ -55,7 +55,7 @@
                                 </dd>
 
                                 <dt class="iconf-calendar">Data et heure limite de réception :</dt>
-                                <dd>{{ call.deadline|date:"j F Y à g\hi" }}</dd>
+                                <dd>{{ call.deadline|date:"j F Y à G\hi" }}</dd>
 
                                 <dt class="iconf-info-circled">Secteur{{ call.activity.count|pluralize }} d'activité :</dt>
                                 {% for activity in call.activity.all %}
@@ -67,11 +67,15 @@
 
                                 <dt class="iconf-bag">Numéros du ou des lots :</dt>
                                 <dd>{{ call.lot_numbers }}</dd>
+
+                                {% if call.url %}
+                                    <dt class="iconf-book">Lien :</dt>
+                                    <dd><a href="{{ call.url }}" target="_blank" class="website">{{ call.url }}</a></dd>
+                                {% endif %}
                             </dl>
                         </div>
                         <div class="col-lg-7">
                             <p>{{ call.description|linebreaks }}</p>
-                            <a href="{{ call.url }}" target="_blank" class="website">{{ call.url }}</a>
 {% comment %}
                             <hr class="dotted">
                             <h5>Documents associés :</h5>

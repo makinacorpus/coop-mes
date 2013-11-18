@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 """
 This file was generated with the custommenu management command, it contains
 the classes for the admin menu, you can customize this class as you want.
@@ -73,6 +75,12 @@ class CustomMenu(Menu):
                     items.MenuItem(_(u'Events'), '/admin/coop_local/event/'),
                     items.MenuItem(_(u'Calendar'), '/admin/coop_local/calendar/'),
                     items.MenuItem(_(u'Event categories'), '/admin/coop_local/eventcategory/'),
+            ])
+        )
+
+        self.children.append(
+            items.MenuItem(u'Actualités', '#', icon='icon-coop icon-rdf icon-white', children=[
+                    items.MenuItem(u'Articles', '/admin/page_blog/entry/'),
             ])
         )
 

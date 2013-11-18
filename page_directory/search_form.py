@@ -25,7 +25,7 @@ GEO_CHOICES = (
 class AreaLookup(ModelLookup):
     model = Area
     def get_query(self, request, term):
-        qs = self.get_queryset()
+        qs = self.get_queryset().filter(polygon__isnull=False)
         if term:
             for bit in term.split():
                 qs = qs.filter(label__icontains=bit)
