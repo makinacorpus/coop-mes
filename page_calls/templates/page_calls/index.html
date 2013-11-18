@@ -80,13 +80,13 @@
                                     <img class="media-object" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" width="220" height="140" />
                                 {% endthumbnail %}
                             {% else %}
-                                <div class="media-object"></div>
+                                <img class="media-object" src="" width="220" height="140">
                             {% endif %}
                             </a>
                             <div class="media-body">
                                 <p class="activity">{{ call.activities }}</p>
                                 <h4 class="media-heading">{{ call.title }}</h4>
-                                <p>Date limite de remise des offres&nbsp;: {{ call.deadline }}</p>
+                                <p>Date limite de remise des offres&nbsp;: {{ call.deadline|date:"j F Y à G\hi" }}</p>
                                 <a href="{{ call.get_absolute_url }}?{{ get_params }}&page={{ calls.number }}" class="btn btn-default">Détails de l'offre</a>
                             </div>
                         </div>
