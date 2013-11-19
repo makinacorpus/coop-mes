@@ -6,11 +6,12 @@
             <div class="row">
                 <div class="col-lg-3 sidebar sidebar--left">
                     <div class="content-box profile">
-                        <h2 class="iconf-user section-title">Mon profil</h2>
+                        <h2 class="iconf-user section-title">Mes information</h2>
                         <ul class="list-group">
                             {% for title in titles %}
                                 <li class="list-group-item"><a href="/annuaire/p/modifier/{{ forloop.counter0 }}/" {% if step.current == forloop.counter0 %}class="active"{% endif %}>{{ title }}</a></li>
                             {% endfor %}
+                            <li class="list-group-item"><a href="/mon-compte/">Retour à mon compte</a></li>
                         </ul>
                     </div>
                 </div>

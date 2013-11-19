@@ -9,15 +9,18 @@
     {% if my_organization.status == 'P' and my_organization.offer_set.all %}
         <p>Vos informations sont en cours de validation par les administrateurs du site. Elle ne seront visibles publiquement qu'après validation.</p>
     {% endif %}
-    {% if my_organization.status == 'V' %}
-        <p><a href="{{ my_organization.get_absolute_url }}">Voir ma fiche</a></p>
-    {% endif %}
-    <p><a href="/annuaire/p/modifier/">Modifier ma fiche</a></p>
-    {% if my_organization.is_customer %}
-        <p><a href="/mon-compte/p/mes-appels-doffres/">Modifier mes appels d'offres</a></p>
-    {% endif %}
-    {% if my_organization.is_provider %}
-        <p><a href="/mon-compte/p/mes-offres/">Modifier mes offres</a></p>
-    {% endif %}
 {% endif %}
-<p><a href="p/deconnexion/?next=/">Déconnexion</a></p>
+<ul class="list-group">
+    {% if my_organization %}
+        <li class="list-group-item"><a href="/annuaire/p/modifier/">Mes informations</a></li>
+        {% if my_organization.is_customer %}
+            <li class="list-group-item"><a href="/mon-compte/p/mes-appels-doffres/">Mes appels d'offres</a></li>
+        {% endif %}
+        {% if my_organization.is_provider %}
+            <li class="list-group-item"><a href="/mon-compte/p/mes-offres/">Mes offres</a></li>
+        {% endif %}
+        <li class="list-group-item"><a href="/actualites/p/mes-articles/">Mes articles</a></li>
+        <li class="list-group-item"><a href="/agenda/p/mes-evenements/">Mes événements</a></li>
+    {% endif %}
+    <li class="list-group-item"><a href="p/deconnexion/?next=/">Déconnexion</a></li>
+</ul>
