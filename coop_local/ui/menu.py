@@ -80,6 +80,7 @@ class CustomMenu(Menu):
 
         self.children.append(
             items.MenuItem(u'Actualités', '#', icon='icon-coop icon-rdf icon-white', children=[
+                    items.MenuItem(u'Blogs', '/admin/page_blog/pageapp_blog/'),
                     items.MenuItem(u'Articles', '/admin/page_blog/entry/'),
             ])
         )
