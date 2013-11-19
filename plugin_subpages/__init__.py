@@ -2,9 +2,9 @@
 from django.utils.translation import ugettext as _
 
 PLUGIN_INFO = {
-    'NAME': _(u"subpages"),
+    'NAME': u"Sous-pages",
     'CATEGORY': 'text',
     'VERSION': "1.0",
-    'SHORT_DESCRIPTION': _(u"Please edit plugin_subpages./__init__.py"),
-    'DESCRIPTION': _(u"Please edit plugin_subpages./__init__.py"),
+    'SHORT_DESCRIPTION': u"Menu des sous-pages de la page courante",
+    'DESCRIPTION': u"Menu des sous-pages de la page courante",
 }
