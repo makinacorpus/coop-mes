@@ -541,6 +541,9 @@ hr {
 .article__meta span {
   margin-right: 20px;
 }
+.plugin-subpages {
+  font-size: 16px;
+}
 .vignette {
   width: 160px;
   height: 160px;
