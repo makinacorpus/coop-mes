@@ -819,6 +819,10 @@ class OfferAdmin(FkAutocompleteAdmin):
     inlines = [OActivityInline, OfferAreaInline, OfferDocumentInline]
     exclude = ('activity', 'area')
 
+    def save_model(self, request, obj, form, change):
+        super(OfferAdmin, self).save_model(request, obj, form, change)
+        obj.provider.save() # Update modification date
+
     def csv_view(self, request):
         response = HttpResponse(mimetype='text/csv')
         response['Content-Disposition'] = 'attachment; filename=offres.csv'

@@ -411,6 +411,7 @@ def offer_delete_view(request, page_app, pk):
         change_message  = u'Offre "%s" supprimée.' % force_unicode(offer)
     )
     offer.delete()
+    offer.provider.save() # Update modification date
     return HttpResponseRedirect('/mon-compte/p/mes-offres/')
 
 
@@ -422,8 +423,9 @@ def offer_update_view(request, page_app, pk):
     form = OfferForm(request.POST or None, instance=offer)
     form2 = OfferDocumentsFormset(request.POST or None, request.FILES or None, instance=offer)
     if form.is_valid() and form2.is_valid():
-        form.save()
+        offer = form.save()
         form2.save()
+        offer.provider.save() # Update modification date
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
             content_type_id = ContentType.objects.get_for_model(Organization).pk,
@@ -452,6 +454,7 @@ def offer_add_view(request, page_app):
         offer.save()
         form.save_m2m()
         form2.save()
+        org.save() # Update modification date
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
             content_type_id = ContentType.objects.get_for_model(Organization).pk,
