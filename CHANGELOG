@@ -1,7 +1,7 @@
 v1.17
 
  * Editions des articles (blog/actualités) dans le back office
- * Correction du style du fil d'Ariane
+ * Correction du style du fil d'Ariane et du menu des sous-pages
  * Traduction du nom des plugins ionyweb
 
 
@@ -9,6 +9,7 @@ Déploiement
 
  - pull ionyweb
  - migrate pageapp_blog
+ - collectstatic
 
 
 v1.16
