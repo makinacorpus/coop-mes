@@ -1131,6 +1131,9 @@ button {
   margin-top: 5px;
   float: left;
 }
+.my-offers .section-head {
+  margin-bottom: 20px;
+}
 .section-foot {
   border-top: 1px dotted #d3d3d3;
   margin-top: 10px;
