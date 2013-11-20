@@ -7,6 +7,7 @@ from ionyweb.page.models import AbstractPageApp
 class PageApp_Directory(AbstractPageApp):
     
     # Define your fields here
+    networks = models.BooleanField(u'Réseaux uniquement')
 
     def __unicode__(self):
         return u'Directory #%d' % (self.pk)

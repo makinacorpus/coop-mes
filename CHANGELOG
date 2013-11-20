@@ -8,6 +8,7 @@ v1.17
  * Unification de "Mon compte" (page et menus) et liens de retour à
    "Mon compte"
  * Liste des garanties
+ * Liste des réseaux
 
 
 Déploiement
@@ -16,6 +17,7 @@ Déploiement
  - migrate
  - collectstatic
  - configurer la page garanties
+ - configurer la page réseaux
 
 
 v1.16

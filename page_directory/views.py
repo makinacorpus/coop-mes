@@ -56,13 +56,15 @@ def index_view(request, page_app):
             Q(offer__activity__path__icontains=form.cleaned_data['q']))
         if form.cleaned_data['guaranty']:
             orgs = orgs.filter(guaranties=form.cleaned_data['guaranty'])
-        if form.cleaned_data['org_type'] == 'fournisseur':
+        if page_app.networks:
+            orgs = orgs.filter(is_network=True)
+        elif form.cleaned_data['org_type'] == 'fournisseur':
             orgs = orgs.filter(is_provider=True)
             if form.cleaned_data['prov_type']:
                 orgs = orgs.filter(agreement_iae=form.cleaned_data['prov_type'])
-        if form.cleaned_data['org_type'] == 'acheteur-public':
+        elif form.cleaned_data['org_type'] == 'acheteur-public':
             orgs = orgs.filter(is_customer=True, customer_type=1)
-        if form.cleaned_data['org_type'] == 'acheteur-prive':
+        elif form.cleaned_data['org_type'] == 'acheteur-prive':
             orgs = orgs.filter(is_customer=True, customer_type=2)
         interim = form.cleaned_data['interim']
         if interim:
