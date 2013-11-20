@@ -1,0 +1,86 @@
+{% load thumbnail %}
+
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="guaranties-search" method="GET" action="#" class="content-box top advanced-search-form">
+                    {{ form.non_field_errors }}
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Type</h3>
+                                <div class="dropdown">
+                                    {{ form.type }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <h3>Recherche libre</h3>
+                                <div class="dropdown search">
+                                    {{ form.q }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item" style="visibility: hidden;">
+                                <h3>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item">
+                                <div class="result">
+                                    <span class="number">{{ guaranties.paginator.count }}</span> Résultat{{ guaranties.paginator.count|pluralize }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <p class="text-center"><input class="btn btn-default" type="submit" name="display" value="RECHERCHER"></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+{% if guaranties %}
+                    <div class="section-head">
+                        {% include "page_guaranties/pagination.html" %}
+                    </div>
+                    <div class="results">
+{% for guaranty in guaranties %}
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                            {% if guaranty.logo %}
+                                {% thumbnail guaranty.logo "220x140" upscale=0 as logo %}
+                                    <img class="media-object" src="{{ logo.url }}" style="padding: {{ logo|margin:"220x140" }}" width="220" height="140" />
+                                {% endthumbnail %}
+                            {% else %}
+                                <img class="media-object" src="" width="220" height="140">
+                            {% endif %}
+                            </a>
+                            <div class="media-body">
+                                <p class="activity">{{ guaranty.get_type_display }}</p>
+                                <h4 class="media-heading">{{ guaranty.name }}</h4>
+                                <p>{{ guaranty.description }}</p>
+                            </div>
+                        </div>
+{% endfor %}
+                    </div>
+                    <div class="section-foot">
+                        {% include "page_guaranties/pagination.html" %}
+                    </div>
+{% else %}
+                    <p>Aucun résultat.</p>
+{% endif %}
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+        </div>
+    </div>
+</div>

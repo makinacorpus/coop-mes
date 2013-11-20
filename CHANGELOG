@@ -7,13 +7,15 @@ v1.17
    changement des offres
  * Unification de "Mon compte" (page et menus) et liens de retour à
    "Mon compte"
+ * Liste des garanties
+
 
 Déploiement
 
  - pull ionyweb
- - migrate pageapp_blog
- - migrate coop_local
+ - migrate
  - collectstatic
+ - configurer la page garanties
 
 
 v1.16
