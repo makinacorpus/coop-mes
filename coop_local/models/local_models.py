@@ -12,7 +12,7 @@ from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
 
 from coop.org.models import (BaseOrganization, BaseOrganizationCategory,
-    BaseRole, BaseRelation, BaseContact, BaseEngagement)
+    BaseRole, BaseRelation, BaseContact)
 from coop.agenda.models import BaseEvent, BaseOccurrence
 from coop.person.models import BasePerson
 from coop_geo.models import Located as BaseLocated
@@ -323,12 +323,6 @@ CUSTOMER_TYPES = Choices(
     ('PUBLIC', 1, _(u'Public')),
     ('PRIVATE', 2, u'Privé'),
 )
-
-
-class Engagement(BaseEngagement):
-
-    tel = models.CharField(_(u'tél.'), max_length=100, blank=True, null=True)
-    email = models.EmailField(_(u'email'), max_length=100, blank=True, null=True)
 
 
 CLAUSE_CHOICES = (('6', '6'), ('14', '14'), ('15', '15'), ('30', '30'), ('53', '53'))

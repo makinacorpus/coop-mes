@@ -5,7 +5,8 @@ from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Directory
 from coop_local.models import (ActivityNomenclature,
     Organization, Engagement, Document, Relation, Located, Location,
-    Contact, Person, Offer, Reference, OrgRelationType, OfferDocument)
+    Contact, Person, Offer, Reference, OrgRelationType, OfferDocument,
+    ContactMedium)
 from coop_local.models.local_models import normalize_text
 from django.conf import settings
 from tinymce.widgets import TinyMCE
@@ -21,6 +22,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import login, authenticate
 import urllib, urllib2, json
 from django.db import transaction
+from coop_local.sync_contacts import sync_contacts
 
 
 GMAP_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=%s"\
@@ -553,16 +555,36 @@ class EngagementForm(OrganizationMixin, forms.ModelForm):
     gender = forms.ChoiceField(choices=(('', u'---'), ('M',  _(u'Mr')), ('W',  _(u'Mrs'))), label=_(u'gender').capitalize(), required=False)
     last_name = forms.CharField(label=_(u'last name').capitalize(), max_length=100)
     first_name = forms.CharField(label=_(u'first name').capitalize(), max_length=100, required=False)
+    tel = forms.CharField(label=_(u'tél.'), required=False)
+    email = forms.EmailField(label=_(u'email'), required=False)
 
     class Meta:
         model = Engagement
-        fields = ('role', 'tel', 'email')
+        fields = ('role', )
 
     def __init__(self, *args, **kwargs):
         instance = kwargs.get('instance')
+        initial = {}
         if instance and instance.person:
-            kwargs['initial'] = dict([(field, getattr(instance.person, field))
-                for field in ('gender', 'last_name', 'first_name')])
+            for field in ('gender', 'last_name', 'first_name'):
+                initial[field] = getattr(instance.person, field)
+        if instance and instance.id:
+            engagement_ct = ContentType.objects.get(app_label="coop_local", model="engagement")
+            get_kwargs = {
+                'content_type': engagement_ct,
+                'object_id': instance.id,
+                'contact_medium': ContactMedium.objects.get(label=u'Téléphone'),
+            }
+            try:
+                initial['tel'] = Contact.objects.get(**get_kwargs).content
+            except Contact.DoesNotExist:
+                pass
+            get_kwargs['contact_medium'] = ContactMedium.objects.get(label=u'Courriel')
+            try:
+                initial['email'] = Contact.objects.get(**get_kwargs).content
+            except Contact.DoesNotExist:
+                pass
+        kwargs['initial'] = initial
         super(EngagementForm, self).__init__(*args, **kwargs)
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
@@ -596,6 +618,13 @@ class EngagementForm(OrganizationMixin, forms.ModelForm):
 
 
 class EngagementInlineFormSet(forms.models.BaseInlineFormSet):
+    def save(self, commit=True):
+        engagements = super(EngagementInlineFormSet, self).save(commit)
+        for engagement in engagements:
+            for form in self.forms:
+                if form.instance == engagement:
+                    sync_contacts(engagement, form.cleaned_data)
+        return engagements
 
     # FIXME: filter delete field when engagement.person.user = current user
     def add_fields(self, form, index):

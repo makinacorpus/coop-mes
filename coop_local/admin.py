@@ -38,6 +38,7 @@ import unicodedata
 import re
 import random
 import string
+from coop_local.sync_contacts import sync_contacts
 
 from coop.org.admin import (
     OrganizationAdmin as BaseOrganizationAdmin,
@@ -191,7 +192,44 @@ class ContactInline(BaseContactInline):
         return generic_inlineformset_factory(Contact, form=make_contact_form(pks, self.admin_site, request))
 
 
+class EngagementForm(forms.ModelForm):
+    tel = forms.CharField(label=_(u'tél.'), required=False)
+    email = forms.EmailField(label=_(u'email'), required=False)
+
+    class Meta:
+        model = Engagement
+        fields = ('person', 'role', 'role_detail', 'org_admin', 'engagement_display')
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        initial = {}
+        if instance and instance.id:
+            try:
+                initial['tel'] = instance.contacts.get(contact_medium__label=u'Téléphone').content
+            except Contact.DoesNotExist:
+                pass
+            try:
+                initial['email'] = instance.contacts.get(contact_medium__label=u'Courriel').content
+            except Contact.DoesNotExist:
+                pass
+        kwargs['initial'] = initial
+        super(EngagementForm, self).__init__(*args, **kwargs)
+
+
+class EngagementFormSet(forms.models.BaseInlineFormSet):
+
+    def save(self, commit=True):
+        engagements = super(EngagementFormSet, self).save(commit)
+        for engagement in engagements:
+            for form in self.forms:
+                if form.instance == engagement:
+                    sync_contacts(engagement, form.cleaned_data)
+        return engagements
+
+
 class EngagementInline(BaseEngagementInline):
+    form = EngagementForm
+    formset = EngagementFormSet
     fields = ('person', 'role', 'role_detail', 'tel', 'email', 'org_admin', 'engagement_display')
     related_search_fields = {
         'person': ('last_name', 'first_name'),
@@ -265,10 +303,10 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
         self.fields['category_iae'].help_text = None
 
         engagements = self.instance.engagement_set.all()
-        members_id = engagements.values_list('person_id', flat=True)
+        members_id = engagements.values_list('id', flat=True)
         org_contacts = Contact.objects.filter(
             Q(content_type=ContentType.objects.get(model='organization'), object_id=self.instance.id)
-          | Q(content_type=ContentType.objects.get(model='person'), object_id__in=members_id)
+          | Q(content_type=ContentType.objects.get(model='engagement'), object_id__in=members_id)
             )
         phone_categories = [1, 2]
         self.fields['pref_email'].queryset = org_contacts.filter(contact_medium_id=8)
