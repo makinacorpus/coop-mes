@@ -69,6 +69,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'page_calls',
     'page_pasr_agenda',
     'page_newsletter',
+    'page_guaranties',
     'leaflet',
     'crispy_forms',
     'ionyweb.page_app.page_blog',
