@@ -315,13 +315,13 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         'is_customer', 'is_network', 'active', 'creation', 'modification']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['status', 'transmission', AuthorListFilter, 'is_provider', 'is_customer', 'is_network', 'en_direct', 'a_la_une']
+    list_filter = ['status', 'transmission', AuthorListFilter, 'is_provider', 'is_customer', 'is_network', 'a_la_une', 'en_direct', 'zoom_sur']
     ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', ('acronym', 'pref_label'), 'logo', 'birth', 'active',
                        'legal_status', 'category', 'category_iae', 'agreement_iae',
-                       'web', 'siret', 'bdis_id', 'en_direct', 'a_la_une']
+                       'web', 'siret', 'bdis_id', 'a_la_une', 'en_direct', 'zoom_sur']
             }),
         (_(u'Organization type'), {
             'fields': ['is_provider', 'is_customer', 'is_network', 'customer_type']
@@ -880,7 +880,7 @@ class EventAdmin(BaseEventAdmin):
     fieldsets = [['Description', {'fields': ['title', 'brief_description',
         'description', 'tags', 'category', 'calendar', 'organization',
         'person', 'location', 'activity', 'theme', 'image', 'a_la_une',
-        'status',
+        'en_direct', 'status',
       ]}],
     ]
     restricted_fieldsets = [['Description', {'fields': ['title', 'brief_description',
@@ -888,9 +888,9 @@ class EventAdmin(BaseEventAdmin):
         'person', 'location', 'activity', 'theme', 'image',
       ]}],
     ]
-    list_display = ('id', 'title', 'time_str', 'status')
+    list_display = ('id', 'title', 'time_str', 'status', 'a_la_une', 'en_direct')
     list_display_links = ('title', )
-    list_filter = ('status', )
+    list_filter = ('status', 'a_la_une', 'en_direct')
 
     def get_fieldsets(self, request, obj=None):
         if request.user.is_superuser:
