@@ -11,6 +11,7 @@ v1.17
  * Liste des réseaux
  * Affichage de la date et du status dans la liste des événement en back
    office
+ * Mise en page de l'espace ressource (sous pages, blogs, fil d'ariane)
 
 
 Déploiement
@@ -20,6 +21,8 @@ Déploiement
  - collectstatic
  - configurer la page garanties
  - configurer la page réseaux
+ - activer la barre de recherche des actus
+ - configurer les layouts de l'espace ressource
 
 
 v1.16
