@@ -1,8 +1,8 @@
 <div class="plugin-subpages">
     {% include 'themes/plugin_app_title.html' %}
-    <ol>
+    <ul>
         {% for p in pages %}
             <li><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></li>
         {% endfor %}
-    </ol>
+    </ul>
 </div>

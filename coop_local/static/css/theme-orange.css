@@ -544,6 +544,33 @@ hr {
 .plugin-subpages {
   font-size: 16px;
 }
+.plugin-subpages li {
+  list-style-type: none;
+  margin-top: 10px;
+}
+.plugin-subpages li a {
+  color: #f78b32;
+  font-weight: bold;
+}
+.plugin-subpages li a:hover {
+  color: #404040;
+}
+.plugin-subpages li:before {
+  content: "f";
+  font-family: "icons-font";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none !important;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  width: 1.5em;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+  -webkit-transition: all 150ms;
+  transition: all 150ms;
+}
 .vignette {
   width: 160px;
   height: 160px;
@@ -2774,6 +2801,11 @@ i.icon-book {
 #wa_panel_center #id_author,
 #wa_panel_center label[for=id_author] {
   display: none;
+}
+.breadcrumb {
+  margin: 0;
+  margin-top: 10px;
+  padding: 0;
 }
 .main-header .search {
   margin-top: 5px;

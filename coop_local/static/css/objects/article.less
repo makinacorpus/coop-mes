@@ -115,4 +115,30 @@
 
 .plugin-subpages {
     font-size: 16px;
+    li {
+        list-style-type: none;
+        margin-top: 10px;
+        a {
+            color: @color1lighter;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #404040;
+        }
+    }
+    li:before {
+        content: "f";
+        font-family: "icons-font";
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none !important;
+        speak: none;
+        display: inline-block;
+        text-decoration: none;
+        width: 1.5em;
+        line-height: 1em;
+        -webkit-font-smoothing: antialiased;
+        .transition(all 150ms);
+    }
 }
