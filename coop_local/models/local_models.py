@@ -662,6 +662,9 @@ class Event(BaseEvent):
     def time_str(self):
         occurrences = self.occurrence_set.order_by('start_time')
         return '<br/>'.join([o.time_str() for o in occurrences])
+    time_str.short_description = 'Occurrences'
+    time_str.allow_tags = True
+    time_str.admin_order_field = 'occurrence__start_time'
 
     def activity_str(self):
         return "<br/> ".join(self.activity.values_list('label', flat=True))

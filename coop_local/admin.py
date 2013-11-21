@@ -888,6 +888,8 @@ class EventAdmin(BaseEventAdmin):
         'person', 'location', 'activity', 'theme', 'image',
       ]}],
     ]
+    list_display = ('id', 'title', 'time_str', 'status')
+    list_display_links = ('title', )
     list_filter = ('status', )
 
     def get_fieldsets(self, request, obj=None):
