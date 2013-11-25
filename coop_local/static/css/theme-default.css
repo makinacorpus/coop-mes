@@ -1987,6 +1987,7 @@ body.modal-open {
 .topsite-border div {
   display: table-cell;
   line-height: 0;
+  width: 1%;
 }
 .topsite-border .color1 {
   background-color: #98be2c;
