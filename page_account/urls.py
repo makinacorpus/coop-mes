@@ -12,6 +12,7 @@ from .views import (
     organizations_view,
     my_calls_view,
     my_offers_view,
+    my_preferences_view,
 )
 
 urlpatterns = patterns('',
@@ -26,4 +27,5 @@ urlpatterns = patterns('',
     url(r'^mes-organisations/$', organizations_view),
     url(r'^mes-appels-doffres/$', my_calls_view),
     url(r'^mes-offres/$', my_offers_view),
+    url(r'^mes-preferences/$', my_preferences_view),
 )

@@ -418,9 +418,16 @@ class Organization(BaseOrganization):
     # COMMON Search
     norm_title = models.CharField(max_length=250, unique=True)
 
+    # mise en avant
     en_direct = models.BooleanField(u'en direct/zoom sur', default=False)
     a_la_une = models.BooleanField(u'à la une', default=False)
     zoom_sur = models.BooleanField(u'initiative', default=False)
+
+    # Préférences
+    newsletter_subscription = models.BooleanField(u'souscription à la newletter', default=True)
+    calls_subscription = models.BooleanField(u'souscription aux appels d\'offres')
+    events_subscription = models.ForeignKey('coop_geo.AreaType', verbose_name=u'souscription aux événements', blank=True, null=True)
+    exchanges_subscription = models.BooleanField(u'souscription aux échanges')
 
     geo_objects = GeoManager()
 

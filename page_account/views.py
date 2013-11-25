@@ -4,7 +4,7 @@ from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from django.contrib.auth.views import (login, logout, password_reset,
     password_reset_done, password_reset_confirm, password_reset_complete)
-from .forms import AuthenticationForm
+from .forms import AuthenticationForm, PreferencesForm
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -12,10 +12,15 @@ from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, authen
 from django.contrib.sites.models import get_current_site
 from django.utils.http import is_safe_url
 from django.http import HttpResponse, HttpResponseRedirect
-from coop_local.models import Organization
+from coop_local.models import Organization, Person
 from django.contrib.auth.decorators import login_required
 from ionyweb.page.models import Page
 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
+from django.contrib.contenttypes.models import ContentType
+from  django.utils.encoding import force_unicode
+from django.utils.translation import ugettext as _
+from django.utils.text import get_text_list
 
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
@@ -141,5 +146,33 @@ def my_calls_view(request, page_app):
 def my_offers_view(request, page_app):
     return render_view('page_account/my_offers.html',
                        {'object': page_app},
+                       MEDIAS,
+                       context_instance=RequestContext(request))
+
+
+@login_required
+def my_preferences_view(request, page_app):
+    try:
+        person = Person.objects.get(user=request.user)
+    except Person.DoesNotExist:
+        raise HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+    org = person.my_organization()
+    if not org:
+        return HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+    form = PreferencesForm(request.POST if request.method == 'POST' else None, instance=org)
+    if form.is_valid():
+        form.save()
+        LogEntry.objects.log_action(
+            user_id         = request.user.pk,
+            content_type_id = ContentType.objects.get_for_model(Organization).pk,
+            object_id       = org.pk,
+            object_repr     = force_unicode(org),
+            action_flag     = CHANGE,
+            change_message  = u'%s modifié pour l\'appel d\'offres "%s".' % (get_text_list(form.changed_data, _('and')), force_unicode(org))
+        )
+        return HttpResponseRedirect('/mon-compte/')
+    print form.errors
+    return render_view('page_account/my_preferences.html',
+                       {'object': page_app, 'form': form},
                        MEDIAS,
                        context_instance=RequestContext(request))
