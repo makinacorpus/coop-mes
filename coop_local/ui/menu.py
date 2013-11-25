@@ -70,18 +70,25 @@ class CustomMenu(Menu):
             ])
         )
 
+        grandchildren = [
+            items.MenuItem(_(u'Events'), '/admin/coop_local/event/'),
+        ]
+        if is_superuser:
+            grandchildren += [
+                items.MenuItem(_(u'Calendar'), '/admin/coop_local/calendar/'),
+                items.MenuItem(_(u'Event categories'), '/admin/coop_local/eventcategory/'),
+            ]
         self.children.append(
-            items.MenuItem(_(u'Agenda'), '#', icon='icon-calendar icon-white', children=[
-                    items.MenuItem(_(u'Events'), '/admin/coop_local/event/'),
-                    items.MenuItem(_(u'Calendar'), '/admin/coop_local/calendar/'),
-                    items.MenuItem(_(u'Event categories'), '/admin/coop_local/eventcategory/'),
-            ])
+            items.MenuItem(_(u'Agenda'), '#', icon='icon-calendar icon-white', children=grandchildren)
         )
 
+        grandchildren = [
+            items.MenuItem(u'Articles', '/admin/page_blog/entry/'),
+        ]
+        if is_superuser:
+            grandchildren += [
+                items.MenuItem(u'Blogs', '/admin/page_blog/pageapp_blog/'),
+            ]
         self.children.append(
-            items.MenuItem(u'Actualités', '#', icon='icon-coop icon-rdf icon-white', children=[
-                    items.MenuItem(u'Blogs', '/admin/page_blog/pageapp_blog/'),
-                    items.MenuItem(u'Articles', '/admin/page_blog/entry/'),
-            ])
+            items.MenuItem(u'Actualités', '#', icon='icon-coop icon-rdf icon-white', children=grandchildren)
         )
-
