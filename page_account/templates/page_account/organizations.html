@@ -1,9 +1,23 @@
 <h2>Mes clients et fournisseurs</h2>
 
-<ul>
-{% for org in organizations %}
-    <li>{{ org }} - <a href="/annuaire/p/{{ org.pk }}/">Afficher</a></li>
-{% endfor %}
-</ul>
+{% if customers %}
+    <h3>Mes clients</h3>
+    <ul>
+        {% for org in customers %}
+            <li>{{ org }} - <a href="{{ org.get_absolute_url }}">Afficher</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
-<p><a href="/annuaire/p/ajouter/">Ajouter</a></p>
+{% if providers %}
+    <h3>Mes fournisseurs</h3>
+    <ul>
+        {% for org in providers %}
+            <li>{{ org }} - <a href="{{ org.get_absolute_url }}">Afficher</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/mon-compte/">Retour à mon compte</a></li>
+</ul>

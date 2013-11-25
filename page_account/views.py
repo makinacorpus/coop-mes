@@ -124,12 +124,15 @@ password_reset_complete_view = make_ionyweb_view(password_reset_complete,
 @login_required
 def organizations_view(request, page_app):
 
-    #organizations = Organization.objects.filter(engagement__org_admin=True, engagement__person__user=request.user)
-    organizations = Organization.objects.filter(engagement__person__user=request.user)
-    print organizations
-
+    try:
+        person = Person.objects.get(user=request.user)
+    except Person.DoesNotExist:
+        raise HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+    org = person.my_organization()
+    providers = Organization.objects.filter(target__relation_type__id=2, target__source=org)
+    customers = Organization.objects.filter(target__relation_type__id=6, target__source=org)
     return render_view('page_account/organizations.html',
-        {'organizations': organizations},
+        {'providers': providers, 'customers': customers},
         MEDIAS,
         context_instance=RequestContext(request))
 

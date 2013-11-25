@@ -39,7 +39,7 @@
     <h1 class="iconf-user section-title">Mon compte</h1>
     <ul class="list-group">
         {% if request.user.is_authenticated %}
-            <li class="list-group-item"><a href="/mon-compte/">Mes informations</a></li>
+            <li class="list-group-item"><a href="/annuaire/p/modifier/">Mes informations</a></li>
             <li class="list-group-item"><a href="/mon-compte/p/mes-preferences/">Mes préférences</a></li>
             {% if my_organization.is_customer %}
                 <li class="list-group-item"><a href="/mon-compte/p/mes-appels-doffres/">Mes appels d'offres</a></li>
