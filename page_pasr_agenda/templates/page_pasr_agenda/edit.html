@@ -29,7 +29,17 @@
                             {% crispy subform %}
                         {% endfor %}
                         <fieldset class="text-center">
-                            <button class="add-link btn btn--form">Ajouter une plage horaire</button>
+                            <button class="add-link btn btn--form" data-model="occurrence">Ajouter une plage horaire</button>
+                        </fieldset>
+                        {{ form4.management_form }}
+                        {% for subform in form4.forms %}
+                            {{ subform.id }}
+                            {% crispy subform %}
+                        {% endfor %}
+                        <fieldset class="text-center">
+                            <button class="add-link btn btn--form" data-model="eventdocument">Ajouter un document</button>
+                        </fieldset>
+                        <fieldset class="text-center">
                             <button type="submit" class="btn btn-default">Enregistrer</button>
                             {% if form.instance.status == 'I' %}
                                 <button type="submit" name='propose' class="btn btn--form">Proposer l'événement</button>
@@ -54,32 +64,36 @@ jQuery(document).ready(function() {
 
     /* Date picker */
 
-    $('.dateinput').not($('.formset-form:last .dateinput')).datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'language': 'fr', 'autoclose': true});
+    $('.dateinput').not($('.occurrence-form:last .dateinput')).datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'language': 'fr', 'autoclose': true});
 
     /* Select2 */
 
     $('select').select2();
 
     /* Formset */
-    $('.formset-form:last').hide();
-    var hidden_id = $('[id$="TOTAL_FORMS"]').val();
+    $('.occurrence-form:last').hide();
+    $('.eventdocument-form:last').hide();
+    var hidden_id = new Array();
+    hidden_id['occurrence'] = $('#id_occurrence_set-TOTAL_FORMS').val();
+    hidden_id['eventdocument'] = $('#id_eventdocument_set-TOTAL_FORMS').val();
 
     $('.add-link').click(function() {
-        var newElement = $('.formset-form:last').clone(true);
-        var total = $('[id$="TOTAL_FORMS"]').val();
+        var model = $(this).attr('data-model');
+        var newElement = $('.' + model + '-form:last').clone(true);
+        var total = $('#id_' + model + '_set-TOTAL_FORMS').val();
         newElement.find('[id^="id_"]:input').each(function() {
-            var name = $(this).attr('name').replace('-' + (hidden_id-1) + '-','-' + total + '-');
+            var name = $(this).attr('name').replace('-' + (hidden_id[model]-1) + '-','-' + total + '-');
             var id = 'id_' + name;
             $(this).attr({'name': name, 'id': id});
         });
         newElement.find('label').each(function() {
-            var newFor = $(this).attr('for').replace('-' + (hidden_id-1) + '-','-' + total + '-');
+            var newFor = $(this).attr('for').replace('-' + (hidden_id[model]-1) + '-','-' + total + '-');
             $(this).attr('for', newFor);
         });
         newElement.find('.dateinput').datepicker({'format': 'dd/mm/yyyy', 'weekStart': 1, 'language': 'fr', 'autoclose': true});
         total++;
-        $('[id$="TOTAL_FORMS"]').val(total);
-        $('.formset-form:last').before(newElement);
+        $('#id_' + model + '_set-TOTAL_FORMS').val(total);
+        $('.' + model + '-form:last').before(newElement);
         newElement.show();
         return false;
     });

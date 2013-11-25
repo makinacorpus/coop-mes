@@ -4,7 +4,7 @@ import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_PasrAgenda
 from coop_local.models import (ActivityNomenclature, Area, TransverseTheme,
-    Organization, Occurrence, Location)
+    Organization, Occurrence, Location, EventDocument)
 from selectable.base import ModelLookup
 from selectable.registry import registry, LookupAlreadyRegistered
 from selectable.forms import AutoCompleteSelectField
@@ -108,7 +108,7 @@ class OccurrenceForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            HTML('<fieldset class="formset-form occurence-form">'),
+            HTML('<fieldset class="formset-form occurrence-form"><p>Plage horaire</p>'),
             'start_time',
             'end_time',
             Field('DELETE', template="bootstrap3/layout/delete.html"),
@@ -126,6 +126,29 @@ class OccurrenceForm(forms.ModelForm):
 OccurrencesForm = inlineformset_factory(Event, Occurrence, form=OccurrenceForm, extra=2)
 
 
+class DocumentForm(forms.ModelForm):
+
+    class Meta:
+        model = EventDocument
+        fields = ('name', 'attachment', 'type', )
+
+    def __init__(self, *args, **kwargs):
+        super(DocumentForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            HTML('<fieldset class="formset-form eventdocument-form"><p>Document</p>'),
+            'name',
+            'attachment',
+            'type',
+            Field('DELETE', template="bootstrap3/layout/delete.html"),
+            HTML('</fieldset>'),
+        )
+
+
+DocumentsForm = inlineformset_factory(Event, EventDocument, form=DocumentForm, extra=2)
+
+
 class LocationForm(forms.ModelForm):
 
     class Meta:
@@ -137,7 +160,7 @@ class LocationForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.layout = Layout(
-            'adr1', 'adr2', 'zipcode', 'city'
+             HTML('<p>Lieu</p>'), 'adr1', 'adr2', 'zipcode', 'city'
         )
 
     def save(self, commit=True):
