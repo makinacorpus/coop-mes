@@ -3,7 +3,8 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from coop_local.models import Event, Occurrence, Organization, Calendar
-from .forms import EventSearch, FrontEventForm, OccurrencesForm, LocationForm
+from .forms import (EventSearch, FrontEventForm, OccurrencesForm,
+    LocationForm, DocumentsForm)
 from django.db.models import Q, Min
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
@@ -122,7 +123,8 @@ def add_view(request, page_app):
     form = FrontEventForm(request.POST or None, request.FILES or None)
     form2 = OccurrencesForm(request.POST or None, instance=form.instance)
     form3 = LocationForm(request.POST or None)
-    if form.is_valid() and form2.is_valid() and form3.is_valid():
+    form4 = DocumentsForm(request.POST or None, request.FILES or None, instance=form.instance)
+    if form.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid():
         location = form3.save()
         event = form.save(commit=False)
         if 'propose' in request.POST and event.status == 'I':
@@ -134,6 +136,7 @@ def add_view(request, page_app):
         event.save()
         form.save_m2m()
         form2.save()
+        form4.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
             content_type_id = ContentType.objects.get_for_model(Event).pk,
@@ -143,7 +146,7 @@ def add_view(request, page_app):
         )
         return HttpResponseRedirect('/agenda/p/mes-evenements/')
     return render_view('page_pasr_agenda/edit.html',
-                       {'object': page_app, 'form': form, 'form2': form2, 'form3': form3},
+                       {'object': page_app, 'form': form, 'form2': form2, 'form3': form3, 'form4': form4},
                        EDIT_MEDIA,
                        context_instance=RequestContext(request))
 
@@ -175,7 +178,8 @@ def update_view(request, page_app, pk):
     form = FrontEventForm(request.POST or None, request.FILES or None, instance=event)
     form2 = OccurrencesForm(request.POST or None, instance=event)
     form3 = LocationForm(request.POST or None, instance=event.location)
-    if form.is_valid() and form2.is_valid() and form3.is_valid():
+    form4 = DocumentsForm(request.POST or None, request.FILES or None, instance=event)
+    if form.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid():
         location = form3.save()
         event = form.save(commit=False)
         if 'propose' in request.POST and event.status == 'I':
@@ -184,6 +188,7 @@ def update_view(request, page_app, pk):
         event.save()
         form.save_m2m()
         form2.save()
+        form4.save()
         LogEntry.objects.log_action(
             user_id         = request.user.pk,
             content_type_id = ContentType.objects.get_for_model(Event).pk,
@@ -194,7 +199,7 @@ def update_view(request, page_app, pk):
         )
         return HttpResponseRedirect('/agenda/p/mes-evenements/')
     return render_view('page_pasr_agenda/edit.html',
-                       {'object': page_app, 'form': form, 'form2': form2, 'form3': form3},
+                       {'object': page_app, 'form': form, 'form2': form2, 'form3': form3, 'form4': form4},
                        EDIT_MEDIA,
                        context_instance=RequestContext(request))
 
