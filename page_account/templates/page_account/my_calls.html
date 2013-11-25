@@ -4,7 +4,13 @@
     <h1 class="title">MES APPELS D'OFFRES</h1>
 </div>
 
-{% if my_organization %}
+<ul>
+    {% for call in calls %}
+        <li>{{ call }} - <a href="{{ call.get_absolute_url }}">Afficher</a></li>
+    {% endfor %}
+</ul>
+
+{% if my_organization.is_customer %}
     {% for call in my_organization.future_calls %}
         <div class="row">
             <div class="col-lg-5">
@@ -23,8 +29,15 @@
         <hr>
     {% endfor %}
     <p class="text-center"><a class="btn btn-default" href="/appels-doffres/p/ajouter/">Ajouter</a></p>
-{% else %}
-    Votre compte n'est lié à aucune organisation.
+
+    <script type="text/javascript">
+        $('.btn-danger').click(function(event) {
+            event.preventDefault();
+            if (confirm("Voulez vous réellement supprimer l'appel d'offres " + $(this).attr('data-title') + " ?"))
+                window.location = $(this).attr('href');
+        });
+    </script>
+
 {% endif %}
 
 <ul class="list-group">
@@ -32,11 +45,3 @@
 </ul>
 
 </div>
-
-<script type="text/javascript">
-    $('.btn-danger').click(function(event) {
-        event.preventDefault();
-        if (confirm("Voulez vous réellement supprimer l'appel d'offres " + $(this).attr('data-title') + " ?"))
-            window.location = $(this).attr('href');
-    });
-</script>

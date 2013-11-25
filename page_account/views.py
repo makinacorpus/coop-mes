@@ -12,7 +12,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, authen
 from django.contrib.sites.models import get_current_site
 from django.utils.http import is_safe_url
 from django.http import HttpResponse, HttpResponseRedirect
-from coop_local.models import Organization, Person
+from coop_local.models import Organization, Person, CallForTenders, ActivityNomenclature
 from django.contrib.auth.decorators import login_required
 from ionyweb.page.models import Page
 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
@@ -139,8 +139,15 @@ def organizations_view(request, page_app):
 
 @login_required
 def my_calls_view(request, page_app):
+    try:
+        person = Person.objects.get(user=request.user)
+    except Person.DoesNotExist:
+        raise HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+    org = person.my_organization()
+    activities = ActivityNomenclature.objects.filter(offer__provider=org)
+    calls = CallForTenders.objects.filter(activity__in=activities)
     return render_view('page_account/my_calls.html',
-                       {'object': page_app},
+                       {'object': page_app, 'calls': calls},
                        MEDIAS,
                        context_instance=RequestContext(request))
 
