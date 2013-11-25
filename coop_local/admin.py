@@ -340,12 +340,16 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
                        'transmission_date', 'authors', 'validation']
             }),
-        (_(u'Preferences'), {
+        (_(u'Préférences de contact'), {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
             }),
         (_(u'Testimony'), {
             'fields': ['testimony',]
-            })
+            }),
+        (_(u'Preferences'), {
+            'fields': ['newsletter_subscription', 'calls_subscription',
+                       'events_subscription', 'exchanges_subscription']
+            }),
     )
     restricted_fieldsets = (
         (_(u'Key info'), {
@@ -370,12 +374,16 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
                        'transmission_date', 'authors', 'validation']
             }),
-        (_(u'Preferences'), {
+        (_(u'Préférences de contact'), {
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
             }),
         (_(u'Testimony'), {
             'fields': ['testimony',]
-            })
+            }),
+        (_(u'Preferences'), {
+            'fields': ['newsletter_subscription', 'calls_subscription',
+                       'events_subscription', 'exchanges_subscription']
+            }),
     )
     inlines = [DocumentInline, RelationInline, LocatedInline, ContactInline, EngagementInline, ReferenceInline]
     change_form_template = 'admin/coop_local/organization/tabbed_change_form.html'

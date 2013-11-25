@@ -13,6 +13,7 @@
 <ul class="list-group">
     {% if my_organization %}
         <li class="list-group-item"><a href="/annuaire/p/modifier/">Mes informations</a></li>
+        <li class="list-group-item"><a href="/mon-compte/p/mes-preferences/">Mes préférences</a></li>
         {% if my_organization.is_customer %}
             <li class="list-group-item"><a href="/mon-compte/p/mes-appels-doffres/">Mes appels d'offres</a></li>
         {% endif %}
