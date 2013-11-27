@@ -71,10 +71,12 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'page_pasr_agenda',
     'page_newsletter',
     'page_guaranties',
+    'page_search',
     'leaflet',
     'crispy_forms',
     'ionyweb.page_app.page_blog',
     'ionyweb.plugin_app.plugin_blog_entries_list',
+    'haystack',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [

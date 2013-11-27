@@ -1,0 +1,13 @@
+{% load thumbnail %}
+
+<div class="media">
+    <a class="pull-left" href="{{ object.get_absolute_url }}">
+        <img class="media-object" src="" width="220" height="140">
+    </a>
+    <div class="media-body">
+        <p class="activity">Page</p>
+        <h4 class="media-heading">{{ object.page.all.0.title }}</h4>
+        <p>{{ object.text|striptags|truncatewords:25|safe }}</p>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-default">Voir les détails</a>
+    </div>
+</div>

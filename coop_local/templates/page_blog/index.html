@@ -55,7 +55,7 @@
                     <div class="results">
 {% for entry in entries %}
                         <div class="media">
-                            <a class="pull-left" href="#">
+                            <a class="pull-left" href="{{ entry.get_absolute_url }}">
                                 {% if entry.thumb %}
                                     {% thumbnail entry.thumb "220x140" upscale=0 as image %}
                                         <img class="media-object" src="{{ image.url }}" style="margin: {{ image|margin:"220x140" }}">

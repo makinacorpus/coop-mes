@@ -3,8 +3,8 @@
 from django.shortcuts import render_to_response, redirect
 from coop_local.models import Organization
 from django.template import RequestContext
+from haystack.views import SearchView
+from page_account.views import make_ionyweb_view
 
-# def org_list(request):
-#     context = {}
-#     context['org_list'] = Organization.objects.filter(active=True).order_by('statut')
-#     return render_to_response('org/org_list.html',context,RequestContext(request))
+
+search = make_ionyweb_view(SearchView())

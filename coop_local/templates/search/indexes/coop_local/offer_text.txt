@@ -1,0 +1,6 @@
+{{ object.description }}
+{{ object.technical_means }}
+{{ object.practical_modalities }}
+
+{% for x in object.activity.all %}{{ x.label }}
+{% endfor %}
