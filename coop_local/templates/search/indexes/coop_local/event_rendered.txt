@@ -1,0 +1,19 @@
+{% load thumbnail %}
+
+<div class="media">
+    <a class="pull-left" href="{{ object.get_absolute_url }}">
+        {% if object.image %}
+            {% thumbnail object.image "220x140" upscale=0 as logo %}
+                <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
+            {% endthumbnail %}
+        {% else %}
+            <img class="media-object" src="" width="220" height="140">
+        {% endif %}
+    </a>
+    <div class="media-body">
+        <p class="activity">Événement</p>
+        <h4 class="media-heading">{{ object.title }}</h4>
+        <p>{{ object.description|striptags|truncatewords:50|safe }}</p>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-default">Voir les détails</a>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+Page&nbsp;:
+<ul class="pagination">
+{% for p in page.paginator.page_range %}
+    <li class="{% if p == page.number %}active{% endif %}"><a href="?q={{ query }}&page={{ p }}">{{ p }}</a></li>
+{% endfor %}
+</ul>
+<ul class="pager">
+    <li><a href="?q={{ query }}&page={% if page.has_previous %}{{ page.previous_page_number }}{% else %}{{ page.number }}{% endif %}" class="prev {% if not page.has_previous %}inactive{% endif %}"><span class="arrow">g</span> Page précédente</a></li>
+    <li><a href="?q={{ query }}&page={% if page.has_next %}{{ page.next_page_number }}{% else %}{{ page.number }}{% endif %}" class="next {% if not page.has_next %}inactive{% endif %}">Page suivante <span class="arrow">f</span></a></li>
+</ul>

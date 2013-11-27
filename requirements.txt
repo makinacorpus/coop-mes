@@ -132,3 +132,5 @@ django-filebrowser
 
 django-leaflet==0.5.1
 git+git://github.com/maraujop/django-crispy-forms.git
+
+whoosh==2.4

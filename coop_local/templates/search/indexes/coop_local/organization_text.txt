@@ -1,0 +1,15 @@
+{% load ascii %}
+
+{{ object.title }}
+{{ object.description|default:""|html2text }}
+{{ object.comment }}
+{{ object.acronym }}
+{{ object.web }}
+
+{{ object.testimony|html2text }}
+{{ object.siret }}
+{{ object.brief_description }}
+{{ object.added_value }}
+{{ object.brief_description }}
+{{ object.added_value }}
+{{ object.offer_areas }}

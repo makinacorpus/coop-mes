@@ -1,0 +1,3 @@
+{% load ascii %}
+{{ object.page.all.0.title }}
+{{ object.text|html2text }}

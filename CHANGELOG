@@ -17,11 +17,13 @@ v1.17
  * Possibilité d'ajouter des articles et des événements en back office pour
    les admins restreints
  * Liste de mes clients et acheteurs
+ * Recherche globale
 
 
 Déploiement
 
  - pull ionyweb
+ - pull django_coop
  - migrate
  - collectstatic
  - configurer la page garanties
@@ -29,6 +31,7 @@ Déploiement
  - activer la barre de recherche des actus
  - configurer les layouts de l'espace ressource
  - ajouter les droits sur Entry et Event au groupe admin restreints
+ - rebuild_index
 
 
 v1.16

@@ -321,7 +321,7 @@ TRANSMISSION_MODES = Choices(
 
 CUSTOMER_TYPES = Choices(
     ('PUBLIC', 1, _(u'Public')),
-    ('PRIVATE', 2, _(u'Private')),
+    ('PRIVATE', 2, u'Privé'),
 )
 
 
@@ -507,7 +507,7 @@ class Organization(BaseOrganization):
         if self.is_provider:
             t.append(u'Fournisseur')
         if self.is_customer:
-            t.append(u'Acheteur %s' % self.get_customer_type_display())
+            t.append(u'Acheteur %s' % (self.get_customer_type_display() or ''))
         if self.is_network:
             t.append(u'Réseau')
         return u' - '.join(t)
@@ -683,6 +683,9 @@ class Event(BaseEvent):
 
     def documents(self):
         return self.eventdocument_set.exclude(attachment__iregex=r'\.(jpe?g|gif|png)$')
+
+    def get_absolute_url(self):
+        return '/agenda/p/%u/' % self.id
 
 
 class NewsletterSubscription(models.Model):

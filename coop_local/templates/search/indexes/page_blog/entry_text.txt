@@ -1,0 +1,9 @@
+{% load ascii %}
+
+{{ object.title }}
+{{ object.resume }}
+{{ object.body|html2text }}
+{% for x in object.activities.all %}{{ x.label }}
+{% endfor %}
+{% for x in object.themes.all %}{{ x.name }}
+{% endfor %}

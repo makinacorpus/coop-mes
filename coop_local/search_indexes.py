@@ -1,28 +1,51 @@
 # -*- coding:utf-8 -*-
 from haystack import indexes
 from coop.search_indexes import OrganizationIndex as BaseOrganizationIndex
-from coop.search_indexes import ExchangeIndex as BaseExchangeIndex
-from coop.search_indexes import ArticleIndex as BaseArticleIndex
 from coop.search_indexes import EventIndex as BaseEventIndex
-
-
-
-# If you dont want to use the default index, please comment the following
-# lines and write your own indexes
-
+from coop.search_indexes import CoopIndexWithoutSite
+from django.utils.timezone import now
+from coop_local.models import CallForTenders, Offer
+from ionyweb.page_app.page_blog.models import Entry
+from ionyweb.page_app.page_text.models import PageApp_Text
 
 
 class OrganizationIndex(BaseOrganizationIndex, indexes.Indexable):
-    pass
-
-
-class ExchangeIndex(BaseExchangeIndex, indexes.Indexable):
-    pass
-
-
-class ArticleIndex(BaseArticleIndex, indexes.Indexable):
-    pass
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(status='V')
 
 
 class EventIndex(BaseEventIndex, indexes.Indexable):
-    pass
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(status='V', occurrence__end_time__gte=now())
+
+
+class CallForTendersIndex(CoopIndexWithoutSite, indexes.Indexable):
+    def get_model(self):
+        return CallForTenders
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(deadline__gte=now())
+
+
+class OfferIndex(CoopIndexWithoutSite, indexes.Indexable):
+    def get_model(self):
+        return Offer
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(provider__status='V')
+
+
+class EntryIndex(CoopIndexWithoutSite, indexes.Indexable):
+    def get_model(self):
+        return Entry
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(status=Entry.STATUS_ONLINE)
+
+
+class PageApp_TextIndex(CoopIndexWithoutSite, indexes.Indexable):
+    def get_model(self):
+        return PageApp_Text
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(page__isnull=False)
