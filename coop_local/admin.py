@@ -743,13 +743,19 @@ class AreaInline(InlineAutocompleteAdmin):
 
 class CallForTendersAdmin(FkAutocompleteAdmin):
 
-    list_display = ('title', 'organization', 'activities', 'en_direct')
+    list_display = ('deadline_str', 'title', 'organization', 'activities', 'en_direct')
     search_fields = ('title', 'organization__title', 'organization__acronym')
     list_filter = ('en_direct', )
     related_search_fields = {
         'organization': ('title', 'acronym', ),
     }
     inlines = [CFTActivityInline, AreaInline]
+    date_hierarchy = 'deadline'
+
+    def deadline_str(self, obj):
+        return obj.deadline.strftime('%d/%m/%Y')
+    deadline_str.short_description = _('deadline')
+    deadline_str.admin_order_field = 'deadline'
 
     def get_form(self, request, obj=None, **kwargs):
          if request.user.is_superuser:
