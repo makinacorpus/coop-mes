@@ -1,0 +1,22 @@
+{% load i18n crispy_forms_tags %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+                    <div class="section-head">
+                        <h1 class="title">{{ object.title }}</h1>
+                    </div>
+
+                    <div class="alert alert-error">
+                        {{ message|safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+        </div>
+    </div>
+</div>

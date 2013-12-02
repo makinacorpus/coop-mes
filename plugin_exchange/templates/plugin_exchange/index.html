@@ -1,0 +1,53 @@
+{% load i18n crispy_forms_tags %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+                    <div class="section-head">
+                        <h1 class="title">{{ object.title }}</h1>
+                    </div>
+
+                    {% if message %}
+                        <div class="alert {% if form.errors %}alert-error{% else %}alert-success{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+
+                    <div class="form">
+                        {# <p>Lorem Ipsum.</p> #}
+                        <form class="form-horizontal" enctype="multipart/form-data" action="#" method="post">
+                            <fieldset>
+                                {% crispy form %}
+                                <div class="col-offset-3 col-lg-7">
+                                    <p class="text-center">
+                                        <button type="submit" class="btn btn-default">
+                                            Envoyer
+                                        </button>
+                                    </p>
+                                </div>
+                            </fieldset>
+                            <input type="hidden" name="contactform" value="{{ object.pk }}" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar sidebar--right">
+                {% include "right-menu.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+    /* Fix file fields */
+    $('.clearablefileinput').removeClass('form-control');
+
+    $('#id_activity').select2();
+});
+
+</script>

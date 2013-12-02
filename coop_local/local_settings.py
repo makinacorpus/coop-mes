@@ -64,6 +64,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'plugin_direct',
     'plugin_zoomsur',
     'plugin_subpages',
+    'plugin_exchange',
     'page_directory',
     'page_map',
     'page_account',

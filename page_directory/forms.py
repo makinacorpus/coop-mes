@@ -516,10 +516,10 @@ class ContactForm(OrganizationMixin, forms.ModelForm):
         fields = ('contact_medium', 'content', 'location')
 
     def __init__(self, *args, **kwargs):
-        organization = kwargs.pop('organization', None)
+        self.organization = kwargs.pop('organization', None)
         super(ContactForm, self).__init__(*args, **kwargs)
-        if organization:
-            queryset = Location.objects.filter(located__organization=organization)
+        if self.organization:
+            queryset = Location.objects.filter(located__organization=self.organization)
             self.fields['location'].queryset = queryset
         else:
             queryset = Location.objects.none()
@@ -532,6 +532,15 @@ class ContactForm(OrganizationMixin, forms.ModelForm):
             Field('DELETE', template="bootstrap3/layout/delete.html"),
             HTML('</fieldset>'),
         ))
+
+    def save(self, commit=True):
+        contact = super(ContactForm, self).save(commit)
+        if contact.contact_medium.label in (u'Téléphone', u'Mobile') and not self.organization.pref_phone:
+            self.organization.pref_phone = contact
+        if contact.contact_medium.label == 'Courriel' and not self.organization.pref_email:
+            self.organization.pref_email = contact
+        if commit:
+            self.organization.save()
 
 
 OrganizationForm10 = generic_inlineformset_factory(Contact, form=ContactForm, formset=ContactInlineFormSet, extra=2)
