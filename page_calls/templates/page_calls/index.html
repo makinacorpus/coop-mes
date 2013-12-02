@@ -16,9 +16,12 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <h3>Clause</h3>
-                                <div class="dropdown">
-                                    {{ form.clause }}
+                                <h3>Clauses</h3>
+                                <div class="dropdown checkboxes clauses-dropdown">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                                        Clauses
+                                    </button>
+                                    {{ form.clauses }}
                                 </div>
                             </div>
                         </div>
@@ -31,8 +34,11 @@
                             </div>
                             <div class="item">
                                 <h3>Secteurs d'activités</h3>
-                                <div class="dropdown">
-                                    {{ form.sector }}
+                                <div class="dropdown checkboxes sectors-dropdown">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                                        Clauses
+                                    </button>
+                                    {{ form.sectors }}
                                 </div>
                             </div>
                         </div>
@@ -106,3 +112,32 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function clauses_click() {
+        var clauses = [];
+        $('.clauses-dropdown input:checked').each(function() {
+            clauses.push($(this).val());
+        });
+        if (clauses.length == 0)
+            clauses = 'Tout voir';
+        else
+            clauses = clauses.join(', ');
+        $('.clauses-dropdown button').html(clauses);
+    }
+    function sectors_click() {
+        var sectors = [];
+        $('.sectors-dropdown input:checked').each(function() {
+            sectors.push($(this).parent().text());
+        });
+        if (sectors.length == 0)
+            sectors = 'Tout voir';
+        else
+            sectors = sectors.join(', ');
+        $('.sectors-dropdown button').html(sectors);
+    }
+    $('.clauses-dropdown input').click(clauses_click);
+    $('.sectors-dropdown input').click(sectors_click);
+    clauses_click();
+    sectors_click();
+</script>

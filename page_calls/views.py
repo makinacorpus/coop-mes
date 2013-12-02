@@ -43,14 +43,20 @@ def index_view(request, page_app):
             calls = calls.filter(organization__is_customer=True, organization__customer_type=1)
         if form.cleaned_data['org_type'] == 'prive':
             calls = calls.filter(organization__is_customer=True, organization__customer_type=2)
-        if form.cleaned_data['clause']:
-            calls = calls.filter(clauses__contains=form.cleaned_data['clause'])
+        if form.cleaned_data['clauses']:
+            q = Q()
+            for clause in form.cleaned_data['clauses']:
+                q |= Q(clauses__contains=clause)
+            calls = calls.filter(q)
         if form.cleaned_data['organization']:
             calls = calls.filter(organization=form.cleaned_data['organization'])
-        sector = form.cleaned_data['sector']
-        descendants = sector and sector.get_descendants(include_self=True)
-        if descendants:
-            calls = calls.filter(activity__in=descendants)
+        if form.cleaned_data['sectors']:
+            q = Q()
+            for sector in form.cleaned_data['sectors']:
+                descendants = sector and sector.get_descendants(include_self=True)
+                if descendants:
+                    q |= Q(activity__in=descendants)
+            calls = calls.filter(q)
         calls = calls.distinct()
         if form.cleaned_data['period'] == 'archive':
             calls = calls.filter(deadline__lt=now())

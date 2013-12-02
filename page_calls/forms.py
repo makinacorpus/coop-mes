@@ -10,6 +10,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, HTML, Field
 from crispy_forms.bootstrap import InlineCheckboxes, FormActions, StrictButton, AppendedText
 from coop_local.widgets import SplitDateTimeWidget
+from django.forms.util import flatatt
+from django.utils.safestring import mark_safe
 
 
 ORG_TYPE_CHOICES = (
@@ -24,11 +26,21 @@ PERIOD_CHOICES = (
     ('tout', u'Tout voir'),
 )
 
+class MyCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    def __init__(self, attrs=None, ul_attrs=None):
+        self.ul_attrs = ul_attrs
+        super(MyCheckboxSelectMultiple, self).__init__(attrs)
+
+    def render(self, *args, **kwargs):
+        html = super(MyCheckboxSelectMultiple, self).render(*args, **kwargs)
+        final_attrs = self.build_attrs(self.ul_attrs)
+        return mark_safe(html.replace('<ul>','<ul%s>' % flatatt(final_attrs)))
+
 class CallSearch(forms.Form):
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
-    clause = forms.ChoiceField(choices=(('', u'Tout voir'), ) + CLAUSE_CHOICES, required=False)
+    clauses = forms.MultipleChoiceField(choices=CLAUSE_CHOICES, required=False, widget=MyCheckboxSelectMultiple(ul_attrs={'class': 'dropdown-menu'}))
     organization = forms.ModelChoiceField(queryset=Organization.objects.filter(is_customer=True, status=ORGANIZATION_STATUSES.VALIDATED), required=False, empty_label=u'Toutes')
-    sector = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), empty_label=u'Tout voir', required=False)
+    sectors = forms.ModelMultipleChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), required=False, widget=MyCheckboxSelectMultiple(ul_attrs={'class': 'dropdown-menu'}))
     period = forms.ChoiceField(choices=PERIOD_CHOICES, required=False)
     q = forms.CharField(required=False)
 
