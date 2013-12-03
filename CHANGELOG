@@ -1,7 +1,8 @@
 v1.17
 
  * Editions des articles (blog/actualités) dans le back office
- * Correction du style du fil d'Ariane et du menu des sous-pages
+ * Correction du fil d'Ariane (double /)
+ * Style du menu des sous-pages
  * Traduction du nom des plugins ionyweb
  * Mise à jour de la date de modification de l'organisation à chaque
    changement des offres
@@ -17,7 +18,12 @@ v1.17
  * Possibilité d'ajouter des articles et des événements en back office pour
    les admins restreints
  * Liste de mes clients et acheteurs
+ * Liste de mes appels d'offres
+ * Formulaire "mes préférences" pour choisir les informations à recevoir
  * Recherche globale
+ * Affichage de la date dans le back office pour la liste des appels d'offres
+ * Choix multiple pour les clauses et les secteurs d'activités dans le
+   formulaire de recherche des appels d'offres
 
 
 Déploiement
@@ -27,12 +33,13 @@ Déploiement
  - pip install whoosh==2.4
  - migrate
  - collectstatic
+ - rebuild_index
+ - créer la page recherche
+ - activer la barre de recherche des actus
  - configurer la page garanties
  - configurer la page réseaux
- - activer la barre de recherche des actus
  - configurer les layouts de l'espace ressource
- - ajouter les droits sur Entry et Event au groupe admin restreints
- - rebuild_index
+ - ajouter les droits sur page_blog.Entry et coop_local.Event au groupe admin restreints
 
 
 v1.16
