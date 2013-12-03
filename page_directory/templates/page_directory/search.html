@@ -89,6 +89,7 @@
     </div>
 </form>
 
+{% if not object.networks %}
 <script type="text/javascript">
     // Default button is RECHERCHER
     $('#annuaires-search').keypress(function(e) {
@@ -113,3 +114,4 @@
     );
     org_type_change.apply(org_type_select);
 </script>
+{% endif %}
