@@ -1,11 +1,13 @@
 v1.18
 
  * Echanger/communiquer
+ * Ajout des code postal et ville dans les résultats de recherche
 
 
 Déploiement
 
  * Création de la page /communiquer/ (plugin exchange)
+ * rebuild_index
 
 
 v1.17

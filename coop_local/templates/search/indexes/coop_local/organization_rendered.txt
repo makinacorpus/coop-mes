@@ -12,6 +12,9 @@
     </a>
     <div class="media-body">
         <p class="activity">{{ object.types }}</p>
+        {% with object.main_location.city as city %}{% if city %}
+            <span class="location">{{ object.main_location.zipcode }} {{ city }}</span>
+        {% endif %}{% endwith %}
         <h4 class="media-heading">{{ object.title }}</h4>
         <p>{{ object.brief_description|linebreaks }}</p>
         <a href="{{ object.get_absolute_url }}" class="btn btn-default">Voir les détails</a>
