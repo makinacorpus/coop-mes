@@ -31,7 +31,7 @@
                                     <p class="activity">{{ org.offer_activities }}</p>
                                     {% if org.nearest %}
                                         <span class="location">{{ org.nearest.zipcode }} {{ org.nearest.city }}{#{% if org.distance %} ({{ org.distance.km|floatformat:"0" }} km){% endif %}#}</span>
-                                    {% elif not no_location %}
+                                    {% else %}
                                         {% with org.main_location.city as city %}{% if city %}
                                             <span class="location">{{ org.main_location.zipcode }} {{ city }}</span>
                                         {% endif %}{% endwith %}

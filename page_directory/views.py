@@ -44,7 +44,6 @@ def index_view(request, page_app):
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
     form = OrgSearch(qd)
-    no_location = False
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
         orgs = orgs.filter(
@@ -96,7 +95,6 @@ def index_view(request, page_app):
             else:
                 if geo == '1':
                     orgs = orgs.filter(located__location__point__intersects=area.polygon)
-                    no_location = True
                 else:
                     orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
             if radius or geo == '2':
@@ -128,7 +126,7 @@ def index_view(request, page_app):
         del get_params['page']
     return render_view('page_directory/index.html',
                        {'object': page_app, 'form': form, 'geo': qd['geo'], 'orgs': orgs_page,
-                        'get_params': get_params.urlencode(), 'no_location': no_location},
+                        'get_params': get_params.urlencode()},
                        (CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
                         JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),
                         CSSMedia('tagger/css/coop_tag.css', prefix_file=''),
