@@ -1,8 +1,12 @@
 v1.18
 
- * Echanger/communiquer
- * Ajout des code postal et ville dans les résultats de recherche
+ * Echanger/communiquer (formulaire de mail ciblé)
+ * Ajout des code postaux et villes dans les résultats de recherche
  * Système de recommandation
+ * Loupe pour choisir les secteurs d'activité des offres dans le
+   back office
+ * Contacts des engagement disponibles comme contact préféré de
+   l'organisation
 
 
 Déploiement
