@@ -1,0 +1,43 @@
+{% extends 'admintools_bootstrap/tabbed_change_form.html' %}
+{% load i18n %}
+{% load url from future %}
+
+
+{% block content %}
+
+<script type="text/javascript">
+
+function showActivityLookupPopup(triggeringLink) {
+    var name = triggeringLink.id.replace(/^lookup_/, '');
+    name = id_to_windowname(name);
+    var href = triggeringLink.href;
+    var win = window.open(href, name, 'height=600,width=600,resizable=yes,scrollbars=yes');
+    win.focus();
+    return false;
+}
+
+function dismissActivityLookupPopup(win, chosenId, chosenRepr) {
+    /* See if the popup came from a selectable field.
+        If not, pass control to Django's code.
+        If so, handle it. */
+    var fieldName = windowname_to_id(win.name); /* e.g. "id_fieldname" */
+    var field = $('#' + fieldName + '_0');
+    /* Check for bound selectable */
+    var singleWidget = field.data('djselectable');
+    if (singleWidget) {
+        // newId and newRepr are expected to have previously been escaped by
+        // django.utils.html.escape.
+        var item =  {
+            id: html_unescape(chosenId),
+            value: html_unescape(chosenRepr)
+        };
+        field.djselectable('select', item);
+        win.close();
+    }
+};
+
+</script>
+
+{{ block.super }}
+{% endblock content %}
+

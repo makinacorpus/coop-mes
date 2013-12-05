@@ -838,12 +838,35 @@ class OfferDocumentInline(DocumentInline):
     model = OfferDocument
 
 
+def make_activity_form(admin_site, request):
+    class ActivityForm(forms.ModelForm):
+        class Meta:
+            model = Offer.activity.through
+        def __init__(self, *args, **kwargs):
+            super(ActivityForm, self).__init__(*args, **kwargs)
+            activity_rel = Offer.activity.through._meta.get_field_by_name('activitynomenclature')[0].rel
+            related_modeladmin = admin_site._registry.get(activity_rel.to)
+            can_change_related = bool(related_modeladmin and
+                related_modeladmin.has_change_permission(request))
+            can_add_related = bool(related_modeladmin and
+                related_modeladmin.has_add_permission(request))
+            activity_widget = ActivityWidget(activity_rel, admin_site, ActivityLookup, can_change_related=can_change_related)
+            activity_widget.choices = None
+            self.fields['activitynomenclature'].label = u"Secteur d'activité"
+            self.fields['activitynomenclature'].widget = RelatedFieldWidgetWrapper(activity_widget, activity_rel, admin_site, can_add_related=can_add_related)
+    return ActivityForm
+
+
 class OActivityInline(InlineAutocompleteAdmin):
     model = Offer.activity.through
     related_search_fields = {'activitynomenclature': ('path', ), }
     verbose_name = u'Secteur d\'activité'
     verbose_name_plural = u'Secteurs d\'activité'
 
+    def get_formset(self, request, obj=None, **kwargs):
+        kwargs['form'] = make_activity_form(self.admin_site, request)
+        return super(OActivityInline, self).get_formset(request, obj, **kwargs)
+    
     def has_change_permission(self, request, obj=None):
         return True
 
@@ -870,6 +893,12 @@ class OfferAdmin(FkAutocompleteAdmin):
     }
     inlines = [OActivityInline, OfferAreaInline, OfferDocumentInline]
     exclude = ('activity', 'area')
+    change_form_template = 'admin/coop_local/offer/tabbed_change_form.html'
+    fieldsets = (
+        (_(u'Key info'), {
+            'fields': ['provider', 'description', 'technical_means',
+                       'workforce', 'practical_modalities']}),
+    )
 
     def save_model(self, request, obj, form, change):
         super(OfferAdmin, self).save_model(request, obj, form, change)
