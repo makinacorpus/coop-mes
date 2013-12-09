@@ -22,7 +22,9 @@
 {% endif %}
 {% if o.tags.all %}
     <p><b>Mots clés&nbsp;:</b><br/>
-    {{ o.tags.all|join:", " }}</p>
+    {% for tag in o.tags.all %}
+        <a href="/recherche/?q={{ tag|urlencode }}">{{ tag }}</a>{% if not forloop.last %},{% endif %}
+    {% endfor %}</p>
 {% endif %}
 {% if o.offerdocument_set.all %}
     <p><b>Documents&nbsp;:</b><ul>

@@ -12,7 +12,14 @@
     {% for call in calls %}
         <div class="media">
             <div class="media-body">
-                <p class="activity">{{ call.activity.label }}</p>
+                <p class="activity">
+                    {% for activity in call.activity.all %}
+                        <a href="/recherche/?q={{ activity.label|urlencode }}">
+                            {{ activity.label }}
+                        </a>
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
                 {% if call.areas.all %}<span class="location">{{ call.areas.all|join:", " }}</span>{% endif %}
                 <h4 class="media-heading">{{ call.title }}</h4>
                 <p>{{ call.description|linebreaks }}</p>

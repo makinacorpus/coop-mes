@@ -6,7 +6,7 @@
     padding-right: 0;
     padding-left: 0;
 
-    a {
+    > a {
         display: block;
         color: @body-color;
         font-weight: bold;
@@ -16,7 +16,7 @@
         }
     }
 
-    a.active {
+    > a.active {
         padding: 5px 10px 5px 15px;
         background: @color1;
         .border-radius(3px);
@@ -38,7 +38,7 @@
         }
     }
 
-    a:before {
+    > a:before {
         .iconf;
         content: "f"; // .iconf-chevron-right
         margin-right: 5px;

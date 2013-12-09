@@ -28,7 +28,7 @@
                                     {% endif %}
                                 </a>
                                 <div class="media-body">
-                                    <p class="activity">{{ org.offer_activities }}</p>
+                                    <p class="activity">{{ org.offer_activities_links }}</p>
                                     {% if org.nearest %}
                                         <span class="location">{{ org.nearest.zipcode }} {{ org.nearest.city }}{#{% if org.distance %} ({{ org.distance.km|floatformat:"0" }} km){% endif %}#}</span>
                                     {% else %}

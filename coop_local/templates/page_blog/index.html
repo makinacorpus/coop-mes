@@ -68,7 +68,11 @@
                             <p class="activity">
                                 {{ entry.publication_date|date:"j F Y" }}
                                 {% if entry.tags.all %}
-                                    / {{ entry.tags.all|join:", " }}
+                                    /
+                                    {% for tag in entry.tags.all %}
+                                        <a href="/recherche/?q={{ tag|urlencode }}">{{ tag }}</a>
+                                        {% if not forloop.last %},{% endif %}
+                                    {% endfor  %}
                                 {% endif %}
                             </p>
                             <h4 class="media-heading">{{ entry.title }}</h4>

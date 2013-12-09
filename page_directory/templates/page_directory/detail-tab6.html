@@ -48,14 +48,16 @@
 {% if org.customer_activities %}
     <div class="fiche">
         <h5>Achats responsables recherchés</h5>
-        {{ org.customer_activities }}
+        {{ org.customer_activities_links }}
     </div>
     <hr/>
 {% endif %}
 {% if org.tags.all %}
     <div class="fiche">
         <h5>Mots clés</h5>
-        {{ org.tags.all|join:", " }}
+        {% for tag in org.tags.all %}
+            <a href="/recherche/?q={{ tag|urlencode }}">{{ tag }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
     </div>
     <hr/>
 {% endif %}

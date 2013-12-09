@@ -745,15 +745,15 @@ hr {
   padding-right: 0;
   padding-left: 0;
 }
-.list-group-item a {
+.list-group-item > a {
   display: block;
   color: #757475;
   font-weight: bold;
 }
-.list-group-item a:hover {
+.list-group-item > a:hover {
   color: #ed7009;
 }
-.list-group-item a.active {
+.list-group-item > a.active {
   padding: 5px 10px 5px 15px;
   background: #ed7009;
   -webkit-border-radius: 3px;
@@ -763,10 +763,10 @@ hr {
   margin-top: -5px;
   margin-bottom: -5px;
 }
-.list-group-item a.active:before {
+.list-group-item > a.active:before {
   display: none;
 }
-.list-group-item a.active:after {
+.list-group-item > a.active:after {
   font-family: "icons-font";
   font-style: normal;
   font-weight: normal;
@@ -784,7 +784,7 @@ hr {
   margin-top: 3px;
   float: right;
 }
-.list-group-item a:before {
+.list-group-item > a:before {
   font-family: "icons-font";
   font-style: normal;
   font-weight: normal;

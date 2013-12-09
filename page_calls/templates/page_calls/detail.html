@@ -59,7 +59,7 @@
 
                                 <dt class="iconf-info-circled">Secteur{{ call.activity.count|pluralize }} d'activité :</dt>
                                 {% for activity in call.activity.all %}
-                                    <dd>{{ activity.label }}</dd>
+                                    <dd><a href="/recherche/?q={{ activity.label|urlencode }}">{{ activity.label }}</a></dd>
                                 {% endfor %}
 
                                 <dt class="iconf-pins">Lieu{{ call.areas.count|pluralize:"x" }} d'exécution :</dt>

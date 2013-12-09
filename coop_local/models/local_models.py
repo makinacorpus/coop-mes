@@ -23,6 +23,8 @@ from coop_local.models.fields import MultiSelectField
 from django.utils.dateformat import format as date_format
 from django.core.urlresolvers import reverse_lazy
 from django.utils.timezone import now
+from django.utils.http import urlquote
+from django.utils.safestring import mark_safe
 
  
 ADMIN_THUMBS_SIZE = '60x60'
@@ -355,6 +357,11 @@ class CallForTenders(models.Model):
     def activities(self):
         return ", ".join(self.activity.values_list('label', flat=True))
 
+    def activities_links(self):
+        activities = self.activity.values_list('label', flat=True)
+        activities_links = ['<a href="/recherche/?q=%s">%s</a>' % (urlquote(activity), activity) for activity in activities]
+        return mark_safe(", ".join(activities_links))
+
     class Meta:
         verbose_name = _(u'Call for tenders')
         verbose_name_plural = _(u'Calls for tenders')
@@ -481,8 +488,18 @@ class Organization(BaseOrganization):
     def customer_activities(self):
         return ", ".join(self.activities.values_list('label', flat=True).distinct())
 
+    def customer_activities_links(self):
+        activities = self.activities.values_list('label', flat=True).distinct()
+        activities_links = ['<a href="/recherche/?q=%s">%s</a>' % (urlquote(activity), activity) for activity in activities]
+        return mark_safe(", ".join(activities_links))
+ 
     def offer_activities(self):
         return ", ".join(self.offer_set.values_list('activity__label', flat=True).distinct())
+
+    def offer_activities_links(self):
+        activities = self.offer_set.values_list('activity__label', flat=True).distinct()
+        activities_links = ['<a href="/recherche/?q=%s">%s</a>' % (urlquote(activity), activity) for activity in activities]
+        return mark_safe(", ".join(activities_links))
 
     def category_iae_desc(self):
         return ", ".join([cat.description or cat.label for cat in self.category_iae.all()])

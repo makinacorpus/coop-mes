@@ -70,17 +70,23 @@
 
                                 {% if event.activity.all %}
                                     <dt class="iconf-info-circled">Secteur d'activité :</dt>
-                                    <dd>{{ event.activity_str|safe }}</dd>
+                                    {% for activity in event.activity.all %}
+                                        <dd><a href="/recherche/?q={{ activity.label|urlencode }}">{{ activity.label }}</a></dd>
+                                    {% endfor %}
                                 {% endif %}
 
                                 {% if event.theme.all %}
                                     <dt class="iconf-rubon">Thématique :</dt>
-                                    <dd>{{ event.theme.all|join:"<br/>"|safe }}</dd>
+                                    {% for theme in event.theme.all %}
+                                        <dd><a href="/recherche/?q={{ theme.name|urlencode }}">{{ theme.name }}</a></dd>
+                                    {% endfor %}
                                 {% endif %}
 
                                 {% if event.tags.all %}
                                     <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
-                                    <dd>{{ event.tags.all|join:", " }}</dd>
+                                    {% for tag in event.tags.all %}
+                                        <dd><a href="/recherche/?q={{ tag.name|urlencode }}">{{ tag.name }}</a></dd>
+                                    {% endfor %}
                                 {% endif %}
                             </dl>
                         </div>
