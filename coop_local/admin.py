@@ -904,7 +904,7 @@ class OfferAreaInline(InlineAutocompleteAdmin):
 
 class OfferAdmin(FkAutocompleteAdmin):
 
-    list_display = ('provider', 'activities')
+    list_display = ('provider', 'activities', 'description')
     search_fields = ('activity__label', 'provider__title', 'provider__acronym')
     related_search_fields = {
         'provider': ('title', 'acronym', ),

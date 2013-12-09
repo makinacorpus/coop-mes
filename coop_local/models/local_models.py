@@ -578,6 +578,7 @@ class Offer(models.Model):
 
     def activities(self):
         return ", ".join(self.activity.all().values_list('label', flat=True))
+    activities.short_description = u"Secteurs d'activité"
 
     def image(self):
         try:
