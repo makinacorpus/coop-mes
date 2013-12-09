@@ -39,6 +39,7 @@ import re
 import random
 import string
 from coop_local.sync_contacts import sync_contacts
+from haystack import connections
 
 from coop.org.admin import (
     OrganizationAdmin as BaseOrganizationAdmin,
@@ -493,6 +494,8 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         super(OrganizationAdmin, self).save_related(request, form, formsets, change)
         if not change:
             form.instance.authors.add(request.user)
+        ui = connections.all()[0].get_unified_index()
+        ui.get_index(Organization).update_object(instance=form.instance)
 
     def save_formset(self, request, form, formset, change):
         if formset.model != Reference:
@@ -762,6 +765,10 @@ class CFTActivityInline(InlineAutocompleteAdmin):
     verbose_name = u'Secteur d\'activité'
     verbose_name_plural = u'Secteurs d\'activité'
 
+    def get_formset(self, request, obj=None, **kwargs):
+        kwargs['form'] = make_activity_form(self.admin_site, request)
+        return super(CFTActivityInline, self).get_formset(request, obj, **kwargs)
+
     def has_change_permission(self, request, obj=None):
         return True
 
@@ -789,6 +796,12 @@ class CallForTendersAdmin(FkAutocompleteAdmin):
     }
     inlines = [CFTActivityInline, AreaInline]
     date_hierarchy = 'deadline'
+    change_form_template = 'admin/coop_local/callfortenders/tabbed_change_form.html'
+    fieldsets = (
+        (_(u'Key info'), {
+            'fields': ['title', 'organization', 'allotment', 'lot_numbers',
+                       'deadline', 'clauses', 'url', 'en_direct', 'description']}),
+    )
 
     def deadline_str(self, obj):
         return obj.deadline.strftime('%d/%m/%Y')
@@ -831,6 +844,11 @@ class CallForTendersAdmin(FkAutocompleteAdmin):
             url(r'^csv/$', self.admin_site.admin_view(self.csv_view)),
         )
         return my_urls + urls
+
+    def save_related(self, request, form, formsets, change):
+        super(CallForTendersAdmin, self).save_related(request, form, formsets, change)
+        ui = connections.all()[0].get_unified_index()
+        ui.get_index(CallForTenders).update_object(instance=form.instance)
 
 
 class OfferDocumentInline(DocumentInline):
@@ -896,13 +914,18 @@ class OfferAdmin(FkAutocompleteAdmin):
     change_form_template = 'admin/coop_local/offer/tabbed_change_form.html'
     fieldsets = (
         (_(u'Key info'), {
-            'fields': ['provider', 'description', 'technical_means',
+            'fields': ['provider', 'description', 'tags', 'technical_means',
                        'workforce', 'practical_modalities']}),
     )
 
     def save_model(self, request, obj, form, change):
         super(OfferAdmin, self).save_model(request, obj, form, change)
         obj.provider.save() # Update modification date
+
+    def save_related(self, request, form, formsets, change):
+        super(OfferAdmin, self).save_related(request, form, formsets, change)
+        ui = connections.all()[0].get_unified_index()
+        ui.get_index(Offer).update_object(instance=form.instance)
 
     def csv_view(self, request):
         response = HttpResponse(mimetype='text/csv')
@@ -998,6 +1021,11 @@ class EventAdmin(BaseEventAdmin):
                     u'Bonjour,\n\nVotre événement vient d\'être validé sur la PASR.',
                     sender, dests)
         super(EventAdmin, self).save_model(request, obj, form, change)
+
+    def save_related(self, request, form, formsets, change):
+        super(EventAdmin, self).save_related(request, form, formsets, change)
+        ui = connections.all()[0].get_unified_index()
+        ui.get_index(Event).update_object(instance=form.instance)
 
 
 class LocationAdmin(BaseLocationAdmin):

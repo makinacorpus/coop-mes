@@ -3,3 +3,5 @@
 
 {% for x in object.activity.all %}{{ x.label }}
 {% endfor %}
+{% for x in object.areas.all %}{{ x.label }}
+{% endfor %}

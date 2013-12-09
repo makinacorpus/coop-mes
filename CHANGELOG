@@ -1,3 +1,17 @@
+v1.19
+
+ * Ajout des tags, secteurs d'activité, thématiques et lieux comme clé de
+   recherche pour tous les types d'objects
+ * Possibilité de cliquer sur les mots clés, secteur d'activités et
+   thématiques pour lancer une recherche sur ces termes
+
+
+Déploiement
+
+ * pull ionyweb
+ * rebuild_index
+
+
 v1.18
 
  * Echanger/communiquer (formulaire de mail ciblé)
@@ -11,6 +25,7 @@ v1.18
 
 Déploiement
 
+ * pull django_coop
  * Création de la page /communiquer/ (plugin exchange)
  * migrate
  * rebuild_index
@@ -57,7 +72,8 @@ Déploiement
  - configurer la page garanties
  - configurer la page réseaux
  - configurer les layouts de l'espace ressource
- - ajouter les droits sur page_blog.Entry et coop_local.Event au groupe admin restreints
+ - ajouter les droits sur page_blog.Entry, coop_local.Event et
+   coop_local.Occurrence au groupe admin restreints
 
 
 v1.16

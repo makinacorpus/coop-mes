@@ -2,6 +2,7 @@
 
 {{ object.title }}
 {{ object.description|html2text }}
+{{ object.location.city }}
 
 {{ object.brief_description }}
 {% for x in object.activity.all %}{{ x.label }}

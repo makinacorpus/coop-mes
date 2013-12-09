@@ -13,3 +13,9 @@
 {{ object.brief_description }}
 {{ object.added_value }}
 {{ object.offer_areas }}
+{% for x in object.activities.all %}{{ x.label }}
+{% endfor %}
+{% for x in object.transverse_themes.all %}{{ x.name }}
+{% endfor %}
+{% for l in object.located.all %}{{ l.location.city }}
+{% endfor %}

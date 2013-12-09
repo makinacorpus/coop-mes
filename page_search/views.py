@@ -21,6 +21,5 @@ def index_view(request, page_app):
     response = basic_search(request, form_class=SearchForm, template='page_search/index.html')
     if isinstance(response, HttpResponseRedirect):
         return response
-    #response.render()
     return render_view('content.html', {'content': response.content}, (),
             context_instance=RequestContext(request))
