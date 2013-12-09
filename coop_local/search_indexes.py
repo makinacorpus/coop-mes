@@ -27,14 +27,6 @@ class CallForTendersIndex(CoopIndexWithoutSite, indexes.Indexable):
         return self.get_model().objects.filter(deadline__gte=now())
 
 
-class OfferIndex(CoopIndexWithoutSite, indexes.Indexable):
-    def get_model(self):
-        return Offer
-
-    def index_queryset(self, using=None):
-        return self.get_model().objects.filter(provider__status='V')
-
-
 class EntryIndex(CoopIndexWithoutSite, indexes.Indexable):
     def get_model(self):
         return Entry

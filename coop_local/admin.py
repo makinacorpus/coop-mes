@@ -925,7 +925,7 @@ class OfferAdmin(FkAutocompleteAdmin):
     def save_related(self, request, form, formsets, change):
         super(OfferAdmin, self).save_related(request, form, formsets, change)
         ui = connections.all()[0].get_unified_index()
-        ui.get_index(Offer).update_object(instance=form.instance)
+        ui.get_index(Organization).update_object(instance=form.instance.provider)
 
     def csv_view(self, request):
         response = HttpResponse(mimetype='text/csv')

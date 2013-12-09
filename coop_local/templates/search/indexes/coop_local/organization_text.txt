@@ -19,3 +19,7 @@
 {% endfor %}
 {% for l in object.located.all %}{{ l.location.city }}
 {% endfor %}
+
+{% for offer in object.offer_set.all %}
+{% include "search/indexes/coop_local/offer_text.txt" with object=offer %}
+{% endfor %}
