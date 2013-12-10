@@ -571,7 +571,7 @@ class Offer(models.Model):
         return self.activities()
 
     def get_absolute_url(self):
-        return '/annuaire/p/offre/%u/' % self.id
+        return '/annuaire/p/%u/' % self.provider.id
 
     def unchecked_targets(self):
         return ClientTarget.objects.exclude(id__in=self.targets.all().values_list('id', flat=True))
