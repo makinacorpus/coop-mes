@@ -10,10 +10,12 @@
             <h6 class="status">{{ org.acronym }}</h6>
         </div>
     </div>
-    <div class="col-lg-6">
-        <h5 class="short-desc">Description succinte</h5>
-        {{ org.brief_description }}
-    </div>
+    {% if org.brief_description %}
+        <div class="col-lg-6">
+            <h5 class="short-desc">Description succinte</h5>
+            {{ org.brief_description }}
+        </div>
+    {% endif %}
 </div>
 <hr/>
 <div class="row fiche">

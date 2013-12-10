@@ -27,7 +27,9 @@
                             {% if org.is_provider or org.is_network %}
                                 <li class="active"><a href="#tab1" data-toggle="tab">Présentation{% if org.is_customer %} fournisseur{% endif %}</a></li>
                                 {% if org.is_provider %}
-                                    <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
+                                    {% if org.annual_revenue or org.workforce or org.production_workforce or org.supervision_workforce or org.integration_workforce or org.annual_integration_number or org.references %}
+                                        <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
+                                    {% endif %}
                                 {% endif %}
                                 <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
                             {% endif %}
