@@ -40,7 +40,7 @@
                             {% if org.testimony %}
                                 <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
                             {% endif %}
-                            {% if org.source_relations.exists %}
+                            {% if org.reseaux or org.part_eco or org.part_tech %}
                                 <li><a href="#tab5" data-toggle="tab">Partenariats</a></li>
                             {% endif %}
                         </ul>
