@@ -47,7 +47,7 @@ class PreferencesForm(forms.ModelForm):
         self.fields['events_subscription'].empty_label = 'Aucun'
         self.fields['events_subscription'].label = 'Événements de mon/ma'
         self.fields['events_subscription'].help_text = u'Etre informé des évènements se déroulant à ce niveau'
-        self.fields['exchanges_subscription'].label = u'Échanges'
+        self.fields['exchanges_subscription'].label = u'Échange avec fournisseurs et acheteurs'
         self.fields['exchanges_subscription'].help_text = u'Recevoir des propositions ou des demandes correspondant à votre secteur'
         self.helper = FormHelper()
         self.helper.form_tag = False
