@@ -52,13 +52,10 @@ function dismissActivityLookupPopup(win, chosenId, chosenRepr) {
 
 jQuery(document).ready(function() {
     $('#id_is_provider').change(function() {
-        var tabs = $('a[href="#target-group"], a[href="#offer_set-group"]').parent();
         var fields = $('label[for="id_added_value"], label[for="id_transverse_themes_0"], label[for="id_category"], label[for="id_category_iae"], label[for="id_agreement_iae_0"]').parent();
         if ($(this).is(':checked')) {
-            tabs.removeClass('hide');
             fields.show();
         } else {
-            tabs.addClass('hide');
             fields.hide();
         }
     });
@@ -68,6 +65,14 @@ jQuery(document).ready(function() {
             fields.show();
         } else {
             fields.hide();
+        }
+    });
+    $('#id_is_provider, #id_is_customer').change(function() {
+        var tabs = $('a[href="#infos-economiques"], a[href="#source-2-group"]').parent();
+        if ($('#id_is_provider').is(':checked') || $('#id_is_customer').is(':checked')) {
+            tabs.removeClass('hide');
+        } else {
+            tabs.addClass('hide');
         }
     });
     $('#id_is_provider').trigger('change');
