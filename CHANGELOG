@@ -9,7 +9,9 @@ v1.19
 Déploiement
 
  * pull ionyweb
+ * pull coop_geo 
  * rebuild_index
+ * migrate coop_geo
 
 
 v1.18

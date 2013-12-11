@@ -96,7 +96,8 @@ def index_view(request, page_app):
                 if geo == '1':
                     orgs = orgs.filter(located__location__point__intersects=area.polygon)
                 else:
-                    orgs = orgs.filter(offer__area__polygon__intersects=area.polygon)
+                    # intersects, excluding borders
+                    orgs = orgs.filter(offer__area__polygon__relate=(area.polygon, '2********'))
             if radius or geo == '2':
                 orgs = list(orgs)
                 for o in orgs:
