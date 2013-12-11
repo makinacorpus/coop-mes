@@ -1,9 +1,22 @@
 v1.19
 
- * Ajout des tags, secteurs d'activité, thématiques et lieux comme clé de
-   recherche pour tous les types d'objects
- * Possibilité de cliquer sur les mots clés, secteur d'activités et
-   thématiques pour lancer une recherche sur ces termes
+ * Fixe un crash si on clique sur "communiquer" sans être connecté (bug 932)
+ * Supprime les onglets "infos éco" et "références" si réseau (bug 927)
+ * Remplace article par actualité (bug 933)
+ * Corrige le formulaire de recherche des réseaux (bug 908)
+ * Supprime le bouton "Voir" si une actualité n'est pas validée (bug 870)
+ * Augmente la largeur des champs de formulaire (bug 873)
+ * Editeur de texte redimensionnable en hauteur (bug 873)
+ * Fixe un crash si un adminstrateur édite un événement en ligne (bug 791)
+ * N'affiche pas les zones limitrophe dans la recherche géographique (bug 1030)
+ * Précise le titre du champ "Échange avec fournisseurs et acheteurs" (bug 981)
+ * Masque l'onglet partenaires lorsqu'il est vide (bug 970)
+ * S manquant (bug 974)
+ * Affiche la plus value sociale et environnementale sur la fiche fournisseur (bug 972)
+ * Ajout du champ description dans le back office sur la liste des offres (bug 928)
+ * Lien cliquable pour les mots-clés, thématiques et secteurs d'activité (bug #871)
+ * Fusionne les offres et les organisations dans les résultats de recherche (bug #901)
+ * Indexe les champs mots-clés, thématiques et secteurs d'activité (bug #901)
 
 
 Déploiement
