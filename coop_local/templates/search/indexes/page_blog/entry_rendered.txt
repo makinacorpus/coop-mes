@@ -11,7 +11,7 @@
         {% endif %}
     </a>
     <div class="media-body">
-        <p class="activity">Article</p>
+        <p class="activity">Actualité</p>
         <h4 class="media-heading">{{ object.title }}</h4>
         {% if object.resume %}
             <p>{{ object.resume }}</p>

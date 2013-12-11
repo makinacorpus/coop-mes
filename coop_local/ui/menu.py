@@ -83,7 +83,7 @@ class CustomMenu(Menu):
         )
 
         grandchildren = [
-            items.MenuItem(u'Articles', '/admin/page_blog/entry/'),
+            items.MenuItem(u'Actualités', '/admin/page_blog/entry/'),
         ]
         if is_superuser:
             grandchildren += [

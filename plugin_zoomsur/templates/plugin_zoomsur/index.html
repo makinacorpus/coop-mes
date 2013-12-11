@@ -49,7 +49,7 @@
             {% for actu in actus %}
                 <div class="article-extract">
                     <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
-                    <div class="article-extract__meta">Article</div>
+                    <div class="article-extract__meta">Actualité</div>
                     <div class="cms-content">{{ actu.body|striptags|truncatewords:10|safe }}</div>
                 </div>
             {% endfor %}
