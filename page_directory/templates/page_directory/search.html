@@ -18,13 +18,15 @@
 {% endif %}
         <div class="col-lg-3">
             <div class="item">
-                <h3>Secteur d'activité</h3>
+                <h3>{% if object.networks %}Spécificité{% else %}Secteur d'activité{% endif %}</h3>
                 <div class="dropdown">
                     {{ form.sector }}
                 </div>
+{% if not object.networks %}
                 <div class="checkbox">
                     <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
                 </div>
+{% endif %}
             </div>
 {% if not object.networks %}
             <div class="item">
@@ -43,6 +45,7 @@
                     {{ form.radius }}
                     <span class="input-group-addon form-control-small">km</span>
                 </div>
+{% if not object.networks %}
                 <label for="id_geo_0">
                     <input {% if geo == "1" %}checked="checked"{% endif %} name="geo" value="1" id="id_geo_0" type="radio" />
                     Implantation
@@ -52,6 +55,7 @@
                     <input {% if geo == "2" %}checked="checked"{% endif %} value="2" type="radio" name="geo" id="id_geo_1" />
                     Intervention
                 </label>
+{% endif %}
             </div>
 {% if not object.networks %}
             <div class="item search">
