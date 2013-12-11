@@ -215,5 +215,5 @@ def my_view(request, page_app):
     events = events.order_by('start_time')
     return render_view('page_pasr_agenda/my_events.html',
                        {'object': page_app, 'events': events},
-                       ACTIONS_MEDIAS if request.is_admin else [],
+                       [],
                        context_instance=RequestContext(request))
