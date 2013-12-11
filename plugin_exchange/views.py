@@ -20,6 +20,14 @@ def index_view(request, plugin):
     contact_form = Plugin_ExchangeForm()
     message = None
 
+    if not request.user.is_authenticated():
+        return render_view(
+            plugin.get_templates('plugin_exchange/error.html'),
+            {'object': plugin,
+             'message': u"Veuillez d'abord vous <a href=\"/mon-compte/\">connecter</a>."},
+            RENDER_MEDIAS,
+            context_instance=RequestContext(request))
+
     try:
         person = Person.objects.get(user=request.user)
     except Person.DoesNotExist:
