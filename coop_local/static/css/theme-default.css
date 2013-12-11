@@ -1206,43 +1206,43 @@ button {
 }
 @media (min-width: 992px) {
   .form fieldset {
-    width: 80%;
+    width: 95%;
   }
 }
 .form label a {
   text-decoration: underline;
 }
 .form .form-control {
-  max-width: 90%;
+  max-width: 95%;
 }
 @media (min-width: 992px) {
   .form .form-control {
-    max-width: 60%;
+    max-width: 95%;
   }
 }
 @media (min-width: 992px) {
   .form textarea.form-control {
-    max-width: 80%;
+    max-width: 95%;
   }
 }
 .form .input-group {
-  max-width: 90%;
+  max-width: 95%;
 }
 @media (min-width: 992px) {
   .form .input-group {
-    max-width: 60%;
+    max-width: 95%;
   }
 }
 .form .input-group .form-control {
   max-width: 100%;
 }
 .form .input-group.split-date {
-  max-width: 45%;
+  max-width: 50%;
   float: left;
-  margin-right: 10px;
+  margin-right: 5%;
 }
 .form .input-group.split-time {
-  max-width: 35%;
+  max-width: 40%;
 }
 .radio input[type="radio"] {
   margin-top: 1px;

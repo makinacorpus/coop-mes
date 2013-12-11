@@ -105,11 +105,13 @@ ADMIN_TOOLS_THEMING_CSS = 'css/coop_local_bootstrap_theming.css'
 TINYMCE_FRONTEND_CONFIG = {
     'theme': "advanced",
     'relative_urls': False,
-    #'width': '617px', 'height': '220px',
     'theme_advanced_toolbar_location': 'top',
-    'theme_advanced_statusbar_location': 'none',
     'theme_advanced_buttons1': 'bold,italic,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,unlink,|,code',
-    'theme_advanced_buttons2': '', 'theme_advanced_buttons3': ''
+    'theme_advanced_buttons2': '', 'theme_advanced_buttons3': '',
+    'theme_advanced_resizing': True,
+    'theme_advanced_statusbar_location': 'bottom',
+    'theme_advanced_resize_horizontal': False,
+    'theme_advanced_path': False,
 }
 
 SITE_NAME = 'Achetons Solidaires'
