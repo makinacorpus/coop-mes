@@ -62,7 +62,9 @@ def index_view(request, page_app):
             orgs = orgs.filter(is_customer=True, customer_type=2)
         interim = form.cleaned_data['interim']
         if interim:
-            orgs = orgs.filter(offer__activity__label__in=(u'mise à disposition de personnel', u'travail temporaire'))
+            orgs = orgs.filter(
+                Q(offer__activity__label__iexact=(u'mise à disposition de personnel')) |
+                Q(offer__activity__label__iexact=(u'travail temporaire')))
         sector = form.cleaned_data['sector']
         descendants = sector and sector.get_descendants(include_self=True)
         if descendants:

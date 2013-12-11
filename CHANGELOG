@@ -1,3 +1,12 @@
+v1.20
+
+ * Fixe la case à cocher "Mise à disposition de personnel" pour le
+   Nord-pas-de-Calais (bug 1032)
+
+
+Déploiement
+
+
 v1.19
 
  * Fixe un crash si on clique sur "communiquer" sans être connecté (bug 932)
@@ -25,6 +34,7 @@ Déploiement
  * pull coop_geo 
  * rebuild_index
  * migrate coop_geo
+ * collectstatic
 
 
 v1.18
