@@ -2,6 +2,8 @@ v1.20
 
  * Fixe la case à cocher "Mise à disposition de personnel" pour le
    Nord-pas-de-Calais (bug 1032)
+ * Ajout des outils styyle,justifier, taille de police et souligné à
+   l'éditeur de texte (bug 873)
 
 
 Déploiement

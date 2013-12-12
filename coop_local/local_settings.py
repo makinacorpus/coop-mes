@@ -106,7 +106,7 @@ TINYMCE_FRONTEND_CONFIG = {
     'theme': "advanced",
     'relative_urls': False,
     'theme_advanced_toolbar_location': 'top',
-    'theme_advanced_buttons1': 'bold,italic,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,unlink,|,code',
+    'theme_advanced_buttons1': 'bold,italic,underline,|,formatselect,fontsizeselect,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,code',
     'theme_advanced_buttons2': '', 'theme_advanced_buttons3': '',
     'theme_advanced_resizing': True,
     'theme_advanced_statusbar_location': 'bottom',
