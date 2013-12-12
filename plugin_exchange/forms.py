@@ -63,6 +63,7 @@ class Plugin_ExchangeForm(IonywebContentForm, forms.Form):
                 orgs = Organization.objects.filter(status='V', is_provider=True, offer__activity=self.cleaned_data['activity'])
             elif self.cleaned_data['qualite_to'] == 'NET':
                 orgs = Organization.objects.filter(status='V', is_network=True, offer__activity=self.cleaned_data['activity'])
+            orgs = orgs.filter(exchanges_subscription=True)
 
             mails = [email for email in orgs.values_list('pref_email__content', flat=True) if email is not None]
 

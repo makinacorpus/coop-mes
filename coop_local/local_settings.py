@@ -19,7 +19,7 @@ SITE_TITLE = 'Demo Django-coop'
 DEBUG = False
 
 # Force DEBUG setting if we're developing locally or testing
-if 'runserver' in sys.argv or 'test' in sys.argv:
+if 'runserver' in sys.argv or 'test' in sys.argv or 'mail_calls' in sys.argv:
     DEBUG = True
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

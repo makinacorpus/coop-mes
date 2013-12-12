@@ -343,6 +343,7 @@ class CallForTenders(models.Model):
     url = models.URLField(u'URL', blank=True, null=True, max_length=250)
     en_direct = models.BooleanField(u'en direct', default=False)
     description = models.TextField(u'description synthétique', blank=True)
+    creation = models.DateField(auto_now_add=True)
 
     objects = models.Manager()
     geo_objects = GeoManager()

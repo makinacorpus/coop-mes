@@ -14,6 +14,7 @@ v1.20
  * Fixe "Page non trouvée" après enregistrement d'une modification d'une
    actualité (bug 870)
  * Champ spécificités dans le forumlaire de recherche des réseaux (bug 908)
+ * Envoi de mails quotidiens pour les appels d'offres (bug 71)
  
 
 Déploiement
