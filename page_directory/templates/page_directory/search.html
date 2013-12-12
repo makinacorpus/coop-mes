@@ -18,10 +18,17 @@
 {% endif %}
         <div class="col-lg-3">
             <div class="item">
-                <h3>{% if object.networks %}Spécificité{% else %}Secteur d'activité{% endif %}</h3>
-                <div class="dropdown">
-                    {{ form.sector }}
-                </div>
+                {% if object.networks %}
+                    <h3>Spécificité</h3>
+                    <div class="dropdown">
+                        {{ form.prov_type }}
+                    </div>
+                {% else %}
+                    <h3>Secteur d'activité</h3>
+                    <div class="dropdown">
+                        {{ form.sector }}
+                    </div>
+                {% endif %}
 {% if not object.networks %}
                 <div class="checkbox">
                     <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>

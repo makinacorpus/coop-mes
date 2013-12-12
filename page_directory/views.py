@@ -57,6 +57,8 @@ def index_view(request, page_app):
             orgs = orgs.filter(guaranties=form.cleaned_data['guaranty'])
         if page_app.networks:
             orgs = orgs.filter(is_network=True)
+            if form.cleaned_data['prov_type']:
+                orgs = orgs.filter(agreement_iae=form.cleaned_data['prov_type'])
         elif form.cleaned_data['org_type'] == 'fournisseur':
             orgs = orgs.filter(is_provider=True)
             if form.cleaned_data['prov_type']:

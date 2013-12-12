@@ -8,7 +8,13 @@ v1.20
  * Masque le bouton "Voir sur le site" dans le back-office pour les
    actualités qui n'ont pas été validée et qui ne sont donc pas visibles
    sur le site (but 870)
-
+ * Les admins restreint ne peuvent gérer que leurs propres articles (bug 872)
+ * Masque les liens de "mon compte" pour les utilisateur n'ayant pas créé
+   leur compte en ligne (bug 791)
+ * Fixe "Page non trouvée" après enregistrement d'une modification d'une
+   actualité (bug 870)
+ * Champ spécificités dans le forumlaire de recherche des réseaux (bug 908)
+ 
 
 Déploiement
 
