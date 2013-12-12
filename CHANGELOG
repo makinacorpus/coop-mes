@@ -5,6 +5,9 @@ v1.20
  * Ajout des outils styyle,justifier, taille de police et souligné à
    l'éditeur de texte (bug 873)
  * Ajout du secteur d'activité et du thème dans les article (bug 870)
+ * Masque le bouton "Voir sur le site" dans le back-office pour les
+   actualités qui n'ont pas été validée et qui ne sont donc pas visibles
+   sur le site (but 870)
 
 
 Déploiement

@@ -21,6 +21,7 @@ from django.contrib.contenttypes.models import ContentType
 from  django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 from django.utils.text import get_text_list
+from django.core.exceptions import PermissionDenied
 
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
@@ -127,7 +128,7 @@ def organizations_view(request, page_app):
     try:
         person = Person.objects.get(user=request.user)
     except Person.DoesNotExist:
-        raise HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+        raise PermissionDenied('Votre compte n\'est lié à aucune organisation.')
     org = person.my_organization()
     providers = Organization.objects.filter(target__relation_type__id=2, target__source=org)
     customers = Organization.objects.filter(target__relation_type__id=6, target__source=org)
@@ -142,7 +143,7 @@ def my_calls_view(request, page_app):
     try:
         person = Person.objects.get(user=request.user)
     except Person.DoesNotExist:
-        raise HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+        raise PermissionDenied('Votre compte n\'est lié à aucune organisation.')
     org = person.my_organization()
     activities = ActivityNomenclature.objects.filter(offer__provider=org)
     calls = CallForTenders.objects.filter(activity__in=activities)
@@ -165,7 +166,7 @@ def my_preferences_view(request, page_app):
     try:
         person = Person.objects.get(user=request.user)
     except Person.DoesNotExist:
-        raise HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+        raise PermissionDenied('Votre compte n\'est lié à aucune organisation.')
     org = person.my_organization()
     if not org:
         return HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
