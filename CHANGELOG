@@ -4,6 +4,7 @@ v1.20
    Nord-pas-de-Calais (bug 1032)
  * Ajout des outils styyle,justifier, taille de police et souligné à
    l'éditeur de texte (bug 873)
+ * Ajout du secteur d'activité et du thème dans les article (bug 870)
 
 
 Déploiement
