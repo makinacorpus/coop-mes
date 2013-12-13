@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="article-extract">
-                        <h3><a href="">{{ entry.label }}</a></h3>
+                        <h3><a href="{{ entry.get_absolute_url }}">{{ entry.label }}</a></h3>
                         <div class="article-extract__meta">{{ entry.validation|date:"d/m/Y"|default:"&nbsp" }} - Organisation</div>
                         <p>{{ entry.brief_description|truncatewords:30 }}</p>
                     </div>
