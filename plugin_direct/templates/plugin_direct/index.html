@@ -7,8 +7,7 @@
             <li data-tab="Les appels$d'offres" {% if tab == 'appels-doffres' %}class="active"{% endif %}><a href="javascript:void(0);">Appels d'offres</a></li>
             <li data-tab="Les$fournisseurs" {% if tab == 'fournisseurs' %}class="active"{% endif %}><a href="javascript:void(0);">Fournisseurs</a></li>
             <li data-tab="Les$acheteurs" {% if tab == 'acheteurs' %}class="active"{% endif %}><a href="javascript:void(0);">Acheteurs</a></li>
-            <li data-tab="L'$agenda" {% if tab == 'agenda' %}class="active"{% endif %}><a href="javascript:void(0);">Agenda</a></li>
-            <li data-tab="Les$actualites" {% if tab == 'actualites' %}class="active"{% endif %}><a href="javascript:void(0);">Actualités</a></li>
+            <li data-tab="Les$innovations" {% if tab == 'innovations' %}class="active"{% endif %}><a href="javascript:void(0);">Innovations</a></li>
         </ul>
     </div>
     <div class="row">
@@ -49,20 +48,18 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-lg-9 direct-content" data-tab="L'$agenda" {% if tab != 'agenda' %}style="display: none;"{% endif %}>
-            {% for event in events %}
+        <div class="col-lg-9 direct-content" data-tab="Les$innovations" {% if tab != 'innovations' %}style="display: none;"{% endif %}>
+            {% for org in orgs %}
                 <div class="article-extract">
-                    <h3><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h3>
-                    <div class="article-extract__meta">{{ event.date_str }}</div>
-                    <div class="cms-content">{{ event.description|striptags|truncatewords:10|safe }}</div>
+                    <h3><a href="{{ org.get_absolute_url }}">{{ org.title }}</a></h3>
+                    <div class="article-extract__meta">Témoignage</div>
+                    <div class="cms-content">{{ org.testimony|striptags|truncatewords:10|safe }}</div>
                 </div>
             {% endfor %}
-        </div>
-        <div class="col-lg-9 direct-content" data-tab="Les$actualites" {% if tab != 'actualites' %}style="display: none;"{% endif %}>
             {% for actu in actus %}
                 <div class="article-extract">
                     <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
-                    <div class="article-extract__meta">{{ actu.publication_date|date:"d/m/Y" }}</div>
+                    <div class="article-extract__meta">Innovation</div>
                     <div class="cms-content">{{ actu.body|striptags|truncatewords:10|safe }}</div>
                 </div>
             {% endfor %}

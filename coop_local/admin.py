@@ -984,7 +984,7 @@ class EventAdmin(BaseEventAdmin):
     fieldsets = [['Description', {'fields': ['title', 'brief_description',
         'description', 'tags', 'category', 'calendar', 'organization',
         'person', 'location', 'activity', 'theme', 'image', 'a_la_une',
-        'en_direct', 'status',
+        'status',
       ]}],
     ]
     restricted_fieldsets = [['Description', {'fields': ['title', 'brief_description',
@@ -992,9 +992,9 @@ class EventAdmin(BaseEventAdmin):
         'person', 'location', 'activity', 'theme', 'image',
       ]}],
     ]
-    list_display = ('id', 'title', 'time_str', 'status', 'a_la_une', 'en_direct')
+    list_display = ('id', 'title', 'time_str', 'status', 'a_la_une')
     list_display_links = ('title', )
-    list_filter = ('status', 'a_la_une', 'en_direct')
+    list_filter = ('status', 'a_la_une')
 
     def get_fieldsets(self, request, obj=None):
         if request.user.is_superuser:

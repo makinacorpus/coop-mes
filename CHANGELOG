@@ -16,12 +16,14 @@ v1.20
  * Champ spécificités dans le formulaire de recherche des réseaux (bug 908)
  * Envoi de mails quotidiens pour les appels d'offres (bug 71)
  * Images par défaut
+ * Fusion de "En direct" et "Zoom sur"
  
 
 Déploiement:
 
  * pull ionyweb
  * migrate coop_local
+ * migrate page_blog
  * rebuild_index
 
 

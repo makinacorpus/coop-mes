@@ -4,6 +4,7 @@
         <i class="icon-en-direct"></i>
         <h1 class="navbar-brand title">{{ object.title }}</h1>
         <ul class="nav navbar-nav">
+            <li data-tab="Les appels$d'offres" {% if tab == 'appels-doffres' %}class="active"{% endif %}><a href="javascript:void(0);">Appels d'offres</a></li>
             <li data-tab="Les$fournisseurs" {% if tab == 'fournisseurs' %}class="active"{% endif %}><a href="javascript:void(0);">Fournisseurs</a></li>
             <li data-tab="Les$acheteurs" {% if tab == 'acheteurs' %}class="active"{% endif %}><a href="javascript:void(0);">Acheteurs</a></li>
             <li data-tab="Les$innovations" {% if tab == 'innovations' %}class="active"{% endif %}><a href="javascript:void(0);">Innovations</a></li>
@@ -13,9 +14,18 @@
         <div class="col-lg-3">
             <div class="vignette">
                 <div class="border"></div>
-                <span>Les Fournisseurs</span>
+                <span>Les appels<br />d'offres</span>
                 <div class="border"></div>
             </div>
+        </div>
+        <div class="col-lg-9 direct-content" data-tab="Les appels$d'offres" {% if tab != 'appels-doffres' %}style="display: none;"{% endif %}>
+            {% for call in calls %}
+                <div class="article-extract">
+                    <h3><a href="/appels-doffres/p/{{ call.pk }}/">{{ call.title }}</a></h3>
+                    <div class="article-extract__meta">{{ call.organization.label }}</div>
+                    <p>Date limite de réception des offres&nbsp;: {{ call.deadline|date:"j F Y à G\hi" }}</p>
+                </div>
+            {% endfor %}
         </div>
         <div class="col-lg-9 direct-content" data-tab="Les$fournisseurs" {% if tab != 'fournisseurs' %}style="display: none;"{% endif %}>
             {% for provider in providers %}
@@ -49,7 +59,7 @@
             {% for actu in actus %}
                 <div class="article-extract">
                     <h3><a href="{{ actu.get_absolute_url }}">{{ actu.title }}</a></h3>
-                    <div class="article-extract__meta">Actualité</div>
+                    <div class="article-extract__meta">Innovation</div>
                     <div class="cms-content">{{ actu.body|striptags|truncatewords:10|safe }}</div>
                 </div>
             {% endfor %}

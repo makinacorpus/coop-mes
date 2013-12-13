@@ -421,9 +421,9 @@ class Organization(BaseOrganization):
     norm_title = models.CharField(max_length=250, unique=True)
 
     # mise en avant
-    en_direct = models.BooleanField(u'en direct/zoom sur', default=False)
+    en_direct = models.BooleanField(u'en direct', default=False)
     a_la_une = models.BooleanField(u'à la une', default=False)
-    zoom_sur = models.BooleanField(u'initiative', default=False)
+    zoom_sur = models.BooleanField(u'innovation', default=False)
 
     # Préférences
     newsletter_subscription = models.BooleanField(u'souscription à la newletter', default=True)
@@ -663,7 +663,6 @@ class Event(BaseEvent):
     brief_description = models.TextField(_(u'brief description'), blank=True,
         validators = [MaxLengthValidator(400)], help_text=u'400 caractères maximum.')
     a_la_une = models.BooleanField(u'à la une', default=False)
-    en_direct = models.BooleanField(u'en direct', default=False)
     status = models.CharField(u'statut', max_length=1, choices=EVENT_STATUSES.CHOICES, default='I')
 
     objects = models.Manager()
