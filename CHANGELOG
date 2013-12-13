@@ -2,7 +2,7 @@ v1.20
 
  * Fixe la case à cocher "Mise à disposition de personnel" pour le
    Nord-pas-de-Calais (bug 1032)
- * Ajout des outils styyle,justifier, taille de police et souligné à
+ * Ajout des outils style, justifier, taille de police et souligné à
    l'éditeur de texte (bug 873)
  * Ajout du secteur d'activité et du thème dans les article (bug 870)
  * Masque le bouton "Voir sur le site" dans le back-office pour les
@@ -13,11 +13,16 @@ v1.20
    leur compte en ligne (bug 791)
  * Fixe "Page non trouvée" après enregistrement d'une modification d'une
    actualité (bug 870)
- * Champ spécificités dans le forumlaire de recherche des réseaux (bug 908)
+ * Champ spécificités dans le formulaire de recherche des réseaux (bug 908)
  * Envoi de mails quotidiens pour les appels d'offres (bug 71)
+ * Images par défaut
  
 
-Déploiement
+Déploiement:
+
+ * pull ionyweb
+ * migrate coop_local
+ * rebuild_index
 
 
 v1.19

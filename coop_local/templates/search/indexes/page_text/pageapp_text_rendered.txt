@@ -1,8 +1,8 @@
-{% load thumbnail %}
+{% load thumbnail staticfiles %}
 
 <div class="media">
     <a class="pull-left" href="{{ object.get_absolute_url }}">
-        <img class="media-object" src="" width="220" height="140">
+        <img class="media-object" src="{% static "img/default-img-" %}{{ region_slug }}.png" width="220" height="140">
     </a>
     <div class="media-body">
         <p class="activity">Page</p>

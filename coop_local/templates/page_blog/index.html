@@ -61,7 +61,7 @@
                                         <img class="media-object" src="{{ image.url }}" style="margin: {{ image|margin:"220x140" }}">
                                     {% endthumbnail %}
                                 {% else %}
-                                    <img class="media-object" src="" width="220" height="140">
+                                    <img class="media-object" src="{% static "img/default-entry-img-" %}{{ region_slug }}.png" width="220" height="140">
                                 {% endif %}
                             </a>
                             <div class="media-body">

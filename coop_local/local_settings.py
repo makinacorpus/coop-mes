@@ -82,6 +82,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
 
 TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [
     'coop_local.context_processors.my_organization',
+    'coop_local.context_processors.region_slug',
 ]
 
 # TODO: to be discuss this settings could be in default_project_setings.py
@@ -118,6 +119,7 @@ SITE_NAME = 'Achetons Solidaires'
 DOMAIN_NAME = 'mes:8000'
 ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 2
 REGION_LABEL = os.environ.get('REGION_LABEL', 'PROVENCE-ALPES-COTE D\'AZUR')
+REGION_SLUG = os.environ.get('REGION_SLUG', 'paca')
 
 LEAFLET_CONFIG = {
     #'TILES_URL': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

@@ -1,4 +1,4 @@
-{% load thumbnail %}
+{% load thumbnail staticfiles %}
 
 <div class="media">
     <a class="pull-left" href="{{ object.get_absolute_url }}">
@@ -7,7 +7,7 @@
                 <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
             {% endthumbnail %}
         {% else %}
-            <img class="media-object" src="" width="220" height="140">
+            <img class="media-object" src="{% static "img/default-entry-img-" %}{{ region_slug }}.png" width="220" height="140">
         {% endif %}
     </a>
     <div class="media-body">

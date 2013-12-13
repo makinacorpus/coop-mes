@@ -11,9 +11,13 @@
         <div class="item {% if forloop.first %}active{% endif %}">
             <div class="row">
                 <div class="col-lg-6">
-                    {% thumbnail entry.thumb "210x280" upscale=0 as image %}
-                        <img src="{{ image.url }}" style="margin: {{ image|margin:"210x280" }}">
-                    {% endthumbnail %}
+                    {% if entry.thumb %}
+                        {% thumbnail entry.thumb "210x280" upscale=0 as image %}
+                            <img src="{{ image.url }}" style="margin: {{ image|margin:"210x280" }}">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static "img/default-last-news-img-" %}{{ region_slug }}.png">
+                    {% endif %}
                 </div>
                 <div class="col-lg-6">
                     <div class="article-extract">
