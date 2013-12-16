@@ -23,9 +23,11 @@ v1.20
 Déploiement:
 
  * pull ionyweb
+ * pull django_coop
  * migrate coop_local
  * migrate page_blog
  * rebuild_index
+ * collectstatic
 
 
 v1.19
