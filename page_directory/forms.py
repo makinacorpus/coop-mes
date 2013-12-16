@@ -23,6 +23,7 @@ from django.contrib.auth import login, authenticate
 import urllib, urllib2, json
 from django.db import transaction
 from coop_local.sync_contacts import sync_contacts
+from django.core.urlresolvers import reverse
 
 
 GMAP_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=%s"\
@@ -635,21 +636,46 @@ OrganizationForm11.__init__ = lambda self, propose, *args, **kwargs: EngagementI
 OrganizationForm11.add_label = u'Ajouter un membre'
 
 
+class AddTargetForm(OrganizationMixin, forms.ModelForm):
+
+    tel = forms.CharField(label=_(u'tél.'), required=False)
+    email = forms.EmailField(label=_(u'email'), required=False)
+
+    class Meta:
+        model = Organization
+        fields = ('title', 'web', 'tel', 'email')
+
+    def __init__(self, *args, **kwargs):
+        super(AddTargetForm, self).__init__(*args, **kwargs)
+        self.set_helper((
+            'title', 'web', 'tel', 'email',
+        ))
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if Organization.objects.exclude(pk=self.instance.pk).filter(norm_title=normalize_text(title)).exists():
+            raise forms.ValidationError(u'Un Fournisseur ou Acheteur avec ce nom existe déjà.')
+        return title
+
+
 class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
     class Meta:
         model = Reference
-        fields = ('target', 'from_year', 'to_year', 'services')
+        fields = ('target', 'from_year', 'to_year', 'services', 'relation_ptr')
 
     def __init__(self, *args, **kwargs):
         super(ReferenceForm, self).__init__(*args, **kwargs)
         self.fields['target'].queryset = Organization.objects.filter(is_customer=True)
+        self.fields['target'].help_text = 'Si l\'acheteur n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.' % reverse('add_target')
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'target',
+            HTML('<p><p>'),
             'from_year',
             'to_year',
             'services',
+            'relation_ptr',
             Field('DELETE', template="bootstrap3/layout/delete.html"),
             HTML('</fieldset>'),
         ))

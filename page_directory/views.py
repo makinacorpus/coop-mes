@@ -4,13 +4,13 @@ from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 from .search_form import OrgSearch
 from .forms import (OrganizationForm1, PROVIDER_FORMS,
-    NOT_PROVIDER_FORMS, OfferForm, OfferDocumentsFormset)
+    NOT_PROVIDER_FORMS, OfferForm, OfferDocumentsFormset, AddTargetForm)
 from coop_local.models import (Organization, ActivityNomenclature, Engagement,
-    Person, Location, Relation, Offer)
+    Person, Location, Relation, Offer, Contact, ContactMedium)
 from coop_local.models.local_models import ORGANIZATION_STATUSES
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
@@ -33,7 +33,9 @@ from  django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 from django.utils.text import get_text_list
 from django.contrib.gis.measure import Distance
-
+from django.template import Context
+from django.template.loader import get_template
+import json
 
 def index_view(request, page_app):
     if request.GET.get('display') == 'Cartographie':
@@ -471,3 +473,39 @@ def offer_add_view(request, page_app):
                        {'object': page_app, 'form': form, 'form2': form2, 'org': org, 'propose': 'propose' in request.GET},
                        OFFER_MEDIA,
                        context_instance=RequestContext(request))
+
+
+#@login_required
+def add_target_view(request):
+    if 'title' in request.GET:
+        form = AddTargetForm(request.GET)
+    else:
+        form = AddTargetForm()
+    if form.is_valid():
+        org = form.save(commit=False)
+        org.is_customer = True
+        org.save()
+        if form.cleaned_data['tel']:
+            Contact.objects.create(
+                content_object=org,
+                contact_medium=ContactMedium.objects.get(label=u'Téléphone'),
+                content=form.cleaned_data['tel'])
+        if form.cleaned_data['email']:
+            Contact.objects.create(
+                content_object=org,
+                contact_medium=ContactMedium.objects.get(label=u'Courriel'),
+                content=form.cleaned_data['email'])
+        pk = org.pk
+        form = AddTargetForm()
+        status= 'OK'
+    else:
+        status = 'Error'
+        pk = None
+    t = get_template('page_directory/add_target.html')
+    c = Context({'form': form})
+    html = t.render(c)
+    response = {'status': status, 'html': html, 'pk': pk}
+    if 'html' in request.GET:
+        return HttpResponse(html)
+    else:
+        return HttpResponse(json.dumps(response), content_type='application/json')
