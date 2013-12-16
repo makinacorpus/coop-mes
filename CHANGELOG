@@ -15,8 +15,9 @@ v1.20
    actualité (bug 870)
  * Champ spécificités dans le formulaire de recherche des réseaux (bug 908)
  * Envoi de mails quotidiens pour les appels d'offres (bug 71)
- * Images par défaut
- * Fusion de "En direct" et "Zoom sur"
+ * Images/logos par défaut
+ * Fusion de "En direct" et "Zoom sur" (bug 1045)
+ * Correction d'un lien cassé dans "A la Une" (bug 1046)
  
 
 Déploiement:
