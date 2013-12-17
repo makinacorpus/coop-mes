@@ -132,6 +132,10 @@ jQuery(document).ready(function() {
     $('.add-link').click(function() {
         var newElement = $('.formset-form:last').clone(true);
         var total = $('[id$="TOTAL_FORMS"]').val();
+        newElement.find('[id^="div_id_"], [id^="hint_id_"]').each(function() {
+            var id = $(this).attr('id').replace('-' + hidden_id + '-','-' + total + '-');
+            $(this).attr({'id': id});
+        });
         newElement.find('[id^="id_"]:input').each(function() {
             var name = $(this).attr('name').replace('-' + hidden_id + '-','-' + total + '-');
             console.log('-' + hidden_id + '-','-' + total + '-');
