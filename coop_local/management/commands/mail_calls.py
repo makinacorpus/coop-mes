@@ -30,6 +30,7 @@ from django.utils.text import wrap
 from django.db.models import Q
 from django.contrib.sites.models import Site
 from django.utils.timezone import now
+from datetime import timedelta
 
 CHARSET = 'utf-8'
 
@@ -179,9 +180,9 @@ class EmailMultiRelated(EmailMultiAlternatives):
 class Command(BaseCommand):
     help = 'Mailing'
 
-    def handle(self, slug, *args, **options):
+    def handle(self, *args, **options):
 
-        self.slug = slug
+        self.slug = settings.REGION_SLUG
         self.sender = Plugin_Contact.objects.all()[0].email
 
         for org in Organization.objects.filter(is_provider=True, calls_subscription=True):
@@ -190,17 +191,17 @@ class Command(BaseCommand):
     @transaction.commit_on_success
     def mail_org(self, org):
 
+        calls = CallForTenders.objects.filter(creation=(now() - timedelta(days=1)).date())
+        activities = ActivityNomenclature.objects.filter(offer__provider=org)
+        calls = calls.filter(activity__in=activities)
+
+        if len(calls) == 0:
+            return
+
         engagements = org.engagement_set.filter(org_admin=True)
         if not engagements:
-            print org, 'pas d\'engagemement'
             return
         person = engagements[0].person
-
-        calls = CallForTenders.objects.filter(creation=now().date())
-        activities = ActivityNomenclature.objects.filter(offer__provider=org)
-        print 'activities:', activities
-        calls = calls.filter(activity__in=activities)
-        print 'calls:', calls
 
         sender = self.sender
         site = Site.objects.get_current().domain
