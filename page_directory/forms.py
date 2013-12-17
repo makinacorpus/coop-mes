@@ -667,7 +667,7 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReferenceForm, self).__init__(*args, **kwargs)
         self.fields['target'].queryset = Organization.objects.filter(is_customer=True)
-        self.fields['target'].help_text = 'Si l\'acheteur n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.' % reverse('add_target')
+        self.fields['target'].help_text = 'Si l\'acheteur n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a class="add-target-link" data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.' % reverse('add_target')
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'target',

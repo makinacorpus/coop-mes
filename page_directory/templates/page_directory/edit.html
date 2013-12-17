@@ -158,13 +158,22 @@ jQuery(document).ready(function() {
 
 });
 
+$('.add-target-link').click(function() {
+    var group = $(this).parents('.form-group').attr('id');
+    console.log(group);
+    $('#add_target').attr('data-group', group);
+});
+
 $('#add_target').on('submit', 'form', function( event ) {
     var title = $('#add_target #id_title').val();
     event.preventDefault();
     $.get('/ajouter_acheteur/', $(this).serialize(), function(response) {
         $('#add_target .modal-body').html(response['html'])
         if (response['status'] == 'OK') {
-            var el = $('#id_source-0-target');
+            group = $('#add_target').attr('data-group');
+            console.log(group);
+            var el = $('#' + group).find('select');
+            console.log(el);
             var newOptions = '<option value="' + response['pk'] + '">' + title + '</option>';
             el.select2('destroy').html(newOptions).select2().select2('val', response['pk']);
             $('#add_target').modal('hide');
