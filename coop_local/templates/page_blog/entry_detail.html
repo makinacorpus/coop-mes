@@ -16,16 +16,18 @@
                         <div class="article__meta">
                             {# <span class="small">Par {{ object.author.last_name }} {{ object.author.first_name }}</span> #}
                             {% if object.activities.all %}
-                                <span class="small">Secteur d'activité&nbsp;:
+                                <div><span class="small">Secteur d'activité&nbsp;:
                                 {% for activity in object.activities.all %}
-                                    <a href="/recherche/?q={{ activity.label|urlencode }}" class="name">{{ activity.label }}</a>{% if not forloop.last %},{% endif %}</span>
+                                    <a href="/recherche/?q={{ activity.label|urlencode }}" class="name">{{ activity.label }}</a>{% if not forloop.last %},{% endif %}
                                 {% endfor %}
+                                </span></div>
                             {% endif %}
                             {% if object.themes.all %}
-                                <span class="small">Thématique&nbsp;:
+                                <div><span class="small">Thématique&nbsp;:
                                 {% for theme in object.themes.all %}
-                                    <a href="/recherche/?q={{ theme.name|urlencode }}" class="name">{{ theme.name }}</a>{% if not forloop.last %},{% endif %}</span>
+                                    <a href="/recherche/?q={{ theme.name|urlencode }}" class="name">{{ theme.name }}</a>{% if not forloop.last %},{% endif %}
                                 {% endfor %}
+                                </span></div>
                             {% endif %}
                             <hr>
                             <span class="small iconf-time date">{{ object.publication_date|date:"j F Y" }}</span>
