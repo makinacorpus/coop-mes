@@ -14,7 +14,7 @@
                     <div class="article">
                         <h1>{{ object.title }}</h1>
                         <div class="article__meta">
-                            <span class="small">Par {{ object.author.last_name }} {{ object.author.first_name }}</span>
+                            {# <span class="small">Par {{ object.author.last_name }} {{ object.author.first_name }}</span> #}
                             {% if object.activities.all %}
                                 <span class="small">Secteur d'activité&nbsp;:
                                 {% for activity in object.activities.all %}
