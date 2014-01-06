@@ -483,7 +483,6 @@ def add_target_view(request):
         form = AddTargetForm()
     if form.is_valid():
         org = form.save(commit=False)
-        org.is_customer = True
         org.save()
         if form.cleaned_data['tel']:
             Contact.objects.create(

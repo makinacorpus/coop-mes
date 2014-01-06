@@ -14,7 +14,7 @@ admin.autodiscover()
 # Add you own URLs here
 urlpatterns = patterns('',
     ('^$', 'django.views.generic.simple.redirect_to', {'url': '/admin', 'permanent': False}),
-    url(r'^ajouter_acheteur/$', add_target_view, name='add_target'),
+    url(r'^ajouter_organisation/$', add_target_view, name='add_target'),
 )
 
 

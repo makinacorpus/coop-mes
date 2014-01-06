@@ -372,6 +372,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
         super(RelationForm, self).__init__(*args, **kwargs)
         self.fields['relation_type'].required = True
         self.fields['target'].label = u'Partenaire'
+        self.fields['target'].help_text = 'Si le partenaire n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a class="add-target-link" data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.' % reverse('add_target')
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'relation_type',
@@ -639,7 +640,7 @@ OrganizationForm11.add_label = u'Ajouter un membre'
 class AddTargetForm(OrganizationMixin, forms.ModelForm):
 
     tel = forms.CharField(label=_(u'tél.'), required=False)
-    email = forms.EmailField(label=_(u'email'), required=False)
+    email = forms.EmailField(label=_(u'email'), required=True)
 
     class Meta:
         model = Organization
@@ -666,7 +667,6 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ReferenceForm, self).__init__(*args, **kwargs)
-        self.fields['target'].queryset = Organization.objects.filter(is_customer=True)
         self.fields['target'].help_text = 'Si l\'acheteur n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a class="add-target-link" data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.' % reverse('add_target')
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
