@@ -430,6 +430,9 @@ class OrganizationAdmin(BaseOrganizationAdmin):
     related_search_fields = {'legal_status': ('label', )}
     related_combobox = ('legal_status', )
 
+    class Media:
+        js = ('mce_filebrowser/js/filebrowser_init.js',)
+
     def get_fieldsets(self, request, obj=None):
         if request.user.is_superuser:
             return super(OrganizationAdmin, self).get_fieldsets(request, obj)
@@ -995,6 +998,9 @@ class EventAdmin(BaseEventAdmin):
     list_display = ('id', 'title', 'time_str', 'status', 'a_la_une')
     list_display_links = ('title', )
     list_filter = ('status', 'a_la_une')
+
+    class Media:
+        js = ('mce_filebrowser/js/filebrowser_init.js',)
 
     def get_fieldsets(self, request, obj=None):
         if request.user.is_superuser:

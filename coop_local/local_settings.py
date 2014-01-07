@@ -78,6 +78,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'ionyweb.page_app.page_blog',
     'ionyweb.plugin_app.plugin_blog_entries_list',
     'haystack',
+    'mce_filebrowser',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [
@@ -107,12 +108,14 @@ TINYMCE_FRONTEND_CONFIG = {
     'theme': "advanced",
     'relative_urls': False,
     'theme_advanced_toolbar_location': 'top',
-    'theme_advanced_buttons1': 'bold,italic,underline,|,formatselect,fontsizeselect,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,code',
-    'theme_advanced_buttons2': '', 'theme_advanced_buttons3': '',
+    'theme_advanced_buttons1': 'bold,italic,underline,|,formatselect,fontsizeselect,|,justifyleft,justifycenter,justifyright,justifyfull',
+    'theme_advanced_buttons2': 'bullist,numlist,|,link,unlink,image,|,code',
+    'theme_advanced_buttons3': '',
     'theme_advanced_resizing': True,
     'theme_advanced_statusbar_location': 'bottom',
     'theme_advanced_resize_horizontal': False,
     'theme_advanced_path': False,
+    'file_browser_callback': 'mce_filebrowser',
 }
 
 SITE_NAME = 'Achetons Solidaires'
