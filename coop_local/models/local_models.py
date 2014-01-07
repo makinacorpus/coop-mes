@@ -344,6 +344,7 @@ class CallForTenders(models.Model):
     en_direct = models.BooleanField(u'en direct', default=False)
     description = models.TextField(u'description synthétique', blank=True)
     creation = models.DateField(auto_now_add=True)
+    force_publication = models.BooleanField(u'publier même si la fiche n\'est pas validée', default=False)
 
     objects = models.Manager()
     geo_objects = GeoManager()
@@ -436,7 +437,7 @@ class Organization(BaseOrganization):
     def save(self, *args, **kwargs):
         self.norm_title = normalize_text(self.title)
         self.modification = now()
-        if not self.acronym.strip():
+        if not self.acronym or not self.acronym.strip():
             self.pref_label = 1
         super(Organization, self).save(*args, **kwargs)
 

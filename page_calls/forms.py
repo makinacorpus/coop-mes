@@ -4,7 +4,7 @@ import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_Calls
 from coop_local.models import CallForTenders, ActivityNomenclature, Organization
-from coop_local.models.local_models import CLAUSE_CHOICES, ORGANIZATION_STATUSES
+from coop_local.models.local_models import CLAUSE_CHOICES
 from django.conf import settings
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, HTML, Field
@@ -39,7 +39,7 @@ class MyCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
 class CallSearch(forms.Form):
     org_type = forms.ChoiceField(choices=ORG_TYPE_CHOICES, required=False)
     clauses = forms.MultipleChoiceField(choices=CLAUSE_CHOICES, required=False, widget=MyCheckboxSelectMultiple(ul_attrs={'class': 'dropdown-menu'}))
-    organization = forms.ModelChoiceField(queryset=Organization.objects.filter(is_customer=True, status=ORGANIZATION_STATUSES.VALIDATED), required=False, empty_label=u'Toutes')
+    organization = forms.ModelChoiceField(queryset=Organization.objects.filter(is_customer=True), required=False, empty_label=u'Toutes')
     sectors = forms.ModelMultipleChoiceField(queryset=ActivityNomenclature.objects.filter(level=0), required=False, widget=MyCheckboxSelectMultiple(ul_attrs={'class': 'dropdown-menu'}))
     period = forms.ChoiceField(choices=PERIOD_CHOICES, required=False)
     q = forms.CharField(required=False)

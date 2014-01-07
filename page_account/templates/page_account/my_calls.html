@@ -6,7 +6,7 @@
 
 <ul>
     {% for call in calls %}
-        <li>{{ call }} - <a href="{{ call.get_absolute_url }}">Afficher</a></li>
+        <li>{{ call }}{% if call.organization.status == 'V' or call.force_publication %} - <a href="{{ call.get_absolute_url }}">Afficher</a>{% endif %}</li>
     {% endfor %}
 </ul>
 
@@ -14,7 +14,11 @@
     {% for call in my_organization.future_calls %}
         <div class="row">
             <div class="col-lg-5">
-                <a href="{{ call.get_absolute_url }}">{{ call.title }}</a>
+                {% if call.organization.status == 'V' or call.force_publication %}
+                    <a href="{{ call.get_absolute_url }}">{{ call.title }}</a>
+                {% else %}
+                    {{ call.title }}
+                {% endif %}
             </div>
             <div class="col-lg-3">
                 {{ call.deadline|date:"d/m/Y h:m" }}

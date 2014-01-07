@@ -803,7 +803,8 @@ class CallForTendersAdmin(FkAutocompleteAdmin):
     fieldsets = (
         (_(u'Key info'), {
             'fields': ['title', 'organization', 'allotment', 'lot_numbers',
-                       'deadline', 'clauses', 'url', 'en_direct', 'description']}),
+                       'deadline', 'clauses', 'url', 'en_direct',
+                       'force_publication', 'description']}),
     )
 
     def deadline_str(self, obj):
