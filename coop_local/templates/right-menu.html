@@ -38,17 +38,19 @@
     <h1 class="iconf-user section-title">Mon compte</h1>
     <ul class="list-group">
         {% if request.user.is_authenticated %}
-            <li class="list-group-item"><a href="/annuaire/p/modifier/">Mes informations</a></li>
-            <li class="list-group-item"><a href="/mon-compte/p/mes-preferences/">Mes préférences</a></li>
-            {% if my_organization.is_customer or my_organization.is_provider %}
-                <li class="list-group-item"><a href="/mon-compte/p/mes-appels-doffres/">Mes appels d'offres</a></li>
+            {% if my_organization %}
+                <li class="list-group-item"><a href="/annuaire/p/modifier/">Mes informations</a></li>
+                <li class="list-group-item"><a href="/mon-compte/p/mes-preferences/">Mes préférences</a></li>
+                {% if my_organization.is_customer or my_organization.is_provider %}
+                    <li class="list-group-item"><a href="/mon-compte/p/mes-appels-doffres/">Mes appels d'offres</a></li>
+                {% endif %}
+                {% if my_organization.is_provider %}
+                    <li class="list-group-item"><a href="/mon-compte/p/mes-offres/">Mes offres</a></li>
+                {% endif %}
+                <li class="list-group-item"><a href="/mon-compte/p/mes-organisations/">Mes clients et fournisseurs</a></li>
+                <li class="list-group-item"><a href="/actualites/p/mes-actualites/">Mes actualités</a></li>
+                <li class="list-group-item"><a href="/agenda/p/mes-evenements/">Mes événements</a></li>
             {% endif %}
-            {% if my_organization.is_provider %}
-                <li class="list-group-item"><a href="/mon-compte/p/mes-offres/">Mes offres</a></li>
-            {% endif %}
-            <li class="list-group-item"><a href="/mon-compte/p/mes-organisations/">Mes clients et fournisseurs</a></li>
-            <li class="list-group-item"><a href="/actualites/p/mes-actualites/">Mes actualités</a></li>
-            <li class="list-group-item"><a href="/agenda/p/mes-evenements/">Mes événements</a></li>
             <li class="list-group-item"><a href="/mon-compte/p/deconnexion/?next=/">Déconnexion</a></li>
         {% else %}
             <li class="list-group-item"><a href="/mon-compte/">Connexion</a></li>
