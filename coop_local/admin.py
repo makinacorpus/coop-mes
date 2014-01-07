@@ -1016,7 +1016,8 @@ class EventAdmin(BaseEventAdmin):
                     sender = Plugin_Contact.objects.all()[0].email
                 except IndexError:
                     sender = None
-                dests = Engagement.objects.filter(org_admin=True, organization=obj.organization).values_list('email', flat=True)
+                engagements = Engagement.objects.filter(org_admin=True, organization=obj.organization).values_list('id', flat=True)
+                dests = Contact.objects.filter(object_id__in=engagements, content_type=ContentType.objects.get(model='engagement'), contact_medium__label=u'Courriel').values_list('content', flat=True)
                 send_mail(u'Validation de votre événement sur la PASR',
                     u'Bonjour,\n\nVotre événement vient d\'être validé sur la PASR.',
                     sender, dests)
