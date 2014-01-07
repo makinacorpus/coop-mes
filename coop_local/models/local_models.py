@@ -436,6 +436,8 @@ class Organization(BaseOrganization):
     def save(self, *args, **kwargs):
         self.norm_title = normalize_text(self.title)
         self.modification = now()
+        if not self.acronym.strip():
+            self.pref_label = 1
         super(Organization, self).save(*args, **kwargs)
 
     def brief_description_xhtml(self):
