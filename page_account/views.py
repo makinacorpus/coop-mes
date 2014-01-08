@@ -22,6 +22,7 @@ from  django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 from django.utils.text import get_text_list
 from django.core.exceptions import PermissionDenied
+from django.conf import settings
 
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
@@ -181,9 +182,19 @@ def my_preferences_view(request, page_app):
             action_flag     = CHANGE,
             change_message  = u'%s modifié pour l\'appel d\'offres "%s".' % (get_text_list(form.changed_data, _('and')), force_unicode(org))
         )
-        return HttpResponseRedirect('/mon-compte/')
+        if org.calls_subscription:
+            return HttpResponseRedirect('/mon-compte/p/mes-preferences/feedback/')
+        else:
+            return HttpResponseRedirect('/mon-compte/')
     print form.errors
     return render_view('page_account/my_preferences.html',
                        {'object': page_app, 'form': form},
+                       MEDIAS,
+                       context_instance=RequestContext(request))
+
+
+def feedback_view(request, page_app):
+    return render_view('page_account/feedback.html',
+                       {'object': page_app, 'slug': settings.REGION_SLUG},
                        MEDIAS,
                        context_instance=RequestContext(request))

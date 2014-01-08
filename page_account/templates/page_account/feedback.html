@@ -1,0 +1,26 @@
+{% load crispy_forms_tags %}
+
+<div class="my-offers">
+
+    <div class="section-head">
+        <h1 class="title">MES PREFERENCES</h1>
+    </div>
+
+    <p>Nous avons bien enregistré votre demande de communication des appels
+    d’offres correspondant à votre offre de biens/services. Celle-ci sera
+    effective dès ce jour et vous recevez un courriel à chaque publication
+    d'un appel d'offre en lien avec votre profil. Nous espérons que cet outil
+    vous permettra de développer votre activité économique et que ce service
+    vous sera utile.</p>
+
+    <p>Pour tout complément d'information, n'hésitez pas à nous contacter,
+    nous restons à votre disposition pour améliorer l'outil et créer des
+    coopérations entre vous.</p>
+
+    {% include 'email/signature.html' %}
+
+    <ul class="list-group">
+        <li class="list-group-item"><a href="/mon-compte/">Retour à mon compte</a></li>
+    </ul>
+
+</div>
