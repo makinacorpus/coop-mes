@@ -1,0 +1,11 @@
+{{ person.get_gender_display }} {{ person.first_name }} {{ person.last_name }}
+
+Nous avons le plaisir de vous informer de la mise en ligne de {{ events.count }} événement{{ events.count|pluralize }}. Nous vous invitons à le{{ events.count|pluralize }} consulter en cliquant ci-dessous:
+{% for event in events %}
+- {{ event }} (http://{{ site }}{{ event.get_absolute_url }})
+{% endfor %}
+Nous espérons vivement qu'il{{ events.count|pluralize }} contribuer{{ events.count|pluralize:"a,ont" }} à développer votre activité économique et les achats responsables en région {{ region }}.
+
+Pour tout complément d'information, n'hésitez pas à contacter l'équipe de la plateforme {{ site }} qui reste à votre disposition.
+
+{% include 'email/signature.txt' %}

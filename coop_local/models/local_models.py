@@ -725,6 +725,20 @@ class SentCall(models.Model):
     organization = models.ForeignKey(Organization)
     call = models.ForeignKey(CallForTenders)
 
+    def __unicode__(self):
+        return '%s/%s' % (unicode(self.organization), unicode(self.call))
+
+    class Meta:
+        app_label = 'coop_local'
+
+
+class SentEvent(models.Model):
+    organization = models.ForeignKey(Organization)
+    event = models.ForeignKey(Event)
+
+    def __unicode__(self):
+        return '%s/%s' % (unicode(self.organization), unicode(self.event))
+
     class Meta:
         app_label = 'coop_local'
 

@@ -1,0 +1,40 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+body, p, a {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+img {
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<p>{{ person.get_gender_display }} {{ person.first_name }} {{ person.last_name }}</p>
+
+<p>Nous avons le plaisir de vous informer de la mise en ligne de {{ events.count }}
+événement{{ events.count|pluralize }}.
+Nous vous invitons à le{{ events.count|pluralize }} consulter en cliquant
+ci-dessous&nbsp;:</p>
+
+<ul>
+    {% for event in events %}
+        <li><a href="http://{{ site }}{{ event.get_absolute_url }}">{{ event }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>Nous espérons vivement qu'il{{ events.count|pluralize }}
+contribuer{{ events.count|pluralize:"a,ont" }} à développer votre activité
+économique et les achats responsables en région {{ region }}.</p>
+
+<p>Pour tout complément d'information, n'hésitez pas à contacter l'équipe de
+la plateforme <a href="http://{{ site }}">
+{{ site }}</a> qui reste à votre disposition.</p>
+
+{% include 'email/signature.html' %}
+
+</body>
+</html>
