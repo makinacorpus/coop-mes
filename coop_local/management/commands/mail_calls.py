@@ -12,7 +12,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from coop_local.mixed_email import send_mixed_email
 from coop_local.models import (Organization, ActivityNomenclature,
-    CallForTenders)
+    CallForTenders, SentCall)
 
 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
 
@@ -31,11 +31,10 @@ class Command(BaseCommand):
     @transaction.commit_on_success
     def mail_org(self, org):
 
-        calls = CallForTenders.objects.all()
-        if not settings.DEBUG:
-            calls = calls.filter(creation=(now() - timedelta(days=1)).date())
+        calls = CallForTenders.objects.filter(deadline__gte=now().date())
         activities = ActivityNomenclature.objects.filter(offer__provider=org)
         calls = calls.filter(activity__in=activities)
+        calls = calls.filter(sentcall__isnull=True)
 
         if len(calls) == 0:
             return
@@ -60,3 +59,5 @@ class Command(BaseCommand):
         email = org.pref_email.content
         send_mixed_email(sender, email, subject, template, context)
         print u'Envoi effectué à %s, %s, %s' % (email, sender, org.label())
+        for call in calls:
+            SentCall.objects.create(call=call, organization=org)

@@ -721,6 +721,14 @@ class NewsletterSubscription(models.Model):
         app_label = 'coop_local'
 
 
+class SentCall(models.Model):
+    organization = models.ForeignKey(Organization)
+    call = models.ForeignKey(CallForTenders)
+
+    class Meta:
+        app_label = 'coop_local'
+
+
 # WORKAROUND to fix problem with model inheritance and django-coop post delete signal
 from django.db.models.signals import post_delete
 from coop.signals import post_delete_callback
