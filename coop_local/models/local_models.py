@@ -486,6 +486,9 @@ class Organization(BaseOrganization):
     def other_contacts(self):
         return self.contacts.filter(location__isnull=True)
 
+    def emails(self):
+        return self.contacts.filter(contact_medium__label='Courriel').values_list('content', flat=True)
+
     def engagements(self):
         return Engagement.objects.filter(organization=self)
 

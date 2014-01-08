@@ -1088,11 +1088,17 @@ class NewsletterSubscriptionAdmin(admin.ModelAdmin):
     list_filter = ('active', )
 
     def csv_view(self, request):
+        emails = set()
+        for s in NewsletterSubscription.objects.filter(active=True):
+            emails.add(s.email)
+        for org in Organization.objects.filter(newsletter_subscription=True):
+            for email in org.emails():
+                emails.add(email)
         response = HttpResponse(mimetype='text/csv')
         response['Content-Disposition'] = 'attachment; filename=newsletter.csv'
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-        for s in NewsletterSubscription.objects.filter(active=True):
-            writer.writerow([s.email])
+        for email in emails:
+            writer.writerow([email])
         return response
 
     def get_urls(self):
