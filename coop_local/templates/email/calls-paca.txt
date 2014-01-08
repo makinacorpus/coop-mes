@@ -8,10 +8,4 @@ Nous espérons vivement qu'il contribuera à développer votre activité économ
 
 Pour tout complément d'information, n'hésitez pas à contacter l'équipe de la plateforme achetons-solidaires-paca.com qui reste à votre disposition.
 
-Bien cordialement,
-
-L'équipe d'achetons-solidaires-paca.com
-contact@achetons-solidaires-paca.com
-04.91.99.02.45
-
-La plateforme achetons-solidaires-paca.com est pilotée par l'APEAS
+{% include 'email/signature-paca.txt' %}

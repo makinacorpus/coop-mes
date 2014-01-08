@@ -293,9 +293,9 @@ class Command(BaseCommand):
             sender = self.sender
         context = {'username': username, 'password': password, 'sender': sender}
         subject = u'Accédez à votre fiche dans %s' % Site.objects.get_current().domain
-        text = wrap(render_to_string('mailing-%s.txt' % self.slug, context), 72)
-        html = render_to_string('mailing-%s.html' % self.slug, context)
-        #send_html_mail(subject, email, context, template='mailing.html', sender=sender)
+        text = wrap(render_to_string('email/mailing-%s.txt' % self.slug, context), 72)
+        html = render_to_string('email/mailing-%s.html' % self.slug, context)
+        #send_html_mail(subject, email, context, template='email/mailing.html', sender=sender)
         msg = EmailMultiRelated(subject, text, sender, [email])
         msg.attach_alternative(html, 'text/html')
         soup = BeautifulSoup(html)

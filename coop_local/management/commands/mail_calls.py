@@ -31,7 +31,9 @@ class Command(BaseCommand):
     @transaction.commit_on_success
     def mail_org(self, org):
 
-        calls = CallForTenders.objects.filter(creation=(now() - timedelta(days=1)).date())
+        calls = CallForTenders.objects.all()
+        if not settings.DEBUG:
+            calls = calls.filter(creation=(now() - timedelta(days=1)).date())
         activities = ActivityNomenclature.objects.filter(offer__provider=org)
         calls = calls.filter(activity__in=activities)
 
@@ -45,9 +47,16 @@ class Command(BaseCommand):
 
         sender = self.sender
         site = Site.objects.get_current().domain
-        context = {'person': person, 'calls': calls, 'sender': sender, 'site': site}
+        context = {
+            'person': person,
+            'calls': calls,
+            'sender': sender,
+            'site': site,
+            'slug': self.slug,
+            'region': settings.REGION_NAME,
+        }
         subject = u'Nouvel appel d\'offre sur %s' % site
-        template = 'mailing-calls-%s' % self.slug
+        template = 'email/calls'
         email = org.pref_email.content
         send_mixed_email(sender, email, subject, template, context)
         print u'Envoi effectué à %s, %s, %s' % (email, sender, org.label())

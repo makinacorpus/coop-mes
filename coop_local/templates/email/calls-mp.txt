@@ -4,11 +4,8 @@ Nous avons le plaisir de vous informer de la mise en ligne de {{ calls.count }} 
 {% for call in calls %}
 - {{ call }} (http://{{ site }}{{ call.get_absolute_url }})
 {% endfor %}
-Nous espérons vivement qu'il contribuera à développer votre activité économique et les achats responsables en région Nord-pas-de-Calais.
+Nous espérons vivement qu'il contribuera à développer votre activité économique et les achats responsables en région Midi-Pyrénées.
 
-Pour tout complément d'information, n'hésitez pas à contacter l'équipe de la plateforme ceres-npdc.org qui reste à votre disposition.
+Pour tout complément d'information, n'hésitez pas à contacter l'équipe de la plateforme achetons-responsables-mp.com qui reste à votre disposition.
 
-Bien cordialement,
-
-L'équipe de ceres-npdc.org
-ceresnpdc@gmail.com
+{% include 'email/signature-mp.txt' %}

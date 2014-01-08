@@ -1,0 +1,9 @@
+{{ person.get_gender_display }} {{ person.first_name }} {{ person.last_name }}
+
+Nous avons le plaisir de vous informer de la mise en ligne de {{ calls.count }} appel{{ calls.count|pluralize }} d'offres correspondant à votre profil. Nous vous invitons à le{{ calls.count|pluralize }} consulter en cliquant ci-dessous:
+{% for call in calls %}
+- {{ call }} (http://{{ site }}{{ call.get_absolute_url }})
+{% endfor %}
+Nous espérons vivement qu'il contribuera à développer votre activité économique et les achats responsables en région Nord-pas-de-Calais.
+
+Pour tout complément d'information, n'hésitez pas à contacter l'équipe de la plateforme ceres-npdc.org qui reste à votre disposition.

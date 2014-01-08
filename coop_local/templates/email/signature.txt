@@ -1,0 +1,19 @@
+Bien cordialement,
+{% if slug == "paca" %}
+L'équipe d'achetons-solidaires-paca.com
+contact@achetons-solidaires-paca.com
+04.91.99.02.45
+
+La plateforme achetons-solidaires-paca.com est pilotée par l'APEAS
+{% endif %}{% if slug == "mp" %}
+L'équipe d'achetons-responsables-mp.com
+Courriel: contact@adepes.org
+Tel: 05.61.73.04.86
+
+Le site achetons-responsables-mp.com est piloté par l'ADEPES
+Agence de Développement et de Promotion de l'Economie Solidaire
+Midi-Pyrénées
+{% endif %}{% if slug == "npdc" %}
+L'équipe de ceres-npdc.org
+ceresnpdc@gmail.com
+{% endif %}
