@@ -135,3 +135,5 @@ LEAFLET_CONFIG = {
 LOGIN_URL = '/mon-compte/p/connexion/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+AUTHENTICATION_BACKENDS = ('coop_local.masquerading_backend.MasqueradingBackend', )
