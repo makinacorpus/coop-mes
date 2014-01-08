@@ -1,0 +1,9 @@
+Bonjour,
+
+Afin de confirmer votre abonnement à la newsletter de la plateforme http://{{ site }}, merci de cliquer sur le lien suivant :
+
+http://{{ site }}/newsletter/p/confirmer/{{ subscription.pk }}/
+
+Nous restons à votre entière disposition pour toute suggestion ou tout complément d'information,
+
+{% include 'email/signature.txt' %}

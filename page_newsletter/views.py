@@ -8,28 +8,25 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.sites.models import Site
 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
-from django.utils.text import wrap
-from django.template.loader import render_to_string
-from coop_local.management.commands.mailing import EmailMultiRelated
-from BeautifulSoup import BeautifulSoup
+from django.conf import settings
+from coop_local.mixed_email import send_mixed_email
 
-MEDIAS = (
-)
+MEDIAS = ()
 
 def index_view(request, page_app):
     form = SubscriptionForm(request.POST or None)
     if form.is_valid():
         subscription = form.save()
-        link = 'http://%s/newsletter/p/confirmer/%u/' % (Site.objects.get_current().domain, subscription.pk)
-        context = {'link': link}
-        subject = u'Confirmation de votre abonnement à la newsletter %s' % Site.objects.get_current().domain
-        text = wrap(render_to_string('page_newsletter/mail.txt', context), 72)
-        html = render_to_string('page_newsletter/mail.html', context)
         sender = Plugin_Contact.objects.all()[0].email
-        msg = EmailMultiRelated(subject, text, sender, [subscription.email])
-        msg.attach_alternative(html, 'text/html')
-        soup = BeautifulSoup(html)
-        msg.send()
+        site = Site.objects.get_current().domain
+        context = {
+            'site': site,
+            'slug': settings.REGION_SLUG,
+            'subscription': subscription,
+        }
+        subject = u'Confirmation de votre abonnement à la newsletter %s' % site
+        template = 'email/newsletter'
+        send_mixed_email(sender, subscription.email, subject, template, context)
         return HttpResponseRedirect('/newsletter/p/a-confirmer/')
     return render_view('page_newsletter/index.html',
                        { 'object': page_app, 'form': form },
