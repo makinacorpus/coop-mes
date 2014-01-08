@@ -7,3 +7,5 @@ project_install/config_dev.py
 pg_dump.data
 build/
 coop_local/whoosh_index/
+backups/
+.env
