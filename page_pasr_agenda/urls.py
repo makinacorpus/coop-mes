@@ -8,6 +8,7 @@ from .views import (
     update_view,
     delete_view,
     my_view,
+    feedback_view,
 )
 
 urlpatterns = patterns('',
@@ -17,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/modifier/$', update_view),
     url(r'^(?P<pk>\d+)/supprimer/$', delete_view),
     url(r'^mes-evenements/$', my_view),
+    url(r'^mes-evenements/feedback/$', feedback_view),
 )

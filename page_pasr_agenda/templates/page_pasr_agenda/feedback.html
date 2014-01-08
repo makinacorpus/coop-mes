@@ -1,0 +1,33 @@
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar sidebar--left">
+                {% include "forms-menu.html" %}
+            </div>
+            <div class="col-lg-9">
+                <div class="content-box my-offers">
+                    <div class="section-head">
+                        <h1 class="title">MES ÉVÉNEMENTS</h1>
+                    </div>
+
+
+    <p>Vous avez proposé un événement sur {{ site }} et nous vous
+    remercions vivement de faire vivre la plateforme.</p>
+
+    <p>Notre équipe d'animation va prendre connaissance de votre article, le
+    mettre en ligne s'il correspond aux objectifs de la plateforme et reviendra
+    vers vous si des informations complémentaires sont nécessaires.</p>
+
+    <p>Nous restons à votre entière disposition et vous souhaitons une
+    excellente journée.</p>
+
+    {% include 'email/signature.html' %}
+
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="/agenda/p/mes-evenements/">Retour à mes événements</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

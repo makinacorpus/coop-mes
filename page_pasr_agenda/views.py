@@ -18,6 +18,8 @@ from django.utils.text import get_text_list
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 
 EDIT_MEDIA = [
@@ -144,7 +146,10 @@ def add_view(request, page_app):
             object_repr     = force_unicode(event),
             action_flag     = ADDITION,
         )
-        return HttpResponseRedirect('/agenda/p/mes-evenements/')
+        if 'propose' in request.POST:
+            return HttpResponseRedirect('/agenda/p/mes-evenements/feedback/')
+        else:
+            return HttpResponseRedirect('/agenda/p/mes-evenements/')
     return render_view('page_pasr_agenda/edit.html',
                        {'object': page_app, 'form': form, 'form2': form2, 'form3': form3, 'form4': form4},
                        EDIT_MEDIA,
@@ -197,7 +202,10 @@ def update_view(request, page_app, pk):
             action_flag     = CHANGE,
             change_message  = u'%s modifié pour l\'événement "%s".' % (get_text_list(form.changed_data, _('and')), force_unicode(event))
         )
-        return HttpResponseRedirect('/agenda/p/mes-evenements/')
+        if 'propose' in request.POST:
+            return HttpResponseRedirect('/agenda/p/mes-evenements/feedback/')
+        else:
+            return HttpResponseRedirect('/agenda/p/mes-evenements/')
     return render_view('page_pasr_agenda/edit.html',
                        {'object': page_app, 'form': form, 'form2': form2, 'form3': form3, 'form4': form4},
                        EDIT_MEDIA,
@@ -215,5 +223,12 @@ def my_view(request, page_app):
     events = events.order_by('start_time')
     return render_view('page_pasr_agenda/my_events.html',
                        {'object': page_app, 'events': events},
+                       [],
+                       context_instance=RequestContext(request))
+
+
+def feedback_view(request, page_app):
+    return render_view('page_pasr_agenda/feedback.html',
+                       {'object': page_app, 'slug': settings.REGION_SLUG, 'site': Site.objects.get_current().domain},
                        [],
                        context_instance=RequestContext(request))
