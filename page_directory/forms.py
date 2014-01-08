@@ -24,6 +24,9 @@ import urllib, urllib2, json
 from django.db import transaction
 from coop_local.sync_contacts import sync_contacts
 from django.core.urlresolvers import reverse
+from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
+from django.contrib.sites.models import Site
+from coop_local.mixed_email import send_mixed_email
 
 
 GMAP_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=%s"\
@@ -200,6 +203,25 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
             engagement = Engagement.objects.get(person=self.person, organization=self.instance, org_admin=True)
         engagement.email = self.cleaned_data['email']
         engagement.save()
+
+        # send a welcome email
+        if create:
+            sender = Plugin_Contact.objects.all()[0].email
+            site = Site.objects.get_current().domain
+            context = {
+                'person': self.person,
+                'sender': sender,
+                'site': site,
+                'slug': settings.REGION_SLUG,
+                'region': settings.REGION_NAME,
+                'login': user.username,
+                'password': self.cleaned_data["password1"],
+            }
+            subject = u'Votre inscription sur %s' % site
+            template = 'email/inscription'
+            email = user.email
+            send_mixed_email(sender, email, subject, template, context)
+
         return organization
 
 
