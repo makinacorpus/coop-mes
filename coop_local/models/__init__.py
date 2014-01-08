@@ -34,3 +34,7 @@ if "coop_tag" in settings.INSTALLED_APPS:
     if "coop.mailing" in settings.INSTALLED_APPS:
         t.contribute_to_class(MailingList, "tags")
 
+
+#from django.db.models.signals import post_save
+#from coop_geo.models import area_post_save
+#post_save.connect(area_post_save, sender=Area)

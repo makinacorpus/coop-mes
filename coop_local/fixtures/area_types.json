@@ -30,5 +30,13 @@
             "txt_idx": "REG",
             "label": "R\u00e9gion"
         }
+    },
+    {
+        "pk": 5,
+        "model": "coop_geo.areatype",
+        "fields": {
+            "txt_idx": "PAY",
+            "label": "Pays (LOADDT)"
+        }
     }
 ]
