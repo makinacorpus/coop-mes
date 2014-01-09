@@ -193,7 +193,6 @@ def my_preferences_view(request, page_app):
             return HttpResponseRedirect('/mon-compte/p/mes-preferences/feedback/')
         else:
             return HttpResponseRedirect('/mon-compte/')
-    print form.errors
     return render_view('page_account/my_preferences.html',
                        {'object': page_app, 'form': form},
                        MEDIAS,

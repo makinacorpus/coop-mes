@@ -528,7 +528,7 @@ OrganizationForm9.__init__ = lambda self, propose, *args, **kwargs: SaveGenericI
 OrganizationForm9.add_label = u'Ajouter un lieu'
 
 
-class ContactInlineFormSet(FixedBaseGenericInlineFormSet):
+class ContactInlineFormSet(SaveGenericInlineFormset):
 
     def _construct_form(self, i, **kwargs):
         kwargs['organization'] = self.instance
@@ -559,14 +559,20 @@ class ContactForm(OrganizationMixin, forms.ModelForm):
             HTML('</fieldset>'),
         ))
 
-    def save(self, commit=True):
-        contact = super(ContactForm, self).save(commit)
+    def save(self, commit=True, rel_instance=None):
+        contact = super(ContactForm, self).save(commit=False)
+        if rel_instance:
+            contact.content_type = ContentType.objects.get_for_model(rel_instance)
+            contact.object_id = rel_instance.pk
+        if commit:
+            contact.save()
         if contact.contact_medium.label in (u'Téléphone', u'Mobile') and not self.organization.pref_phone:
             self.organization.pref_phone = contact
         if contact.contact_medium.label == 'Courriel' and not self.organization.pref_email:
             self.organization.pref_email = contact
         if commit:
             self.organization.save()
+        return contact
 
 
 OrganizationForm10 = generic_inlineformset_factory(Contact, form=ContactForm, formset=ContactInlineFormSet, extra=2)
