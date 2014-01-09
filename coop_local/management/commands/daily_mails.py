@@ -79,7 +79,7 @@ class Command(BaseCommand):
                 if area and area.polygon:
                     events = events.filter(location__point__intersects=area.polygon)
         except:
-            pass
+            return
         sent = SentEvent.objects.filter(organization=org, event__in=events).values_list('event__id', flat=True)
         events = events.exclude(id__in=sent)
 
