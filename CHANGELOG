@@ -1,8 +1,43 @@
+v1.22
+
+ * Correction de l'affichage des articles (pas d'auteur, présentation des
+   secteurs d'activité et des thèmes (bugs 1103 et 1104)
+ * Ajout d'un lien vers le zoom sur les appels d'offre dans le menu de droite
+   (bug 1045)
+ * Ajout d'une nouvelle organisation comme relation avec email obligatoire
+   (bug 1043)
+ * Changement du texte et signature des emails envoyés (bug 1060)
+ * Ajout d'un lien "Mes clients et fournisseurs" dans le menu de droite
+   (bug 1229)
+ * Corrige un crash dans la validation des événements (bug 1227)
+ * Utilise toujours la raison sociale si pas de sigle (bug 1230)
+ * Masque divers liens lorsque l'utilisateur connecté n'est pas lié à une
+   organisation (bug 791)
+ * Ajoute la possibilité d'uploader des images/fichiers dans l'éditeur de texte
+   en dehors de Ionyweb (bug 1214)
+ * Possibilité de forcer la publication d'appels d'offre pour un organisation
+   non validée (bug #1221)
+ * Ajout du type de zone "Pays" (bug #1031)
+ * Envoi des emails d'alerte pour les événements (bug #71)
+ * Supprime la possibilité pour les admins restreint de mettre une actualité
+   à la une (bug 1220)
+ * Redimensionnement de l'éditeur de texte dans le back office (bug 1212)
+
+
+Déploiement:
+
+ * pull ionyweb
+ * pull django-coop
+ * migrate
+ * collectstatic
+ * AreaType.objects.create(label='Pays (LOADDT)', txt_idx='PAY')
+
+
 v1.21
 
  * Possibilité d'ajouter un nouveau client comme référence fournisseur
 
- 
+
 Déploiement:
 
 
