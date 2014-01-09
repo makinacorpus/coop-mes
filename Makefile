@@ -43,10 +43,10 @@ fixtures:
 	$(PYTHON) manage.py loaddata coop_local/fixtures/group.json
 
 makemessages:
-	(cd coop_local; $(PYTHON) ../manage.py makemessages -l fr)
+	(cd coop_local; ../$(PYTHON) ../manage.py makemessages -l fr)
 
 compilemessages:
-	(cd coop_local; $(PYTHON) ../manage.py compilemessages -l fr)
+	(cd coop_local; ../$(PYTHON) ../manage.py compilemessages -l fr)
 
 serve:
 	$(PYTHON) manage.py runserver $(DJANGO_LISTEN)

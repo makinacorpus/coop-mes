@@ -636,3 +636,42 @@ msgstr "Lieux"
 #: ui/menu.py:65
 msgid "Areas"
 msgstr "Zones"
+
+msgid "File browser"
+msgstr "Gestionnaire de fichiers"
+
+msgid "Images list"
+msgstr "Liste des images"
+
+msgid "Documents list"
+msgstr "Liste des documents"
+
+msgid "Upload new"
+msgstr "Nouveau"
+
+msgid "Previosly uploaded images"
+msgstr "Images précédemment téléchargées"
+
+msgid "Previosly uploaded documents"
+msgstr "Documents précédemment téléchargés"
+
+msgid "Remove"
+msgstr "Supprimer"
+
+msgid "No images uploaded"
+msgstr "Pas d'image"
+
+msgid "No documents uploaded"
+msgstr "pas de document"
+
+msgid "Upload file"
+msgstr "Télécharger"
+
+msgid "Insert"
+msgstr "Insérer"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "File / Image"
+msgstr "Fichier / Image"
