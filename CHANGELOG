@@ -30,6 +30,7 @@ Déploiement:
  * pull django-coop
  * pip install Django-tinymce-filebrowser==0.2.1
  * migrate coop_local
+ * syncdb (pour créer la table de mce_filebrowser)
  * collectstatic
  * AreaType.objects.create(label='Pays (LOADDT)', txt_idx='PAY')
  * Correction de la commande cron
