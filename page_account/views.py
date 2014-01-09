@@ -171,6 +171,13 @@ def my_preferences_view(request, page_app):
     org = person.my_organization()
     if not org:
         return HttpResponseForbidden('Votre compte n\'est lié à aucune organisation.')
+    if not org.pref_email:
+        return render_view(
+            'page_account/error.html',
+            {'object': page_app,
+             'message': u"Veuillez d'abord ajouter un contact Courriel dans vos <a href=\"/annuaire/p/modifier/9/\">contacts</a>."},
+            MEDIAS,
+            context_instance=RequestContext(request))
     form = PreferencesForm(request.POST if request.method == 'POST' else None, instance=org)
     if form.is_valid():
         form.save()
