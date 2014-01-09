@@ -28,9 +28,11 @@ Déploiement:
 
  * pull ionyweb
  * pull django-coop
- * migrate
+ * pip install Django-tinymce-filebrowser==0.2.1
+ * migrate coop_local
  * collectstatic
  * AreaType.objects.create(label='Pays (LOADDT)', txt_idx='PAY')
+ * Correction de la commande cron
 
 
 v1.21

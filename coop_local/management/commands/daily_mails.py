@@ -34,6 +34,7 @@ class Command(BaseCommand):
     def mail_org_for_calls(self, org):
 
         calls = CallForTenders.objects.filter(deadline__gte=now().date())
+        calls = calls.filter(Q(organization__status='V') | Q(force_publication=True))
         activities = ActivityNomenclature.objects.filter(offer__provider=org)
         calls = calls.filter(activity__in=activities)
         sent = SentCall.objects.filter(organization=org, call__in=calls).values_list('call__id', flat=True)
@@ -70,6 +71,7 @@ class Command(BaseCommand):
     def mail_org_for_events(self, org):
 
         events = Event.geo_objects.filter(occurrence__start_time__gte=now())
+        events = events.filter(status='V')
         try:
             org_location = org.locations()[0]
             if org_location and org_location.point:
