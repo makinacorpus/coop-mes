@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <p>Bien cordialement,</p>
 
 {% if slug == "paca" %}
@@ -8,7 +10,7 @@
     <p>La plateforme achetons-solidaires-paca.com est pilotée
     par l'<a href="http://www.apeas.fr/">APEAS</a></p>
 
-    <p style="text-align: center"><img src="logo-achetons-solidaires-paca.jpg"></p>
+    <p style="text-align: center"><img src="{% static "img/logo-achetons-solidaires-paca.jpg" %}"></p>
 {% endif %}
 
 {% if slug == "mp" %}
@@ -16,7 +18,7 @@
     Courriel: <a href="mailto:contact@adepes.org">contact@adepes.org</a></p>
     Tel: 05.61.73.04.86
 
-    <p style="text-align: center"><img src="logo-achetons-responsables-mp.png"></p>
+    <p style="text-align: center"><img src="{% static "img/logo-achetons-responsables-mp.png" %}"></p>
 
     <p>Le site achetons-responsables-mp.com est piloté par l'ADEPES<br/>
     Agence de Développement et de Promotion de l'Economie Solidaire<br/>
@@ -27,5 +29,5 @@
     <p>L'équipe de ceres-npdc.org<br>
     <a href="mailto:ceresnpdc@gmail.com">ceresnpdc@gmail.com</a><br></p>
 
-    <p style="text-align: center"><img src="logo-ceres-npdc.jpg"></p>
+    <p style="text-align: center"><img src="{% static "img/logo-ceres-npdc.jpg" %}"></p>
 {% endif %}
