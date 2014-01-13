@@ -1,3 +1,16 @@
+v1.23
+
+ * Corrections de la boîte de dialogue d'insertion de fichier/image dans
+   tinyMCE en back office
+ * Augmentation de la taille maximale des fichiers mis en ligne
+
+
+Déploiement:
+
+ * pull ionyweb
+ * collectstatic
+
+
 v1.22
 
  * Correction de l'affichage des articles (pas d'auteur, présentation des
