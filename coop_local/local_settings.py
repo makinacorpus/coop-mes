@@ -79,6 +79,7 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'ionyweb.plugin_app.plugin_blog_entries_list',
     'haystack',
     'mce_filebrowser', # should remain after coop_local
+    'iframe',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [

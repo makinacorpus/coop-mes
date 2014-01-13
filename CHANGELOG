@@ -1,3 +1,14 @@
+v1.24
+
+ * Tranche conditionnelle 1 (affichage de la base de organisations dans une
+   iframe)
+
+
+Déploiement:
+
+ * migrate iframe
+
+
 v1.23
 
  * Corrections de la boîte de dialogue d'insertion de fichier/image dans

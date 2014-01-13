@@ -503,10 +503,13 @@ class Organization(BaseOrganization):
     def offer_activities(self):
         return ", ".join(self.offer_set.values_list('activity__label', flat=True).distinct())
 
-    def offer_activities_links(self):
+    def offer_activities_links(self, target_blank=False):
         activities = self.offer_set.values_list('activity__label', flat=True).distinct()
-        activities_links = ['<a href="/recherche/?q=%s">%s</a>' % (urlquote(activity), activity) for activity in activities]
+        activities_links = ['<a href="/recherche/?q=%s"%s>%s</a>' % (urlquote(activity), " target=\"_blank\"" if target_blank else "", activity) for activity in activities]
         return mark_safe(", ".join(activities_links))
+
+    def offer_activities_links_target_blank(self):
+        return self.offer_activities_links(target_blank=True)
 
     def category_iae_desc(self):
         return ", ".join([cat.description or cat.label for cat in self.category_iae.all()])

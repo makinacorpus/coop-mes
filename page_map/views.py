@@ -24,9 +24,7 @@ MEDIAS = (
     JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),
 )
 
-def index_view(request, page_app):
-    if request.GET.get('display') == 'Annuaire':
-        return HttpResponseRedirect('../annuaire/?' + request.GET.urlencode())
+def get_index_context(request, bound_area=None):
     qd = request.GET.copy()
     if not qd.get('geo'):
         qd['geo'] = '1'
@@ -95,13 +93,30 @@ def index_view(request, page_app):
         orgs = Organization.objects.none()
     get_params = request.GET.copy()
     if area is None or geo == '2':
-        bounds = Area.objects.filter(label=settings.REGION_LABEL).extent()
+        if bound_area:
+            bounds = bound_area.polygon.extent
+        else:
+            bounds = Area.objects.filter(label=settings.REGION_LABEL).extent()
     elif area and radius:
         bounds = MultiPoint(Point(center.x - degrees, center.y - degrees), Point(center.x + degrees, center.y + degrees)).extent
     else:
         bounds = area.polygon.extent
+    return {
+        'form': form,
+        'geo': qd['geo'],
+        'orgs': orgs,
+        'area': area,
+        'bounds': bounds,
+        'get_params': get_params.urlencode()
+    }
+
+
+def index_view(request, page_app):
+    if request.GET.get('display') == 'Annuaire':
+        return HttpResponseRedirect('../annuaire/?' + request.GET.urlencode())
+    context = get_index_context(request)
+    context['object'] = page_app
     return render_view('page_map/index.html',
-                       {'object': page_app, 'form': form, 'geo': qd['geo'], 'orgs': orgs, 'area': area,
-                        'bounds': bounds, 'get_params': get_params.urlencode()},
+                       context,
                        MEDIAS,
                        context_instance=RequestContext(request))

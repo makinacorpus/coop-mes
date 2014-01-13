@@ -37,9 +37,8 @@ from django.template import Context
 from django.template.loader import get_template
 import json
 
-def index_view(request, page_app):
-    if request.GET.get('display') == 'Cartographie':
-        return HttpResponseRedirect('../cartographie/?' + request.GET.urlencode())
+
+def get_index_context(request, networks=False):
     qd = request.GET.copy()
     if not qd.get('geo'):
         qd['geo'] = '1'
@@ -57,7 +56,7 @@ def index_view(request, page_app):
             Q(offer__activity__path__icontains=form.cleaned_data['q']))
         if form.cleaned_data['guaranty']:
             orgs = orgs.filter(guaranties=form.cleaned_data['guaranty'])
-        if page_app.networks:
+        if networks:
             orgs = orgs.filter(is_network=True)
             if form.cleaned_data['prov_type']:
                 orgs = orgs.filter(agreement_iae=form.cleaned_data['prov_type'])
@@ -118,7 +117,16 @@ def index_view(request, page_app):
     else:
         area = None
         orgs = Organization.objects.none()
-    paginator = Paginator(orgs, 20)
+    return {
+        'form': form,
+        'geo': qd['geo'],
+        'orgs': orgs,
+    }
+
+
+def paginate(request, context):
+    get_params = request.GET.copy()
+    paginator = Paginator(context['orgs'], 20)
     page = request.GET.get('page')
     try:
         orgs_page = paginator.page(page)
@@ -126,12 +134,20 @@ def index_view(request, page_app):
         orgs_page = paginator.page(1)
     except EmptyPage:
         orgs_page = paginator.page(paginator.num_pages)
-    get_params = request.GET.copy()
     if 'page' in get_params:
         del get_params['page']
+    context['orgs'] = orgs_page
+    context['get_params'] = get_params.urlencode()
+
+
+def index_view(request, page_app):
+    if request.GET.get('display') == 'Cartographie':
+        return HttpResponseRedirect('../cartographie/?' + request.GET.urlencode())
+    context = get_index_context(request, page_app.networks)
+    paginate(request, context)
+    context['object'] = page_app
     return render_view('page_directory/index.html',
-                       {'object': page_app, 'form': form, 'geo': qd['geo'], 'orgs': orgs_page,
-                        'get_params': get_params.urlencode()},
+                       context,
                        (CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
                         JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),
                         CSSMedia('tagger/css/coop_tag.css', prefix_file=''),

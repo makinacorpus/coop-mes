@@ -38,7 +38,9 @@ urlpatterns = patterns('',
         views.filebrowser_remove_file.__closure__[0].cell_contents, 
         {'file_type': 'doc'},
         name='mce-filebrowser-remove-document'
-    )
+    ),
+    url('^iframe/(?P<pk>\d+)/$', 'iframe.views.iframe', name='iframe'),
+    url('^iframe_carto/(?P<pk>\d+)/$', 'iframe.views.iframe_carto', name='iframe_carto'),
 )
 
 
