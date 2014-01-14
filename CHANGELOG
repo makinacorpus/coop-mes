@@ -3,6 +3,9 @@ v1.23
  * Corrections de la boîte de dialogue d'insertion de fichier/image dans
    tinyMCE en back office
  * Augmentation de la taille maximale des fichiers mis en ligne
+ * Ajout d'un commentaire en haut de la page "communiquer avec des
+   fournisseurs et des acheteurs"
+ * Commentaire après dépôt d'un appel d'offres
 
 
 Déploiement:

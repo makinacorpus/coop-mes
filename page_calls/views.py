@@ -17,6 +17,8 @@ from django.contrib.contenttypes.models import ContentType
 from  django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 from django.utils.text import get_text_list
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
@@ -125,7 +127,7 @@ def update_view(request, page_app, pk):
             action_flag     = CHANGE,
             change_message  = u'%s modifié pour l\'appel d\'offres "%s".' % (get_text_list(form.changed_data, _('and')), force_unicode(call))
         )
-        return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
+        return HttpResponseRedirect('/appels-doffres/p/feedback/')
     return render_view('page_calls/edit.html',
                        {'object': page_app, 'form': form},
                        MEDIAS,
@@ -151,8 +153,15 @@ def add_view(request, page_app):
             action_flag     = CHANGE,
             change_message  = u'Appel d\'offres "%s" ajouté.' % force_unicode(call)
         )
-        return HttpResponseRedirect('/mon-compte/p/mes-appels-doffres/')
+        return HttpResponseRedirect('/appels-doffres/p/feedback/')
     return render_view('page_calls/edit.html',
                        {'object': page_app, 'form': form},
                        MEDIAS,
+                       context_instance=RequestContext(request))
+
+
+def feedback_view(request, page_app):
+    return render_view('page_calls/feedback.html',
+                       {'object': page_app, 'slug': settings.REGION_SLUG, 'site': Site.objects.get_current().domain},
+                       [],
                        context_instance=RequestContext(request))

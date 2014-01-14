@@ -1,0 +1,41 @@
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar sidebar--left">
+                {% include "forms-menu.html" %}
+            </div>
+            <div class="col-lg-9">
+                <div class="content-box my-offers">
+                    <div class="section-head">
+                        <h1 class="title">DÉPOSER UN APPEL D'OFFRES</h1>
+                    </div>
+
+    <p>Vous avez proposé un appel d’offre sur {{ site }} et nous vous remercions
+    vivement de faire vivre la plateforme.</p>
+
+    {% if my_organization.status == 'V' %}
+        <p>Vous pouvez le consulter en ligne en cliquant sur l’onglet
+        <a href="/appels-doffres/">appel d’offres</a> de la barre de menus.</p>
+    {% else %}
+        <p>Notre équipe d'animation va prendre connaissance de votre appel
+        d’offre, le mettre en ligne s'il correspond aux objectifs de la
+        plateforme et reviendra vers vous si des informations complémentaires
+        sont nécessaires.</p>
+        <p>Nous vous invitons à <a href="/annuaire/p/modifier/">compléter</a>
+        votre fiche pour simplifier les démarches sur cette plateforme et pour
+        valoriser la politique d’achat responsable de votre structure.</p>
+    {% endif %}
+
+    <p>Nous restons à votre entière disposition et vous souhaitons une
+    excellente journée.</p>
+
+    {% include 'email/signature.html' %}
+
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="/mon-compte/p/mes-appels-doffres/">Retour à mes appels d'offres</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
