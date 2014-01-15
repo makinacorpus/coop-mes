@@ -14,27 +14,6 @@
                     {{ form.prov_type }}
                 </div>
             </div>
-        </div>
-{% endif %}
-        <div class="col-lg-3">
-            <div class="item">
-                {% if object.networks %}
-                    <h3>Spécificité</h3>
-                    <div class="dropdown">
-                        {{ form.prov_type }}
-                    </div>
-                {% else %}
-                    <h3>Secteur d'activité</h3>
-                    <div class="dropdown">
-                        {{ form.sector }}
-                    </div>
-                {% endif %}
-{% if not object.networks %}
-                <div class="checkbox">
-                    <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
-                </div>
-{% endif %}
-            </div>
 {% if not object.networks %}
             <div class="item">
                 <h3>Garantie</h3>
@@ -43,6 +22,35 @@
                 </div>
             </div>
 {% endif %}
+        </div>
+{% endif %}
+        <div class="col-lg-3">
+            {% if object.networks %}
+                <div class="item">
+                    <h3>Spécificité</h3>
+                    <div class="dropdown">
+                        {{ form.prov_type }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="item">
+                    <h3>Secteur d'activité</h3>
+                    <div class="dropdown" id="sectors">
+                        {{ form.sector }}
+                    </div>
+                </div>
+                <div class="item" id="subsectors">
+                    <h3>Sous secteur d'activité</h3>
+                    <div class="dropdown">
+                        {{ form.subsector }}
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="checkbox">
+                        <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <div class="col-lg-3">
             <div class="item item-small">
@@ -66,6 +74,7 @@
             </div>
 {% if not object.networks %}
             <div class="item search">
+                <h3>Recherche libre</h3>
                 {{ form.q }}
             </div>
 {% endif %}
@@ -124,5 +133,25 @@
         false
     );
     org_type_change.apply(org_type_select);
+    // update subsectors
+    function sector_change() {
+        var pk = $('#id_sector option:selected').val();
+        console.log('pk', pk);
+        if (pk == "") {
+            $("#subsectors select" ).html('<option selected="selected" value="">Tout voir</option>');
+        }
+        else {
+            $.get("/subsectors/" + pk + "/", function(data) {
+                $("#subsectors select" ).html(data);
+            });
+        }
+    }
+    var sector_select = document.getElementById('id_sector');
+    sector_select.addEventListener(
+        "change",
+        sector_change,
+        false
+    );
+//     sector_change.apply(sector_select);
 </script>
 {% endif %}

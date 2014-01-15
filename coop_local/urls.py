@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     ),
     url('^iframe/(?P<pk>\d+)/$', 'iframe.views.iframe', name='iframe'),
     url('^iframe_carto/(?P<pk>\d+)/$', 'iframe.views.iframe_carto', name='iframe_carto'),
+    url('^subsectors/(?P<pk>\d+)/$', 'page_directory.views.subsectors_view', name='subsectors'),
 )
 
 

@@ -1,0 +1,4 @@
+<option selected="selected" value="">Tout voir</option>
+{% for sector in subsectors %}
+    <option value="{{ sector.pk }}">{{ sector.label }}</option>
+{% endfor %}

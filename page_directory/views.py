@@ -72,7 +72,13 @@ def get_index_context(request, networks=False):
         if interim:
             orgs = orgs.filter(offer__activity__label__in=(u'mise à disposition de personnel', u'travail temporaire', 'Mise à disposition de personnel'))
         sector = form.cleaned_data['sector']
-        descendants = sector and sector.get_descendants(include_self=True)
+        subsector = form.cleaned_data['subsector']
+        if subsector:
+            descendants = subsector.get_descendants(include_self=True)
+        elif sector:
+            descendants = sector.get_descendants(include_self=True)
+        else:
+            descendants = None
         if descendants:
             orgs = orgs.filter(offer__activity__in=descendants)
         area = form.cleaned_data.get('area')
@@ -524,3 +530,9 @@ def add_target_view(request):
         return HttpResponse(html)
     else:
         return HttpResponse(json.dumps(response), content_type='application/json')
+
+
+def subsectors_view(request, pk):
+    sector = get_object_or_404(ActivityNomenclature, pk=pk)
+    subsectors = sector.get_children()
+    return render(request, 'page_directory/subsectors.html', {'subsectors': subsectors})
