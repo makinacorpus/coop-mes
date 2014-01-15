@@ -268,7 +268,9 @@ class OrganizationForm3(OrganizationMixin, forms.ModelForm):
             self.fields['brief_description'].required = True
         else:
             self.fields['brief_description'].label += '*'
-        self.set_helper(('brief_description', 'description', 'added_value',))
+        if not self.instance.is_provider:
+            del self.fields['added_value']
+        self.set_helper(self.fields.keys())
 
 
 class OrganizationForm4(OrganizationMixin, forms.ModelForm):
