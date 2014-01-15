@@ -35,6 +35,7 @@ from django.utils.text import get_text_list
 from django.contrib.gis.measure import Distance
 from django.template import Context
 from django.template.loader import get_template
+from django.conf import settings
 import json
 
 
@@ -229,10 +230,19 @@ class OrganizationCreateView(CreateView):
     success_url = '/annuaire/p/modifier/1/'
 
     def dispatch(self, request, *args, **kwargs):
+        if settings.REGION_SLUG == 'npdc' and request.META.get('HTTP_REFERER') != 'http://apes.sloli.fr/ls/index.php/survey/index':
+            return HttpResponseRedirect('http://apes.sloli.fr/ls/index.php/survey/index/sid/28943/newtest/Y/lang/fr')
         if request.user.is_authenticated():
             return render_view('page_directory/should_logout.html',
                 {}, (), context_instance=RequestContext(request))
         return super(OrganizationCreateView, self).dispatch(request, args, **kwargs)
+
+    def get_initial(self):
+        return {
+            'first_name': self.request.GET.get('prenom'),
+            'last_name': self.request.GET.get('nom'),
+            'title': self.request.GET.get('structure'),
+        }
 
     def get_form_kwargs(self):
         kwargs = super(OrganizationCreateView, self).get_form_kwargs()
