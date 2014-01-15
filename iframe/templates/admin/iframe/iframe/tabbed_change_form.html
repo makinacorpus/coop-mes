@@ -1,0 +1,13 @@
+{% extends 'admin/change_form.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block content %}
+    <div class="well">
+        Code HTML à insérer pour afficher l'iframe&nbsp;:
+        <pre>
+&lt;iframe src="http://{{ domain }}/iframe/{{ object_id }}/"&gt;&lt;/iframe&gt;
+        </pre>
+    </div>
+    {{ block.super }}
+{% endblock %}
