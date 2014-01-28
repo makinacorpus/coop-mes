@@ -703,10 +703,25 @@ class PersonAdmin(BasePersonAdmin):
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [u'organisation', u'prénom',
             u'nom', u'fonction', u'téléphone', 'courriel', u'affichage']])
+        engagement_ct = ContentType.objects.get(app_label="coop_local", model="engagement")
         for organization in Organization.objects.order_by('title'):
             for e in organization.engagement_set.order_by('person__last_name'):
                 p = e.person
-                row = [organization.title, p.first_name, p.last_name, e.role.label if e.role else '', e.tel or '', e.email or '', e.get_engagement_display_display()]
+                get_kwargs = {
+                    'content_type': engagement_ct,
+                    'object_id': e.id,
+                    'contact_medium': ContactMedium.objects.get(label=u'Téléphone'),
+                }
+                try:
+                    tel = Contact.objects.get(**get_kwargs).content
+                except Contact.DoesNotExist:
+                    tel = u''
+                get_kwargs['contact_medium'] = ContactMedium.objects.get(label=u'Courriel')
+                try:
+                    email = Contact.objects.get(**get_kwargs).content
+                except Contact.DoesNotExist:
+                    email = u''
+                row = [organization.title, p.first_name, p.last_name, e.role.label if e.role else '', tel, email, e.get_engagement_display_display()]
                 writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
 
