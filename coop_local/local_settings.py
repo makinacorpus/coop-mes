@@ -118,6 +118,15 @@ TINYMCE_FRONTEND_CONFIG = {
     'theme_advanced_path': False,
     'file_browser_callback': 'mce_filebrowser',
 }
+TINYMCE_IONYWEB_CONFIG = {
+    'plugins': "table,filemanager,paste,searchreplace,inlinepopups",
+    'theme': "advanced",
+    'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect,|,forecolor,backcolor,|,bullist,numlist,|,outdent,indent,|,sub,sup,|,charmap,emotions,separator,forecolor,backcolor",
+    'theme_advanced_buttons2' : "pastetext,pasteword,selectall,|,undo,redo,|,link,unlink,anchor,image,filemanager,code,|,tablecontrols,|,fullscreen",
+    'theme_advanced_buttons3' : "",
+    'relative_urls': False,
+    'file_browser_callback': False,
+}
 
 SITE_NAME = 'Achetons Solidaires'
 DOMAIN_NAME = 'mes:8000'
