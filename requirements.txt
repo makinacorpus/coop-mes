@@ -75,7 +75,7 @@ django-appconf
 raven
 
 # dev debug tools
-django-debug-toolbar
+django-debug-toolbar<1.0
 FirePython
 
 # multi-site

@@ -15,7 +15,7 @@ requirements: virtualenv
 	$(PIP) install --no-deps -r requirements.txt
 	(cd $(VENV)/lib/python2.7/site-packages/; ln -s /usr/lib/python2.7/dist-packages/uno*.py .)
 
-install: requirements
+sync:
 	$(PYTHON) manage.py collectstatic --noinput
 	$(PYTHON) manage.py syncdb --all --noinput
 	$(PYTHON) manage.py migrate --fake
@@ -41,6 +41,8 @@ fixtures:
 	$(PYTHON) manage.py loaddata coop_local/fixtures/contact_mediums.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/relation_types.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/group.json
+
+install: requirements sync fixtures
 
 makemessages:
 	(cd coop_local; ../$(PYTHON) ../manage.py makemessages -l fr)

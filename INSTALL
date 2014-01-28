@@ -1,14 +1,12 @@
-$ git clone gitorious-git@gitorious.makina-corpus.net:mes/coop-mes.gitorious
-$ cd coop-mes
-$ virtualenv .
-$ source bin/activate
-$ pip install -r requirements.txt
-$ sudo -u postgres createuser admin
-$ sudo -u postgres createdb -T template_postgis -O admin coop-mes
-$ ./manage.py collectstatic
-$ python manage.py syncdb --all
-$ python manage.py migrate --fake
-$ ./manage.py loaddata coop_local/fixtures/{areatypes,django_site,exchange_methods,linkproperty,location_categories,top_roles,uriredirect}.json
+Le déploiement a été testé sur Ubuntu 12.04 LTS
+
+Déploiement:
+- git clone -b pasr_prod git@github.com:makinacorpus/coop-mes.git
+- de coop-mes
+- cp env.template .env
+- edit .env
+- . .env
+- sudo install.sh
 
 
 dans tinymce/compressor.py
