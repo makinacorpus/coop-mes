@@ -5,8 +5,8 @@
 {% else %}
     <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-group{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if form_show_errors%}{% if field.errors %} has-error{% endif %}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
         {% if field.label and form_show_labels %}
-            <label for="{{ field.id_for_label }}" class="control-label col-lg-3 {% if field.field.required %}requiredField{% endif %}">
-                {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+            <label for="{{ field.id_for_label }}" class="control-label col-lg-3 {% if field.field.required %}requiredField{% endif %}" {% if field.help_text and help_text_inline %}title="{{ field.help_text|safe }}"{% endif %}>
+                {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}{% if field.help_text and help_text_inline %}<span class="glyphicon glyphicon-question-sign"></span>{% endif %}
             </label>
         {% endif %}
 

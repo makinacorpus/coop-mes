@@ -371,6 +371,12 @@ class OrganizationChangeView(UpdateView):
                 'count': self.last_step + 1,
             },
         })
+        if self.step == 2:
+            kwargs['message'] = u"Si vous souhaitez ajouter des termes dans les listes proposées (type de structures ESS, thématiques, garanties) faites parvenir un message à travers le <a href=\"/contact\">formulaire contact</a>"
+        if self.step == 10:
+            kwargs['message'] = u"Les interlocuteurs de votre structure : direction générale, service commercial…"
+        if self.step == 11:
+            kwargs['message'] = u"Références de clients professionnels permettant de valoriser la capacité de votre structure à répondre aux besoins d’acheteurs professionnels"
         return super(OrganizationChangeView, self).get_context_data(**kwargs)
 
     def get_success_url(self):

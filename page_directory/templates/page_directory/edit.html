@@ -42,6 +42,9 @@
                             {% if form.instance.status == 'V' %}
                                 <p>Votre fiche est validée.</p>
                             {% endif %}
+                            {% if message %}
+                                <fieldset><span class="glyphicon glyphicon-question-sign"></span> {{ message|safe }}</fieldset>
+                            {% endif %}
                             {% if form.form %}
                                 {{ form.management_form }}
                                 {% for subform in form.forms %}
@@ -94,6 +97,8 @@
 $('#id_birth').datepicker({format: 'dd/mm/yyyy', weekStart: 1, viewMode: 'years', language: 'fr', autoclose: true});
 
 jQuery(document).ready(function() {
+
+    $('.control-label').tooltip({html: true});
 
     $('#id_is_customer').change(function() {
         var fields = $('#div_id_customer_type');

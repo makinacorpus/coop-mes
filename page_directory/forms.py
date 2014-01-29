@@ -46,6 +46,7 @@ class OrganizationMixin(object):
         self.helper.form_tag = False
         self.helper.layout = Layout()
         self.helper.layout.extend(fields)
+        self.helper.help_text_inline = True
 
 
 class OrganizationForm1(OrganizationMixin, forms.ModelForm):
@@ -129,6 +130,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 'is_customer',
                 HTML('<hr>'),
                 InlineRadios('charte', css_class="large-label")))
+        self.fields['title'].help_text = u"<p>Nom complet de l’organisation ; ce nom ne doit pas être précédé de votre statut juridique.</p><p>Exemple : A votre service ou Acheteur durable et non pas Association A Votre Service ou SA Acheteur durable</p>"
 
     def clean_title(self):
         title = self.cleaned_data['title']
@@ -251,6 +253,10 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
             del self.fields['customer_type']
         if not self.instance.is_provider:
             del self.fields['siret']
+        if self.instance.is_provider:
+            self.fields['acronym'].help_text = u"<p>Le nom de votre organisation en abrégé ; exemple AVS pour A Votre Service</p>"
+        else:
+            self.fields['acronym'].help_text = u"<p>Le nom de votre organisation en abrégé ; exemple AD pour Acheteur durable</p>"
         self.set_helper(self.fields.keys())
 
 
@@ -264,12 +270,17 @@ class OrganizationForm3(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm3, self).__init__(*args, **kwargs)
+        self.fields['added_value'].help_text = u"<p>En quoi votre structure est-elle porteuse une utilité sociale et environnementale :</p><p>Exemple : pour A Votre Service, formation et qualification de publics éloignés de l’emploi ; produits écologiques et équitables ; réduction de la consommation d’énergie"
         if propose:
             self.fields['brief_description'].required = True
         else:
             self.fields['brief_description'].label += '*'
         if not self.instance.is_provider:
             del self.fields['added_value']
+        if self.instance.is_provider:
+            self.fields['brief_description'].help_text = u"<p>Décrivez et valorisez l’activité de votre structure en une phrase</p><p>Exemple : pour l’association A Votre Service</p><p>Prestations de nettoyage de vos locaux avec des produits écologiques</p>"
+        else:
+            self.fields['brief_description'].help_text = u"<p>Décrivez et valorisez l’activité de votre structure en une phrase</p><p>Exemple : pour Acheteur durable</p><p>Une société régionale dans le domaine du BTP</p>"
         self.set_helper(self.fields.keys())
 
 
@@ -303,12 +314,14 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             del self.fields['category_iae']
             del self.fields['transverse_themes']
             del self.fields['guaranties']
-        self.set_helper(self.fields.keys())
         for name, field in self.fields.iteritems():
-            if name == 'tags':
-                field.help_text = u'Entrez des mots-clés séparés par une virgule.'
-            else:
-                field.help_text = u''
+            field.help_text = u''
+        if self.instance.is_provider:
+            self.fields['tags'].help_text = u"<p>Entrez des mots-clés séparés par une virgule.</p><p>Les mots clés permettent d’affiner les recherches sur votre structure ; ils correspondent aux termes ciblant le plus précisément votre activité</P><p>Exemple : entretien, nettoyage industriel, propreté pour A Votre Service"
+        else:
+            self.fields['tags'].help_text = u"<p>Entrez des mots-clés séparés par une virgule.</p><p>Les mots clés permettent d’affiner les recherches sur votre structure ; ils correspondent aux termes ciblant le plus précisément votre activité</P><p>Exemple : bâtiment, gros œuvre, démolition, voirie"
+        self.fields['activities'].help_text = u"<p>Correspond aux achats responsables que vous souhaitez effectuer en tant qu’acheteur.</p><p>Exemple : nettoyage de locaux, jardins</p>"
+        self.set_helper(self.fields.keys())
 
 
 class OrganizationForm5(OrganizationMixin, forms.ModelForm):
@@ -360,6 +373,10 @@ class OrganizationForm6(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm6, self).__init__(*args, **kwargs)
+        if self.instance.is_provider:
+            self.fields['testimony'].help_text = u"<p>Vous pouvez apporter un témoignage sur vos expériences en matière de partenariats d’achats responsables</p>"
+        else:
+            self.fields['testimony'].help_text = u"<p>Vous pouvez apporter un témoignage sur la politique d’achat responsable que vous mettez en œuvre dans votre entreprise</p>"
         self.set_helper(('testimony', ))
 
 
@@ -371,6 +388,7 @@ class DocumentForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(DocumentForm, self).__init__(*args, **kwargs)
+        self.fields['name'].help_text = u"<p>Déposez vos documents (formats pdf ou image) de présentation de votre structure : exemple plaquette de, présentation, flyer, dossiers techniques, historique…</p><p>Poids maximum des documents : 1,5 Mo</p>"
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'name',
@@ -394,9 +412,11 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RelationForm, self).__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
         self.fields['relation_type'].required = True
         self.fields['target'].label = u'Partenaire'
-        self.fields['target'].help_text = 'Si le partenaire n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a class="add-target-link" data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.' % reverse('add_target')
+        #self.fields['relation_type'].help_text = u"<p>Exemple : appartient au réseau des entreteneurs durables pour A Votre Service ou a pour fournisseur A Votre Service</p>"
+        self.fields['target'].help_text = u'<p class="help-block">Si le partenaire n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a class="add-target-link" data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.</p>' % reverse('add_target')
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'relation_type',
@@ -404,6 +424,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
             Field('DELETE', template="bootstrap3/layout/delete.html"),
             HTML('</fieldset>'),
         ))
+        self.helper.help_text_inline = False
 
 
 OrganizationForm8 = forms.models.inlineformset_factory(Organization, Relation, form=RelationForm, fk_name='source', extra=2)
@@ -709,6 +730,7 @@ class ReferenceForm(OrganizationMixin, forms.ModelForm):
             Field('DELETE', template="bootstrap3/layout/delete.html"),
             HTML('</fieldset>'),
         ))
+        self.helper.help_text_inline = False
 
     def save(self, commit=True):
         ref = super(ReferenceForm, self).save(commit=False)
@@ -770,12 +792,16 @@ class OfferForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(OfferForm, self).__init__(*args, **kwargs)
         self.fields['activity'].queryset = ActivityNomenclature.objects.filter(level=settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL).order_by('path')
-        self.fields['activity'].help_text = u''
+        self.fields['activity'].help_text = u"<p>Vous pouvez saisir plusieurs secteurs d’activité associés à votre offre</p><p>Pour accéder rapidement à un secteur d’activité, entrer un terme générique</p><p>Exemple : « nettoyage » vous permet de sélectionner nettoyage de locaux, nettoyage de parties communes, nettoyage urbain</p>"
+        self.fields['description'].help_text = u"<p>Description synthétique qui valorise votre offre de biens et de service auprès des acheteurs professionnels</p><p>Nettoyage de locaux industriels de toute taille sur le département du …, avec des produits écologiques</p><p>400 caractères maximum</p>"
         self.fields['targets'].widget = forms.widgets.CheckboxSelectMultiple()
         self.fields['targets'].help_text = u''
-        self.fields['area'].help_text = u''
+        self.fields['technical_means'].help_text = u"<p>Locaux, équipements,logiciels, …</p><p>400 caractères maximum</p>"
+        self.fields['area'].help_text = u"<p>Vous pouvez sélectionner plusieurs lieux d’intervention en région associés, à cette offre de biens et de services</p>"
         self.fields['workforce'].label = self.fields['workforce'].label.replace(' (ETP)', '')
+        self.fields['practical_modalities'].help_text = u"<p>Informations relatives à la tarification, les délais de réponse et d’intervention, la prise de contact…</p><p>400 caractères maximum</p>"
         self.helper = FormHelper()
+        self.helper.help_text_inline = True
         self.helper.form_tag = False
         self.helper.layout = Layout(
             'activity',
@@ -796,6 +822,7 @@ class OfferDocumentForm(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(OfferDocumentForm, self).__init__(*args, **kwargs)
+        self.fields['name'].help_text = u"<p>Déposez vos documents (formats pdf ou image) de présentation de votre OFFRE :</p><p>exemple : dossiers techniques, photos de produits, expériences liée à cette offre…</p><p>Poids maximum des documents : 1,5 Mo"
         self.set_helper((
             HTML('<fieldset class="formset-form"><p>Document / Image</p>'),
             'name',

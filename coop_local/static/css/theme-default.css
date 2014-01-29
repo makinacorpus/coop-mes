@@ -2851,3 +2851,9 @@ ul.as-list li {
 #wa_panel_center li.as-result-item.active {
   color: #000000;
 }
+.control-label .glyphicon-question-sign {
+  margin-left: 5px;
+}
+.tooltip-inner {
+  text-align: left;
+}
