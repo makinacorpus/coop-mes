@@ -1,3 +1,15 @@
+v1.26
+
+ * Corrige l'ajout d'image/fichier dans l'éditeur de texte
+ * Corrige l'export CSV des personnes
+ * Corrige le champ auteur dans le back-office des actualités
+ * Ajout des tooltip pour aider à la saisie des fiches
+
+Déploiement:
+
+ * pull ionyweb
+ * collectstatic
+
 v1.25
 
  * Ajout d'un second niveau de secteur d'activité
