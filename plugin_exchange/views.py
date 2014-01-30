@@ -54,7 +54,7 @@ def index_view(request, plugin):
             contact_form = Plugin_ExchangeForm(request.POST, request.FILES)
             if contact_form.is_valid():
                 n = contact_form.send(request, sender)
-                message = _(u'Message envoyé à {} destinataire{}'.format(n, "s" if n > 1 else ""))
+                message = _(u'Message envoyé à %u destinataire%s' % (n, "s" if n > 1 else ""))
                 contact_form = Plugin_ExchangeForm()
             else:
                 message = _(u'The mail could not be sent')
