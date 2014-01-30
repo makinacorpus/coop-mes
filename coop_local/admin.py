@@ -699,7 +699,7 @@ class PersonAdmin(BasePersonAdmin):
 
     def csv_view(self, request):
         response = HttpResponse(mimetype='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('guaranties')
+        response['Content-Disposition'] = 'attachment; filename=personnes.csv'
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [u'organisation', u'prénom',
             u'nom', u'fonction', u'téléphone', 'courriel', u'affichage']])
@@ -1059,7 +1059,7 @@ class LocationAdmin(BaseLocationAdmin):
 
     def csv_view(self, request):
         response = HttpResponse(mimetype='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=offres.csv'
+        response['Content-Disposition'] = 'attachment; filename=lieux.csv'
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [u'organisation',
             u'libellé', u'adresse', u'complément d\'adresse',
