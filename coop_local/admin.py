@@ -742,7 +742,11 @@ class PersonAdmin(BasePersonAdmin):
             messages.error(request, u"L'utilisateur n'est éditeur d'aucune organisation.")
             return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
         member = Engagement.objects.get(person=person, organization=org, org_admin=True)
-        if not member.email:
+        try:
+            email = member.contacts.get(contact_medium__label='Courriel').content
+        except Contact.DoesNotExist:
+            email = None
+        if not email:
             messages.error(request, u"L'utilisateur n'a pas de courriel lié à son engagement dans %s." % unicode(org))
             return HttpResponseRedirect(reverse('admin:coop_local_person_change', args=[pk]))
         username = (person.first_name.strip() + '.' + person.last_name.strip())[:30]
@@ -765,7 +769,7 @@ class PersonAdmin(BasePersonAdmin):
         user = User(
             first_name=person.first_name[:30],
             last_name=person.last_name[:30],
-            email=member.email,
+            email=email,
             username=username
         )
         user.set_password(password)
