@@ -9,6 +9,10 @@ v1.26
  * Corrige l'export CSV des personnes
  * Corrige le champ auteur dans le back-office des actualités
  * Ajout des tooltip pour aider à la saisie des fiches
+ * Corrige les liens pour l'édition des offres
+ * Corrige la signature des mails NPDC
+ * Corrige un crash dans l'ongle "Classification" de "Mes informations"
+
 
 Déploiement:
 

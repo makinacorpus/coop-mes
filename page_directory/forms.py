@@ -300,6 +300,11 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
+        if self.instance.is_provider:
+            self.fields['tags'].help_text = u"<p>Entrez des mots-clés séparés par une virgule.</p><p>Les mots clés permettent d’affiner les recherches sur votre structure ; ils correspondent aux termes ciblant le plus précisément votre activité</P><p>Exemple : entretien, nettoyage industriel, propreté pour A Votre Service"
+        else:
+            self.fields['tags'].help_text = u"<p>Entrez des mots-clés séparés par une virgule.</p><p>Les mots clés permettent d’affiner les recherches sur votre structure ; ils correspondent aux termes ciblant le plus précisément votre activité</P><p>Exemple : bâtiment, gros œuvre, démolition, voirie"
+        self.fields['activities'].help_text = u"<p>Correspond aux achats responsables que vous souhaitez effectuer en tant qu’acheteur.</p><p>Exemple : nettoyage de locaux, jardins</p>"
         if propose:
             self.fields['activities'].required = True
         else:
@@ -316,11 +321,6 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             del self.fields['guaranties']
         for name, field in self.fields.iteritems():
             field.help_text = u''
-        if self.instance.is_provider:
-            self.fields['tags'].help_text = u"<p>Entrez des mots-clés séparés par une virgule.</p><p>Les mots clés permettent d’affiner les recherches sur votre structure ; ils correspondent aux termes ciblant le plus précisément votre activité</P><p>Exemple : entretien, nettoyage industriel, propreté pour A Votre Service"
-        else:
-            self.fields['tags'].help_text = u"<p>Entrez des mots-clés séparés par une virgule.</p><p>Les mots clés permettent d’affiner les recherches sur votre structure ; ils correspondent aux termes ciblant le plus précisément votre activité</P><p>Exemple : bâtiment, gros œuvre, démolition, voirie"
-        self.fields['activities'].help_text = u"<p>Correspond aux achats responsables que vous souhaitez effectuer en tant qu’acheteur.</p><p>Exemple : nettoyage de locaux, jardins</p>"
         self.set_helper(self.fields.keys())
 
 
@@ -679,7 +679,6 @@ class EngagementInlineFormSet(forms.models.BaseInlineFormSet):
                     sync_contacts(engagement, form.cleaned_data)
         return engagements
 
-    # FIXME: filter delete field when engagement.person.user = current user
     def add_fields(self, form, index):
         return super(EngagementInlineFormSet, self).add_fields(form, index)
 
