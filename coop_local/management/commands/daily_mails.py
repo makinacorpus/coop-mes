@@ -64,7 +64,7 @@ class Command(BaseCommand):
         if not org.pref_email:
             return
         send_mixed_email(sender, email, subject, template, context)
-        print u'%u appels d\'offres envoyé à %s, %s, %s' % (len(calls), email, sender, org.label())
+        print (u'%u appels d\'offres envoyé à %s, %s, %s' % (len(calls), email, sender, org.label())).encode('utf8')
         for call in calls:
             SentCall.objects.create(call=call, organization=org)
 
@@ -107,6 +107,6 @@ class Command(BaseCommand):
             return
         email = org.pref_email.content
         send_mixed_email(sender, email, subject, template, context)
-        print u'%u événements envoyé à %s, %s, %s' % (len(events), email, sender, org.label())
+        print (u'%u événements envoyé à %s, %s, %s' % (len(events), email, sender, org.label())).encode('utf8')
         for event in events:
             SentEvent.objects.create(event=event, organization=org)
