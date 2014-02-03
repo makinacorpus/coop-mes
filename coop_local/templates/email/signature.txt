@@ -16,4 +16,6 @@ Midi-Pyrénées
 {% endif %}{% if slug == "npdc" %}
 L'équipe de ceres-npdc.org
 ceresnpdc@gmail.com
+
+La plateforme ceres-npdc.org est pilotée par l'Uriae l'Apes
 {% endif %}
