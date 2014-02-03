@@ -2254,7 +2254,7 @@ body.modal-open {
   width: 100%;
 }
 .advanced-search-form .item {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .advanced-search-form .item:first-child {
   margin-top: 0;
@@ -2280,6 +2280,15 @@ body.modal-open {
 }
 .advanced-search-form .result .item {
   margin-top: 21px;
+}
+.advanced-search-form #interim {
+  margin-top: 43px;
+}
+.advanced-search-form #radius {
+  margin-bottom: 12px;
+}
+.advanced-search-form button {
+  margin-top: 10px;
 }
 .associated-docs {
   position: relative;

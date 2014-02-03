@@ -61,9 +61,7 @@ class OrgSearch(forms.Form):
                 continue
             field.widget.attrs['class'] = 'form-control'
         self.fields['area'].widget.attrs['placeholder'] = u'Tout voir'
-        self.fields['area'].widget.attrs['class'] = u'form-control form-control-small'
         self.fields['radius'].widget.attrs['placeholder'] = u'Dans un rayon de'
-        self.fields['radius'].widget.attrs['class'] = u'form-control form-control-small'
         sector_pk = data.get('sector')
         if sector_pk:
             sector = ActivityNomenclature.objects.get(pk=sector_pk)

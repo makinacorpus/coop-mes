@@ -8,7 +8,7 @@
                     {{ form.org_type }}
                 </div>
             </div>
-            <div class="item" id="prov-type">
+            <div class="item">
                 <h3>Type de fournisseur</h3>
                 <div class="dropdown">
                     {{ form.prov_type }}
@@ -45,7 +45,7 @@
                         {{ form.subsector }}
                     </div>
                 </div>
-                <div class="item">
+                <div class="item" id="interim">
                     <div class="checkbox">
                         <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
                     </div>
@@ -56,7 +56,7 @@
             <div class="item item-small">
                 <h3>Territoire</h3>
                 {{ form.area }}
-                <div class="dropdown input-group">
+                <div class="dropdown input-group" id="radius">
                     {{ form.radius }}
                     <span class="input-group-addon form-control-small">km</span>
                 </div>
@@ -119,11 +119,11 @@
     });
     // Show org_type search field only if "Fournisseurs" is selected
     function org_type_change() {
-        var cell = document.getElementById('prov-type');
         if (this.options[this.selectedIndex].value == "fournisseur") {
-            cell.style.visibility = 'visible';
+            $('#id_prov_type').removeAttr('disabled');
         } else {
-            cell.style.visibility = 'hidden';
+            $('#id_prov_type option:first-child').attr('selected', 'selected');
+            $('#id_prov_type').attr('disabled', 'disabled');
         }
     };
     var org_type_select = document.getElementById('id_org_type');
