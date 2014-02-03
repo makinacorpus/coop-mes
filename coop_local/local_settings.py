@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import os
 import sys
+import re
 
 from django.conf import settings
 
@@ -36,6 +37,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 SEND_BROKEN_LINK_EMAILS = True
+IGNORABLE_404_URLS = (
+    re.compile(r'^/wp-login.php$'),
+)
 INTERNAL_IPS = ('127.0.0.1', '10.0.3.1')
 
 SUBHUB_MAINTENANCE_AUTO = False    # set this value to True to automatically syncronize with agregator
