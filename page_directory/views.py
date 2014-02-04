@@ -230,7 +230,7 @@ class OrganizationCreateView(CreateView):
     success_url = '/annuaire/p/modifier/1/'
 
     def dispatch(self, request, *args, **kwargs):
-        if settings.REGION_SLUG == 'npdc' and request.META.get('HTTP_REFERER') != 'http://apes.sloli.fr/ls/index.php/survey/index':
+        if settings.REGION_SLUG == 'npdc' and request.method == 'GET' and request.META.get('HTTP_REFERER') != 'http://apes.sloli.fr/ls/index.php/survey/index':
             return HttpResponseRedirect('http://apes.sloli.fr/ls/index.php/survey/index/sid/28943/newtest/Y/lang/fr')
         if request.user.is_authenticated():
             return render_view('page_directory/should_logout.html',
