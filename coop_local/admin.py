@@ -562,7 +562,8 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             _('supervision workforce'), _('integration workforce'),
             _('annual integration number'), _('preferred phone'),
             _('preferred email'),
-            u'adresse', u'autre adresse', u'code postal', u'ville']])
+            u'adresse', u'autre adresse', u'code postal', u'ville',
+            u'recevoir newsletter', u'recevoir AO', u'recevoir événements', u'recevoir échanges']])
         for organization in Organization.objects.order_by('title'):
             row = [organization.creation.strftime('%d/%m/%Y') if organization.creation else '']
             row.append(organization.modification.strftime('%d/%m/%Y') if organization.modification else '')
@@ -600,6 +601,10 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             row.append(organization.pref_address.adr2 if organization.pref_address else '')
             row.append(organization.pref_address.zipcode if organization.pref_address else '')
             row.append(organization.pref_address.city if organization.pref_address else '')
+            row.append('X' if organization.newsletter_subscription else '')
+            row.append('X' if organization.calls_subscription else '')
+            row.append(organization.events_subscription.label if organization.events_subscription else '')
+            row.append('X' if organization.exchanges_subscription else '')
             writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
 
