@@ -82,6 +82,15 @@ class Person(BasePerson):
     user_link.short_description = u'Identifiant'
     user_link.allow_tags = True
 
+    def emails(self):
+        if self.pref_email:
+            return self.pref_email.content
+        emails = list(self.contacts.filter(contact_medium__label=u'Courriel').values_list('content', flat=True))
+        if emails:
+            return emails
+        return [c.content for e in self.engagements.all() for c in e.contacts.all() if c.contact_medium.label == u'Courriel']
+
+
 class LegalStatus(models.Model):
 
     label = models.CharField(blank=True, max_length=100)

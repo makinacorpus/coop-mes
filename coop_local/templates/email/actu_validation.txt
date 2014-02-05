@@ -1,0 +1,9 @@
+{{ person.get_gender_display }} {{ person.first_name }} {{ person.last_name }}
+
+Vous avez proposé une actualité sur {{ site }}.
+
+Nous vous informons que notre équipe d'animation a publié votre actualité sur le site. Vous pouvez y accéder en cliquant sur http://{{ site }}{{ entry.get_absolute_url }}
+
+Nous vous remercions vivement de faire vivre la plateforme.
+
+{% include 'email/signature.txt' %}

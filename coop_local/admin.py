@@ -19,9 +19,11 @@ from django.contrib.admin.templatetags.admin_static import static
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.core.mail import send_mail
+from coop_local.mixed_email import send_mixed_email
 from django.contrib.auth.models import User
 from django.contrib.admin.util import flatten_fieldsets
 from django.utils.formats import number_format
+from django.contrib.sites.models import Site
 
 from chosen import widgets as chosenwidgets
 from selectable.base import ModelLookup
@@ -1036,17 +1038,21 @@ class EventAdmin(BaseEventAdmin):
     def save_model(self, request, obj, form, change):
         """Send an email if just validated"""
         if change and obj.status == 'V':
-            if Event.objects.get(pk=obj.pk).status == 'P':
+            if Event.objects.get(pk=obj.pk).status != 'V':
                 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
                 try:
                     sender = Plugin_Contact.objects.all()[0].email
                 except IndexError:
                     sender = None
-                engagements = Engagement.objects.filter(org_admin=True, organization=obj.organization).values_list('id', flat=True)
-                dests = Contact.objects.filter(object_id__in=engagements, content_type=ContentType.objects.get(model='engagement'), contact_medium__label=u'Courriel').values_list('content', flat=True)
-                send_mail(u'Validation de votre événement sur la PASR',
-                    u'Bonjour,\n\nVotre événement vient d\'être validé sur la PASR.',
-                    sender, dests)
+                dests = obj.person.emails()
+                site = Site.objects.get_current().domain
+                subject = u"Votre évènement est publié sur la plateforme %s" % site
+                context = {
+                    'site': site,
+                    'slug': settings.REGION_SLUG,
+                    'event': obj,
+                }
+                send_mixed_email(sender, dests, subject, 'email/event_validation', context)
         super(EventAdmin, self).save_model(request, obj, form, change)
 
     def save_related(self, request, form, formsets, change):

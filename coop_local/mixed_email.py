@@ -103,7 +103,9 @@ def send_mixed_email(sender, email, subject, template, context={}):
 
     text = wrap(render_to_string(template + '.txt', context), 72)
     html = render_to_string(template + '.html', context)
-    msg = EmailMultiRelated(subject, text, sender, [email])
+    if not isinstance(email, list):
+        email = [email]
+    msg = EmailMultiRelated(subject, text, sender, email)
     msg.attach_alternative(html, 'text/html')
     soup = BeautifulSoup(html)
     for index, tag in enumerate(soup.findAll(image_finder)):

@@ -22,7 +22,8 @@ DEBUG = False
 # Force DEBUG setting if we're developing locally or testing
 if 'runserver' in sys.argv or 'test' in sys.argv or 'mail_calls' in sys.argv:
     DEBUG = True
-    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+    #EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATE_DEBUG = DEBUG
 THUMBNAIL_DEBUG = DEBUG

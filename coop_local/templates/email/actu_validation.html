@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+body, p, a {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+img {
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<p>{{ person.get_gender_display }} {{ person.first_name }} {{ person.last_name }}</p>
+
+<p>Vous avez proposé une actualité sur {{ site }}.</p>
+<p>Nous vous informons que notre équipe d'animation a publié votre actualité sur le site. Vous pouvez y accéder en cliquant sur <a href="http://{{ site }}{{ entry.get_absolute_url }}">ce lien</a>.</p>
+<p>Nous vous remercions vivement de faire vivre la plateforme.</p>
+
+{% include 'email/signature.html' %}
+
+</body>
+</html>

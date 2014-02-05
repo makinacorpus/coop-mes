@@ -1,6 +1,7 @@
 v1.28
 
  * Corrige retour sur le quizz après soumission de l'identification (NPDC)
+ * Envoi d'un mail lors de la validation d'une actualité ou d'un événement
 
 
 v1.27
