@@ -4,6 +4,7 @@ v1.28
  * Envoi d'un mail lors de la validation d'une actualité ou d'un événement
  * Ajout des préférences (de réception des alertes) à l'export CSV des
    organisations
+ * Corrige différentes petite choses dans les aides à l'inscription
 
 
 Déploiement:

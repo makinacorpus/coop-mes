@@ -98,7 +98,7 @@ $('#id_birth').datepicker({format: 'dd/mm/yyyy', weekStart: 1, viewMode: 'years'
 
 jQuery(document).ready(function() {
 
-    $('.control-label').tooltip({html: true});
+    $('form').tooltip({selector: '.control-label', html: true});
 
     $('#id_is_customer').change(function() {
         var fields = $('#div_id_customer_type');
@@ -134,7 +134,8 @@ jQuery(document).ready(function() {
     $('.formset-form:last').hide();
     var hidden_id = $('[id$="TOTAL_FORMS"]').val() - 1;
 
-    $('.add-link').click(function() {
+    $('.add-link').click(function(e) {
+        e.preventDefault();
         var newElement = $('.formset-form:last').clone(true);
         var total = $('[id$="TOTAL_FORMS"]').val();
         newElement.find('[id^="div_id_"], [id^="hint_id_"]').each(function() {
@@ -155,19 +156,18 @@ jQuery(document).ready(function() {
         $('[id$="TOTAL_FORMS"]').val(total);
         $('.formset-form:last').before(newElement);
         newElement.show();
-        return false;
     });
 
-    $('.delete-link').click(function() {
+    $('.delete-link').click(function(e) {
+        e.preventDefault();
         $(this).parent().find("input").prop('checked', true);
         $(this).parents("fieldset").addClass("hidden");
-        return false;
     });
 
 });
 
 $('.add-target-link').click(function() {
-    var group = $(this).parents('.form-group').attr('id');
+    var group = $(this).parents('.form-group').prev().attr('id');
     $('#add_target').attr('data-group', group);
 });
 

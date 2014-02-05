@@ -300,6 +300,8 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
 
     def __init__(self, propose, *args, **kwargs):
         super(OrganizationForm4, self).__init__(*args, **kwargs)
+        for name, field in self.fields.iteritems():
+            field.help_text = u''
         if self.instance.is_provider:
             self.fields['tags'].help_text = u"<p>Entrez des mots-clés séparés par une virgule.</p><p>Les mots clés permettent d’affiner les recherches sur votre structure ; ils correspondent aux termes ciblant le plus précisément votre activité</P><p>Exemple : entretien, nettoyage industriel, propreté pour A Votre Service"
         else:
@@ -319,8 +321,6 @@ class OrganizationForm4(OrganizationMixin, forms.ModelForm):
             del self.fields['category_iae']
             del self.fields['transverse_themes']
             del self.fields['guaranties']
-        for name, field in self.fields.iteritems():
-            field.help_text = u''
         self.set_helper(self.fields.keys())
 
 
@@ -415,16 +415,15 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
         instance = kwargs.get('instance')
         self.fields['relation_type'].required = True
         self.fields['target'].label = u'Partenaire'
-        #self.fields['relation_type'].help_text = u"<p>Exemple : appartient au réseau des entreteneurs durables pour A Votre Service ou a pour fournisseur A Votre Service</p>"
-        self.fields['target'].help_text = u'<p class="help-block">Si le partenaire n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a class="add-target-link" data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.</p>' % reverse('add_target')
+        self.fields['relation_type'].help_text = u"<p>Exemple : appartient au réseau des entreteneurs durables pour A Votre Service ou a pour fournisseur A Votre Service</p>"
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'relation_type',
             'target',
+            HTML('<div class="form-group"><div class="col-lg-3"></div><div class="col-lg-9"><p class="help-block">Si le partenaire n\'apparait pas dans la liste ci-dessus vous pouvez l\'<a class="add-target-link" data-toggle="modal" href="#" data-remote="%s?html" data-target="#add_target">ajouter</a>.</p></div></div>' % reverse('add_target')),
             Field('DELETE', template="bootstrap3/layout/delete.html"),
             HTML('</fieldset>'),
         ))
-        self.helper.help_text_inline = False
 
 
 OrganizationForm8 = forms.models.inlineformset_factory(Organization, Relation, form=RelationForm, fk_name='source', extra=2)
@@ -792,7 +791,7 @@ class OfferForm(forms.ModelForm):
         super(OfferForm, self).__init__(*args, **kwargs)
         self.fields['activity'].queryset = ActivityNomenclature.objects.filter(level=settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL).order_by('path')
         self.fields['activity'].help_text = u"<p>Vous pouvez saisir plusieurs secteurs d’activité associés à votre offre</p><p>Pour accéder rapidement à un secteur d’activité, entrer un terme générique</p><p>Exemple : « nettoyage » vous permet de sélectionner nettoyage de locaux, nettoyage de parties communes, nettoyage urbain</p>"
-        self.fields['description'].help_text = u"<p>Description synthétique qui valorise votre offre de biens et de service auprès des acheteurs professionnels</p><p>Nettoyage de locaux industriels de toute taille sur le département du …, avec des produits écologiques</p><p>400 caractères maximum</p>"
+        self.fields['description'].help_text = u"<p>Description synthétique qui valorise votre offre de biens et de services auprès des acheteurs professionnels</p><p>Nettoyage de locaux industriels de toute taille sur le département du …, avec des produits écologiques</p><p>400 caractères maximum</p>"
         self.fields['targets'].widget = forms.widgets.CheckboxSelectMultiple()
         self.fields['targets'].help_text = u''
         self.fields['technical_means'].help_text = u"<p>Locaux, équipements,logiciels, …</p><p>400 caractères maximum</p>"
