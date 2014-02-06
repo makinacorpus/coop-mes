@@ -1049,7 +1049,10 @@ class EventAdmin(BaseEventAdmin):
                     sender = Plugin_Contact.objects.all()[0].email
                 except IndexError:
                     sender = None
-                dests = obj.person.emails()
+                if obj.person:
+                    dests = obj.person.emails()
+                else:
+                    dests = []
                 site = Site.objects.get_current().domain
                 subject = u"Votre évènement est publié sur la plateforme %s" % site
                 context = {
