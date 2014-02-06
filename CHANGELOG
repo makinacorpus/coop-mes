@@ -1,3 +1,9 @@
+v1.29
+
+ * Corrige l'absence du logo dans la signature des mails
+ * Corrige les bulles d'aide dans le formulaire d'inscription
+
+
 v1.28
 
  * Corrige retour sur le quizz après soumission de l'identification (NPDC)
