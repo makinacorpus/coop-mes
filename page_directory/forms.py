@@ -415,7 +415,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
         instance = kwargs.get('instance')
         self.fields['relation_type'].required = True
         self.fields['target'].label = u'Partenaire'
-        self.fields['relation_type'].help_text = u"<p>Exemple : appartient au réseau des entreteneurs durables pour A Votre Service ou a pour fournisseur A Votre Service</p>"
+        self.fields['relation_type'].help_text = u"<p>Exemple : appartient au réseau des entreteneurs durables, a pour fournisseur A Votre Service</p>"
         self.set_helper((
             HTML('<fieldset class="formset-form">'),
             'relation_type',
