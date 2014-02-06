@@ -66,7 +66,7 @@ class EmailMultiRelated(EmailMultiAlternatives):
         for i, (content, mimetype) in enumerate(self.alternatives):
             if mimetype == 'text/html':
                 for filename, _, _ in self.related_attachments:
-                    content = re.sub(r'(?<!cid:)%s' % re.escape(filename), 'cid:%s' % filename, content)
+                    content = re.sub(r'(?<!cid:)/static/img/%s' % re.escape(filename), 'cid:%s' % filename, content)
                 self.alternatives[i] = (content, mimetype)
 
         return super(EmailMultiRelated, self)._create_alternatives(msg)
