@@ -757,10 +757,5 @@ class SentEvent(models.Model):
         app_label = 'coop_local'
 
 
-# WORKAROUND to fix problem with model inheritance and django-coop post delete signal
-from django.db.models.signals import post_delete
-from coop.signals import post_delete_callback
-post_delete.disconnect(receiver=post_delete_callback)
-
 # Remove "Show on site" button in User admin
 delattr(User, 'get_absolute_url')

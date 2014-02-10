@@ -20,7 +20,6 @@ class SignInTestCase(CasperTestCase):
         'group.json',
         'guaranty.json',
         'legalstatus.json',
-        'linking_properties.json',
         'location_categories.json',
         'organizationcategory.json',
         'relation_types.json',

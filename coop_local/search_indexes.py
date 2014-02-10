@@ -2,7 +2,7 @@
 from haystack import indexes
 from coop.search_indexes import OrganizationIndex as BaseOrganizationIndex
 from coop.search_indexes import EventIndex as BaseEventIndex
-from coop.search_indexes import CoopIndexWithoutSite
+from coop.search_indexes import CoopIndex
 from django.utils.timezone import now
 from coop_local.models import CallForTenders, Offer
 from ionyweb.page_app.page_blog.models import Entry
@@ -19,7 +19,7 @@ class EventIndex(BaseEventIndex, indexes.Indexable):
         return self.get_model().objects.filter(status='V', occurrence__end_time__gte=now())
 
 
-class CallForTendersIndex(CoopIndexWithoutSite, indexes.Indexable):
+class CallForTendersIndex(CoopIndex, indexes.Indexable):
     def get_model(self):
         return CallForTenders
 
@@ -27,7 +27,7 @@ class CallForTendersIndex(CoopIndexWithoutSite, indexes.Indexable):
         return self.get_model().objects.filter(deadline__gte=now())
 
 
-class EntryIndex(CoopIndexWithoutSite, indexes.Indexable):
+class EntryIndex(CoopIndex, indexes.Indexable):
     def get_model(self):
         return Entry
 
@@ -35,7 +35,7 @@ class EntryIndex(CoopIndexWithoutSite, indexes.Indexable):
         return self.get_model().objects.filter(status=Entry.STATUS_ONLINE)
 
 
-class PageApp_TextIndex(CoopIndexWithoutSite, indexes.Indexable):
+class PageApp_TextIndex(CoopIndex, indexes.Indexable):
     def get_model(self):
         return PageApp_Text
 

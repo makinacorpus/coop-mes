@@ -24,10 +24,8 @@ fixtures:
 	$(PYTHON) manage.py loaddata coop_local/fixtures/area_types.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/django_site.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/exchange_methods.json
-	$(PYTHON) manage.py loaddata coop_local/fixtures/linking_properties.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/location_categories.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/roles.json
-	$(PYTHON) manage.py loaddata coop_local/fixtures/uriredirect.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/user.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/legalstatus.json
 	$(PYTHON) manage.py loaddata coop_local/fixtures/organizationcategory.json

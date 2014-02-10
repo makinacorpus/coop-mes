@@ -5,15 +5,12 @@ from south.v2 import DataMigration
 from django.db import models
 from django.core import management
 from django.db import models
-from django.db.models.signals import post_save
-from coop.signals import post_save_callback
 import coop
 from django.contrib.sites.models import Site
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        post_save.disconnect(receiver=post_save_callback)
         management.call_command('loaddata', 'coop_local/fixtures/contact_mediums.json')
         for c in orm['coop_local.Contact'].objects.all():
             c.contact_medium_id = c.category

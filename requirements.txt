@@ -25,7 +25,6 @@ git+git://github.com/quinode/django-templatetag-sugar.git
 
 # our forks
 git+git://github.com/makinacorpus/django-admintools-bootstrap.git
-git+git://github.com/quinode/uriredirect.git
 
 
 git+git://github.com/django-extensions/django-extensions.git
@@ -44,10 +43,6 @@ south
 
 django-forms-builder
 
-# Queues
-rq
-git+git://github.com/ui/django-rq.git@8d8f9d7fd9a8857394862ff8125dd98c0028abed
-
 django-apptemplates
 python-dateutil
 git+git://github.com/makinacorpus/sorl-thumbnail.git
@@ -58,11 +53,6 @@ hg+https://bitbucket.org/ubernostrum/django-profiles
 django-positions
 django-push
 mimeparse
-rdflib
-git+git://github.com/RDFLib/rdfextras.git
-git+git://github.com/RDFLib/rdflib-jsonld.git
-git+git://github.com/RDFLib/rdflib-sparqlstore.git
-git+git://github.com/credis/subhub.git
 django-appconf
 
 # webid deps : not ready

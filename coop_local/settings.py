@@ -53,6 +53,3 @@ try:
     from coop.db_settings import *
 except ImportError, exp:
     raise ImproperlyConfigured("Unable to find coop/db_settings.py file in django-coop : ", exp)
-
-
-NS = AttributeDict(transform_dict(RDF_NAMESPACES).items())
