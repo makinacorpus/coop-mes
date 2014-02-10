@@ -342,6 +342,16 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
             raise forms.ValidationError(u"Une organisation de la BDIS doit être un fournisseur")
         return is_provider
 
+    def clean_is_pasr(self):
+        if not self.cleaned_data.get('is_pasr') and not self.cleaned_data.get('is_bdis'):
+            raise forms.ValidationError(u"Veuillez cocher au moins un des deux choix : PASR ou BDIS")
+        return self.cleaned_data['is_pasr']
+
+    def clean_is_network(self):
+        if not self.cleaned_data.get('is_provider') and not self.cleaned_data.get('is_customer') and not self.cleaned_data.get('is_network'):
+            raise forms.ValidationError(u"Veuillez cocher au moins un des trois choix : fournisseur, acheteur ou réseau")
+        return self.cleaned_data['is_pasr']
+
 
 class AuthorListFilter(admin.SimpleListFilter):
     title = u'rédacteur'
@@ -406,7 +416,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                        'web', 'siret', 'bdis_id']
             }),
         (_(u'Organization type'), {
-            'fields': ['is_provider', 'is_customer', 'is_network', 'customer_type']
+            'fields': ['is_bdis', 'is_pasr', 'is_provider', 'is_customer', 'is_network', 'customer_type']
             }),
         (_(u'Economic info'), {
             'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),
