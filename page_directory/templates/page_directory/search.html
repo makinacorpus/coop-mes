@@ -2,12 +2,14 @@
     <div class="row">
 {% if not object.networks %}
         <div class="col-lg-3">
+{% if not object.bdis %}
             <div class="item">
                 <h3>Je recherche</h3>
                 <div class="dropdown">
                     {{ form.org_type }}
                 </div>
             </div>
+{% endif %}
             <div class="item">
                 <h3>Type de fournisseur</h3>
                 <div class="dropdown">

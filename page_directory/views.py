@@ -39,7 +39,7 @@ from django.conf import settings
 import json
 
 
-def get_index_context(request, networks=False):
+def get_index_context(request, networks=False, bdis=False):
     qd = request.GET.copy()
     if not qd.get('geo'):
         qd['geo'] = '1'
@@ -48,6 +48,10 @@ def get_index_context(request, networks=False):
     form = OrgSearch(qd)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
+        if bdis:
+            orgs = orgs.filter(is_bdis=True)
+        else:
+            orgs = orgs.filter(is_pasr=True)
         orgs = orgs.filter(
             Q(title__icontains=form.cleaned_data['q']) |
             Q(acronym__icontains=form.cleaned_data['q']) |
@@ -150,7 +154,7 @@ def paginate(request, context):
 def index_view(request, page_app):
     if request.GET.get('display') == 'Cartographie':
         return HttpResponseRedirect('../cartographie/?' + request.GET.urlencode())
-    context = get_index_context(request, page_app.networks)
+    context = get_index_context(request, page_app.networks, page_app.bdis)
     paginate(request, context)
     context['object'] = page_app
     return render_view('page_directory/index.html',

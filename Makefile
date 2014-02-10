@@ -58,6 +58,7 @@ css:
 	(cd coop_local/static/css/; lessc theme-default.less theme-default.css)
 	(cd coop_local/static/css/; lessc theme-orange.less theme-orange.css)
 	(cd coop_local/static/css/; lessc theme-npdc.less theme-npdc.css)
+	(cd coop_local/static/css/; lessc theme-bdis.less theme-bdis.css)
 	(cd coop_local/static/css/bootstrap; lessc bootstrap.less bootstrap.css)
 
 backup:

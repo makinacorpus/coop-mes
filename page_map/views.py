@@ -24,7 +24,7 @@ MEDIAS = (
     JSMedia('selectable/js/jquery.dj.selectable.js', prefix_file=''),
 )
 
-def get_index_context(request, bound_area=None):
+def get_index_context(request, bound_area=None, bdis=False):
     qd = request.GET.copy()
     if not qd.get('geo'):
         qd['geo'] = '1'
@@ -41,6 +41,10 @@ def get_index_context(request, bound_area=None):
     form = OrgSearch(qd)
     if form.is_valid():
         orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
+        if bdis:
+            orgs = orgs.filter(is_bdis=True)
+        else:
+            orgs = orgs.filter(is_pasr=True)
         orgs = orgs.filter(
             Q(title__icontains=form.cleaned_data['q']) |
             Q(acronym__icontains=form.cleaned_data['q']) |
@@ -114,7 +118,7 @@ def get_index_context(request, bound_area=None):
 def index_view(request, page_app):
     if request.GET.get('display') == 'Annuaire':
         return HttpResponseRedirect('../annuaire/?' + request.GET.urlencode())
-    context = get_index_context(request)
+    context = get_index_context(request, bdis=page_app.bdis)
     context['object'] = page_app
     return render_view('page_map/index.html',
                        context,
