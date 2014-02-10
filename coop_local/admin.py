@@ -709,7 +709,7 @@ class PersonAdmin(BasePersonAdmin):
         response['Content-Disposition'] = 'attachment; filename=personnes.csv'
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [u'organisation', u'prénom',
-            u'nom', u'fonction', u'téléphone', 'courriel', u'affichage']])
+            u'nom', u'fonction', u'téléphone', 'courriel personnel', 'courriel organisation', u'affichage', 'fournisseur', 'acheteur', 'administrateur', 'identifiant']])
         engagement_ct = ContentType.objects.get(app_label="coop_local", model="engagement")
         for organization in Organization.objects.order_by('title'):
             for e in organization.engagement_set.order_by('person__last_name'):
@@ -728,7 +728,18 @@ class PersonAdmin(BasePersonAdmin):
                     email = Contact.objects.get(**get_kwargs).content
                 except Contact.DoesNotExist:
                     email = u''
-                row = [organization.title, p.first_name, p.last_name, e.role.label if e.role else '', tel, email, e.get_engagement_display_display()]
+                row = [
+                    organization.title,
+                    p.first_name, p.last_name,
+                    e.role.label if e.role else '',
+                    tel, email,
+                    organization.pref_email.content if organization.pref_email else '',
+                    e.get_engagement_display_display(),
+                    'X' if organization.is_provider else '',
+                    'X' if organization.is_customer else '',
+                    u'administrateur' if (p.user and p.user.is_superuser) else (u'administrateur restreint' if (p.user and p.user.is_staff and p.user.groups.filter(name=u'Administrateur restreint').exists()) else ''),
+                    p.user.username if p.user else '',
+                ]
                 writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
 

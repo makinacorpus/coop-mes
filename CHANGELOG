@@ -1,3 +1,9 @@
+v1.30
+
+ * Corrige un crash si un événement sans auteur est validé
+ * Ajout de colonnes suplémentaires dans les exports CSV
+
+
 v1.29
 
  * Corrige l'absence du logo dans la signature des mails
