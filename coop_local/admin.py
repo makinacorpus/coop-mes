@@ -955,9 +955,10 @@ class OfferAdmin(FkAutocompleteAdmin):
     change_form_template = 'admin/coop_local/offer/tabbed_change_form.html'
     fieldsets = (
         (_(u'Key info'), {
-            'fields': ['provider', 'description', 'tags', 'technical_means',
-                       'workforce', 'practical_modalities']}),
+            'fields': ['provider', 'description', 'targets', 'tags',
+                       'technical_means', 'workforce', 'practical_modalities']}),
     )
+    formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'class':'multiple_checkboxes'})}}
 
     def save_model(self, request, obj, form, change):
         super(OfferAdmin, self).save_model(request, obj, form, change)

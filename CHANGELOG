@@ -2,6 +2,7 @@ v1.30
 
  * Corrige un crash si un événement sans auteur est validé
  * Ajout de colonnes suplémentaires dans les exports CSV
+ * Ajoute le champ "Cibles acheteur" dans le back office pour les Offres
 
 
 v1.29
