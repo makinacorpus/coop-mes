@@ -382,6 +382,8 @@ class CallForTenders(models.Model):
 class Organization(BaseOrganization):
 
     # COMMON Organization type
+    is_bdis = models.BooleanField(_('BDIS'))
+    is_pasr = models.BooleanField(_('PASR'))
     is_provider = models.BooleanField(_('is a provider'))
     is_customer = models.BooleanField(_('is a customer'))
     is_network = models.BooleanField(_('is a network'))

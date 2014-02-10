@@ -335,6 +335,13 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
             raise forms.ValidationError(_('An organization with this title already exists.'))
         return title
 
+    def clean_is_provider(self):
+        is_provider = self.cleaned_data['is_provider']
+        is_bdis = self.cleaned_data.get('is_bdis')
+        if is_bdis and not is_provider:
+            raise forms.ValidationError(u"Une organisation de la BDIS doit être un fournisseur")
+        return is_provider
+
 
 class AuthorListFilter(admin.SimpleListFilter):
     title = u'rédacteur'
@@ -356,7 +363,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         'is_customer', 'is_network', 'active', 'creation', 'modification']
     list_display_links = ['title', 'acronym']
     readonly_fields = ['creation', 'modification']
-    list_filter = ['status', 'transmission', AuthorListFilter, 'is_provider', 'is_customer', 'is_network', 'a_la_une', 'en_direct', 'zoom_sur']
+    list_filter = ['status', 'transmission', 'is_bdis', 'is_pasr', 'is_provider', 'is_customer', 'is_network', 'a_la_une', 'en_direct', 'zoom_sur', AuthorListFilter]
     ordering = ['norm_title']
     fieldsets = (
         (_(u'Key info'), {
@@ -365,7 +372,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                        'web', 'siret', 'bdis_id', 'a_la_une', 'en_direct', 'zoom_sur']
             }),
         (_(u'Organization type'), {
-            'fields': ['is_provider', 'is_customer', 'is_network', 'customer_type']
+            'fields': ['is_bdis', 'is_pasr', 'is_provider', 'is_customer', 'is_network', 'customer_type']
             }),
         (_(u'Economic info'), {
             'fields': [('annual_revenue', 'workforce'), ('production_workforce', 'supervision_workforce'),
