@@ -1,0 +1,147 @@
+{% load ionyweb_tags i18n staticfiles %}
+{# Minimum HTML5 template #}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<!--[if lt IE 7]>      <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{% firstof LANGUAGE_CODE "en" %}" class="no-js"> <!--<![endif]-->
+<head>
+    {% admin_toolbar_medias %}
+
+    {% render_meta_kw %}
+    {% render_meta_description %}
+    {% render_medias %}
+
+    {% block head %}
+        {% block header_title %}
+            <title>{% title %} - {{ request.website.title }}</title>
+        {% endblock %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width">
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% render_favicon %}
+        {% block theme-design-css %}
+            <link rel="stylesheet" href="{% static "css/bootstrap/bootstrap.css" %}">
+            {% block main_css %}<link rel="stylesheet" href="{% static "css/theme-default.css" %}">{% endblock %}
+            <link rel="stylesheet" href="{% static "css/datepicker.css" %}">
+        {% endblock %}
+        {% block theme-design-js %}
+            <script src="{% static "js/vendor/modernizr-2.6.2.min.js" %}"></script>
+        {% endblock %}
+    {% endblock %}
+</head>
+
+{% block body-tag %}<body>{% endblock %}
+
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    {% admin_toolbar %}
+
+    {% block top_body %}{% endblock %}
+
+    {% block body %}
+
+    {% block topsite-border %}
+        <div class="topsite-border">
+            <div class="color1"></div>
+            <div class="color2"></div>
+            <div class="color3"></div>
+        </div>
+    {% endblock %}
+
+    <header  class="main-header">
+
+        <!-- Header -->
+        {% block header %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        {% render_layout "logo" %}
+                    </div>
+                    <div class="col-lg-7">
+                        <nav class="second-nav">
+                            <ul class="nav nav-justified">
+                                <li><a href="/qui-sommes-nous/">Qui sommes nous ?</a></li>
+                                <li><a href="/pourquoi-sinscrire/">Pourquoi s'inscrire ?</a></li>
+                                <li><a href="/espace-presse/">Espace Presse</a></li>
+                            </ul>
+                        </nav>
+                        {% block feedback %}{% endblock %}
+                        <a class="login btn iconf-user" href="/mon-compte/">
+                            <b class="uppercase">Votre compte</b><br/>
+                            Bonjour,
+                            {% if request.user.is_active %}
+                                <b>{{ request.user.first_name|default:request.user.username }}</b>
+                            {% else %}
+                                <b>Identifiez-vous</b>
+                            {% endif %}
+                        </a>
+{% comment %}
+                        <form class="search" method="GET" action="/recherche/">
+                            <div class="input-group">
+                              <span class="input-group-btn">
+                                <button class="btn" type="submit">Rechercher</button>
+                              </span>
+                              <input type="search" class="form-control" name="q">
+                            </div><!-- /input-group -->
+                        </form>
+{% endcomment %}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        <!-- End of Header -->
+
+        <!-- Navigation -->
+        {% block navigation %}
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".main-nav">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <nav class="main-nav nav-collapse collapse">{% render_navigation %}</nav>
+        {% endblock %}
+        <!-- End of Navigation -->
+
+    </header>
+
+    <!-- Content -->
+    {% block content %}
+        {% block page %}{% render_page %}{% endblock %}
+    {% endblock %}
+    <!-- End of Content -->
+
+    <!-- Footer -->
+    {% block footer %}
+        {% include "footer.html" %}
+    {% endblock %}
+    <!-- End of Footer -->
+    {% render_clipboard %}
+
+    {% block render_default %}
+        {% render_default %}
+    {% endblock %}
+
+    {% endblock %}
+
+    {% googleanalytics %}
+    {% block extra-medias %}{% endblock %}
+
+    {% block bottom_body %}{% endblock %}
+
+    <script src="{% static "js/vendor/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/plugins.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+
+    {% googleanalytics %}
+
+  </body>
+
+</html>

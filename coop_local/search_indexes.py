@@ -11,7 +11,7 @@ from ionyweb.page_app.page_text.models import PageApp_Text
 
 class OrganizationIndex(BaseOrganizationIndex, indexes.Indexable):
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(status='V')
+        return self.get_model().objects.filter(is_pasr=True, status='V')
 
 
 class EventIndex(BaseEventIndex, indexes.Indexable):
