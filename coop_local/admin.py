@@ -502,17 +502,6 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         ui = connections.all()[0].get_unified_index()
         ui.get_index(Organization).update_object(instance=form.instance)
 
-    def save_formset(self, request, form, formset, change):
-        if formset.model != Reference:
-            return super(OrganizationAdmin, self).save_formset(request, form, formset, change)
-        instances = formset.save(commit=False)
-        for instance in instances:
-            instance.relation_type_id = 6
-            instance.save()
-            instance.target.is_customer = True
-            # FIXME: save only the is_customer field
-            instance.target.save()
-
     def save_model(self, request, obj, form, change):
         """Send an email if just validated"""
         if change and obj.status == 'V':
