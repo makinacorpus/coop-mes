@@ -41,7 +41,7 @@ psycopg2
 Pillow
 south
 
-django-forms-builder
+django-forms-builder==0.8.1
 
 django-apptemplates
 python-dateutil
