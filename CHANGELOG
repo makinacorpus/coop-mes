@@ -1,3 +1,11 @@
+v1.31
+
+ * Corrige l'ajout de secteur d'activité aux offre pour NPDC
+ * Ajoute l'identifiant BDIS dans les exports CSV
+ * Corrige un problème d'enregistrement quand une organisation
+   se référence elle-même
+
+
 v1.30
 
  * Corrige un crash si un événement sans auteur est validé

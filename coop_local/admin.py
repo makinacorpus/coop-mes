@@ -552,7 +552,8 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             _('annual integration number'), _('preferred phone'),
             _('preferred email'),
             u'adresse', u'autre adresse', u'code postal', u'ville',
-            u'recevoir newsletter', u'recevoir AO', u'recevoir événements', u'recevoir échanges']])
+            u'recevoir newsletter', u'recevoir AO', u'recevoir événements', u'recevoir échanges',
+            u'id BDIS']])
         for organization in Organization.objects.order_by('title'):
             row = [organization.creation.strftime('%d/%m/%Y') if organization.creation else '']
             row.append(organization.modification.strftime('%d/%m/%Y') if organization.modification else '')
@@ -594,6 +595,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             row.append('X' if organization.calls_subscription else '')
             row.append(organization.events_subscription.label if organization.events_subscription else '')
             row.append('X' if organization.exchanges_subscription else '')
+            row.append(str(organization.bdis_id) if organization.bdis_id else '')
             writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
 
@@ -698,7 +700,7 @@ class PersonAdmin(BasePersonAdmin):
         response['Content-Disposition'] = 'attachment; filename=personnes.csv'
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [u'organisation', u'prénom',
-            u'nom', u'fonction', u'téléphone', 'courriel personnel', 'courriel organisation', u'affichage', 'fournisseur', 'acheteur', 'administrateur', 'identifiant']])
+            u'nom', u'fonction', u'téléphone', 'courriel personnel', 'courriel organisation', u'affichage', 'fournisseur', 'acheteur', 'administrateur', 'identifiant', 'id BDIS']])
         engagement_ct = ContentType.objects.get(app_label="coop_local", model="engagement")
         for organization in Organization.objects.order_by('title'):
             for e in organization.engagement_set.order_by('person__last_name'):
@@ -728,6 +730,7 @@ class PersonAdmin(BasePersonAdmin):
                     'X' if organization.is_customer else '',
                     u'administrateur' if (p.user and p.user.is_superuser) else (u'administrateur restreint' if (p.user and p.user.is_staff and p.user.groups.filter(name=u'Administrateur restreint').exists()) else ''),
                     p.user.username if p.user else '',
+                    str(p.bdis_id) if p.bdis_id else '',
                 ]
                 writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
