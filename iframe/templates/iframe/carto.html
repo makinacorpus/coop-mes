@@ -50,7 +50,7 @@
                                 {% for l in o.located.all %}
                                     {% if l.location.point %}
                                         markers.addLayer(new L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}])
-                                                .bindPopup('<div class="leaflet-popup__title">{{ o.title|escapejs }}</div><div class="leaflet-popup__desc">{{ l.location.zipcode|escapejs }} {{ l.location.city|escapejs }}<br/>{{ o.offer_activities|escapejs }}<br/><br/>{{ o.brief_description|linebreaksbr|escapejs }}<p class="link"><a href=\"/annuaire/p/{{ o.pk }}/\" target=\"_blank\">Fiche complète</a></p></div>'));
+                                                .bindPopup('<div class="leaflet-popup__title">{{ o.title|escapejs }}</div><div class="leaflet-popup__desc">{{ l.location.zipcode|escapejs }} {{ l.location.city|escapejs }}<br/>{{ o.offer_activities|escapejs }}<br/><br/>{{ o.brief_description|linebreaksbr|escapejs }}<p class="link"><a href=\"/iframe/{{ iframe.pk}}/{{ o.pk }}/\">Fiche complète</a></p></div>'));
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}

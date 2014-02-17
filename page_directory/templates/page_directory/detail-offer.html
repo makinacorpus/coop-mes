@@ -23,7 +23,11 @@
 {% if o.tags.all %}
     <p><b>Mots clés&nbsp;:</b><br/>
     {% for tag in o.tags.all %}
-        <a href="/recherche/?q={{ tag|urlencode }}">{{ tag }}</a>{% if not forloop.last %},{% endif %}
+        {% if links %}
+            <a href="/recherche/?q={{ tag|urlencode }}">{{ tag }}</a>{% if not forloop.last %},{% endif %}
+        {% else %}
+            {{ tag }}{% if not forloop.last %},{% endif %}
+        {% endif %}
     {% endfor %}</p>
 {% endif %}
 {% if o.offerdocument_set.all %}

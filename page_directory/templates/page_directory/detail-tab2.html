@@ -36,7 +36,7 @@
             <ul>
                 {% for r in org.references %}
                     <li>
-                        {% if r.target.status == 'V' %}
+                        {% if r.target.status == 'V' and links %}
                             <a href="{{ r.target.get_absolute_url }}">{{ r.target }}</a>
                         {% else %}
                             {% if r.target.web %}

@@ -128,6 +128,7 @@
             $('#id_prov_type').attr('disabled', 'disabled');
         }
     };
+{% if not object.bdis %}
     var org_type_select = document.getElementById('id_org_type');
     org_type_select.addEventListener(
         "change",
@@ -135,6 +136,7 @@
         false
     );
     org_type_change.apply(org_type_select);
+{% endif %}
     // update subsectors
     function sector_change() {
         var pk = $('#id_sector option:selected').val();

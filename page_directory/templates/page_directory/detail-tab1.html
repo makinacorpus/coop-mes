@@ -66,7 +66,11 @@
             {% endthumbnail %}
             <h2 class="fiche__title">{{ org.title }}</h2>
             <div class="activity-container">
-                <h6 class="activity">{{ org.offer_activities_links }}</h6>
+                {% if links %}
+                    <h6 class="activity">{{ org.offer_activities_links }}</h6>
+                {% else %}
+                    <h6 class="activity">{{ org.offer_activities }}</h6>
+                {% endif %}
                 <h6 class="activity">{{ org.offer_areas }}</h6>
             </div>
             <div class="fiche__date">
@@ -96,14 +100,22 @@
             {% if org.transverse_themes.count %}
                 <dt class="iconf-rubon">Thématique{{ org.transverse_themes.count|pluralize }} :</dt>
                 {% for theme in org.transverse_themes.all %}
-                    <dd><a href="/recherche/?q={{ theme|urlencode }}">{{ theme }}</a></dd>
+                    {% if links %}
+                        <dd><a href="/recherche/?q={{ theme|urlencode }}">{{ theme }}</a></dd>
+                    {% else %}
+                        <dd>{{ theme }}</dd>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
 
             {% if org.tags.all %}
                 <dt class="iconf-fontawesome-webfont">Mots clés :</dt>
                 {% for tag in org.tags.all %}
-                    <dd><a href="/recherche/?q={{ tag|urlencode }}">{{ tag }}</a></dd>
+                    {% if links %}
+                        <dd><a href="/recherche/?q={{ tag|urlencode }}">{{ tag }}</a></dd>
+                    {% else %}
+                        <dd>{{ tag }}</dd>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         </dl>

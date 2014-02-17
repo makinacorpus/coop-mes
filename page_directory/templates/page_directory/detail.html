@@ -49,33 +49,33 @@
                         <div class="tab-content">
                             {% if org.is_provider or org.is_network %}
                                 <div class="tab-pane active" id="tab1">
-                                    {% include "page_directory/detail-tab1.html" %}
+                                    {% include "page_directory/detail-tab1.html" with links=1 %}
                                 </div>
                                 <div class="tab-pane" id="tab2">
-                                    {% include "page_directory/detail-tab2.html" %}
+                                    {% include "page_directory/detail-tab2.html" with links=1 %}
                                 </div>
                                 <div class="tab-pane" id="tab3">
-                                    {% include "page_directory/detail-tab3.html" %}
+                                    {% include "page_directory/detail-tab3.html" with links=1 %}
                                 </div>
                             {% endif %}
                             {% if org.is_customer %}
                                 <div class="tab-pane {% if not org.is_provider and not org.is_network %}active{% endif %}" id="tab6">
-                                    {% include "page_directory/detail-tab6.html" %}
+                                    {% include "page_directory/detail-tab6.html" with links=1 %}
                                 </div>
                                 {% if org.callfortenders_set.exists %}
                                     <div class="tab-pane" id="tab7">
-                                        {% include "page_directory/detail-tab7.html" %}
+                                        {% include "page_directory/detail-tab7.html" with links=1 %}
                                     </div>
                                 {% endif %}
                             {% endif %}
                             {% if org.testimony %}
                                 <div class="tab-pane" id="tab4">
-                                    {% include "page_directory/detail-tab4.html" %}
+                                    {% include "page_directory/detail-tab4.html" with links=1 %}
                                 </div>
                             {% endif %}
                             {% if org.source_relations.exists %}
                                 <div class="tab-pane" id="tab5">
-                                    {% include "page_directory/detail-tab5.html" %}
+                                    {% include "page_directory/detail-tab5.html" with links=1 %}
                                 </div>
                             {% endif %}
                         </div>

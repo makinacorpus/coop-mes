@@ -3,7 +3,7 @@
     {% for r in relations %}
         <div class="col-lg-4 links-list-item">
             <span class="value">{{ r.target.label }}</span><br>
-            {% if r.target.status == 'V' %}
+            {% if links and r.target.status == 'V' %}
                 <a href="{{ r.target.get_absolute_url }}" class="links-list-item__link">Voir la fiche</a>
             {% else %}
                 {% if r.target.web %}

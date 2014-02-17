@@ -14,9 +14,11 @@
             <div class="media-body">
                 <p class="activity">
                     {% for activity in call.activity.all %}
-                        <a href="/recherche/?q={{ activity.label|urlencode }}">
+                        {% if links %}
+                            <a href="/recherche/?q={{ activity.label|urlencode }}">{{ activity.label }}</a>
+                        {% else %}
                             {{ activity.label }}
-                        </a>
+                        {% endif %}
                         {% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>

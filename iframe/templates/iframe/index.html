@@ -21,7 +21,7 @@
                     <div class="results">
                         {% for org in orgs %}
                             <div class="media">
-                                <a class="pull-left" href="/annuaire/p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" target="_blank">
+                                <a class="pull-left" href="/iframe/{{ iframe.pk }}/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">
                                     {% if org.logo %}
                                         {% thumbnail org.logo "220x140" upscale=0 as logo %}
                                             <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
@@ -31,7 +31,7 @@
                                     {% endif %}
                                 </a>
                                 <div class="media-body">
-                                    <p class="activity">{{ org.offer_activities_links_target_blank }}</p>
+                                    <p class="activity">{{ org.offer_activities }}</p>
                                     {% if org.nearest %}
                                         <span class="location">{{ org.nearest.zipcode }} {{ org.nearest.city }}{#{% if org.distance %} ({{ org.distance.km|floatformat:"0" }} km){% endif %}#}</span>
                                     {% else %}
@@ -41,7 +41,7 @@
                                     {% endif %}
                                     <h4 class="media-heading">{{ org.title }}</h4>
                                     <p>{{ org.brief_description|linebreaks }}</p>
-                                    <a href="/annuaire/p/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" class="btn btn-default" target="_blank">Fiche personnelle</a>
+                                    <a href="/iframe/{{ iframe.pk }}/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" class="btn btn-default">Fiche personnelle</a>
                                 </div>
                             </div>
                         {% endfor %}

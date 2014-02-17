@@ -1,0 +1,88 @@
+{% extends "iframe/base.html" %}
+{% load ascii %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="content-box detail">
+            <div class="section-head">
+                <a href="/iframe/{{ iframe.pk }}/?{{ get_params }}" class="btn-icon icon-back detail">Retour a la liste</a>
+                <ul class="pager detail">
+                    {# <li><a href="#prev" class="prev inactive"><span class="arrow">g</span> Previous</a></li> #}
+                    {# <li><a href="#next" class="next">Page suivante <span class="arrow">f</span></a></li> #}
+                </ul>
+            </div>
+            <div class="row ribbon ribbon--detail">
+                <div class="col-lg-6">
+                    <h1 class="title ribbon__title">{{ org.label|ascii }}</h1>
+                    <i class="ribbon__subtitle">{{ org.types }}</i>
+                </div>
+                <div class="col-lg-6 links">
+                    <a href="mailto:{{ org.pref_email.content }}" class="btn-icon iconf-email">Contacter la structure</a>
+                    {# <a href="#back" class="btn-icon iconf-print">Imprimer la fiche</a> #}
+                </div>
+            </div>
+            <div class="tabbable">
+                <ul class="nav nav-tabs">
+                    {% if org.is_provider or org.is_network %}
+                        <li class="active"><a href="#tab1" data-toggle="tab">Présentation{% if org.is_customer %} fournisseur{% endif %}</a></li>
+                        {% if org.is_provider %}
+                            {% if org.annual_revenue or org.workforce or org.production_workforce or org.supervision_workforce or org.integration_workforce or org.annual_integration_number or org.references %}
+                                <li><a href="#tab2" data-toggle="tab">Informations économiques</a></li>
+                            {% endif %}
+                        {% endif %}
+                        <li><a href="#tab3" data-toggle="tab">Coordonnées</a></li>
+                    {% endif %}
+                    {% if org.is_customer %}
+                        <li {% if not org.is_provider and not org.is_network %}class="active"{% endif %}><a href="#tab6" data-toggle="tab">Présentation{% if org.is_provider or org.is_network %} acheteur{% endif %}</a></li>
+                        {% if org.callfortenders_set.exists %}
+                            <li><a href="#tab7" data-toggle="tab">Appels d'offres déposés</a></li>
+                        {% endif %}
+                    {% endif %}
+                    {% if org.testimony %}
+                        <li><a href="#tab4" data-toggle="tab">Témoignage</a></li>
+                    {% endif %}
+                    {% if org.reseaux or org.part_eco or org.part_tech %}
+                        <li><a href="#tab5" data-toggle="tab">Partenariats</a></li>
+                    {% endif %}
+                </ul>
+                <div class="tab-content">
+                    {% if org.is_provider or org.is_network %}
+                        <div class="tab-pane active" id="tab1">
+                            {% include "page_directory/detail-tab1.html" with links=0 %}
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            {% include "page_directory/detail-tab2.html" with links=0 %}
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            {% include "page_directory/detail-tab3.html" with links=0 %}
+                        </div>
+                    {% endif %}
+                    {% if org.is_customer %}
+                        <div class="tab-pane {% if not org.is_provider and not org.is_network %}active{% endif %}" id="tab6">
+                            {% include "page_directory/detail-tab6.html" with links=0 %}
+                        </div>
+                        {% if org.callfortenders_set.exists %}
+                            <div class="tab-pane" id="tab7">
+                                {% include "page_directory/detail-tab7.html" with links=0 %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    {% if org.testimony %}
+                        <div class="tab-pane" id="tab4">
+                            {% include "page_directory/detail-tab4.html" with links=0 %}
+                        </div>
+                    {% endif %}
+                    {% if org.source_relations.exists %}
+                        <div class="tab-pane" id="tab5">
+                            {% include "page_directory/detail-tab5.html" with links=0 %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
