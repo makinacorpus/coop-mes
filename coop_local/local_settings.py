@@ -135,10 +135,10 @@ TINYMCE_IONYWEB_CONFIG = {
 
 SITE_NAME = 'Achetons Solidaires'
 DOMAIN_NAME = 'mes:8000'
-ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 2
 REGION_NAME = os.environ.get('REGION_NAME', 'Paca')
 REGION_LABEL = os.environ.get('REGION_LABEL', 'PROVENCE-ALPES-COTE D\'AZUR')
 REGION_SLUG = os.environ.get('REGION_SLUG', 'paca')
+ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL = 1 if REGION_SLUG == 'npdc' else 2
 
 LEAFLET_CONFIG = {
     #'TILES_URL': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
