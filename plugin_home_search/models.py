@@ -8,6 +8,7 @@ class Plugin_HomeSearch(AbstractPlugin):
 
     texte_annuaire = models.TextField(blank=True)
     texte_carto = models.TextField(blank=True)
+    bdis = models.BooleanField(u'Afficher la BDIS plutôt que la PASR')
 
     def __unicode__(self):
         return u'HomeSearch #%d' % (self.pk)

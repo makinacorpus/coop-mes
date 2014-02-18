@@ -8,9 +8,11 @@
             <p>{{ object.texte_annuaire }}</p>
             <form method="GET" action="/annuaire/">
                 <input type="hidden" name="area_0" value="x">
+{% if not object.bdis %}
                 <div class="dropdown">
                     {{ form.org_type }}
                 </div>
+{% endif %}
                 <div class="dropdown">
                     {{ form.sector }}
                 </div>

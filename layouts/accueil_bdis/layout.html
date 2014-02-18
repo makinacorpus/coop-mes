@@ -1,0 +1,17 @@
+{% extends "layout/base.html" %}
+{% load placeholder_tags %}
+
+
+{% block layout %}
+
+<div class="top-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {% render_placeholder "1" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock layout %}
