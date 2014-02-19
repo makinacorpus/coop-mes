@@ -18,7 +18,7 @@
                     <div class="results">
                         {% for org in orgs %}
                             <div class="media">
-                                <a class="pull-left" href="/iframe/{{ iframe.pk }}/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">
+                                <a class="pull-left" href="/iframe/p/{{ iframe.pk }}/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}">
                                     {% if org.logo %}
                                         {% thumbnail org.logo "220x140" upscale=0 as logo %}
                                             <img class="media-object" src="{{ logo.url }}" width="220" height="140" style="padding: {{ logo|margin:"220x140" }}">
@@ -38,7 +38,7 @@
                                     {% endif %}
                                     <h4 class="media-heading">{{ org.title }}</h4>
                                     <p>{{ org.brief_description|linebreaks }}</p>
-                                    <a href="/iframe/{{ iframe.pk }}/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" class="btn btn-default">Fiche personnelle</a>
+                                    <a href="/iframe/p/{{ iframe.pk }}/{{ org.pk }}/?{{ get_params }}&page={{ orgs.number }}" class="btn btn-default">Fiche personnelle</a>
                                 </div>
                             </div>
                         {% endfor %}
@@ -51,7 +51,7 @@
 {% endif %}
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 sidebar sidebar--right">
                 <div class="content-box">
                     {{ object.right_content|safe }}
                 </div>

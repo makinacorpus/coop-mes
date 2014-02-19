@@ -7,6 +7,9 @@ from page_directory.views import get_index_context, paginate
 from page_map.views import get_index_context as get_map_context
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
+from coop_local.models import Organization
+from coop_local.models.local_models import ORGANIZATION_STATUSES
+from django.utils.timezone import now
 
 # from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
 MEDIAS = (
@@ -39,7 +42,7 @@ def list_view(request, page_app, pk):
 
     iframe = get_object_or_404(IFrame, pk=pk)
     if request.GET.get('display') == 'Cartographie':
-        return HttpResponseRedirect('/iframe/p/%u/carto/?%s' % (pk, request.GET.urlencode()))
+        return HttpResponseRedirect('/iframe/p/%u/carto/?%s' % (iframe.pk, request.GET.urlencode()))
     context = get_index_context(request)
     context['object'] = page_app
     context['iframe'] = iframe
@@ -51,30 +54,32 @@ def list_view(request, page_app, pk):
                        http_headers=http_headers)
 
 
-def detail_view(request, pk, org_pk):
+def detail_view(request, page_app, pk, org_pk):
 
     iframe = get_object_or_404(IFrame, pk=pk)
     org = get_object_or_404(Organization, pk=org_pk, status=ORGANIZATION_STATUSES.VALIDATED)
     calls = org.callfortenders_set.filter(deadline__gte=now()).order_by('deadline')
     get_params = request.GET.copy()
-    context = {'iframe': iframe, 'org': org, 'calls': calls, 'get_params': get_params.urlencode()}
-    response = render(request, 'iframe/detail.html', context)
-    response['X-Frame-Options'] = 'ALLOW-FROM %s' % iframe.domain
-    return response
+    context = {'object': page_app, 'iframe': iframe, 'org': org, 'calls': calls, 'get_params': get_params.urlencode()}
+    http_headers = {'X-Frame-Options': 'ALLOW-FROM %s' % iframe.domain}
+    return render_view('page_iframe/detail.html', context, MEDIAS,
+                       context_instance=RequestContext(request),
+                       http_headers=http_headers)
 
 
-def carto_view(request, pk):
+def carto_view(request, page_app, pk):
 
     iframe = get_object_or_404(IFrame, pk=pk)
     if request.GET.get('display') == 'Annuaire':
-        return HttpResponseRedirect(reverse('iframe', args=[pk]) + '?' + request.GET.urlencode())
+        return HttpResponseRedirect('/iframe/p/%u/?%s' % (iframe.pk, request.GET.urlencode()))
     context = get_map_context(request, bound_area=iframe.area)
+    context['object'] = page_app
     context['iframe'] = iframe
     iframe_filter(page_app, iframe, context)
-    response = render(request, 'iframe/carto.html', context)
-    response['X-Frame-Options'] = 'ALLOW-FROM %s' % iframe.domain
-
-    return response
+    http_headers = {'X-Frame-Options': 'ALLOW-FROM %s' % iframe.domain}
+    return render_view('page_iframe/carto.html', context, MEDIAS,
+                       context_instance=RequestContext(request),
+                       http_headers=http_headers)
 
 
 def index_view(request, page_app):
