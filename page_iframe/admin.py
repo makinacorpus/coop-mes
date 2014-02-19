@@ -1,12 +1,12 @@
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from .models import IFrame
+from .models import *
 from django.contrib.sites.models import Site
 
 
 class IFrameAdmin(admin.ModelAdmin):
-    change_form_template = 'admin/iframe/iframe/tabbed_change_form.html'
+    change_form_template = 'admin/page_iframe/iframe/tabbed_change_form.html'
     list_display = ('id', 'domain', 'title')
     list_display_links = ('domain', )
 
@@ -18,3 +18,5 @@ class IFrameAdmin(admin.ModelAdmin):
 
 
 admin.site.register(IFrame, IFrameAdmin)
+
+admin.site.register(PageApp_Iframe)

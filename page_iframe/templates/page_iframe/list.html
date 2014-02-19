@@ -1,7 +1,4 @@
-{% extends "iframe/base.html" %}
 {% load thumbnail staticfiles %}
-
-{% block content %}
 
 <div class="main-content">
     <div class="container">
@@ -12,7 +9,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-9">
                 <div class="content-box">
 {% if orgs.object_list %}
                     <div class="section-head">
@@ -54,9 +51,11 @@
 {% endif %}
                 </div>
             </div>
-
+            <div class="col-lg-3">
+                <div class="content-box">
+                    {{ object.right_content|safe }}
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-{% endblock content %}

@@ -1,15 +1,30 @@
-from django.shortcuts import render, get_object_or_404
-from iframe.models import IFrame
+# -*- coding: utf-8 -*-
+
+from django.template import RequestContext
+from ionyweb.website.rendering.utils import render_view
+from .models import IFrame
 from page_directory.views import get_index_context, paginate
 from page_map.views import get_index_context as get_map_context
-from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from coop_local.models import Organization
-from coop_local.models.local_models import ORGANIZATION_STATUSES
-from django.utils.timezone import now
+
+# from ionyweb.website.rendering.medias import CSSMedia, JSMedia, JSAdminMedia
+MEDIAS = (
+    # App CSS
+    # CSSMedia('page_iframe.css'),
+    # App JS
+    # JSMedia('page_iframe.js'),
+    # Actions JSAdmin
+    # JSAdminMedia('page_iframe_actions.js'),
+)
 
 
-def iframe_filter(obj, context):
+def iframe_filter(page_app, obj, context):
+    context['target'] = 'target="_blank"'
+    if page_app.bdis:
+        context['orgs'] = context['orgs'].filter(is_bdis=True)
+    else:
+        context['orgs'] = context['orgs'].filter(is_pasr=True)
     if obj.area:
         context['orgs'] = context['orgs'].filter(located__location__point__intersects=obj.area.polygon)
     if obj.network:
@@ -20,22 +35,23 @@ def iframe_filter(obj, context):
         context['orgs'] = context['orgs'].filter(tagged_items__tag=obj.tag)
 
 
-def iframe(request, pk):
+def list_view(request, page_app, pk):
 
     iframe = get_object_or_404(IFrame, pk=pk)
     if request.GET.get('display') == 'Cartographie':
-        return HttpResponseRedirect(reverse('iframe_carto', args=[pk]) + '?' + request.GET.urlencode())
+        return HttpResponseRedirect('/iframe/p/%u/carto/?%s' % (pk, request.GET.urlencode()))
     context = get_index_context(request)
+    context['object'] = page_app
     context['iframe'] = iframe
-    iframe_filter(iframe, context)
+    iframe_filter(page_app, iframe, context)
     paginate(request, context)
-    response = render(request, 'iframe/index.html', context)
-    response['X-Frame-Options'] = 'ALLOW-FROM %s' % iframe.domain
+    http_headers = {'X-Frame-Options': 'ALLOW-FROM %s' % iframe.domain}
+    return render_view('page_iframe/list.html', context, MEDIAS,
+                       context_instance=RequestContext(request),
+                       http_headers=http_headers)
 
-    return response
 
-
-def detail(request, pk, org_pk):
+def detail_view(request, pk, org_pk):
 
     iframe = get_object_or_404(IFrame, pk=pk)
     org = get_object_or_404(Organization, pk=org_pk, status=ORGANIZATION_STATUSES.VALIDATED)
@@ -47,15 +63,22 @@ def detail(request, pk, org_pk):
     return response
 
 
-def iframe_carto(request, pk):
+def carto_view(request, pk):
 
     iframe = get_object_or_404(IFrame, pk=pk)
     if request.GET.get('display') == 'Annuaire':
         return HttpResponseRedirect(reverse('iframe', args=[pk]) + '?' + request.GET.urlencode())
     context = get_map_context(request, bound_area=iframe.area)
     context['iframe'] = iframe
-    iframe_filter(iframe, context)
+    iframe_filter(page_app, iframe, context)
     response = render(request, 'iframe/carto.html', context)
     response['X-Frame-Options'] = 'ALLOW-FROM %s' % iframe.domain
 
     return response
+
+
+def index_view(request, page_app):
+    return render_view('page_iframe/index.html',
+                       { 'object': page_app },
+                       MEDIAS,
+                       context_instance=RequestContext(request))

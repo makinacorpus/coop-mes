@@ -66,6 +66,7 @@
                         {% render_layout "logo" %}
                     </div>
                     <div class="col-lg-7">
+                        {% block toplinks %}
                         <nav class="second-nav">
                             <ul class="nav nav-justified">
                                 <li><a href="/qui-sommes-nous/">Qui sommes nous ?</a></li>
@@ -73,7 +74,9 @@
                                 <li><a href="/espace-presse/">Espace Presse</a></li>
                             </ul>
                         </nav>
+                        {% endblock %}
                         {% block feedback %}{% endblock %}
+                        {% block moncompte %}
                         <a class="login btn iconf-user" href="/mon-compte/">
                             <b class="uppercase">Votre compte</b><br/>
                             Bonjour,
@@ -83,6 +86,8 @@
                                 <b>Identifiez-vous</b>
                             {% endif %}
                         </a>
+                        {% endblock %}
+                        {% block search %}
                         <form class="search" method="GET" action="/recherche/">
                             <div class="input-group">
                               <span class="input-group-btn">
@@ -91,6 +96,7 @@
                               <input type="search" class="form-control" name="q">
                             </div><!-- /input-group -->
                         </form>
+                        {% endblock search %}
                     </div>
                 </div>
             </div>

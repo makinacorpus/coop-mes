@@ -51,7 +51,7 @@ class CustomMenu(Menu):
                     items.MenuItem(_('Groups'), '/admin/auth/group/'),
                     items.MenuItem(_('Sites'), '/admin/sites/site/'),
                     items.MenuItem(_('Sites aliases'), '/admin/multisite/alias/'),
-                    items.MenuItem(_('IFrames'), '/admin/iframe/iframe/'),
+                    items.MenuItem(_('IFrames'), '/admin/page_iframe/iframe/'),
                 ])
             )
 

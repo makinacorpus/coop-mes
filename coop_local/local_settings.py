@@ -78,13 +78,13 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
     'page_newsletter',
     'page_guaranties',
     'page_search',
+    'page_iframe',
     'leaflet',
     'crispy_forms',
     'ionyweb.page_app.page_blog',
     'ionyweb.plugin_app.plugin_blog_entries_list',
     'haystack',
     'mce_filebrowser', # should remain after coop_local
-    'iframe',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS =  settings.TEMPLATE_CONTEXT_PROCESSORS + [

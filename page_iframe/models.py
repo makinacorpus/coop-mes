@@ -1,6 +1,7 @@
-# -*- coding:utf-8 -*-
-
+# -*- coding: utf-8 -*-
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from ionyweb.page.models import AbstractPageApp
 from coop_local.models import Area, AgreementIAE, Organization, Tag
 
 
@@ -19,3 +20,16 @@ class IFrame(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class PageApp_Iframe(AbstractPageApp):
+
+    # Define your fields here
+    bdis = models.BooleanField(u'Afficher la BDIS plutôt que la PASR')
+    right_content = models.TextField(u'Contenu de droite', blank=True)
+
+    def __unicode__(self):
+        return u'Iframe #%d' % (self.pk)
+
+    class Meta:
+        verbose_name = _(u"Iframe")

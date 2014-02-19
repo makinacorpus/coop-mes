@@ -8,6 +8,7 @@
     "editable": false,
     "templates": [
         {"title": "Standard", "file": "index.html", "preview": "index.png"},
-        {"title": "Home page", "file": "home.html", "preview": "home.png"}
+        {"title": "Home page", "file": "home.html", "preview": "home.png"},
+        {"title": "IFrame", "file": "iframe.html", "preview": "iframe.png"}
     ]
 }
