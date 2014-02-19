@@ -233,13 +233,14 @@ class OrganizationCreateView(CreateView):
     form_class = OrganizationForm1
     success_url = '/annuaire/p/modifier/1/'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, page_app, *args, **kwargs):
+        self.page_app = page_app
         if settings.REGION_SLUG == 'npdc' and request.method == 'GET' and request.META.get('HTTP_REFERER') != 'http://apes.sloli.fr/ls/index.php/survey/index':
             return HttpResponseRedirect('http://apes.sloli.fr/ls/index.php/survey/index/sid/28943/newtest/Y/lang/fr')
         if request.user.is_authenticated():
             return render_view('page_directory/should_logout.html',
                 {}, (), context_instance=RequestContext(request))
-        return super(OrganizationCreateView, self).dispatch(request, args, **kwargs)
+        return super(OrganizationCreateView, self).dispatch(request, page_app, *args, **kwargs)
 
     def get_initial(self):
         return {
@@ -250,8 +251,9 @@ class OrganizationCreateView(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(OrganizationCreateView, self).get_form_kwargs()
-        kwargs['propose'] = False
         kwargs['request'] = self.request
+        kwargs['bdis'] = self.page_app.bdis
+        kwargs['propose'] = False
         return kwargs
 
     def render_to_response(self, context, **response_kwargs):
@@ -318,13 +320,14 @@ class OrganizationChangeView(UpdateView):
     success_url  = '/mon-compte/'
     model = Organization
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, page_app, *args, **kwargs):
+        self.bdis = page_app.bdis
         try:
             self.step = int(kwargs['step'])
         except:
             self.step = 0
         self.propose = 'propose' in request.REQUEST
-        return super(OrganizationChangeView, self).dispatch(request, args, **kwargs)
+        return super(OrganizationChangeView, self).dispatch(request, page_app, *args, **kwargs)
 
     def get_form_class(self):
         return self.forms[self.step]
@@ -353,6 +356,7 @@ class OrganizationChangeView(UpdateView):
         kwargs['propose'] = self.propose
         if self.step == 0:
             kwargs['request'] = self.request
+            kwargs['bdis'] = self.bdis
         return kwargs
 
     def get_form(self, form_class):

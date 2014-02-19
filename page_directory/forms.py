@@ -81,8 +81,9 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         model = Organization
         fields = ('title', 'is_provider', 'is_customer')
 
-    def __init__(self, request, propose, *args, **kwargs):
+    def __init__(self, request, bdis, propose, *args, **kwargs):
         self.request = request
+        self.bdis = bdis
         super(OrganizationForm1, self).__init__(*args, **kwargs)
         if self.instance.pk:
             self.person = request.user.get_profile()
@@ -131,6 +132,9 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 HTML('<hr>'),
                 InlineRadios('charte', css_class="large-label")))
         self.fields['title'].help_text = u"<p>Nom complet de l’organisation ; ce nom ne doit pas être précédé de votre statut juridique.</p><p>Exemple : A votre service ou Acheteur durable et non pas Association A Votre Service ou SA Acheteur durable</p>"
+        if self.bdis:
+            del self.fields['is_provider']
+            del self.fields['is_customer']
 
     def clean_title(self):
         title = self.cleaned_data['title']
@@ -163,7 +167,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(OrganizationForm1, self).clean()
-        if not cleaned_data['is_provider'] and not cleaned_data['is_customer']:
+        if not self.bdis and not cleaned_data['is_provider'] and not cleaned_data['is_customer']:
             raise forms.ValidationError(u'Veuillez cocher une des cases Fournisseur ou Acheteur.')
 
         # Always return the full collection of cleaned data.
@@ -195,6 +199,11 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         organization = super(OrganizationForm1, self).save(commit=False)
         if create:
             organization.transmission = 1 # proposed on line
+            if self.bdis:
+                organization.is_bdis = True
+                organization.is_provider = True
+            else:
+                organization.is_pasr = True
         organization.save()
         if create:
             engagement = Engagement()
