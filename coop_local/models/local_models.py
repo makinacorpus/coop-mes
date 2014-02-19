@@ -535,6 +535,8 @@ class Organization(BaseOrganization):
         return self.callfortenders_set.order_by('deadline')
 
     def types(self):
+        if not self.is_pasr:
+            return u'Initiative'
         t = []
         if self.is_provider:
             t.append(u'Fournisseur')
