@@ -50,7 +50,11 @@
 {% if org.customer_activities %}
     <div class="fiche">
         <h5>Achats responsables recherchés</h5>
-        {{ org.customer_activities_links }}
+            {% if links %}
+                {{ org.customer_activities_links }}
+            {% else %}
+                {{ org.customer_activities }}
+            {% endif %}
     </div>
     <hr/>
 {% endif %}
