@@ -529,8 +529,11 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                 except IndexError:
                     sender = None
                 dests = Person.objects.filter(engagements__org_admin=True, engagements__organization=obj).values_list('email', flat=True)
-                send_mail(u'Validation de votre fiche sur la PASR',
-                    u'Bonjour,\n\nVotre fiche vient d\'être validée sur la PASR.',
+                plateforme = 'PASR' if obj.is_pasr else ''
+                plateforme += ' et la ' if obj.is_pasr and obj.is_bdis else ''
+                plateforme += 'BDIS' if obj.is_bdis else ''
+                send_mail(u'Validation de votre fiche sur la %s' % plateforme,
+                    u'Bonjour,\n\nVotre fiche vient d\'être validée sur la %s.' % plateforme,
                     sender, dests)
         super(OrganizationAdmin, self).save_model(request, obj, form, change)
 
