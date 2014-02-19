@@ -87,6 +87,7 @@
                             {% endif %}
                         </a>
                         {% endblock %}
+                        {% block search %}
 {% comment %}
                         <form class="search" method="GET" action="/recherche/">
                             <div class="input-group">
@@ -97,6 +98,7 @@
                             </div><!-- /input-group -->
                         </form>
 {% endcomment %}
+                        {% endblock search %}
                     </div>
                 </div>
             </div>

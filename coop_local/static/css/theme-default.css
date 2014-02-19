@@ -2866,3 +2866,9 @@ ul.as-list li {
 .tooltip-inner {
   text-align: left;
 }
+/* perimetre iframe */
+#layout-perimetre {
+  display: inline-block;
+  width: 300px;
+  margin-top: 10px;
+}

@@ -1,4 +1,5 @@
 {% extends "bdis_base_index.html" %}
+{% load ionyweb_tags %}
 
 
 {% block moncompte %}
@@ -18,6 +19,11 @@
         </ul>
     </nav>
 {% endblock %}
+
+
+{% block search %}
+    {% render_layout "perimetre" %}
+{% endblock search %}
 
 
 {% block navigation %}

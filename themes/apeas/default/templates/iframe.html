@@ -1,4 +1,5 @@
 {% extends "base_index.html" %}
+{% load ionyweb_tags %}
 
 
 {% block moncompte %}
@@ -21,7 +22,9 @@
 
 
 {% block search %}
+    {% render_layout "perimetre" %}
 {% endblock search %}
+
 
 {% block navigation %}
 {% endblock navigation %}
