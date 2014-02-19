@@ -1,0 +1,68 @@
+{% load thumbnail staticfiles leaflet_tags l10n %}
+
+<link rel="stylesheet" type="text/css" media="screen" href="/static/leaflet/leaflet.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/leaflet/MarkerCluster.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/leaflet/MarkerCluster.Default.css" />
+<script type="text/javascript" src="/static/leaflet/leaflet-src.js"></script>
+<script type="text/javascript" src="/static/leaflet/leaflet.extras.js"></script>
+<script type="text/javascript" src="/static/leaflet/leaflet.markercluster.js"></script>
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {% include "page_directory/search.html" with other="Annuaire" %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="content-box">
+
+                    {% leaflet_map "orgsmap" %}
+
+                    {% localize off %}
+                    <script type="text/javascript">
+
+                    function orgsmapInit(map, bounds) {
+
+                        // Zoom/Center
+                        var southWest = new L.LatLng({{ bounds.1 }}, {{ bounds.0 }});
+                        var northEast = new L.LatLng({{ bounds.3 }}, {{ bounds.2 }});
+                        var bounds = new L.LatLngBounds(southWest, northEast);
+                        map.fitBounds(bounds);
+
+                        // Add markers
+                        var markers = new L.MarkerClusterGroup();
+
+                        {% for o in orgs %}
+                            {% if o.located %}
+                                {% for l in o.located.all %}
+                                    {% if l.location.point %}
+                                        markers.addLayer(new L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}])
+                                                .bindPopup('<div class="leaflet-popup__title">{{ o.title|escapejs }}</div><div class="leaflet-popup__desc">{{ l.location.zipcode|escapejs }} {{ l.location.city|escapejs }}<br/>{{ o.offer_activities|escapejs }}<br/><br/>{{ o.brief_description|linebreaksbr|escapejs }}<p class="link"><a href=\"/iframe/p/{{ iframe.pk}}/{{ o.pk }}/\">Fiche complète</a></p></div>'));
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+
+                        map.addLayer(markers);
+
+                        {% if area %}
+                            L.geoJson({{ area.geoJson|safe }}).addTo(map);
+                        {% endif %}
+                    }
+
+                    </script>
+                    {% endlocalize %}
+
+                </div>
+            </div>
+            <div class="col-lg-3 sidebar sidebar--right">
+                <div class="content-box">
+                    {{ object.right_content|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
