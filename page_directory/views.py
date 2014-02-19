@@ -258,7 +258,7 @@ class OrganizationCreateView(CreateView):
         assert response_kwargs == {}
         context['titles'] = NOT_PROVIDER_TITLES
         try:
-            context['charte'] = Page.objects.get(title='Charte').app.text
+            context['charte'] = Page.objects.get(title='Charte', website=self.request.website).app.text
         except Page.DoesNotExist:
             context['charte'] = u'<p>La page « Charte » n\'existe pas.</p>'
         return render_view(self.get_template_names(),
