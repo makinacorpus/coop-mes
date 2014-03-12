@@ -71,9 +71,6 @@ django-appconf
 # git+git://github.com/bennomadic/django-webid-provider.git
 # git+git://github.com/bennomadic/django-conneg.git
 
-# central logging
-raven
-
 # dev debug tools
 django-debug-toolbar==0.9.4
 FirePython

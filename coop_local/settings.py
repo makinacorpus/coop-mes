@@ -32,7 +32,6 @@ except ImportError, exp:
 try:
     DEBUG_SETTINGS = {  'apps': INSTALLED_APPS,
                         'middleware': MIDDLEWARE_CLASSES,
-                        'logging': LOGGING
                         }
     from coop.debug_settings import *
 except ImportError, exp:
