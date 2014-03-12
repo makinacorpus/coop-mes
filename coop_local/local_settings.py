@@ -40,6 +40,7 @@ MANAGERS = ADMINS
 SEND_BROKEN_LINK_EMAILS = True
 IGNORABLE_404_URLS = (
     re.compile(r'^/wp-login.php$'),
+    re.compile(r'^/selectable$'),
 )
 INTERNAL_IPS = ('127.0.0.1', '10.0.3.1')
 
