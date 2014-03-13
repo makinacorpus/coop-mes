@@ -11,7 +11,7 @@
             </div>
 {% endif %}
             <div class="item">
-                <h3>Type de fournisseur</h3>
+                <h3>Type {% if object.bdis %}d'initiative{% else %}de fournisseur{% endif %}</h3>
                 <div class="dropdown">
                     {{ form.prov_type }}
                 </div>

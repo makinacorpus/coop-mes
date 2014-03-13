@@ -6,10 +6,10 @@
             {% render_layout "partenaires" %}
             <footer class="main-footer">
                 <ul class="nav nav-pills">
-                    <li><a href="/plan-du-site/">Plan du site</a></li>
-                    <li><a href="/mentions-legales/">Mentions légales</a></li>
-                    <li><a href="/charte/">Charte</a></li>
-                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/plan-du-site/"{% if blank %} target="_blank"{% endif %}>Plan du site</a></li>
+                    <li><a href="/mentions-legales/"{% if blank %} target="_blank"{% endif %}>Mentions légales</a></li>
+                    <li><a href="/charte/"{% if blank %} target="_blank"{% endif %}>Charte</a></li>
+                    <li><a href="/contact/"{% if blank %} target="_blank"{% endif %}>Contact</a></li>
                 </ul>
             </footer>
         </div>

@@ -63,7 +63,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
-                        {% render_layout "logo" %}
+                        <p><a href="{% block home_url %}/{% endblock %}"><img src="{% static "img/logo-"|add:region_slug|add:".png" %}"></a></p>
                     </div>
                     <div class="col-lg-7">
                         {% block toplinks %}

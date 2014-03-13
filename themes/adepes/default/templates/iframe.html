@@ -1,6 +1,9 @@
 {% extends "base_index.html" %}
 
 
+{% block home_url %}{{ home_url }}{% endblock %}
+
+
 {% block moncompte %}
     <a class="login btn iconf-user" href="/mon-compte/" target="_blank">
         <b class="uppercase">Votre compte</b><br/>
@@ -17,6 +20,11 @@
             <li><a href="/espace-presse/" target="_blank">Espace Presse</a></li>
         </ul>
     </nav>
+{% endblock %}
+
+
+{% block footer %}
+    {% include "footer.html" with blank=1 %}
 {% endblock %}
 
 
