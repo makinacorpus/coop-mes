@@ -51,7 +51,8 @@ def list_view(request, page_app, pk):
     http_headers = {'X-Frame-Options': 'ALLOW-FROM %s' % iframe.domain}
     return render_view('page_iframe/list.html', context, MEDIAS,
                        context_instance=RequestContext(request),
-                       http_headers=http_headers)
+                       http_headers=http_headers,
+                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk})
 
 
 def detail_view(request, page_app, pk, org_pk):
@@ -64,7 +65,8 @@ def detail_view(request, page_app, pk, org_pk):
     http_headers = {'X-Frame-Options': 'ALLOW-FROM %s' % iframe.domain}
     return render_view('page_iframe/detail.html', context, MEDIAS,
                        context_instance=RequestContext(request),
-                       http_headers=http_headers)
+                       http_headers=http_headers,
+                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk})
 
 
 def carto_view(request, page_app, pk):
@@ -79,7 +81,8 @@ def carto_view(request, page_app, pk):
     http_headers = {'X-Frame-Options': 'ALLOW-FROM %s' % iframe.domain}
     return render_view('page_iframe/carto.html', context, MEDIAS,
                        context_instance=RequestContext(request),
-                       http_headers=http_headers)
+                       http_headers=http_headers,
+                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk})
 
 
 def index_view(request, page_app):

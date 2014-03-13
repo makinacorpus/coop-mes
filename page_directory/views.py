@@ -29,7 +29,7 @@ from datetime import date
 from django.forms.models import model_to_dict
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 from django.contrib.contenttypes.models import ContentType
-from  django.utils.encoding import force_unicode
+from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 from django.utils.text import get_text_list
 from django.contrib.gis.measure import Distance
@@ -157,6 +157,8 @@ def index_view(request, page_app):
     context = get_index_context(request, page_app.networks, page_app.bdis)
     paginate(request, context)
     context['object'] = page_app
+    if page_app.bdis:
+        context['iframe'] = Page.objects.get(slug='iframe', website=request.website).app
     return render_view('page_directory/index.html',
                        context,
                        (CSSMedia('selectable/css/dj.selectable.css', prefix_file=''),
@@ -173,9 +175,13 @@ def detail_view(request, page_app, pk):
                            (), context_instance=RequestContext(request))
     calls = org.callfortenders_set.filter(deadline__gte=now()).order_by('deadline')
     get_params = request.GET.copy()
+    if page_app.bdis and PageApp_Iframe.objects.exists():
+        iframe = Page.objects.get(slug='iframe', website=request.website).app
+    else:
+        iframe = None
     return render_view('page_directory/detail.html',
                        {'object': page_app, 'org': org, 'calls': calls,
-                        'get_params': get_params.urlencode()},
+                        'get_params': get_params.urlencode(), 'iframe': iframe},
                        (),
                        context_instance=RequestContext(request))
 

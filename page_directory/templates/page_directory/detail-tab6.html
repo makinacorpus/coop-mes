@@ -34,15 +34,15 @@
     {% endif %}
     {% if org.engagement_set.all %}
         <div class="col-lg-6 contact-details">
-            <h5>Interlocuteur</h5>
-            <ul>
-                {% with org.engagement_set.all.0 as e %}
-                    <li class="name"><span class="name__name">{{ e.person.last_name }}</span> <span class="name__surname">{{ e.person.first_name }}</span></li>
-                    <li class="function">{{ e.role|default:"" }}</li>
-                    {% if e.email %}<li class="mail">Courriel&nbsp;: <a href="mailto:{{ e.email }}">{{ e.email }}</a></li>{% endif %}
-                    {% if e.tel %}<li class="">Tél.&nbsp;: {{ e.tel }}</li>{% endif %}
-                {% endwith %}
-            </ul>
+            <h5>Interlocuteur{{ org.engagement_set.all|length|pluralize }}</h5>
+            {% for e in org.engagement_set.all %}
+                <p>
+                    {{ e.person.get_gender_display }} {{ e.person.first_name }} {{ e.person.last_name }}
+                    {% if e.role %}<br />{{ e.role }}{% endif %}
+                    {% if e.email %}<br/>Courriel&nbsp;: <a href="mailto:{{ e.email  }}">{{ e.email }}</a>{% endif %}
+                    {% if e.tel %}<br/>Tél.&nbsp;: {{ e.tel }}{% endif %}
+                </p>
+            {% endfor %}
         </div>
     {% endif %}
 </div>

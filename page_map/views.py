@@ -120,6 +120,8 @@ def index_view(request, page_app):
         return HttpResponseRedirect('../annuaire/?' + request.GET.urlencode())
     context = get_index_context(request, bdis=page_app.bdis)
     context['object'] = page_app
+    if page_app.bdis:
+        context['iframe'] = Page.objects.get(slug='iframe', website=request.website).app
     return render_view('page_map/index.html',
                        context,
                        MEDIAS,

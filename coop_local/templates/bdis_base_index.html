@@ -63,7 +63,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
-                        {% render_layout "logo" %}
+                        <p><a href="{% block home_url %}/{% endblock %}"><img src="{% static "img/logo-"|add:region_slug|add:".png" %}"></a></p>
                     </div>
                     <div class="col-lg-7">
                         {% block toplinks %}
@@ -88,16 +88,7 @@
                         </a>
                         {% endblock %}
                         {% block search %}
-{% comment %}
-                        <form class="search" method="GET" action="/recherche/">
-                            <div class="input-group">
-                              <span class="input-group-btn">
-                                <button class="btn" type="submit">Rechercher</button>
-                              </span>
-                              <input type="search" class="form-control" name="q">
-                            </div><!-- /input-group -->
-                        </form>
-{% endcomment %}
+                            {% render_layout "perimetre" %}
                         {% endblock search %}
                     </div>
                 </div>
