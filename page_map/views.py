@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q
 from django.contrib.gis.geos import Point, MultiPoint
+from ionyweb.page.models import Page
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia #, JSAdminMedia
 MEDIAS = (
