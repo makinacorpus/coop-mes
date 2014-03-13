@@ -250,13 +250,15 @@ class OrganizationForm2(OrganizationMixin, forms.ModelForm):
             if self.instance.is_provider:
                 self.fields['birth'].required = True
                 self.fields['legal_status'].required = True
-            self.fields['siret'].required = True
+            if self.instance.is_pasr:
+                self.fields['siret'].required = True
             self.fields['customer_type'].required = True
         else:
             if self.instance.is_provider:
                 self.fields['birth'].label += '*'
                 self.fields['legal_status'].label += '*'
-            self.fields['siret'].label += '*'
+            if self.instance.is_pasr:
+                self.fields['siret'].label += '*'
             self.fields['customer_type'].label += '*'
         if not self.instance.is_customer:
             del self.fields['customer_type']

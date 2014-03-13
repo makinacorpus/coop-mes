@@ -175,7 +175,7 @@ def detail_view(request, page_app, pk):
                            (), context_instance=RequestContext(request))
     calls = org.callfortenders_set.filter(deadline__gte=now()).order_by('deadline')
     get_params = request.GET.copy()
-    if page_app.bdis and PageApp_Iframe.objects.exists():
+    if page_app.bdis:
         iframe = Page.objects.get(slug='iframe', website=request.website).app
     else:
         iframe = None
@@ -290,7 +290,7 @@ add_view = OrganizationCreateView.as_view()
 
 
 def propose_url(org, default_url):
-    if org.is_provider and (not org.birth or not org.legal_status or not org.siret):
+    if org.is_provider and (not org.birth or not org.legal_status or (org.is_pasr and not org.siret)):
         return '/annuaire/p/modifier/1/?propose'
     if org.is_customer and not org.customer_type:
         return '/annuaire/p/modifier/1/?propose'
