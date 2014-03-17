@@ -15,6 +15,10 @@ if [ -z "$DOMAIN" ]; then
     echo "ERROR: DOMAIN is not defined"
     exit 1
 fi
+if [ -z "$BDIS_DOMAIN" ]; then
+    echo "ERROR: BDIS_DOMAIN is not defined"
+    exit 1
+fi
 if [ -z "$1" ]; then
     echo "ERROR: No dump file provided"
     exit 1
@@ -32,3 +36,5 @@ gzip -cd $1 \
 
 $PSQL -c "UPDATE django_site SET name='localhost', domain='$DOMAIN' WHERE id=1;"
 $PSQL -c "UPDATE multisite_alias SET domain='$DOMAIN' WHERE id=1;"
+$PSQL -c "UPDATE django_site SET name='localhost', domain='$BDIS_DOMAIN' WHERE id=2;"
+$PSQL -c "UPDATE multisite_alias SET domain='$BDIS_DOMAIN' WHERE site_id=2;"
