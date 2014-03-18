@@ -12,51 +12,23 @@ from django.contrib.gis.geos import Point
 from coop_tag.settings import get_class
 from coop_geo.models import LocationCategory
 from coop.org.models import COMM_MEANS
+from django.db.utils import IntegrityError
+from unidecode import unidecode
+from django.db.models import Max
 
 from coop_local.models import (Organization, LegalStatus, CategoryIAE, OrganizationCategory,
-    Contact, Location, ContactMedium, Located)
-
-# The purpose of this script is to import human-made data (csv file) for MES providers
-# Columns are :
-# 0 - Identifiant BDIS
-# 1 - Raison sociale
-# 2 - Sigle
-# 3 - Date de création
-# 4 - Statut juridique
-# 5 - Type de structure ESS 
-# 6 - Type de structure IAE
-# 7 - Site web
-# 8 - N° SIRET
-# 9 - Chiffre d'affaires annuel
-# 10 - 
-# 11 - Description succincte
-# 12 - Présentation générale
-# 13 - Effectif total (ETP)
-# 14 - Effectif de production (ETP)
-# 15 - Effectif d’encadrement (ETP)
-# 16 - Nombre de salariés en insertion (ETP)
-# 17 - Nombre de personnes en insertion accompagnées par an 
-# 18 - "mot-clés Thèmes candidats"
-# 19 - libellé de l'adresse
-# 20 - Adresse 1
-# 21 - Adresse 2
-# 22 - Code postal
-# 23 - Ville
-# 24 - Jours d’ouverture
-# 25 - longitude
-# 26 - latitude 
-# 27 - Email de la structure
-# 28 - Teléphone
-# 29 - Fax
-# 30 - Mobile
+    Contact, Location, ContactMedium, Located, TransverseTheme, ActivityNomenclature, Offer)
 
 current_time = datetime.datetime.now()
 logging.basicConfig(filename='%(date)s_structure_migration.log' % {'date': current_time.strftime("%Y-%m-%d")},
-                    level=logging.DEBUG,
+                    level=logging.WARNING,
                     format='%(asctime)s %(levelname)s - %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S',)
 
 Tag = get_class('tag')
+
+def normalize_text(text):
+    return re.sub(r'\s+', ' ', unidecode(text).lower().strip())
 
 class Command(BaseCommand):
     args = '<import_file>'
@@ -68,98 +40,153 @@ class Command(BaseCommand):
 
             errors_array = []
             dest_file = csv.DictReader(open(import_file, 'rb'), delimiter=',', quotechar='"')
+            #print 'HEADER:'
+            #for f in dest_file.fieldnames:
+                #print f.decode('utf8')
 
-            for row in dest_file:
-                
-                title = row['Raison sociale']
+            last_id = Organization.objects.aggregate(id=Max('id'))['id']
 
-                (provider, created) = Organization.objects.get_or_create(title=title);
-                provider.is_provider = True
-                        
+            for i, row in enumerate(dest_file):
+
+                print 'Line %u' % (i + 2)
+                logging.debug('Line %u' % (i + 2))
+
+                row = dict([(k.decode('utf8'), v.decode('utf8')) for k, v in row.iteritems()])
+
+                title = row[u'Nom']
+                bdis_id = int(row[u'Numéro BDIS']) if row[u'Numéro BDIS'] else None
+
+                if bdis_id and Organization.objects.filter(bdis_id=bdis_id).exists():
+                    msg = u"Une organisation avec l'identifiant BDIS %(bdis_id)s existe déjà dans la base. Elle n'a pas été mise à jour à part cocher les cases Fournisseur et BDIS." \
+                                        % {'bdis_id': bdis_id}
+                    logging.warn(msg)
+                    provider = Organization.objects.get(bdis_id=bdis_id)
+                    provider.is_provider = True
+                    provider.is_bdis = True
+                    provider.save()
+                    continue
+
+                if Organization.objects.filter(norm_title=normalize_text(title)).exists():
+                    provider = Organization.objects.get(norm_title=normalize_text(title))
+                    if provider.id > last_id:
+                        logging.error(u"L'organisation %s est en doublon dans le fichier." % title)
+                    else:
+                        logging.error(u"L'organisation %s existe déjà dans la base (%u, %s). Elle n'a pas été mise à jour à part cocher les cases Fournisseur et BDIS." % (title, provider.id, provider.title))
+                        provider.is_provider = True
+                        provider.is_bdis = True
+                        provider.id_bdis = bdis_id
+                        provider.save()
+                    continue
+
+                provider = Organization(title=title,
+                                        is_provider=True,
+                                        is_bdis=True,
+                                        bdis_id=bdis_id)
+                provider.save()
+
                 # First import fields (initial november import)
                 
-                _set_attr_if_empty(provider, 'acronym', row['Sigle'])
-                _set_attr_if_empty(provider, 'description', row['Présentation générale'])
+                _set_attr_if_empty(provider, 'acronym', row[u'Sigle'])
+                _set_attr_if_empty(provider, 'description', row[u'Présentation libre de la structure'])
+                _set_attr_if_empty(provider, 'added_value', row[u'plue value sociale'])
                 
                 # csv date is JJ/MM/YYYY, but django model needs YYYY-MM-DD
-                birth_date = row['Date de création']
-                if _is_valid(birth_date):
-                    tme_struct = time.strptime(birth_date, '%d/%m/%Y')
-                    _set_attr_if_empty(provider, 'birth', datetime.datetime(*tme_struct[0:3]))
-                    
-                _set_attr_if_empty(provider, 'web', row['Site web'])
-                siret = row['N° SIRET'].replace(' ', '')
-                _set_attr_if_empty(provider, 'siret', siret)
-                legal_status = row['Statut juridique']
-                try:
-                    obj = LegalStatus.objects.get(label=legal_status)
-                    _set_attr_if_empty(provider, 'legal_status', obj)
-                except LegalStatus.DoesNotExist:
-                    logging.warn("Unknown Status : >" + legal_status + "<")
-
+                provider.birth = _clean_date(row[u'Date de création'], u'de création', title)
                 
-                category_iae = row['Type de structure IAE']
-                try:
-                    obj = CategoryIAE.objects.get(label=category_iae)
-                    _set_attr_m2m(provider, 'category_iae', obj)
-                except CategoryIAE.DoesNotExist:
-                    logging.warn("Unknown IAE Category : >" + category_iae + "<")
+                _set_attr_if_empty(provider, 'web', row[u'Site'])
+                siret = row[u'Siret'].replace(' ', '')
+                #_set_attr_if_empty(provider, 'siret', siret)
+                legal_status = row[u'Statut juridique']
+                if legal_status and legal_status != 'Autre':
+                    try:
+                        obj = LegalStatus.objects.get(label=legal_status)
+                        _set_attr_if_empty(provider, 'legal_status', obj)
+                    except LegalStatus.DoesNotExist:
+                        logging.warn(u"Statut juridique %s inconnu pour %s. Il a été ignoré" % (legal_status, title))
                 
-                _set_attr_if_empty(provider, 'brief_description', row['Description succincte'])
-                _set_attr_if_empty(provider, 'annual_revenue', _clean_int(row["Chiffre d'affaires annuel"]))
-                _set_attr_if_empty(provider, 'workforce', _clean_int(row['Effectif total (ETP)']))
-                _set_attr_if_empty(provider, 'production_workforce', _clean_int(row['Effectif de production (ETP)']))
-                _set_attr_if_empty(provider, 'supervision_workforce', _clean_int(row['Effectif d’encadrement (ETP)']))
-                _set_attr_if_empty(provider, 'integration_workforce', _clean_int(row['Nombre de salariés en insertion (ETP)']))
-                _set_attr_if_empty(provider, 'annual_integration_number', _clean_int(row['Nombre de personnes en insertion accompagnées par an']))
+                category_iae = row[u'Spécificités']
+                if category_iae:
+                    try:
+                        obj = CategoryIAE.objects.get(label=category_iae)
+                        _set_attr_m2m(provider, 'category_iae', obj)
+                    except CategoryIAE.DoesNotExist:
+                        logging.warn("Unknown IAE Category : >" + category_iae + "<")
+                
+                _set_attr_if_empty(provider, 'brief_description', row[u'Description simple'])
+                _set_attr_if_empty(provider, 'annual_revenue', _clean_int(row["Budget"]))
+                _set_attr_if_empty(provider, 'workforce', _clean_int(row[u'Nombre de salariés (ETP)']))
+                #_set_attr_if_empty(provider, 'production_workforce', _clean_int(row[u'Effectif de production (ETP)']))
+                #_set_attr_if_empty(provider, 'supervision_workforce', _clean_int(row[u'Effectif d’encadrement (ETP)']))
+                #_set_attr_if_empty(provider, 'integration_workforce', _clean_int(row[u'Nombre de salariés en insertion (ETP)']))
+                #_set_attr_if_empty(provider, 'annual_integration_number', _clean_int(row[u'Nombre de personnes en insertion accompagnées par an']))
 
                 # Second Import fields (january import)
-                
-                # New Fields
-                try:
-                    bdis_id = row['Identifiant BDIS']
-                    _set_attr_if_empty(provider, 'bdis_id', int(bdis_id))
-                except Exception:
-                    msg = "Unknown BDIS ID >%(bdis_id)s< for %(name)s" \
-                                        % {'bdis_id': bdis_id, 'name': title}
-                    logging.warn(msg)           
 
                 # Old Fields
-                _set_attr_if_empty(provider, 'acronym', row['Sigle'])
+                _set_attr_if_empty(provider, 'acronym', row[u'Sigle'])
                 
-                ess_structures = row['Type de structure ESS']
+                ess_structures = row[u'type ess']
                 if _is_valid(ess_structures):
                     ess_structures_list = ess_structures.split(";")
                     for ess_structure in ess_structures_list:
+                        if "paca" in import_file:
+                            ess_structure = ess_structure.replace(u"coopérative d’activité et d’emploi", u"Coopérative d’activité et d’emploi et d'entrepren-e-u-r-s")
+                        ess_structure = ess_structure.replace(u"foyer de jeunes travaileurs", u"Foyer de jeunes travailleurs")
                         try:
-                            obj = OrganizationCategory.objects.get(slug=slugify(ess_structure))
+                            obj = OrganizationCategory.objects.get(label__iexact=ess_structure)
                             provider.category.add(obj)
                         except Exception as e:
-                            msg = "Unknown CategoryESS >%(ess_structure)s< for %(name)s" \
+                            msg = u"Categorie ESS %(ess_structure)s inconnue pour %(name)s. Elle a été ignorée." \
                                                 % {'ess_structure': ess_structure, 'name': title}
                             logging.warn(msg)
                 
-                _set_attr_if_empty(provider, 'web', row['Site web'])
-                _set_attr_if_empty(provider, 'description', row['Présentation générale'])
+                keywords = row[u'mots clés']
+                if _is_valid(keywords):
+                    keywords = keywords.replace(u"Développement économique local Dialogue social territorial Economie sociale et solidaire Economie et emploi, Entreprises Mobilité", u"Développement économique local;Dialogue social territorial;Economie sociale et solidaire;Economie et emploi;Entreprises;Mobilité")
+                    keywords = keywords.replace(',', ';')
+                    tags_list = keywords.split(";")
+                    for tag in tags_list:
+                        slugified_tag = slugify(tag)
+                        logging.debug('Get or create tag %s...' % tag)
+                        (obj, created) = Tag.objects.get_or_create(name=tag)
+                        provider.tags.add(obj)
+                
+                themes = row[u'Thématiques']
+                if _is_valid(themes):
+                    themes_list = themes.replace(u':', u';').split(";")
+                    for theme in themes_list:
+                        if theme == '' or theme == 'ep*':
+                            continue
+                        theme = theme.replace(u'’', u'\'').strip()
+                        theme = theme.replace(u"Circuits courts", u"Circuit court")
+                        theme = theme.replace(u"éparhne et financement solidaire", u"épargne et financement solidaire")
+                        theme = theme.replace(u"internet et logiciels libres", u"internet solidaire et logiciels libres")
+                        theme = theme.replace(u"préservattion", u"préservation")
+                        theme = theme.replace(u"protection de l'environnement", u"préservation de l'environnement")
+                        try:
+                            obj = TransverseTheme.objects.get(name__iexact=theme)
+                        except TransverseTheme.DoesNotExist:
+                            logging.warning(u"Thème %s non trouvé pour %s" % (theme, provider))
+                            continue
+                        provider.transverse_themes.add(obj)
 
-                #keywords = row['mot-clés Thèmes candidats']
-                #if _is_valid(keywords):
-                    #tags_list = keywords.split(";")
-                    #for tag in tags_list:
-                        #slugified_tag = slugify(tag)
-                        #(obj, created) = Tag.objects.get_or_create(name=tag)
-                        #provider.tags.add(obj)
-
-                address_label = row["libellé de l'adresse"]
-                address_1 = row["Adresse 1"]
-                address_2 = row["Adresse 2"]
-                zip_code = _clean_int(row["Code postal"])
+                address_label = ""
+                if ';' in row["Adresse"]:
+                    address_1, address_2 = row["Adresse"].split(';', 1)
+                else:
+                    address_1 = row["Adresse"]
+                    address_2 = ""
+                zip_code = row["Code postal"].replace(' ', '').strip()
+                if len(zip_code) > 5:
+                    logging.warning('Code postal avec plus de 5 chiffres %s' % provider.title)
+                    zip_code = ''
                 city = row["Ville"]
 
                 if not _is_valid(address_label):
                     address_label = address_1
-                
+
                 try:
+                    logging.debug('Get or create location %s...' % address_label)
                     (location, created) = Location.objects.get_or_create(label=address_label,
                                                    adr1=address_1,
                                                    adr2=address_2,
@@ -177,47 +204,86 @@ class Command(BaseCommand):
                     latitude = float(row["latitude"])
                     point = Point(latitude, longitude)
                     _set_attr_if_empty(location, 'point', point)
+                    logging.debug('Save location %s...' % location)
                     location.save()
                 except Exception as e:
-                    msg = "Error with lat/long >%(latitude)s/%(longitude)s<" \
-                                            % {'latitude': latitude, 'longitude': longitude}
+                    msg = u"Pas de géolocalisation pour %s" % title
                     logging.warn(msg)
 
                 location_category = LocationCategory.objects.get(slug="siege-social")
                 try:
                     located = Located.objects.get(location=location)
                     _set_attr_if_empty(located, 'category', location_category)
+                    located.opening = row[u'Jours d’ouverture']
+                    logging.debug('Save located %s...' % located)
                     located.save()
                 except Located.DoesNotExist:
                     located = Located(content_object=provider,
                                       location=location,
                                       main_location=True,
-                                      category=location_category)
+                                      category=location_category,
+                                      opening=row[u'Jours d’ouverture'])
+                    logging.debug('Save located %s...' % located)
                     located.save()
-		except Located.MultipleObjectReturned:
+		except Located.MultipleObjectsReturned:
 		    located = Located.objects.filter(location=location)[0]
 		    msg = "Location %s is not unique" % location.label
-		    logging.warn(msg)	
+		    logging.debug(msg)
                 finally:    
                     _set_attr_if_empty(provider, 'located', located)
                     _set_attr_if_empty(provider, 'pref_address', location)
 
-                email = row['Email de la structure']
+                email = row[u'Courriel']
                 if _is_valid(email):
                     _save_contact(provider, email, COMM_MEANS.MAIL, False, True, 'pref_email')
 
-                cell_number = row['Teléphone']
+                cell_number = row[u'Téléphone']
                 if _is_valid(cell_number):
                     _save_contact(provider, cell_number, COMM_MEANS.LAND, True, True, 'pref_phone')
 
-                fax_number = row['Fax']
+                fax_number = row[u'Fax']
                 if _is_valid(fax_number):
                     _save_contact(provider, fax_number, COMM_MEANS.FAX, True)
 
-                mobile_number = row['Mobile']
+                mobile_number = row[u'Mobile']
                 if _is_valid(mobile_number):
                     _save_contact(provider, mobile_number, COMM_MEANS.GSM, True)
 
+                for i in row[u'activités économiques (voir onglet activités)'].split(';'):
+                    if not _is_valid(i):
+                        continue
+                    activities = ActivityNomenclature.objects.filter(label__iexact=ACTIVITIES[i]).order_by('-level')
+                    if len(activities) == 0:
+                        logging.warning(u"Secteur d'activité %s inconnu pour %s. Il a été ignoré." % (ACTIVITIES[i], provider))
+                        continue
+                    activity = activities[0]
+                    logging.debug('Get or create offer %s...' % activity.label)
+                    offer, created = Offer.objects.get_or_create(
+                        provider=provider, description=activity.label)
+                        #targets= ???
+                        #area= ???)
+                    if created:
+                        offer.activity.add(activity)
+
+                provider.status = row[u'Code Statut de la fiche'][:1]
+
+                mode = row[u'Mode de transmission']
+                if mode == u'':
+                    provider.transmission = 3
+                elif mode == u'Saisie sur le site':
+                    provider.transmission = 1
+                elif mode == u'Administration':
+                    provider.transmission = 2
+                elif mode == u'Import':
+                    provider.transmission = 3
+                else:
+                    logging.warning(u"Mode de transmission %s inconnu pour %s" % (mode, provider))
+
+                provider.transmission_date = _clean_date(row[u'Date transmission'], u'de transmission', title)
+
+                provider.correspondence = row[u'Correspondance BDis / Structure']
+
+                logging.debug('Save provider %s...' % provider)
                 provider.save()
 
 
@@ -233,6 +299,7 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
         # so we try get, and create it manually if does not exists
         medium = ContactMedium.objects.get(id=category)
         contact = Contact(content_object=provider, category=category, contact_medium=medium, content=data)
+        logging.debug('Save contact %s...' % contact)
         contact.save()
     else:
         if (contacts.count() > 1):
@@ -240,6 +307,7 @@ def _save_contact(provider, data, category, is_tel_number, set_provider_field=Fa
                         % {'data': data, 'category': category})
         contact = contacts[0]
         contact.content_object = provider
+        logging.debug('Save contact %s...' % contact)
         contact.save()
 
     if set_provider_field:
@@ -285,7 +353,25 @@ def _clean_tel(data):
 def _clean_int(data):
     
     if _is_valid(data):
-        return int(data.replace(' ', ''))
+        if '.' in data:
+            data = data.split('.')[0]
+        return int(data.replace(' ', '').replace(u' ', '').replace(u'?', ''))
+
+def _clean_date(data, field, title):
+
+    if data == '-':
+        return None
+    elif _is_valid(data):
+        try:
+            tme_struct = time.strptime(data, '%d/%m/%Y')
+        except ValueError:
+            try: 
+                tme_struct = time.strptime(data, '%d/%m/%y')
+            except ValueError:
+                logging.warning("Format de la date %s incorrect pour %s" % (field, title));
+                return None
+        return datetime.datetime(*tme_struct[0:3])
+    return None
 
 
 def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
@@ -299,3 +385,137 @@ def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
 def utf_8_encoder(unicode_csv_data):
     for line in unicode_csv_data:
         yield line.encode('utf-8')
+
+ACTIVITIES = {
+    u'AGR.c.01': u'maraîchage',
+    u'AGR.c.02': u'Elevage',
+    u'AGR.c.03': u'autres activités liées à l\'agriculture',
+    u'AGR.c.04': u'autres activités liées à l\'agriculture',
+    u'AGR.c.05': u'production des grandes cultures',
+    u'AGR.c.06': u'production des grandes cultures',
+    u'AGR.c.08': u'espaces verts',
+    u'AGR.c.09': u'sylviculture',
+    u'AGR.c.10': u'jardins',
+    u'AGR.c.11': u'soutien à l’agriculture',
+    u'AGR.c.12': u'autres activités liées à l\'agriculture',
+    u'ARG.c.07': u'sylviculture',
+    u'ART.c.01': u'bijoux artisanaux',
+    u'ART.c.02': u'autres activités liées à habillement, textiles, artisanat',
+    u'ART.c.03': u'travail du bois',
+    u'ART.c.04': u'autres activités liées à habillement, textiles, artisanat',
+    u'AUT.c.01': u'Cosmétiques',
+    u'AUT.c.02': u'produits d\'entretien',
+    u'AUT.c.03': u'autres activités liées à santé, social, emploi',
+    u'AUT.c.04': u'autres activités liées à santé, social, emploi',
+    u'AUT.c.05': u'autres activités liées à l’industrie',
+    u'AUT.c.06': u'autres activités liées à l’industrie',
+    u'AUT.c.07': u'autres activités liées à l’industrie',
+    u'BAT.c.01': u'démolition',
+    u'BAT.c.02': u'maçonnerie, construction',
+    u'BAT.c.03': u'travaux de voirie et d’assainissement',
+    u'BAT.c.04': u'entretien et restauration du patrimoine bâti',
+    u'BAT.c.05': u'peinture et revêtement',
+    u'BAT.c.06': u'maçonnerie, construction',
+    u'BAT.c.07': u'menuiserie, charpentes',
+    u'BAT.c.08': u'peinture et revêtement',
+    u'BAT.c.09': u'plomberie',
+    u'BAT.c.10': u'architecture et dessin industriel',
+    u'BAT.c.11': u'autres activités de construction',
+    u'BNQ.c.01': u'Assurances',
+    u'BNQ.c.02': u'financement',
+    u'BNQ.c.03': u'autres activités liées à Finances et banque',
+    u'CLT.c.01': u'évènements et spectacles',
+    u'CLT.c.02': u'Théâtre;danse',
+    u'CLT.c.03': u'cinéma',
+    u'CLT.c.04': u'Musique',
+    u'CLT.c.05': u'Dessin;Peinture;Sculpture',
+    u'CLT.c.06': u'littérature',
+    u'CLT.c.07': u'Arts plastiques',
+    u'CLT.c.08': u'patrimoine, musées',
+    u'CLT.c.09': u'patrimoine, musées',
+    u'CLT.c.10': u'autres activités liées à culture, art…',
+    u'COM.c.01': u'édition',
+    u'COM.c.02': u'journalisme, rédaction',
+    u'COM.c.03': u'multimédia, web',
+    u'COM.c.04': u'Marketing',
+    u'COM.c.05': u'imprimerie, reprographie',
+    u'COM.c.06': u'PAO, infographie, graphisme',
+    u'COM.c.07': u'télévision et radio',
+    u'COM.c.08': u'autres activités liées à la communication',
+    u'COO.c.01': u'coopération internationale',
+    u'COO.c.02': u'coopération internationale',
+    u'COO.c.03': u'coopération européenne',
+    u'COO.c.04': u'autres activités non classées',
+    u'COO.c.05': u'coopération internationale',
+    u'DIS.c.01': u'distribution de produits alimentaires et de boissons',
+    u'DIS.c.02': u'artisanat',
+    u'DIS.c.03': u'habillement',
+    u'DIS.c.04': u'DIS.c.04',
+    u'ELC.c.01': u'production d’énergie renouvelable',
+    u'ELC.c.02': u'électronique',
+    u'ELC.c.03': u'autres activités dans l’énergie renouvelable et les économies d’énergie',
+    u'FOR.c.01': u'enseignement',
+    u'FOR.c.02': u'enseignement',
+    u'FOR.c.03': u'études/conseil',
+    u'FOR.c.04': u'activités de soutien à l’enseignement',
+    u'For.c.05': u'Recherche',
+    u'FOR.c.06': u'autres activités liées à formation et études',
+    u'GES.c.01': u'comptabilité',
+    u'GES.c.02': u'Secrétariat',
+    u'GES.c.03': u'ressources humaines',
+    u'GES.c.04': u'activités juridiques',
+    u'GES.c.05': u'autres activités liées à gestion, management, activités de bureau',
+    u'HEB.c.01': u'Hôtellerie',
+    u'HEB.c.02': u'Gîte, camping, chambre d’hôte',
+    u'HEB.c.03': u'Gîte, camping, chambre d’hôte',
+    u'HEB.c.04': u'restauration collective',
+    u'HEB.c.05': u'restauration individuelle',
+    u'HEB.c.06': u'Traiteur',
+    u'HEB.c.07': u'autres activités dans la restauration',
+    u'HEB.c.08': u'autres activités dans la restauration',
+    u'INF.c.01': u'fabrication d’équipements informatiques',
+    u'INF.c.02': u'Vente de matériels informatiques',
+    u'INF.c.03': u'maintenance et réparation de matériels informatique',
+    u'INF.c.04': u'développement informatique',
+    u'INF.c.05': u'autres activités liées à informatique et télécommunications',
+    u'INF.c.06': u'autres activités liées à informatique et télécommunications',
+    u'LSR.c.01': u'sport',
+    u'LSR.c.02': u'Animation',
+    u'LSR.c.03': u'Tourisme',
+    u'LSR.c.04': u'autres activités liées à Loisir et sports, tourisme, hébergement',
+    u'NAT.c.01': u'espaces naturels',
+    u'NAT.c.02': u'espaces naturels',
+    u'NAT.c.03': u'collecte, traitement, recyclage déchets et autres',
+    u'NAT.c.04': u'Gestion écologique de l’eau',
+    u'NAT.c.05': u'prévention contre les pollutions',
+    u'NAT.c.06': u'prévention contre les pollutions',
+    u'NAT.c.07': u'autres activités liées à l’environnement',
+    u'REP.c.01': u'réparation de véhicules',
+    u'REP.c.02': u'Petit électroménager;Gros électroménager',
+    u'REP.c.03': u'nettoyage de locaux',
+    u'REP.c.04': u'blanchisserie',
+    u'REP.c.05': u'habillement',
+    u'REP.c.06': u'autres activités liées au transports, entretien et logistique',
+    u'SAN.c.01': u'Emploi',
+    u'SAN.c.02': u'handicap',
+    u'SAN.c.03': u'petite enfance',
+    u'SAN.c.04': u'personnes âgées',
+    u'SAN.c.05': u'services à la personne',
+    u'SAN.c.06': u'Centres médicaux',
+    u'SAN.c.07': u'Activités médico-sociales',
+    u'SAN.c.08': u'autres activités liées à santé, social, emploi',
+    u'TEX.c.01': u'mobilier',
+    u'TEX.c.02': u'confection textile',
+    u'TEX.c.03': u'habillement',
+    u'TEX.c.04': u'travail du cuir',
+    u'TEX.c.05': u'autres activités liées à habillement, textiles, artisanat',
+    u'TRA.c.01': u'déplacement en véhicules motorisés',
+    u'TRA.c.02': u'autres activités liées au transports, entretien et logistique',
+    u'TRA.c.03': u'Déménagement',
+    u'TRA.c.04': u'autres activités liées au transports, entretien et logistique',
+    u'URB.c.01': u'location immobilière',
+    u'URB.c.02': u'vente immobilière',
+    u'URB.c.03': u'Aménagement',
+    u'URB.c.04': u'logement',
+    u'URB.c.05': u'autres activités liées à l’habitat',
+}
