@@ -1,3 +1,11 @@
+v1.32
+
+ * Iframe
+ * Intégration de la BDIS
+ * Affiche tous les membre dans l'onglet "Présentation Acheteur"
+ * Corrige un bug pour l'ajout d'une référence acheteur
+ * Corrige la validation d'un actu si l'utilisateur n'a pas d'email
+
 v1.31
 
  * Corrige l'ajout de secteur d'activité aux offre pour NPDC
