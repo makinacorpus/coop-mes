@@ -64,14 +64,14 @@ css:
 backup:
 	mkdir -p $(BACKUP)
 	./pg_dump.sh $(BACKUP)/db.sql.gz
-	tar -cvf $(BACKUP)/media.tgz media/
+	tar -cvzf $(BACKUP)/media.tgz --exclude cache media/
 	tar -cvf $(BACKUP).tar $(BACKUP)
 	rm -rf $(BACKUP)
 
 restore:
 	tar -xvf $(BACKUP).tar
 	./pg_restore.sh $(BACKUP)/db.sql.gz
-	tar -xvf $(BACKUP)/media.tgz
+	tar -xvzf $(BACKUP)/media.tgz
 
 clean:
 	rm -rf static_collected
