@@ -141,7 +141,7 @@ class MediumLookup(ModelLookup):
 class ActivityLookup(ModelLookup):
     model = ActivityNomenclature
     search_fields = ('path__icontains', )
-    filters = {'level': settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL}
+    #filters = {'level': settings.ACTIVITY_NOMENCLATURE_LOOKUP_LEVEL}
 
 
 try:
