@@ -752,8 +752,8 @@ class PersonAdmin(BasePersonAdmin):
                     'X' if organization.is_customer else '',
                     u'administrateur' if (p.user and p.user.is_superuser) else (u'administrateur restreint' if (p.user and p.user.is_staff and p.user.groups.filter(name=u'Administrateur restreint').exists()) else ''),
                     p.user.username if p.user else '',
-                    row.append('X' if organization.is_pasr else ''),
-                    row.append('X' if organization.is_bdis else ''),
+                    'X' if organization.is_pasr else '',
+                    'X' if organization.is_bdis else '',
                     str(p.bdis_id) if p.bdis_id else '',
                 ]
                 writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
