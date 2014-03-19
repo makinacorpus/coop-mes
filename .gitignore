@@ -9,3 +9,4 @@ build/
 coop_local/whoosh_index/
 backups/
 .env
+*_structure_migration.log
