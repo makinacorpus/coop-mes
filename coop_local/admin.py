@@ -555,6 +555,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         return response
 
     def csv_view(self, request):
+        domain = Site.objects.get_current().domain
         response = HttpResponse(mimetype='text/csv')
         response['Content-Disposition'] = 'attachment; filename=%s.csv' % _('organizations')
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
@@ -573,7 +574,7 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             _('preferred email'),
             u'adresse', u'autre adresse', u'code postal', u'ville',
             u'recevoir newsletter', u'recevoir AO', u'recevoir événements', u'recevoir échanges',
-            u'PASR', u'BDIS', u'id BDIS']])
+            u'PASR', u'BDIS', u'id BDIS', u'URL fiche', u'URL logo']])
         for organization in Organization.objects.order_by('title'):
             row = [organization.creation.strftime('%d/%m/%Y') if organization.creation else '']
             row.append(organization.modification.strftime('%d/%m/%Y') if organization.modification else '')
@@ -607,10 +608,10 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             row.append(number_format(organization.annual_integration_number) if  organization.annual_integration_number is not None else '')
             row.append(organization.pref_phone.content if organization.pref_phone else '')
             row.append(organization.pref_email.content if organization.pref_email else '')
-            row.append(organization.pref_address.adr1 if organization.pref_address else '')
-            row.append(organization.pref_address.adr2 if organization.pref_address else '')
-            row.append(organization.pref_address.zipcode if organization.pref_address else '')
-            row.append(organization.pref_address.city if organization.pref_address else '')
+            row.append(organization.pref_address.adr1 if organization.pref_address and organization.pref_address.adr1 else '')
+            row.append(organization.pref_address.adr2 if organization.pref_address and organization.pref_address.adr2 else '')
+            row.append(organization.pref_address.zipcode if organization.pref_address and organization.pref_address.zipcode else '')
+            row.append(organization.pref_address.city if organization.pref_address and organization.pref_address.city else '')
             row.append('X' if organization.newsletter_subscription else '')
             row.append('X' if organization.calls_subscription else '')
             row.append(organization.events_subscription.label if organization.events_subscription else '')
@@ -618,6 +619,8 @@ class OrganizationAdmin(BaseOrganizationAdmin):
             row.append('X' if organization.is_pasr else '')
             row.append('X' if organization.is_bdis else '')
             row.append(str(organization.bdis_id) if organization.bdis_id else '')
+            row.append('http://' + domain + organization.get_absolute_url())
+            row.append(('http://' + domain + organization.logo.url) if organization.logo else '')
             writer.writerow([s.encode('cp1252', 'xmlcharrefreplace') for s in row])
         return response
 

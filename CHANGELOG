@@ -2,6 +2,7 @@ v1.33
 
  * Corrige un problème d'export CSV des personnes
  * Espace presse remplacé par Devenez partenaires pour la BDIS
+ * Ajout de l'URL de la fiche et du logo dans l'export des Organisations
 
 v1.32
 
