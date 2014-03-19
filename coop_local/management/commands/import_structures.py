@@ -139,6 +139,12 @@ class Command(BaseCommand):
                         if ess_structure == u'entreprise d’insertion':
                             categories_iae.append('EI')
                             continue
+                        if ess_structure == u'entreprise de Travail Temporaire d’Insertion':
+                            categories_iae.append('ETTI')
+                            continue
+                        if ess_structure == u'régie de quartier':
+                            categories_iae.append('Régie de quartier')
+                            continue
                         if "paca" in import_file:
                             ess_structure = ess_structure.replace(u"coopérative d’activité et d’emploi", u"Coopérative d’activité et d’emploi et d'entrepren-e-u-r-s")
                         ess_structure = ess_structure.replace(u"foyer de jeunes travaileurs", u"Foyer de jeunes travailleurs")
