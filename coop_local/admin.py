@@ -350,7 +350,7 @@ class OrganizationAdminForm(BaseOrganizationAdminForm):
     def clean_is_network(self):
         if not self.cleaned_data.get('is_provider') and not self.cleaned_data.get('is_customer') and not self.cleaned_data.get('is_network'):
             raise forms.ValidationError(u"Veuillez cocher au moins un des trois choix : fournisseur, acheteur ou réseau")
-        return self.cleaned_data['is_pasr']
+        return self.cleaned_data['is_network']
 
 
 class AuthorListFilter(admin.SimpleListFilter):
