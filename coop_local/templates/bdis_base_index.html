@@ -88,7 +88,9 @@
                         </a>
                         {% endblock %}
                         {% block search %}
-                            {% render_layout "perimetre" %}
+                            <div id="layout-perimetre">
+                                {{ top_content|default:"<p>La base de données des initiatives solidaires en région PACA</p>"|safe }}
+                            </div>
                         {% endblock search %}
                     </div>
                 </div>

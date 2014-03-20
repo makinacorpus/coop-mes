@@ -7,7 +7,7 @@ from coop_local.models import Area, AgreementIAE, Organization, Tag
 
 class IFrame(models.Model):
     title = models.CharField(u"Titre", max_length=200)
-    domain = models.URLField(u"Domaine")
+    domain = models.URLField(u"Domaine", help_text=u"Nom de domaine du site qui contiendra cette IFrame (nécessaire pour des raisons de sécurité)")
     area = models.ForeignKey(Area, null=True, blank=True,
                              verbose_name=u"Zone")
     network = models.ForeignKey(Organization, null=True, blank=True,
@@ -17,6 +17,7 @@ class IFrame(models.Model):
                                       verbose_name=u"Spécificité")
     tag= models.ForeignKey(Tag, null=True, blank=True,
                            verbose_name=u"Mot-clé")
+    top_content = models.TextField(u'Contenu du haut', blank=True)
 
     def __unicode__(self):
         return self.title

@@ -52,7 +52,8 @@ def list_view(request, page_app, pk):
     return render_view('page_iframe/list.html', context, MEDIAS,
                        context_instance=RequestContext(request),
                        http_headers=http_headers,
-                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk})
+                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk,
+                                       'top_content': iframe.top_content})
 
 
 def detail_view(request, page_app, pk, org_pk):
@@ -66,7 +67,8 @@ def detail_view(request, page_app, pk, org_pk):
     return render_view('page_iframe/detail.html', context, MEDIAS,
                        context_instance=RequestContext(request),
                        http_headers=http_headers,
-                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk})
+                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk,
+                                       'top_content': iframe.top_content})
 
 
 def carto_view(request, page_app, pk):
@@ -82,7 +84,8 @@ def carto_view(request, page_app, pk):
     return render_view('page_iframe/carto.html', context, MEDIAS,
                        context_instance=RequestContext(request),
                        http_headers=http_headers,
-                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk})
+                       global_context={'home_url': '/iframe/p/%u/' % iframe.pk,
+                                       'top_content': iframe.top_content})
 
 
 def index_view(request, page_app):
