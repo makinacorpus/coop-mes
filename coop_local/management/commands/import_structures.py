@@ -75,7 +75,7 @@ class Command(BaseCommand):
                         logging.debug(u"L'organisation %s validée existe déjà dans la base (%u, %s)." % (title, provider.id, provider.title))
                         provider.is_provider = True
                         provider.is_bdis = True
-                        provider.id_bdis = bdis_id
+                        provider.bdis_id = bdis_id
                         provider.save()
                         continue
                     else:
