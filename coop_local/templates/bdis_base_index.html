@@ -89,7 +89,11 @@
                         {% endblock %}
                         {% block search %}
                             <div id="layout-perimetre">
-                                {{ top_content|default:"<p>La base de données des initiatives solidaires en région PACA</p>"|safe }}
+                                {% if top_content %}
+                                    {{ top_content|safe }}
+                                {% else %}
+                                    <p>La base de données des initiatives solidaires en région {{ region_name }}</p>
+                                {% endif %}
                             </div>
                         {% endblock search %}
                     </div>
