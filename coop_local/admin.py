@@ -1113,12 +1113,12 @@ class LocationAdmin(BaseLocationAdmin):
         for org in Organization.objects.order_by('title'):
             for loc in org.located.exclude(location__isnull=True):
                 row = [org.title]
-                row.append(loc.location.label)
-                row.append(loc.location.adr1)
-                row.append(loc.location.adr2)
-                row.append(loc.location.zipcode)
-                row.append(loc.location.city)
-                row.append(loc.opening)
+                row.append(loc.location.label or '')
+                row.append(loc.location.adr1 or '')
+                row.append(loc.location.adr2 or '')
+                row.append(loc.location.zipcode or '')
+                row.append(loc.location.city or '')
+                row.append(loc.opening or '')
                 tel = org.contacts.filter(contact_medium_id=1, location=loc.location)
                 if tel:
                     row.append(tel[0].content)
