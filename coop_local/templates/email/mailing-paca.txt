@@ -1,27 +1,18 @@
-Madame, Monsieur,
+Bonjour,
 
-Après une longue gestation, la première version de la plateforme des achats solidaires et responsables achetons-solidaires-paca.com est en ligne.
-La plupart des fonctionnalités sont déjà disponibles : annuaire, cartographie, appels d’offres et actualités.
-La deuxième version sera livrée en octobre 2013 avec les fonctions supplémentaires : agenda, espace ressources et interactivité entre fournisseurs et acheteurs.
-Votre structure a été référencée dans achetons-solidaires-paca.com par l’APEAS ou l’un de ses partenaires (Coorace, Piles 04, Piles 83, La Claie, Pecos, Promess 84, CIE 84, RESSPA).
+Votre structure est inscrite dans la BDIS, la cartographie des initiatives solidaires en PACA. Après quelques mois de flottements, celle-ci évolue et vous offre désormais la possibilité de modifier votre fiche directement en ligne. Pour cela, vous disposez désormais de codes d'accès :
 
-Pour accéder à votre compte et effectuer des modifications et/ou des compléments d'information concernant votre entreprise :
-
-========================================================================
-www.achetons-solidaires-paca.com puis cliquez sur le bouton « VOTRE COMPTE, identifiez vous » en haut à droite de la page.
-Nom d’utilisateur : {{ username }}
+Identifiant : {{ username }}
 Mot de passe : {{ password }}
-========================================================================
 
-Si vous rencontrez des problèmes particuliers, contactez-nous par  message électronique à : {{ sender }} et laissez-nous vos coordonnées téléphoniques avec les créneaux horaires où nous pouvons vous rappeler.
+Avec ceux-ci, vous pourrez vous connecter en cliquant sur l'onglet "Votre compte" (en haut à droite de la page d'accueil) et accéder aux informations de votre structure pour les mettre à jour. Nous vous encourageons à vous y rendre sans plus attendre : http://bdis-paca.fr
 
-Nous souhaitons vivement que cette plateforme contribue pleinement au développement économique des entreprises sociales et solidaires.
-Elle évoluera au fil du temps pour être encore plus proche de vos besoins.
-Communiquez largement autour de vous pour qu'elle soit connue, utilisée et utile pour vous. N’hésitez pas à nous faire part de vos retours !
-Enfin, nous serons heureux de vous accueillir  lors du forum régional des achats responsables et solidaires, mardi 19 novembre 2013 à l’Hôtel de région à Marseille de 13h30 à 17h30.
-Réservez cette date dans votre agenda !
+N'hésitez pas à encourager d'autres structures qui ne seraient pas référencées à s'y inscrire. La BDIS est un outil au service des acteurs de l'économie solidaire pour leur donner toujours plus de visibilité.  Évidemment tout y est GRATUIT, il serait dommage de ne pas en profiter. Des questions, des difficultés techniques ? Contactez-nous par mail : bdis@apeas.fr
 
-Bien cordialement,
-Marc Alphandery et Myriam Carbonare
-Tel : 04 91 99 02 40
-Courriel : {{ sender }}
+Solidairement vôtre !
+Pierre Julien Bouniol
+Chargé d'information et de communication
+
+Apeas : Agence Provençale pour une économie alternative et solidaire<br>
+28 Boulevard National 13001 Marseille – 04 91 99 02 42<br>
+http://www.apeas.fr
