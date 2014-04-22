@@ -43,7 +43,7 @@ def list_view(request, page_app, pk):
     iframe = get_object_or_404(IFrame, pk=pk)
     if request.GET.get('display') == 'Cartographie':
         return HttpResponseRedirect('/iframe/p/%u/carto/?%s' % (iframe.pk, request.GET.urlencode()))
-    context = get_index_context(request)
+    context = get_index_context(request, bdis=page_app.bdis)
     context['object'] = page_app
     context['iframe'] = iframe
     iframe_filter(page_app, iframe, context)
@@ -76,7 +76,7 @@ def carto_view(request, page_app, pk):
     iframe = get_object_or_404(IFrame, pk=pk)
     if request.GET.get('display') == 'Annuaire':
         return HttpResponseRedirect('/iframe/p/%u/?%s' % (iframe.pk, request.GET.urlencode()))
-    context = get_map_context(request, bound_area=iframe.area)
+    context = get_map_context(request, bound_area=iframe.area, bdis=page_app.bdis)
     context['object'] = page_app
     context['iframe'] = iframe
     iframe_filter(page_app, iframe, context)
