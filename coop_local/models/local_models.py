@@ -691,16 +691,16 @@ class Event(BaseEvent):
     geo_objects = GeoManager()
 
     def date_str(self):
-        occ = self.occurrence_set.aggregate(start=models.Min('start_time'), end=models.Max('end_time'))
-        if not occ['start']:
-            return ''
-        if occ['start'].date() == occ['end'].date():
-            return date_format(occ['start'], 'd/m/Y')
-        else:
-            return '%s au %s' % (
-                date_format(occ['start'], 'd/m/Y'),
-                date_format(occ['end'], 'd/m/Y')
-            )
+        l = []
+        for occurrence in self.occurrence_set.order_by('start_time'):
+            if occurrence.start_time.date() == occurrence.end_time.date():
+                l.append('le ' + date_format(occurrence.start_time, 'd/m/Y'))
+            else:
+                l.append('du %s au %s' % (
+                    date_format(occurrence.start_time, 'd/m/Y'),
+                    date_format(occurrence.end_time, 'd/m/Y')
+                ))
+        return ', '.join(l)
 
     def time_str(self):
         occurrences = self.occurrence_set.order_by('start_time')
