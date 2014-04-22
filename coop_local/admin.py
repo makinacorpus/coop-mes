@@ -529,12 +529,15 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                 except IndexError:
                     sender = None
                 dests = Person.objects.filter(engagements__org_admin=True, engagements__organization=obj).values_list('email', flat=True)
-                plateforme = 'PASR' if obj.is_pasr else ''
-                plateforme += ' et la ' if obj.is_pasr and obj.is_bdis else ''
-                plateforme += 'BDIS' if obj.is_bdis else ''
-                send_mail(u'Validation de votre fiche sur la %s' % plateforme,
-                    u'Bonjour,\n\nVotre fiche vient d\'être validée sur la %s.' % plateforme,
-                    sender, dests)
+                site = Site.objects.get_current().domain
+                subject = u"Validation de votre fiche sur la plateforme %s" % site
+                context = {
+                    'site': site,
+                    'slug': settings.REGION_SLUG,
+                    'region': settings.REGION_NAME,
+                    'org': obj,
+                }
+                send_mixed_email(sender, list(dests), subject, 'email/org_validation', context)
         super(OrganizationAdmin, self).save_model(request, obj, form, change)
 
     def odt_view(self, request, pk, format):
