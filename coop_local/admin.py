@@ -1108,8 +1108,8 @@ class LocationAdmin(BaseLocationAdmin):
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [u'organisation',
             u'libellé', u'adresse', u'complément d\'adresse',
-            u'code postal', u'commune', u'jours et horaires d\'ouverture',
-            u'tél.', u'fax', u'courriel']])
+            u'code postal', u'commune', u'type de lieu',
+            u'jours et horaires d\'ouverture', u'tél.', u'fax', u'courriel']])
         for org in Organization.objects.order_by('title'):
             for loc in org.located.exclude(location__isnull=True):
                 row = [org.title]
@@ -1118,6 +1118,7 @@ class LocationAdmin(BaseLocationAdmin):
                 row.append(loc.location.adr2 or '')
                 row.append(loc.location.zipcode or '')
                 row.append(loc.location.city or '')
+                row.append(loc.category.label if loc.category else '')
                 row.append(loc.opening or '')
                 tel = org.contacts.filter(contact_medium_id=1, location=loc.location)
                 if tel:
