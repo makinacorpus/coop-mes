@@ -19,7 +19,7 @@ def index_view(request, plugin):
     news = Entry.objects.filter(status=Entry.STATUS_ONLINE)
     news = news.filter(a_la_une=True).order_by('-publication_date')
     events = Event.objects.filter(status='V')
-    events = events.filter(a_la_une=True).order_by('-occurrence__start_time')
+    events = events.filter(a_la_une=True)
     orgs = Organization.objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
     orgs = orgs.filter(a_la_une=True).order_by('-validation')
     return render_view('plugin_last_news/index.html',
