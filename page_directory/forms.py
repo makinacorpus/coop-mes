@@ -204,6 +204,8 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 organization.is_provider = True
             else:
                 organization.is_pasr = True
+                if organization.is_provider:
+                    organization.is_bdis = True
         organization.save()
         if create:
             engagement = Engagement()
