@@ -27,7 +27,9 @@
                 {% if l.location.adr2 %}<br/>{{ l.location.adr2 }}{% endif %}
                 <br/>{{ l.location.zipcode }} {{ l.location.city }}
                 {% for c in l.location.contact_set.all %}
-                    <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.id == 8 %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
+                    {% if c in org.contacts.all %}
+                        <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.id == 8 %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
+                    {% endif %}
                 {% endfor %}
                 {% if l.opening %}<br />Ouverture&nbsp;: {{ l.opening }}{% endif %}
             </p>
