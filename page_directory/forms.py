@@ -231,7 +231,10 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 'password': self.cleaned_data["password1"],
             }
             subject = u'Votre inscription sur %s' % site
-            template = 'email/inscription'
+            if self.bdis:
+                template = 'email/inscription-pasr'
+            else:
+                template = 'email/inscription-bdis'
             email = user.email
             send_mixed_email(sender, email, subject, template, context)
 

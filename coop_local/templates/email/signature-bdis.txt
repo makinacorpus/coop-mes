@@ -1,0 +1,16 @@
+Bien cordialement,
+{% if slug == "paca" %}
+L'équipe de la BDIS
+bdis@apeas.fr
+04.91.99.02.45
+
+La BDIS est pilotée par l'APEAS
+{% endif %}{% if slug == "mp" %}
+L'équipe de la BDIS
+Courriel: contact@adepes.org
+Tel: 05.61.73.04.86
+
+La BDIS est piloté par l'ADEPES
+Agence de Développement et de Promotion de l'Economie Solidaire
+Midi-Pyrénées
+{% endif %}
