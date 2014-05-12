@@ -18,7 +18,7 @@ class SearchForm(BaseSearchForm):
 
 def index_view(request, page_app):
 
-    response = basic_search(request, form_class=SearchForm, template='page_search/index.html')
+    response = basic_search(request, form_class=SearchForm, template='page_search/index.html', extra_context={'object': page_app})
     if isinstance(response, HttpResponseRedirect):
         return response
     return render_view('content.html', {'content': response.content}, (),
