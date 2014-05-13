@@ -524,12 +524,14 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         if change and obj.status == 'V':
             if Organization.objects.get(pk=obj.pk).status == 'P':
                 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
+                from ionyweb.website.models import WebSite
                 try:
-                    sender = Plugin_Contact.objects.all()[0].email
-                except IndexError:
+                    website = WebSite.objects.get(slug='pasr' if obj.is_pasr else 'bdis')
+                    sender = Plugin_Contact.objects.get(pages__pages__website=website).email
+                except:
                     sender = None
                 dests = Person.objects.filter(engagements__org_admin=True, engagements__organization=obj).values_list('email', flat=True)
-                site = Site.objects.get_current().domain
+                site = website.ndds.get()
                 subject = u"Validation de votre fiche sur la plateforme %s" % site
                 context = {
                     'site': site,
@@ -537,7 +539,10 @@ class OrganizationAdmin(BaseOrganizationAdmin):
                     'region': settings.REGION_NAME,
                     'org': obj,
                 }
-                send_mixed_email(sender, list(dests), subject, 'email/org_validation', context)
+                if obj.is_pasr:
+                    send_mixed_email(sender, list(dests), subject, 'email/org_validation', context)
+                else:
+                    send_mixed_email(sender, list(dests), subject, 'email/org_validation-bdis', context)
         super(OrganizationAdmin, self).save_model(request, obj, form, change)
 
     def odt_view(self, request, pk, format):

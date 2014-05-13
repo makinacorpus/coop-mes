@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+body, p, a {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+img {
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<p>Votre inscription sur {{ site }} est maintenant effective et nous vous remercions de participer à faire vivre cet outil au service des achats responsables en région {{ region }}. Nous vous invitons à compléter vos informations aussi précisement que possible. Nous insistons sur l'importance de la valorisation de vos pratiques en tant que fournisseur et/ou acheteur afin de développer des liens pertinents entre vous.</p>
+
+<p>Nous comptons sur vous pour animer et dynamiser cet espace de mise en lien professionnel qui contribue à une économie respectueuse des personnes et des territoires.</p>
+
+<p>Pour tout complément d'information, n'hésitez pas à nous contacter pour vous accompagner dans l'utilisation des fonctionnalités de notre site. Nous ferons de notre mieux !</p>
+
+{% include 'email/signature-bdis.html' %}
+
+</body>
+</html>
