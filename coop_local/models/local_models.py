@@ -84,7 +84,7 @@ class Person(BasePerson):
 
     def emails(self):
         if self.pref_email:
-            return self.pref_email.content
+            return [self.pref_email.content]
         emails = list(self.contacts.filter(contact_medium__label=u'Courriel').values_list('content', flat=True))
         if emails:
             return emails
