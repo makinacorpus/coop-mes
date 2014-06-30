@@ -155,7 +155,7 @@
         {% if org.added_value %}
             <hr class="dotted">
             <h5> Plus value sociale et environnementale&nbsp;:</h5>
-            <p>{{ org.added_value }}</p>
+            <p>{{ org.added_value|linebreaks }}</p>
         {% endif %}
         {% if org.documents %}
             <hr class="dotted">

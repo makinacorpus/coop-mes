@@ -173,6 +173,7 @@ def detail_view(request, page_app, pk):
     if org.status != ORGANIZATION_STATUSES.VALIDATED:
         return render_view('page_directory/not_validated.html', {'object': page_app},
                            (), context_instance=RequestContext(request))
+    located = org.located.order_by('-main_location')
     calls = org.callfortenders_set.filter(deadline__gte=now()).order_by('deadline')
     get_params = request.GET.copy()
     if page_app.bdis:
@@ -180,7 +181,7 @@ def detail_view(request, page_app, pk):
     else:
         iframe = None
     return render_view('page_directory/detail.html',
-                       {'object': page_app, 'org': org, 'calls': calls,
+                       {'object': page_app, 'org': org, 'calls': calls, 'located': located,
                         'get_params': get_params.urlencode(), 'iframe': iframe},
                        (),
                        context_instance=RequestContext(request))
