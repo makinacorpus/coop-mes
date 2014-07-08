@@ -2,7 +2,7 @@ Le déploiement a été testé sur Ubuntu 12.04 LTS
 
 Déploiement:
 - git clone -b pasr_prod git@github.com:makinacorpus/coop-mes.git
-- de coop-mes
+- cd coop-mes
 - cp env.template .env
 - edit .env
 - . .env
