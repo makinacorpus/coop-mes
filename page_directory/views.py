@@ -75,7 +75,7 @@ def get_index_context(request, networks=False, bdis=False):
             orgs = orgs.filter(is_customer=True, customer_type=2)
         interim = form.cleaned_data['interim']
         if interim:
-            orgs = orgs.filter(offer__activity__label__in=(u'mise à disposition de personnel', u'travail temporaire', 'Mise à disposition de personnel'))
+            orgs = orgs.filter(offer__activity__label__in=(u'mise à disposition de personnel', 'Mise à disposition de personnel', u'travail temporaire', u'Travail temporaire'))
         sector = form.cleaned_data['sector']
         subsector = form.cleaned_data['subsector']
         if subsector:

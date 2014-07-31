@@ -2404,6 +2404,10 @@ svg.map a:hover path {
 .section-title.icon-search:before {
   background-position: 7px -777px;
 }
+.section-title.icon-pasr:before {
+  background-image: url(../img/pastille-pasr.png);
+  background-position: 3px 0;
+}
 .section-title.icon-participez:before {
   background-position: 10px -646px;
 }
@@ -2871,4 +2875,28 @@ ul.as-list li {
   display: inline-block;
   width: 300px;
   margin-top: 10px;
+}
+/* home search */
+.home-search {
+  background: #ffffff url('../img/home-search.png') no-repeat;
+  column-count: 2;
+}
+.home-search ul {
+  padding: 0;
+}
+.home-search ul li {
+  list-style: none inside none;
+}
+.home-search ul li a {
+  text-decoration: none;
+  color: #757475;
+}
+.home-search ul li a:before {
+  content: "f";
+  font-family: "icons-font";
+  color: #82919f;
+  margin-right: 3px;
+}
+.home-search ul li a:hover {
+  background: #e0e0e0;
 }

@@ -1,5 +1,35 @@
 <form id="annuaires-search" method="GET" action="#" class="content-box top advanced-search-form">
     <div class="row">
+        <div class="col-lg-3">
+            {% if object.networks %}
+                <div class="item">
+                    <h3>Spécificité</h3>
+                    <div class="dropdown">
+                        {{ form.prov_type }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="item">
+                    <h3>Secteur / Activité</h3>
+                    <div class="dropdown" id="sectors">
+                        {{ form.sector }}
+                    </div>
+                </div>
+                <div class="item" id="subsectors">
+                    <h3>Produits et services</h3>
+                    <div class="dropdown">
+                        {{ form.subsector }}
+                    </div>
+                </div>
+                {% if not object.bdis %}
+                    <div class="item" id="interim">
+                        <div class="checkbox">
+                            <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
 {% if not object.networks %}
         <div class="col-lg-3">
 {% if not object.bdis %}
@@ -26,36 +56,6 @@
 {% endif %}
         </div>
 {% endif %}
-        <div class="col-lg-3">
-            {% if object.networks %}
-                <div class="item">
-                    <h3>Spécificité</h3>
-                    <div class="dropdown">
-                        {{ form.prov_type }}
-                    </div>
-                </div>
-            {% else %}
-                <div class="item">
-                    <h3>Secteur d'activité</h3>
-                    <div class="dropdown" id="sectors">
-                        {{ form.sector }}
-                    </div>
-                </div>
-                <div class="item" id="subsectors">
-                    <h3>Sous secteur d'activité</h3>
-                    <div class="dropdown">
-                        {{ form.subsector }}
-                    </div>
-                </div>
-                {% if not object.bdis %}
-                    <div class="item" id="interim">
-                        <div class="checkbox">
-                            <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
         <div class="col-lg-3">
             <div class="item item-small">
                 <h3>Territoire</h3>
