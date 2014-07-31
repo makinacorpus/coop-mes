@@ -1,10 +1,44 @@
 # -*- coding:utf-8 -*-
 
 import csv
-from coop_local.models import ActivityNomenclature, Offer, CallForTenders
+from coop_local.models import ActivityNomenclature, Offer, CallForTenders, Event
 from django.core.management.base import BaseCommand
 
+
+
 class Command(BaseCommand):
+
+    def convert(self, model, corresp, adefinir):
+        for obj in model.objects.all():
+            activities = list(obj.activity.all())
+            obj.activity.clear()
+            for activity in activities:
+                if activity.parent is None:
+                    key = (activity.label, '', '')
+                elif activity.parent.parent is None:
+                    key = (activity.parent.label, activity.label, '')
+                else:
+                    key = (activity.parent.parent.label, activity.parent.label, activity.label)
+                try:
+                    x = corresp[key]
+                except:
+                    self.stdout.write((' // '.join(key) + ' not found\n').encode('utf8'))
+                    continue
+                for y in x:
+                    if y[0] == u'A définir':
+                        try:
+                            new = ActivityNomenclature.objects.get(parent=adefinir, label=activity.label)
+                        except ActivityNomenclature.DoesNotExist:
+                            new = ActivityNomenclature(parent=adefinir, label=activity.label)
+                            new.save()
+                    else:
+                        try:
+                            new = ActivityNomenclature.objects.get(parent__label=y[0], label=y[1])
+                        except:
+                            self.stdout.write(('failed to find univers ' + ' // '.join(y) + '\n').encode('utf8'))
+                            continue
+                    obj.activity.add(new)
+
     def handle(self, *args, **options):
         max_pk = ActivityNomenclature.objects.order_by('-pk')[0].pk
         self.stdout.write('Max pk = %u\n' % max_pk)
@@ -44,62 +78,7 @@ class Command(BaseCommand):
                 else:
                     to = [row[3:5]]
                 corresp[tuple(row[0:3])] = to
-        for offer in Offer.objects.all():
-            activities = list(offer.activity.all())
-            offer.activity.clear()
-            for activity in activities:
-                if activity.parent is None:
-                    key = (activity.label, '', '')
-                elif activity.parent.parent is None:
-                    key = (activity.parent.label, activity.label, '')
-                else:
-                    key = (activity.parent.parent.label, activity.parent.label, activity.label)
-                try:
-                    x = corresp[key]
-                except:
-                    self.stdout.write((' // '.join(key) + ' not found\n').encode('utf8'))
-                    continue
-                for y in x:
-                    if y[0] == u'A définir':
-                        try:
-                            new = ActivityNomenclature.objects.get(parent=adefinir, label=activity.label)
-                        except ActivityNomenclature.DoesNotExist:
-                            new = ActivityNomenclature(parent=adefinir, label=activity.label)
-                            new.save()
-                    else:
-                        try:
-                            new = ActivityNomenclature.objects.get(parent__label=y[0], label=y[1])
-                        except:
-                            self.stdout.write(('failed to find univers ' + ' // '.join(y) + '\n').encode('utf8'))
-                            continue
-                    offer.activity.add(new)
-        for call in CallForTenders.objects.all():
-            activities = list(call.activity.all())
-            call.activity.clear()
-            for activity in activities:
-                if activity.parent is None:
-                    key = (activity.label, '', '')
-                elif activity.parent.parent is None:
-                    key = (activity.parent.label, activity.label, '')
-                else:
-                    key = (activity.parent.parent.label, activity.parent.label, activity.label)
-                try:
-                    x = corresp[key]
-                except:
-                    self.stdout.write((' // '.join(key) + ' not found\n').encode('utf8'))
-                    continue
-                for y in x:
-                    if y[0] == u'A définir':
-                        try:
-                            new = ActivityNomenclature.objects.get(parent=adefinir, label=activity.label)
-                        except ActivityNomenclature.DoesNotExist:
-                            new = ActivityNomenclature(parent=adefinir, label=activity.label)
-                            new.save()
-                    else:
-                        try:
-                            new = ActivityNomenclature.objects.get(parent__label=y[0], label=y[1])
-                        except:
-                            self.stdout.write(('failed to find univers ' + ' // '.join(y) + '\n').encode('utf8'))
-                            continue
-                    call.activity.add(new)
+        self.convert(Offer, corresp, adefinir)
+        self.convert(CallForTenders, corresp, adefinir)
+        self.convert(Event, corresp, adefinir)
         ActivityNomenclature.objects.filter(pk__lte=max_pk).delete()
