@@ -565,5 +565,5 @@ def add_target_view(request):
 
 def subsectors_view(request, pk):
     sector = get_object_or_404(ActivityNomenclature, pk=pk)
-    subsectors = sector.get_children()
+    subsectors = sector.get_children().order_by('label')
     return render(request, 'page_directory/subsectors.html', {'subsectors': subsectors})
