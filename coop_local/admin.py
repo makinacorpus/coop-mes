@@ -975,6 +975,25 @@ class OfferAreaInline(InlineAutocompleteAdmin):
     verbose_name_plural = u'Couverture géographique'
 
 
+from django.contrib.admin import SimpleListFilter
+
+class ParentActivityListFilter(SimpleListFilter):
+    # Human-readable title which will be displayed in the
+    # right admin sidebar just above the filter options.
+    title = _(u'Univers d\'achat')
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'univers'
+
+    def lookups(self, request, model_admin):
+        return [(a.pk, a.label) for a in ActivityNomenclature.objects.filter(level=0).order_by('label')]
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        return queryset.filter(Q(activity__pk=self.value()) |
+                               Q(activity__parent__pk=self.value()))
+
 class OfferAdmin(FkAutocompleteAdmin):
 
     list_display = ('provider', 'activities', 'description')
@@ -991,6 +1010,7 @@ class OfferAdmin(FkAutocompleteAdmin):
                        'technical_means', 'workforce', 'practical_modalities']}),
     )
     formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'class':'multiple_checkboxes'})}}
+    list_filter = (ParentActivityListFilter, 'provider__is_bdis', 'provider__is_pasr', 'provider__status')
 
     def save_model(self, request, obj, form, change):
         super(OfferAdmin, self).save_model(request, obj, form, change)
