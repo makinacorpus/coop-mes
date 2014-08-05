@@ -11,6 +11,20 @@
         {% endfor %}
     </div>
     <div class="col-lg-6">
+        {% for l in located %}
+            <h3>{{ l.category|default:"Localisation" }}</h3>
+            <p>
+                {{ l.location.adr1 }}
+                {% if l.location.adr2 %}<br/>{{ l.location.adr2 }}{% endif %}
+                <br/>{{ l.location.zipcode }} {{ l.location.city }}
+                {% for c in l.location.contact_set.all %}
+                    {% if c in org.contacts.all %}
+                        <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.id == 8 %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
+                    {% endif %}
+                {% endfor %}
+                {% if l.opening %}<br />Ouverture&nbsp;: {{ l.opening }}{% endif %}
+            </p>
+        {% endfor %}
         {% if org.other_contacts or org.web %}
             <h3>Coordonnées</h3>
             {% for c in org.other_contacts %}
@@ -20,17 +34,5 @@
                 Web&nbsp;: <a href="{{ org.web }}" target="_blank">{{ org.web }}</a><br/>
             {% endif %}
         {% endif %}
-        {% for l in org.located.all %}
-            <h3>{{ l.category|default:"Localisation" }}</h3>
-            <p>
-                {{ l.location.adr1 }}
-                {% if l.location.adr2 %}<br/>{{ l.location.adr2 }}{% endif %}
-                <br/>{{ l.location.zipcode }} {{ l.location.city }}
-                {% for c in l.location.contact_set.all %}
-                    <br/>{{ c.contact_medium }}&nbsp;: {% if c.contact_medium.id == 8 %}<a href="mailto:{{ c.content }}">{{ c.content }}</a>{% else %}{{ c.content }}{% endif %} {{ c.details }}
-                {% endfor %}
-                {% if l.opening %}<br />Ouverture&nbsp;: {{ l.opening }}{% endif %}
-            </p>
-        {% endfor %}
     </div>
 </div>

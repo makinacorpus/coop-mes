@@ -204,6 +204,8 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 organization.is_provider = True
             else:
                 organization.is_pasr = True
+                if organization.is_provider:
+                    organization.is_bdis = True
         organization.save()
         if create:
             engagement = Engagement()
@@ -217,7 +219,7 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
 
         # send a welcome email
         if create:
-            sender = Plugin_Contact.objects.all()[0].email
+            sender = Plugin_Contact.objects.get(pages__pages__website=self.request.website).email
             site = Site.objects.get_current().domain
             context = {
                 'person': self.person,
@@ -229,7 +231,10 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
                 'password': self.cleaned_data["password1"],
             }
             subject = u'Votre inscription sur %s' % site
-            template = 'email/inscription'
+            if self.bdis:
+                template = 'email/inscription-bdis'
+            else:
+                template = 'email/inscription-pasr'
             email = user.email
             send_mixed_email(sender, email, subject, template, context)
 

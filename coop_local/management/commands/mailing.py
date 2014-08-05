@@ -181,45 +181,12 @@ class Command(BaseCommand):
     def handle(self, slug, *args, **options):
 
         self.slug = slug
-        self.sender = Plugin_Contact.objects.all()[0].email
+        #self.sender = Plugin_Contact.objects.all()[0].email
+        self.sender = "bdis@apeas.fr"
 
-        orgs = Organization.objects.filter(is_provider=True)
+        orgs = Organization.objects.filter(is_bdis=True, is_pasr=False)
 
-        if slug == 'npdc':
-            emails = (
-                'abcdubonpain@yahoo.fr',
-                'contact@asah-asso.fr',
-                'afp2i@afp2i.fr',
-                'gerard.trebacz@aism-eve.fr',
-                'afichelle@altereos.fr',
-                'arche.gerard@free.fr',
-                'contact@cliss21.com',
-                'christophe.louage@groupevitaminet.com',
-                'gerard.trebacz@aism-eve.fr',
-                'ac.delvinquiere@sfr.fr',
-                'p.vincent@aideadom.fr',
-                'nadia.oudin@groupevitaminet.com',
-                'contact@fermedusens.com',
-                'f.leroy@saveursetsaisons.com',
-                'lerelaisvermellois@wanadoo.fr',
-                'clambert@lilas-autopartage.com',
-                'mediapole@groupevitaminet.com',
-                'momlille@momartre.com',
-                'partenaires.contact@free.fr',
-                'elizabeth.dinsdale@pocheco.com',
-                'lille@vitame.fr',
-                'sapih@wanadoo.fr',
-                'amelie@ayin.fr',
-                'marc.sockeel@abbayedebelval.fr',
-                'cedric.houbart@scil.coop',
-                'remy.oulouna@groupevitaminet.com',
-                'contact@toerana-habitat.fr',
-                'adelin.delassus@groupevitaminet.com',
-                'direction@groupetandem.fr',
-            )
-            orgs = orgs.filter(Q(contacts__content__in=emails) | Q(engagement__email__in=emails)).distinct()
-
-        #orgs = orgs.filter(id=1148) # BAT PACA
+        orgs = orgs.filter(id=2030) # BAT PACA
         #orgs = orgs.filter(id=231) # BAT MP
 
         for org in orgs:
@@ -228,10 +195,13 @@ class Command(BaseCommand):
     @transaction.commit_on_success
     def mail_org(self, org):
 
+        #print '#', org
+
         members = org.engagement_set.filter(org_admin=True)
         if members:
             member = org.engagement_set.filter(org_admin=True)[0]
             if member.person.user is not None:
+                #print u"Déjà enregistré"
                 return
             person = member.person
             username = (person.first_name.strip() + '.' + person.last_name.strip())[:30]
@@ -243,7 +213,7 @@ class Command(BaseCommand):
             username = username.replace('assoc ', '')
             username = username[:12]
         try:
-            email = (person and member.email) or org.contacts.filter(contact_medium__label='Email')[0].content
+            email = (person and member.email) or org.contacts.filter(contact_medium__label='Courriel')[0].content
         except IndexError:
             #print u'Pas d\'email pour %s' % org.label()
             return
@@ -267,7 +237,7 @@ class Command(BaseCommand):
         if person is None:
             person = Person.objects.create(last_name=u'Votre nom',
                 first_name=u'Votre prénom', username=username)
-            person.contacts.add(Contact(contact_medium=ContactMedium.objects.get(label='Email'), content=email))
+            person.contacts.add(Contact(contact_medium=ContactMedium.objects.get(label='Courriel'), content=email))
             member = Engagement.objects.create(person=person,
                 organization=org, org_admin = True)
         user = User(
@@ -282,17 +252,9 @@ class Command(BaseCommand):
         person.username = username
         person.save()
         #print '%s;%s' % (username, password)
-        if self.slug == 'mp':
-            try:
-                sender = org.authors.all()[0].email
-            except IndexError:
-                sender = self.sender
-            if self.slug == 'mp' and sender not in ('carole.donaty@adepes.org', 'ndelcour.cooracemp@orange.fr', 'urei-mp@live.fr'):
-                return
-        else:
-            sender = self.sender
+        sender = self.sender
         context = {'username': username, 'password': password, 'sender': sender}
-        subject = u'Accédez à votre fiche dans %s' % Site.objects.get_current().domain
+        subject = u'Accédez à votre fiche dans la BDIS'  # % Site.objects.get_current().domain
         text = wrap(render_to_string('email/mailing-%s.txt' % self.slug, context), 72)
         html = render_to_string('email/mailing-%s.html' % self.slug, context)
         #send_html_mail(subject, email, context, template='email/mailing.html', sender=sender)

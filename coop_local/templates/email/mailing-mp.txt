@@ -1,57 +1,21 @@
-Vous souhaitez augmenter votre chiffre d’affaire ?
-Vous vendez des biens et services responsables ?
-Vous êtes une organisation de l’Economie Sociale et Solidaire ?
+Bonjour,
 
-Une nouvelle plateforme web est à votre disposition,
-facile d’accès, ergonomique
+Votre structure est inscrite dans la BDIS, la cartographie des initiatives solidaires en PACA. Celle-ci évolue et vous offre désormais la possibilité de modifier votre fiche directement en ligne. Pour cela, vous disposez désormais de codes d'accès :
 
-Un moteur de recherche par critères et mots clés,
-vous rend visible rapidement
+Identifiant : {{ username }}
+Mot de passe : {{ password }}
 
-La plateforme web des biens et services responsables, permettra la mise en relation des acteurs de l'économie sociale et solidaire, notamment l'insertion par l'activité économique, avec les acheteurs collectivités et entreprises.
+Avec ceux-ci, vous pourrez vous connecter en cliquant sur l'onglet "Votre compte" (en haut à droite de la page d'accueil) et accéder aux informations de votre structure pour les mettre à jour. Nous vous encourageons à vous y rendre sans plus attendre : bdis-mp.org
 
-Valorisez votre offre de services et produits responsables et solidaires sur toute la région Midi-Pyrénées et en France.
-Chaque fiche du fournisseur présente l’offre de biens et services responsables, de façon détaillée. Ainsi les acheteurs trouvent l’offre qui correspond à leurs besoins.
-L'inscription sur la plateforme web, des collectivités et entreprises, permet de communiquer leur démarche d’achats responsables et de mettre en ligne des marchés et appels d’offres.
+N'hésitez pas à encourager d'autres structures qui ne seraient pas référencées à s'y inscrire. La BDIS est un outil au service des acteurs de l'économie solidaire pour leur donner toujours plus de visibilité.  Évidemment tout y est GRATUIT, il serait dommage de ne pas en profiter. Des questions, des difficultés techniques ? Contactez-nous par mail : carole.donaty@adepes.org
 
-Mentionnez vos démarches « qualité » et vos spécificités en matière de gouvernance.
+Cordialement
+Carole DONATY, Chargée de développement Centre de ressources
+carole.donaty@adepes.org
+05 61 73 04 86
 
-Mettez en avant votre utilité sociétale et environnementale auprès des acheteurs.
-
-------------------------------------------------------------------------
-
-Gagnez du temps et entrez en relation !
-- repérez les marchés, appels à projets proposés par les entreprises de la région, les collectivités locales et les structures publiques
-- construisez des coopérations économiques innovantes avec les acheteurs
-- repérez de nouveaux partenaires IAE et ESS et construisez des offres communes.
-
-Par une offre responsable attractive, générez chez les acheteurs publics et privés plus de demandes.
-
-Participez à cet espace d’échanges, unique en région (formations commande publique responsable/ Clauses sociales, Forums, réunions sur les territoires…)
-
-Pourquoi s’inscrire?
-    - pour pérenniser les entreprises de l’IAE et de l’ESS
-    - pour créer des emplois durables non dé-localisables
-    - pour développer des territoires responsables et solidaires
-    - pour favoriser un développement économique, soucieux de l’inclusion sociale et respectueux des générations futures
-    - annuaire gratuit pour les usagers et les professionnels.
-
-Comment s’inscrire ?
-
-1. Accéder à votre compte :
-    - Identifiant : {{ username }}
-    - Mot de passe : {{ password }}
-
-2. Modifier votre fiche qui détaille l’offre de biens et services responsables, avant le 30 septembre 2013
-
-Lancement de la plateforme des achats responsables en Midi-Pyrénées :
-
-Octobre : ouverture du site www.achetons-responsables-mp.com
-
-Sa présentation se déroulera le 8 novembre (après-midi) lors de la 2e édition du colloque régional des acteurs du développement durable. Le rendez-vous de la responsabilité sociétale (RSE) en Midi-Pyrénées, dans le cadre du <b>13e Forum Régional de l’Economie Sociale et Solidaire</b>, les 8 et 9 novembre 2013, au 6e étage Espaces Vanel - Arche Marengo, à Toulouse.
-
-Vous remerciant par avance pour l'intérêt que vous porterez à notre démarche, nous restons à votre disposition pour tous renseignements,
-
-Ce projet, financé par l’Union Européenne est mis en œuvre par l’ADEPES, Agence de Développement et de Promotion de l’Economie Solidaire en Midi-Pyrénées en partenariat avec l’UREI MP (Union Régionale des Entreprises d’Insertion), le COORACE MP (Fédération de COmités et d’ORganismes d’Aide aux Chômeurs par l’Emploi), FNARS MP (Fédération Nationale des associations d’Accueil et de Réinsertion Sociale) ainsi qu’un acteur innovant du territoire Synethic (Pôle de compétences en Achat Responsable et Innovation Sociétale).
-
-La Chambre Régionale de l’Economie Sociale et Solidaire Midi-Pyrénées (CRESS), la Conférence Permanente des Coordinations Associatives (CPCA) et le Mouvement des Entrepreneurs Sociaux (MOUVES) sont partenaires associés.
+ADEPES - Agence pour le développement et la promotion de l’économie solidaire en Midi-Pyrénées
+Maison de l’économie solidaire
+73 chemin mange-pommes
+31520 Ramonville St Agne
+http://www.adepes.org/

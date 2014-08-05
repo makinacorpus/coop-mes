@@ -51,6 +51,9 @@ compilemessages:
 serve:
 	$(PYTHON) manage.py runserver $(DJANGO_LISTEN)
 
+bdis:
+	$(PYTHON) manage.py runserver bdis:8000
+
 convert:
 	soffice --invisible --headless --accept="socket,host=localhost,port=2002;urp;" &
 

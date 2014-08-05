@@ -47,11 +47,13 @@
                         {{ form.subsector }}
                     </div>
                 </div>
-                <div class="item" id="interim">
-                    <div class="checkbox">
-                        <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
+                {% if not object.bdis %}
+                    <div class="item" id="interim">
+                        <div class="checkbox">
+                            <label>{{ form.interim }} Mise à disposition de personnel Travail temporaire</label>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
         </div>
         <div class="col-lg-3">

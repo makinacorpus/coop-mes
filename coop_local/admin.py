@@ -524,17 +524,30 @@ class OrganizationAdmin(BaseOrganizationAdmin):
         if change and obj.status == 'V':
             if Organization.objects.get(pk=obj.pk).status == 'P':
                 from ionyweb.plugin_app.plugin_contact.models import Plugin_Contact
+                from ionyweb.website.models import WebSite
                 try:
-                    sender = Plugin_Contact.objects.all()[0].email
-                except IndexError:
+                    website = WebSite.objects.get(slug='pasr' if obj.is_pasr else 'bdis')
+                    sender = Plugin_Contact.objects.get(pages__pages__website=website).email
+                except:
                     sender = None
-                dests = Person.objects.filter(engagements__org_admin=True, engagements__organization=obj).values_list('email', flat=True)
-                plateforme = 'PASR' if obj.is_pasr else ''
-                plateforme += ' et la ' if obj.is_pasr and obj.is_bdis else ''
-                plateforme += 'BDIS' if obj.is_bdis else ''
-                send_mail(u'Validation de votre fiche sur la %s' % plateforme,
-                    u'Bonjour,\n\nVotre fiche vient d\'être validée sur la %s.' % plateforme,
-                    sender, dests)
+                dests = []
+                for p in Person.objects.filter(engagements__org_admin=True, engagements__organization=obj):
+                    dests += p.emails()
+                site = website.ndds.get()
+                subject = u"Validation de votre fiche sur la plateforme %s" % site
+                context = {
+                    'site': site,
+                    'slug': settings.REGION_SLUG,
+                    'region': settings.REGION_NAME,
+                    'org': obj,
+                }
+                try:
+                    if obj.is_pasr:
+                        send_mixed_email(sender, list(dests), subject, 'email/org_validation', context)
+                    else:
+                        send_mixed_email(sender, list(dests), subject, 'email/org_validation-bdis', context)
+                except:
+                    messages.warning(request, u"L'envoi de l'email à %s a échoué." % ', '.join(dests))
         super(OrganizationAdmin, self).save_model(request, obj, form, change)
 
     def odt_view(self, request, pk, format):
@@ -1091,7 +1104,11 @@ class EventAdmin(BaseEventAdmin):
                     'slug': settings.REGION_SLUG,
                     'event': obj,
                 }
-                send_mixed_email(sender, dests, subject, 'email/event_validation', context)
+                try:
+                    send_mixed_email(sender, dests, subject, 'email/event_validation', context)
+                except:
+                    messages.warning(request, u"L'envoi de l'email à %s a échoué." % ', '.join(dests))
+
         super(EventAdmin, self).save_model(request, obj, form, change)
 
     def save_related(self, request, form, formsets, change):
@@ -1108,17 +1125,18 @@ class LocationAdmin(BaseLocationAdmin):
         writer = csv.writer(response, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         writer.writerow([s.encode('cp1252') for s in [u'organisation',
             u'libellé', u'adresse', u'complément d\'adresse',
-            u'code postal', u'commune', u'jours et horaires d\'ouverture',
-            u'tél.', u'fax', u'courriel']])
+            u'code postal', u'commune', u'type de lieu',
+            u'jours et horaires d\'ouverture', u'tél.', u'fax', u'courriel']])
         for org in Organization.objects.order_by('title'):
             for loc in org.located.exclude(location__isnull=True):
                 row = [org.title]
-                row.append(loc.location.label)
-                row.append(loc.location.adr1)
-                row.append(loc.location.adr2)
-                row.append(loc.location.zipcode)
-                row.append(loc.location.city)
-                row.append(loc.opening)
+                row.append(loc.location.label or '')
+                row.append(loc.location.adr1 or '')
+                row.append(loc.location.adr2 or '')
+                row.append(loc.location.zipcode or '')
+                row.append(loc.location.city or '')
+                row.append(loc.category.label if loc.category else '')
+                row.append(loc.opening or '')
                 tel = org.contacts.filter(contact_medium_id=1, location=loc.location)
                 if tel:
                     row.append(tel[0].content)

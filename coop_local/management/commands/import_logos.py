@@ -29,17 +29,18 @@ class Command(BaseCommand):
             id_logo = bdis2logo[str(org.bdis_id)]
             if not id_logo:
                 #print u"ERROR Correspondance vide pour %u" % org.bdis_id
-                continue
-            path = args[1] + '/' + id_logo + '/img.'
-            if os.path.exists(path + 'png'):
-                path = path + 'png'
-            elif os.path.exists(path + 'jpg'):
-                path = path + 'jpg'
+                path2 = ''
             else:
-                print u"ERROR Pas de fichier %s.(png|jpg)" % path
-                continue
-            path2 = 'logos/bdis%u.png' % org.bdis_id
-            shutil.copyfile(path, settings.MEDIA_ROOT + '/' + path2)
+                path = args[1] + '/' + id_logo + '/img.'
+                if os.path.exists(path + 'png'):
+                    path = path + 'png'
+                elif os.path.exists(path + 'jpg'):
+                    path = path + 'jpg'
+                else:
+                    print u"ERROR Pas de fichier %s.(png|jpg)" % path
+                    continue
+                path2 = 'logos/bdis%u.png' % org.bdis_id
+                shutil.copyfile(path, settings.MEDIA_ROOT + '/' + path2)
             org.logo = path2
             org.save()
-            print 'OK    ->', path2
+            print 'OK    ->', path2, '#' + str(org.bdis_id)

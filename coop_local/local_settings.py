@@ -37,7 +37,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-SEND_BROKEN_LINK_EMAILS = True
+SEND_BROKEN_LINK_EMAILS = False
 IGNORABLE_404_URLS = (
     re.compile(r'^/wp-login.php$'),
     re.compile(r'^/selectable/'),
