@@ -73,9 +73,9 @@ class OrganizationForm1(OrganizationMixin, forms.ModelForm):
         choices=((0, u'Non'), (1, u'Oui')), widget=forms.RadioSelect,
         initial=0, required=False, label=u'J\'accepte la <a \
         data-toggle="modal" href="#charte">charte de l\'utilisateur</a>')
-    last_name = forms.CharField(label=_(u'last name').capitalize(), max_length=100)
-    first_name = forms.CharField(label=_(u'first name').capitalize(), max_length=100, required=False)
-    email = forms.CharField(label='Courriel')
+    last_name = forms.CharField(label=_(u'last name').capitalize(), max_length=30)
+    first_name = forms.CharField(label=_(u'first name').capitalize(), max_length=30, required=False)
+    email = forms.CharField(label='Courriel', max_length=75)
 
     class Meta:
         model = Organization
@@ -621,10 +621,10 @@ OrganizationForm10.add_label = u'Ajouter un contact'
 class EngagementForm(OrganizationMixin, forms.ModelForm):
 
     gender = forms.ChoiceField(choices=(('', u'---'), ('M',  _(u'Mr')), ('W',  _(u'Mrs'))), label=_(u'gender').capitalize(), required=False)
-    last_name = forms.CharField(label=_(u'last name').capitalize(), max_length=100)
-    first_name = forms.CharField(label=_(u'first name').capitalize(), max_length=100, required=False)
+    last_name = forms.CharField(label=_(u'last name').capitalize(), max_length=30)
+    first_name = forms.CharField(label=_(u'first name').capitalize(), max_length=30, required=False)
     tel = forms.CharField(label=_(u'tél.'), required=False)
-    email = forms.EmailField(label=_(u'email'), required=False)
+    email = forms.EmailField(label=_(u'email'), max_length=7, required=False)
 
     class Meta:
         model = Engagement
