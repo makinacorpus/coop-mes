@@ -40,12 +40,13 @@ def get_index_context(request, bound_area=None, bdis=False):
             qd['area_0'] = area.label
             qd['area_1'] = area.pk
     form = OrgSearch(qd)
+    area = None
+    orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
+    if bdis:
+        orgs = orgs.filter(is_bdis=True)
+    else:
+        orgs = orgs.filter(is_pasr=True)
     if form.is_valid():
-        orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
-        if bdis:
-            orgs = orgs.filter(is_bdis=True)
-        else:
-            orgs = orgs.filter(is_pasr=True)
         orgs = orgs.filter(
             Q(title__icontains=form.cleaned_data['q']) |
             Q(acronym__icontains=form.cleaned_data['q']) |
@@ -94,8 +95,7 @@ def get_index_context(request, bound_area=None, bdis=False):
                     orgs = orgs.filter(offer__area__polygon__relate=(area.polygon, '2********'))
         orgs = orgs.distinct()
     else:
-        area = None
-        orgs = Organization.objects.none()
+        form = OrgSearch({})
     get_params = request.GET.copy()
     if area is None or geo == '2':
         if bound_area:
