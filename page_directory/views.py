@@ -46,12 +46,13 @@ def get_index_context(request, networks=False, bdis=False):
     if not qd.get('area_0') and 'area_1' in qd:
         del qd['area_1']
     form = OrgSearch(qd)
+    area = None
+    orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
+    if bdis:
+        orgs = orgs.filter(is_bdis=True)
+    else:
+        orgs = orgs.filter(is_pasr=True)
     if form.is_valid():
-        orgs = Organization.geo_objects.filter(status=ORGANIZATION_STATUSES.VALIDATED)
-        if bdis:
-            orgs = orgs.filter(is_bdis=True)
-        else:
-            orgs = orgs.filter(is_pasr=True)
         orgs = orgs.filter(
             Q(title__icontains=form.cleaned_data['q']) |
             Q(acronym__icontains=form.cleaned_data['q']) |
@@ -126,8 +127,7 @@ def get_index_context(request, networks=False, bdis=False):
                         o.distance = None
                 orgs.sort(key=lambda o: (o.distance is None, o.distance))
     else:
-        area = None
-        orgs = Organization.objects.none()
+        form = OrgSearch({})
     return {
         'form': form,
         'geo': qd['geo'],

@@ -63,7 +63,10 @@ class OrgSearch(forms.Form):
         self.fields['area'].widget.attrs['placeholder'] = u'Tout voir'
         self.fields['radius'].widget.attrs['placeholder'] = u'Dans un rayon de'
         sector_pk = data.get('sector')
-        if sector_pk:
-            sector = ActivityNomenclature.objects.get(pk=sector_pk)
+        if sector_pk and sector_pk.isdigit():
+            try:
+                sector = ActivityNomenclature.objects.get(pk=sector_pk)
+            except ActivityNomenclature.DoesNotExist:
+                sector = None
             if sector:
                 self.fields['subsector'].queryset = sector.get_children()
