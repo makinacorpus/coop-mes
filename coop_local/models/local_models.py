@@ -501,7 +501,7 @@ class Organization(BaseOrganization):
         return self.contacts.filter(contact_medium__label='Courriel').values_list('content', flat=True)
 
     def engagements(self):
-        return Engagement.objects.filter(organization=self)
+        return models.get_model('coop_local', 'Engagement').objects.filter(organization=self)
 
     def customer_activities(self):
         return ", ".join(self.activities.values_list('label', flat=True).distinct())
