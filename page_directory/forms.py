@@ -430,6 +430,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
         super(RelationForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         self.fields['relation_type'].required = True
+        self.fields['relation_type'].queryset =  OrgRelationType.objects.exclude(key_name='CUSTOMER')
         self.fields['target'].label = u'Partenaire'
         self.fields['relation_type'].help_text = u"<p>Exemple : appartient au réseau des entreteneurs durables, a pour fournisseur A Votre Service</p>"
         self.set_helper((
@@ -444,6 +445,7 @@ class RelationForm(OrganizationMixin, forms.ModelForm):
 
 OrganizationForm8 = forms.models.inlineformset_factory(Organization, Relation, form=RelationForm, fk_name='source', extra=2)
 OrganizationForm8.__init__ = lambda self, propose, *args, **kwargs: forms.models.BaseInlineFormSet.__init__(self, *args, **kwargs)
+OrganizationForm8.get_queryset = lambda self: forms.models.BaseInlineFormSet.get_queryset(self).exclude(relation_type__key_name='CUSTOMER')
 OrganizationForm8.add_label = u'Ajouter une relation'
 
 
