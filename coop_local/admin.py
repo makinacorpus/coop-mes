@@ -46,7 +46,7 @@ from haystack import connections
 from coop.org.admin import (
     OrganizationAdmin as BaseOrganizationAdmin,
     OrganizationAdminForm as BaseOrganizationAdminForm,
-    RelationInline,
+    RelationInline as BaseRelationInline,
     LocatedInline,
     ContactInline as BaseContactInline,
     EngagementInline as BaseEngagementInline,
@@ -69,7 +69,7 @@ from coop_geo.models import Location, Area
 from coop_local.models.local_models import normalize_text
 from coop_local.models import (LegalStatus, CategoryIAE, Document, Guaranty, Reference, ActivityNomenclature,
     ActivityNomenclatureAvise, Offer, TransverseTheme, DocumentType, AgreementIAE,
-    Location, Engagement, ContactMedium, CallForTenders)
+    Location, Engagement, ContactMedium, CallForTenders, OrgRelationType, Relation)
 
 try:
     from coop.base_admin import *
@@ -160,6 +160,24 @@ try:
     registry.register(ActivityLookup)
 except LookupAlreadyRegistered:
     pass
+
+
+class RelationForm(forms.ModelForm):
+    model = Relation
+    def __init__(self, *args, **kwargs):
+        super(RelationForm, self).__init__(*args, **kwargs)
+        self.fields['relation_type'].queryset = OrgRelationType.objects.exclude(key_name='CUSTOMER')
+
+
+class RelationFormSet(forms.models.BaseInlineFormSet):
+
+    def get_queryset(self):
+        return super(RelationFormSet, self).get_queryset().exclude(relation_type__key_name='CUSTOMER').exclude(relation_type__isnull=True)
+
+
+class RelationInline(BaseRelationInline):
+    form = RelationForm
+    formset = RelationFormSet
 
 
 def make_contact_form(pks, admin_site, request):
@@ -258,9 +276,25 @@ class DocumentInline(InlineAutocompleteAdmin):
         return True
 
 
+
+class ReferenceFormSet(forms.models.BaseInlineFormSet):
+
+    def get_queryset(self):
+        return super(ReferenceFormSet, self).get_queryset().filter(relation_type__key_name='CUSTOMER')
+
+    def save(self, commit=True):
+        references = super(ReferenceFormSet, self).save(commit=False)
+        for reference in references:
+            reference.relation_type = OrgRelationType.objects.get(key_name='CUSTOMER')
+            if commit:
+                reference.save()
+        return references
+
+
 class ReferenceInline(InlineAutocompleteAdmin):
 
     model = Reference
+    formset = ReferenceFormSet
     verbose_name = _(u'reference')
     verbose_name_plural = _(u'references')
     fk_name = 'source'
@@ -268,10 +302,6 @@ class ReferenceInline(InlineAutocompleteAdmin):
     fields = ('target', 'from_year', 'to_year', 'services', 'created')
     related_search_fields = {'target': ('title', 'subtitle', 'acronym',), }
     extra = 1
-
-    def queryset(self, request):
-        queryset = super(ReferenceInline, self).queryset(request)
-        return queryset.filter(relation_type_id=6)
 
 
 class ActivityWidget(AutoCompleteSelectEditWidget):
